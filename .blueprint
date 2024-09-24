@@ -1,0 +1,55 @@
+created:
+    - app/Http/Controllers/UserController.php
+    - app/Http/Controllers/OrderController.php
+    - database/factories/OrderFactory.php
+    - database/factories/TaskFactory.php
+    - database/factories/ClientFactory.php
+    - database/factories/StockFactory.php
+    - database/factories/StockMovementFactory.php
+    - database/factories/ReportFactory.php
+    - database/factories/PaymentFactory.php
+    - database/factories/MaterialUsageFactory.php
+    - database/factories/TeamFactory.php
+    - database/migrations/2024_09_24_042723_create_orders_table.php
+    - database/migrations/2024_09_24_042724_create_tasks_table.php
+    - database/migrations/2024_09_24_042725_create_clients_table.php
+    - database/migrations/2024_09_24_042726_create_stocks_table.php
+    - database/migrations/2024_09_24_042727_create_stock_movements_table.php
+    - database/migrations/2024_09_24_042728_create_reports_table.php
+    - database/migrations/2024_09_24_042729_create_payments_table.php
+    - database/migrations/2024_09_24_042730_create_material_usages_table.php
+    - database/migrations/2024_09_24_042731_create_teams_table.php
+    - app/Models/Order.php
+    - app/Models/Task.php
+    - app/Models/Client.php
+    - app/Models/Stock.php
+    - app/Models/StockMovement.php
+    - app/Models/Report.php
+    - app/Models/Payment.php
+    - app/Models/MaterialUsage.php
+    - app/Models/Team.php
+    - database/seeders/UserSeeder.php
+    - database/seeders/ClientSeeder.php
+    - database/seeders/TeamSeeder.php
+    - tests/Feature/Http/Controllers/UserControllerTest.php
+    - tests/Feature/Http/Controllers/OrderControllerTest.php
+    - app/Events/OrderCreatedEvent.php
+    - app/Http/Requests/OrderStoreRequest.php
+    - app/Jobs/SyncOrderWithExternalService.php
+    - app/Mail/OrderCreated.php
+    - resources/views/emails/order-created.blade.php
+    - resources/views/user/index.blade.php
+    - resources/views/order/index.blade.php
+updated:
+    - routes/web.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable' }
+    Order: { client_id: 'id foreign', user_id: 'id foreign', amount: decimal, order_date: date, delivery_date: date, status: string, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: 'User, Client', hasMany: 'Task, Payment' } }
+    Task: { order_id: 'id foreign', user_id: 'id foreign', creator_id: 'id foreign', description: 'text nullable', status: string, start_date: date, end_date: date, softdeletes: softDeletes, relationships: { belongsTo: 'Order, User' } }
+    Client: { user_id: 'id foreign', name: string, email: string, phone: string, description: 'text nullable', softdeletes: softDeletes, relationships: { hasMany: Order } }
+    Stock: { user_id: 'id foreign', product: string, quantity: integer, alert_threshold: integer, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: User, hasMany: 'StockMovement, MaterialUsage' } }
+    StockMovement: { stock_id: 'id foreign', user_id: 'id foreign', type: string, quantity: integer, order_id: 'id foreign nullable', description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: 'Stock, User, Order' } }
+    Report: { user_id: 'id foreign', type: string, content: longtext, report_date: date, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: User } }
+    Payment: { order_id: 'id foreign', user_id: 'id foreign', amount: decimal, payment_date: date, payment_method: string, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: 'Order, User' } }
+    MaterialUsage: { stock_id: 'id foreign', task_id: 'id foreign', user_id: 'id foreign', quantity_used: integer, usage_date: date, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: 'Stock, Task, User' } }
+    Team: { name: string, description: 'text nullable', softdeletes: softDeletes, relationships: { hasMany: User } }

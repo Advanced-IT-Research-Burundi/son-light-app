@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -53,26 +52,29 @@
                 <a class="nav-link" href="#">
                     <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
                 </a>
-
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href=""
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-
-                            <i class="bi bi-box-arrow-right"></i>
-                            {{ __('Logout') }}
+                
+                    <div class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
                         </a>
-
-                        <form id="logout-form" action="" method="POST" class="d-none">
-                            @csrf
-                        </form>
+    
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href=""
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+    
+                                <i class="bi bi-box-arrow-right"></i>
+                                {{ __('Logout') }}
+                            </a>
+    
+                            <form id="logout-form" action="" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
                     </div>
-                </li>
+               
+
+               
             </div>
         </div>
     </nav>
