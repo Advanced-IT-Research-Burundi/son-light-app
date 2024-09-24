@@ -39,6 +39,15 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+<div class="form-group mb-3">
+    <label for="company" class="form-label">
+        <i class="bi bi-building"></i> NIF
+    </label>
+    <input type="text" class="form-control @error('nif') is-invalid @enderror" id="nif" name="nif" value="{{ old('nif', $client->nif ?? '') }}">
+    @error('nif')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
 
 <div class="form-group mb-3">
     <label for="address" class="form-label">
@@ -59,3 +68,4 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+{{-- <input type="hidden" name="user_id" value="{{ auth()->user()->id }}"> --}}

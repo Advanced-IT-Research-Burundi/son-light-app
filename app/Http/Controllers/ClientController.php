@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 
@@ -38,7 +37,8 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {
-        $client = Client::create($request->validated());
+
+         $client = auth()->user()->client()->create($request->validated());
 
         return redirect()->route('clients.index')
             ->with('success', 'Client créé avec succès.');
