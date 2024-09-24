@@ -36,7 +36,7 @@ class Order extends Model
         'id' => 'integer',
         'client_id' => 'integer',
         'user_id' => 'integer',
-        'amount' => 'decimal',
+        'amount' => 'float',
         'order_date' => 'date',
         'delivery_date' => 'date',
     ];

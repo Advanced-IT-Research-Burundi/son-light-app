@@ -13,6 +13,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('client')->latest()->get();
+
         return view('orders.index', compact('orders'));
     }
 
@@ -31,6 +32,9 @@ class OrderController extends Controller
             'status' => 'required|in:pending,processing,completed,cancelled',
             'description' => 'nullable|string',
         ]);
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['delivery_date'] = now();
+
 
          Order::create($validatedData);
 

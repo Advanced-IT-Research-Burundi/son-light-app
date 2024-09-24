@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->decimal('amount');
+            $table->decimal('amount', 10, 2);
             $table->date('order_date');
             $table->date('delivery_date');
             $table->string('status');

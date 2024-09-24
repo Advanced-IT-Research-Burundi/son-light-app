@@ -22,7 +22,7 @@ class Client extends Model
         'name',
         'email',
         'phone',
-        'entreprise',
+        'company',
         'nif',
         'address',
         'description',
