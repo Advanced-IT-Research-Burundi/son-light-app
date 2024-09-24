@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600..700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: rgb(26, 35, 126);
@@ -66,7 +67,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
+            <a class="navbar-brand" href="{{ route('dashboard') }}" style="font-family: 'Teko', sans-serif;">
                 <img src="{{ asset('images/son_light.jpg') }}" alt="Son Light Logo" class="d-inline-block align-top">
                 Son Light
             </a>
