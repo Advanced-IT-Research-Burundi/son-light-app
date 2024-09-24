@@ -34,12 +34,15 @@
     <label for="role" class="form-label">
         <i class="bi bi-person-badge"></i> Rôle
     </label>
-    <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
+    <select class="form-select @error('role_id') is-invalid @enderror" id="role_id" name="role_id" required>
         <option value="">Sélectionnez un rôle</option>
-        <option value="admin" {{ old('role', $user->role ?? '') == 'admin' ? 'selected' : '' }}>Administrateur</option>
-        <option value="employee" {{ old('role', $user->role ?? '') == 'employee' ? 'selected' : '' }}>Employé</option>
-    </select>
-    @error('role')
+        @foreach ($roles as $item)
+            <option name="role_id" value="{{ $item->id }}" {{ old('role_id', $user->role->id ?? '') == $item->id ? 'selected' : '' }}>
+                {{ $item->name }}
+            </option>
+        @endforeach
+         </select>
+    @error('role_id')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
