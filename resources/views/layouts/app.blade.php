@@ -53,8 +53,15 @@
             </div>
             <div class="navbar-nav">
                 <a class="nav-link" href="#">
-                    <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                 
+                    <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>  {{ auth()->user()->name }}
                 </a>
+                <a class="nav-link" href="#">
+
+                    <i class="bi bi-box-arrow-right" style="font-size: 1.5rem;"></i> 
+                </a>
+
+
             </div>
         </div>
     </nav>
