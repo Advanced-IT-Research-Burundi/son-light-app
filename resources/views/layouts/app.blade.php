@@ -45,7 +45,7 @@
                     <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-list-task"></i> Tâches</a></li>
                     <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-box"></i> Stock</a></li>
                     <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-file-earmark-text"></i> Rapports</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-people"></i> Utilisateurs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}"><i class="bi bi-people"></i> Utilisateurs</a></li>
                 </ul>
             </div>
             <div class="navbar-nav">
@@ -85,6 +85,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Pour la traduction en français -->
+    <script src="https://cdn.datatables.net/plug-ins/1.10.25/i18n/French.json"></script>
     @yield('scripts')
 </body>
 </html>

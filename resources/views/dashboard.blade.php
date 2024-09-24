@@ -30,7 +30,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Chiffre d'affaires mensuel</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">45 230 €</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">45 230 FBU</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
@@ -127,7 +127,7 @@
                             <td>001</td>
                             <td>Entreprise A</td>
                             <td>2024-09-20</td>
-                            <td>1500 €</td>
+                            <td>1500 FBU</td>
                             <td><span class="badge badge-success">Livrée</span></td>
                             <td><a href="#" class="btn btn-primary btn-sm">Détails</a></td>
                         </tr>
@@ -135,7 +135,7 @@
                             <td>002</td>
                             <td>Entreprise B</td>
                             <td>2024-09-22</td>
-                            <td>2300 €</td>
+                            <td>2300 FBU</td>
                             <td><span class="badge badge-warning">En cours</span></td>
                             <td><a href="#" class="btn btn-primary btn-sm">Détails</a></td>
                         </tr>
@@ -143,7 +143,7 @@
                             <td>003</td>
                             <td>Entreprise C</td>
                             <td>2024-09-23</td>
-                            <td>980 €</td>
+                            <td>980 FBU</td>
                             <td><span class="badge badge-info">En préparation</span></td>
                             <td><a href="#" class="btn btn-primary btn-sm">Détails</a></td>
                         </tr>
@@ -210,7 +210,7 @@ var myLineChart = new Chart(ctx, {
                     maxTicksLimit: 5,
                     padding: 10,
                     callback: function(value, index, values) {
-                        return number_format(value) + '€';
+                        return number_format(value) + 'FBU';
                     }
                 },
                 gridLines: {
@@ -242,7 +242,7 @@ var myLineChart = new Chart(ctx, {
             callbacks: {
                 label: function(tooltipItem, chart) {
                     var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                    return datasetLabel + ': ' + number_format(tooltipItem.yLabel) + '€';
+                    return datasetLabel + ': ' + number_format(tooltipItem.yLabel) + 'FBU';
                 }
             }
         }

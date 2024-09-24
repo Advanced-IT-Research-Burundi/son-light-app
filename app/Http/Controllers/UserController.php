@@ -8,7 +8,7 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $users = User::all();
 
