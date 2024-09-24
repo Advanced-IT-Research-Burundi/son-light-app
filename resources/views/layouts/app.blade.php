@@ -10,24 +10,55 @@
     <style>
         :root {
             --primary-color: rgb(26, 35, 126);
+            --hover-color: rgb(21, 28, 100);
+            --active-color: rgb(13, 17, 60);
         }
         .navbar-custom {
             background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .navbar-custom .navbar-brand,
         .navbar-custom .nav-link {
             color: #ffffff !important;
+            transition: all 0.3s ease;
+        }
+        .navbar-custom .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin: 0 0.2rem;
         }
         .navbar-custom .nav-link:hover {
-            color: rgba(255, 255, 255, 0.8);
+            background-color: var(--hover-color);
+        }
+        .navbar-custom .nav-link.active {
+            background-color: var(--active-color);
+            font-weight: bold;
+        }
+        .navbar-custom .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
         }
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
         .btn-primary:hover {
-            background-color: rgb(21, 28, 100);
-            border-color: rgb(21, 28, 100);
+            background-color: var(--hover-color);
+            border-color: var(--hover-color);
+        }
+        .dropdown-menu {
+            background-color: var(--primary-color);
+            border: none;
+        }
+        .dropdown-item {
+            color: #ffffff;
+        }
+        .dropdown-item:hover {
+            background-color: var(--hover-color);
+            color: #ffffff;
         }
     </style>
     @yield('styles')
@@ -35,48 +66,70 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Son Light</a>
+            <a class="navbar-brand" href="{{ route('dashboard') }}">
+                <img src="{{ asset('images/son_light.jpg') }}" alt="Son Light Logo" class="d-inline-block align-top">
+                Son Light
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('orders.index') }}"><i class="bi bi-cart"></i> Commandes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('clients.index') }}"><i class="bi bi-cart"></i> Clients</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-list-task"></i> Tâches</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-box"></i> Stock</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-file-earmark-text"></i> Rapports</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}"><i class="bi bi-people"></i> Utilisateurs</a></li>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('orders.*') ? 'active' : '' }}" href="{{ route('orders.index') }}">
+                            <i class="bi bi-cart"></i> Commandes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('clients.*') ? 'active' : '' }}" href="{{ route('clients.index') }}">
+                            <i class="bi bi-people"></i> Clients
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('tasks.*') ? 'active' : '' }}" href="#">
+                            <i class="bi bi-list-task"></i> Tâches
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('stock.*') ? 'active' : '' }}" href="#">
+                            <i class="bi bi-box"></i> Stock
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('reports.*') ? 'active' : '' }}" href="#">
+                            <i class="bi bi-file-earmark-text"></i> Rapports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                            <i class="bi bi-people"></i> Utilisateurs
+                        </a>
+                    </li>
                 </ul>
-            </div>
-            <div class="navbar-nav">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
-                </a>
-                
-                    <div class="nav-item dropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <i class="bi bi-person-circle me-1"></i>
                             {{ Auth::user()->name }}
                         </a>
-    
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href=""
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-    
-                                <i class="bi bi-box-arrow-right"></i>
-                                {{ __('Logout') }}
+                                <i class="bi bi-box-arrow-right me-2"></i>
+                                {{ __('Déconnexion') }}
                             </a>
-    
                             <form id="logout-form" action="" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </div>
-                    </div>
-               
-
-               
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
