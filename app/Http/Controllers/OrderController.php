@@ -2,37 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\OrderCreatedEvent;
-use App\Http\Requests\OrderStoreRequest;
-use App\Jobs\SyncOrderWithExternalService;
-use App\Mail\OrderCreated;
+use App\Models\Client;
 use App\Models\Order;
-use Illuminate\Http\RedirectResponse;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\View\View;
+
 
 class OrderController extends Controller
 {
-    public function index(Request $request): Response
+    public function index()
     {
-        $orders = Order::all();
-
-        return view('order.index', compact('orders'));
+        $orders = Order::with('client')->latest()->get();
+        return view('orders.index', compact('orders'));
     }
 
-    public function store(OrderStoreRequest $request): Response
+    public function create()
     {
-        $order = Order::create($request->validated());
+        $clients = Client::all();
+        return view('orders.create', compact('clients'));
+    }
 
-        Mail::to($order->client->email)->send(new OrderCreated());
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'client_id' => 'required|exists:clients,id',
+            'order_date' => 'required|date',
+            'amount' => 'required|numeric|min:0',
+            'status' => 'required|in:pending,processing,completed,cancelled',
+            'description' => 'nullable|string',
+        ]);
 
-        SyncOrderWithExternalService::dispatch($order);
+         Order::create($validatedData);
 
-        OrderCreatedEvent::dispatch($order);
+        return redirect()->route('orders.index')
+            ->with('success', 'Commande créée avec succès.');
+    }
 
-        $request->session()->flash('order.id', $order->id);
+    public function edit(Order $order)
+    {
+        $clients = Client::all();
+        return view('orders.edit', compact('order', 'clients'));
+    }
 
-        return redirect()->route('order.index');
+    public function update(Request $request, Order $order)
+    {
+        $validatedData = $request->validate([
+            'client_id' => 'required|exists:clients,id',
+            'order_date' => 'required|date',
+            'amount' => 'required|numeric|min:0',
+            'status' => 'required|in:pending,processing,completed,cancelled',
+            'description' => 'nullable|string',
+        ]);
+
+        $order->update($validatedData);
+
+        return redirect()->route('orders.index')
+            ->with('success', 'Commande mise à jour avec succès.');
+    }
+
+    public function destroy(Order $order)
+    {
+        $order->delete();
+
+        return redirect()->route('orders.index')
+            ->with('success', 'Commande supprimée avec succès.');
     }
 }

@@ -11,7 +11,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('dashboard', [DashboardController::class , 'dashboard'])->name('dashboard');
     Route::view('profile', 'profile');
     Route::resource('users', UserController::class);
-    Route::resource('orders', OrderController::class)->only('index', 'store');
+    Route::resource('orders', OrderController::class);
 
 });
 require_once __DIR__.'/auth.php';
