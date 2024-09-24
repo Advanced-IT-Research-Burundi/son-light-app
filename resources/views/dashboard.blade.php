@@ -155,9 +155,10 @@
 </div>
 @endsection
 
-@push('scripts')
+@section('scripts')
 
 <script>
+
 // Ici, vous ajouteriez le code JavaScript pour initialiser les graphiques
 // Exemple simplifié pour le graphique en aires
 var ctx = document.getElementById("myAreaChart");
@@ -253,4 +254,4 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     // ... (implémentation de la fonction)
 }
 </script>
-@endpush
+@stop

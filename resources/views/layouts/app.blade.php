@@ -40,7 +40,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-cart"></i> Commandes</a></li>
                     <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-list-task"></i> Tâches</a></li>
                     <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-box"></i> Stock</a></li>

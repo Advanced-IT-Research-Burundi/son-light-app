@@ -1,20 +1,17 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth'])->group(function(){
+    Route::get('dashboard', [DashboardController::class , 'dashboard'])->name('dashboard');
+    Route::view('profile', 'profile');
+    Route::resource('users', UserController::class)->only('index');
+    Route::resource('orders', OrderController::class)->only('index', 'store');
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
-
-require __DIR__.'/auth.php';
-
-
-Route::resource('users', App\Http\Controllers\UserController::class)->only('index');
-
-Route::resource('orders', App\Http\Controllers\OrderController::class)->only('index', 'store');
+});
+require_once __DIR__.'/auth.php';
