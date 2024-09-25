@@ -1,119 +1,18 @@
 models:
-  Order:
-    client_id: id foreign
-    user_id: id foreign
-    amount: decimal
-    order_date: date
-    delivery_date: date
-    status: string
-    description: text nullable
-    softDeletes: true
-    relationships:
-      belongsTo: User, Client
-      hasMany: Task, Payment
-
   Task:
-    order_id: id foreign
-    user_id: id foreign
-    creator_id: id foreign
+    order_id: id foreign:orders
+    user_id: id foreign:users
+    creator_id: id foreign:users
     description: text nullable
     status: string
     start_date: date
     end_date: date
     softDeletes: true
-    relationships:
-      belongsTo: Order, User
+   
 
-  Client:
-    user_id: id foreign
-    name: string
-    email: string
-    phone: string
-    description: text nullable
-    softDeletes: true
-    relationships:
-      hasMany: Order
-
-  Stock:
-    user_id: id foreign
-    product: string
-    quantity: integer
-    alert_threshold: integer
-    description: text nullable
-    softDeletes: true
-    relationships:
-      belongsTo: User
-      hasMany: StockMovement, MaterialUsage
-
-  StockMovement:
-    stock_id: id foreign
-    user_id: id foreign
-    type: string
-    quantity: integer
-    order_id: id foreign nullable
-    description: text nullable
-    softDeletes: true
-    relationships:
-      belongsTo: Stock, User, Order
-
-  Report:
-    user_id: id foreign
-    type: string
-    content: longtext
-    report_date: date
-    description: text nullable
-    softDeletes: true
-    relationships:
-      belongsTo: User
-
-  Payment:
-    order_id: id foreign
-    user_id: id foreign
-    amount: decimal
-    payment_date: date
-    payment_method: string
-    description: text nullable
-    softDeletes: true
-    relationships:
-      belongsTo: Order, User
-
-  MaterialUsage:
-    stock_id: id foreign
-    task_id: id foreign
-    user_id: id foreign
-    quantity_used: integer
-    usage_date: date
-    description: text nullable
-    softDeletes: true
-    relationships:
-      belongsTo: Stock, Task, User
-
-  Team:
-    name: string
-    description: text nullable
-    softDeletes: true
-    relationships:
-      hasMany: User
 
 controllers:
-  User:
-    index:
-      query: all
-      render: user.index with:users
-
-  Order:
-    index:
-      query: all
-      render: order.index with:orders
-    store:
-      validate: client_id, amount, order_date, delivery_date, status, description
-      save: order
-      send: OrderCreated to:order.client.email
-      dispatch: SyncOrderWithExternalService with:order
-      fire: OrderCreatedEvent with:order
-      flash: order.id
-      redirect: order.index
+  Task:
+    resource: web
 
   # Ajoutez d'autres contrôleurs selon vos besoins
-
-seeders: User, Client, Team

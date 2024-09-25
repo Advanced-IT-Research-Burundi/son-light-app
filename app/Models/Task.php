@@ -52,6 +52,6 @@ class Task extends Model
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(Creator::class);
+        return $this->belongsTo(User::class);
     }
 }

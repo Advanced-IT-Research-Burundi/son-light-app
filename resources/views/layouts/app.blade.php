@@ -92,7 +92,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('tasks.*') ? 'active' : '' }}" href="#">
+                        <a class="nav-link {{ Request::routeIs('tasks.*') ? 'active' : '' }}" href="{{ route('tasks.index')}}">
                             <i class="bi bi-list-task"></i> Tâches
                         </a>
                     </li>

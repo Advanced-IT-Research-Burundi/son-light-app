@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('creator_id')->constrained();
+            $table->foreignId('creator_id')->constrained('users');
             $table->text('description')->nullable();
             $table->string('status');
             $table->date('start_date');

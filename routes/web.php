@@ -17,3 +17,9 @@ Route::middleware(['auth'])->group(function(){
 
 });
 require_once __DIR__.'/auth.php';
+
+
+Route::resource('tasks', App\Http\Controllers\TaskController::class);
+
+
+Route::resource('tasks', App\Http\Controllers\TaskController::class);

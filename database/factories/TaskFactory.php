@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Creator;
 use App\Models\Order;
 use App\Models\Task;
 use App\Models\User;
@@ -26,7 +25,7 @@ class TaskFactory extends Factory
         return [
             'order_id' => Order::factory(),
             'user_id' => User::factory(),
-            'creator_id' => Creator::factory(),
+            'creator_id' => User::factory(),
             'description' => $this->faker->text(),
             'status' => $this->faker->word(),
             'start_date' => $this->faker->date(),
