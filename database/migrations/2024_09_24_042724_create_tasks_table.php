@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('creator_id')->constrained('users');
+            $table->string('creator_id')->nullable();
             $table->text('description')->nullable();
             $table->string('status');
             $table->date('start_date');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::enableForeignKeyConstraints();
+  
     }
 
     /**

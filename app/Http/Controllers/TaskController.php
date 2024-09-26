@@ -33,7 +33,9 @@ class TaskController extends Controller
 
         $data = $request->validated();
         $data['creator_id'] = Auth::user()->id;
-        $task = Task::create($data);
+
+      
+       Task::create($data);
 
 
         return redirect()->route('tasks.index');
