@@ -9,12 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
     public function up(): void
     {
         Schema::disableForeignKeyConstraints();
 
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('company')->nullable();
+            $table->string('designation')->nullable();
+            $table->integer('quantity')->nullable();
             $table->foreignId('client_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->decimal('amount', 10, 2);

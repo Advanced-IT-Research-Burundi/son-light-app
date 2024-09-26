@@ -23,7 +23,6 @@ class OrderStoreRequest extends FormRequest
             'client_id' => ['required', 'integer', 'exists:clients,id'],
             'amount' => ['required', 'numeric'],
             'order_date' => ['required', 'date'],
-            'delivery_date' => ['required', 'date'],
             'status' => ['required', 'string'],
             'description' => ['nullable', 'string'],
         ];
