@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Stock extends Model
@@ -18,11 +16,13 @@ class Stock extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'product',
+        'product_name',
+        'code',
         'quantity',
-        'alert_threshold',
+        'unit',
+        'min_quantity',
         'description',
+        'last_restock_date',
     ];
 
     /**
@@ -32,21 +32,6 @@ class Stock extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'user_id' => 'integer',
+        'last_restock_date' => 'date',
     ];
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function stockMovements(): HasMany
-    {
-        return $this->hasMany(StockMovement::class);
-    }
-
-    public function materialUsages(): HasMany
-    {
-        return $this->hasMany(MaterialUsage::class);
-    }
 }

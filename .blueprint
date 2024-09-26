@@ -1,23 +1,37 @@
 created:
-    - app/Http/Controllers/TaskController.php
-    - database/factories/TaskFactory.php
-    - database/migrations/2024_09_25_193505_create_tasks_table.php
-    - app/Models/Task.php
-    - tests/Feature/Http/Controllers/TaskControllerTest.php
+    - app/Http/Controllers/StockController.php
+    - app/Http/Controllers/StockMovementController.php
+    - database/factories/StockFactory.php
+    - database/factories/StockMovementFactory.php
+    - database/migrations/2024_09_26_024839_create_stocks_table.php
+    - database/migrations/2024_09_26_024840_create_stock_movements_table.php
+    - app/Models/Stock.php
+    - app/Models/StockMovement.php
+    - database/seeders/StockSeeder.php
+    - database/seeders/StockMovementSeeder.php
+    - tests/Feature/Http/Controllers/StockControllerTest.php
+    - tests/Feature/Http/Controllers/StockMovementControllerTest.php
+    - app/Http/Requests/StockStoreRequest.php
+    - app/Http/Requests/StockUpdateRequest.php
+    - app/Http/Requests/StockMovementStoreRequest.php
+    - app/Http/Requests/StockMovementUpdateRequest.php
+    - resources/views/stock/index.blade.php
+    - resources/views/stock/create.blade.php
+    - resources/views/stock/show.blade.php
+    - resources/views/stock/edit.blade.php
+    - resources/views/stockMovement/index.blade.php
+    - resources/views/stockMovement/create.blade.php
+    - resources/views/stockMovement/show.blade.php
+    - resources/views/stockMovement/edit.blade.php
 updated:
     - routes/web.php
-skipped:
-    - resources/views/task/index.blade.php
-    - resources/views/task/create.blade.php
-    - resources/views/task/show.blade.php
-    - resources/views/task/edit.blade.php
 models:
     User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable' }
     Order: { client_id: 'id foreign', user_id: 'id foreign', amount: decimal, order_date: date, delivery_date: date, status: string, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: 'User, Client', hasMany: 'Task, Payment' } }
     Task: { order_id: 'id foreign:orders', user_id: 'id foreign:users', creator_id: 'id foreign:users', description: 'text nullable', status: string, start_date: date, end_date: date, softdeletes: softDeletes }
     Client: { user_id: 'id foreign', name: string, email: string, phone: string, description: 'text nullable', softdeletes: softDeletes, relationships: { hasMany: Order } }
-    Stock: { user_id: 'id foreign', product: string, quantity: integer, alert_threshold: integer, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: User, hasMany: 'StockMovement, MaterialUsage' } }
-    StockMovement: { stock_id: 'id foreign', user_id: 'id foreign', type: string, quantity: integer, order_id: 'id foreign nullable', description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: 'Stock, User, Order' } }
+    Stock: { product_name: string, code: 'string nullable', quantity: integer, unit: string, min_quantity: integer, description: 'text nullable', last_restock_date: 'date nullable', timestamps: timestamps, softdeletes: softDeletes }
+    StockMovement: { stock_id: 'id foreign', quantity: integer, type: string, reason: 'string nullable', user_id: 'id foreign', timestamps: timestamps, softdeletes: softDeletes }
     Report: { user_id: 'id foreign', type: string, content: longtext, report_date: date, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: User } }
     Payment: { order_id: 'id foreign', user_id: 'id foreign', amount: decimal, payment_date: date, payment_method: string, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: 'Order, User' } }
     MaterialUsage: { stock_id: 'id foreign', task_id: 'id foreign', user_id: 'id foreign', quantity_used: integer, usage_date: date, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: 'Stock, Task, User' } }

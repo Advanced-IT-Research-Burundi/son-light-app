@@ -18,11 +18,10 @@ class StockMovement extends Model
      */
     protected $fillable = [
         'stock_id',
-        'user_id',
-        'type',
         'quantity',
-        'order_id',
-        'description',
+        'type',
+        'reason',
+        'user_id',
     ];
 
     /**
@@ -34,7 +33,6 @@ class StockMovement extends Model
         'id' => 'integer',
         'stock_id' => 'integer',
         'user_id' => 'integer',
-        'order_id' => 'integer',
     ];
 
     public function stock(): BelongsTo
@@ -45,10 +43,5 @@ class StockMovement extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function order(): BelongsTo
-    {
-        return $this->belongsTo(Order::class);
     }
 }

@@ -97,7 +97,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('stock.*') ? 'active' : '' }}" href="#">
+                        <a class="nav-link {{ Request::routeIs('stocks.*') ? 'active' : '' }}" href="{{ route('stocks.index') }}">
                             <i class="bi bi-box"></i> Stock
                         </a>
                     </li>

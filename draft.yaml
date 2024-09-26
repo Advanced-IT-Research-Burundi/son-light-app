@@ -1,18 +1,29 @@
 models:
-  Task:
-    order_id: id foreign:orders
-    user_id: id foreign:users
-    creator_id: id foreign:users
+  Stock:
+    product_name: string
+    code: string nullable
+    quantity: integer
+    unit: string
+    min_quantity: integer
     description: text nullable
-    status: string
-    start_date: date
-    end_date: date
+    last_restock_date: date nullable
+    timestamps: true
     softDeletes: true
-   
 
+  StockMovement:
+    stock_id: id foreign
+    quantity: integer
+    type: string
+    reason: string nullable
+    user_id: id foreign
+    timestamps: true
+    softDeletes: true
 
 controllers:
-  Task:
+  Stock:
     resource: web
 
-  # Ajoutez d'autres contrôleurs selon vos besoins
+  StockMovement:
+    resource: web
+
+seeders: Stock, StockMovement

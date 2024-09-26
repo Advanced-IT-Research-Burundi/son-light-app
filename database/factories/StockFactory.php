@@ -5,7 +5,6 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Stock;
-use App\Models\User;
 
 class StockFactory extends Factory
 {
@@ -22,11 +21,13 @@ class StockFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'product' => $this->faker->word(),
+            'product_name' => $this->faker->word(),
+            'code' => $this->faker->word(),
             'quantity' => $this->faker->numberBetween(-10000, 10000),
-            'alert_threshold' => $this->faker->numberBetween(-10000, 10000),
+            'unit' => $this->faker->word(),
+            'min_quantity' => $this->faker->numberBetween(-10000, 10000),
             'description' => $this->faker->text(),
+            'last_restock_date' => $this->faker->date(),
         ];
     }
 }

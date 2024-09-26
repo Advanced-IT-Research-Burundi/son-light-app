@@ -11,21 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('stock_movements', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('stock_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->string('type');
+            $table->string('product_name');
+            $table->string('code')->nullable();
             $table->integer('quantity');
-            $table->foreignId('order_id')->nullable()->constrained();
+            $table->string('unit');
+            $table->integer('min_quantity');
             $table->text('description')->nullable();
+            $table->date('last_restock_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stock_movements');
+        Schema::dropIfExists('stocks');
     }
 };
