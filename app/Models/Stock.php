@@ -34,4 +34,9 @@ class Stock extends Model
         'id' => 'integer',
         'last_restock_date' => 'date',
     ];
+
+    public function movements()
+    {
+        return $this->hasMany(StockMovement::class);
+    }
 }
