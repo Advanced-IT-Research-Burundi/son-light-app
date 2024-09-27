@@ -29,7 +29,7 @@
 
 <div class="form-group mb-3">
     <label for="amount" class="form-label">
-        <i class="bi bi-currency-euro"></i> Montant
+        BIF Montant
     </label>
     <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $order->amount ?? '') }}" required>
     @error('amount')
