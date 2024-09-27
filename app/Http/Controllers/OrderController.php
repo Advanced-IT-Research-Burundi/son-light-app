@@ -47,11 +47,11 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         $validatedData = $request->validate([
-            'client_id' => 'required|exists:clients,id',
-            'order_date' => 'required|date',
-            'amount' => 'required|numeric|min:0',
-            'status' => 'required|in:pending,processing,completed,cancelled',
-            'description' => 'nullable|string',
+            'client_id' => ['required', 'integer', 'exists:clients,id'],
+            'amount' => ['required', 'numeric'],
+            'order_date' => ['required', 'date'],
+            'status' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
         ]);
 
         $order->update($validatedData);
