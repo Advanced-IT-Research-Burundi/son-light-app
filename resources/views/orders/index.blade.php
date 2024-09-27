@@ -37,10 +37,13 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
+                    @php
+                        $count = 1;
+                    @endphp
                     <tbody>
                         @foreach($orders as $order)
                         <tr>
-                            <td>{{ $order->id }}</td>
+                            <td>{{ $count }}</td>
                             <td>{{ $order->company ?? ''}}</td>
                             <td>{{ $order->designation?? ''}}</td>
                             <th>{{ $order->amount ?? ''}}</th>
@@ -71,6 +74,9 @@
                                 </form>
                             </td>
                         </tr>
+                        @php
+                            $count++;
+                        @endphp
                         @endforeach
                     </tbody>
                 </table>

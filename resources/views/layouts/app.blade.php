@@ -68,8 +68,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('dashboard') }}" style="font-family: 'Teko', sans-serif;">
-                <img src="{{ asset('images/son_light.jpg') }}" alt="Son Light Logo" class="d-inline-block align-top">
-                Son Light
+                <img src="{{ asset('images/logo.jpeg') }}" alt="Son Light Logo" style="border-radius: 10%" class="d-inline-block align-top">
+                {{-- Son Light --}}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>

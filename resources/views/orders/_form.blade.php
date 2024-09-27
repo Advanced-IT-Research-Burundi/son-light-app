@@ -20,7 +20,7 @@
 </div>
 <div class="form-group mb-3">
     <label for="order_date" class="form-label">
-        <i class="bi bi-calendar"></i> Désignqtion
+        <i class="bi bi-calendar"></i> Désignation
     </label>
     <input type="text" class="form-control @error('designation') is-invalid @enderror" id="designation" name="designation" value="{{ old('designation', $order->designation ?? '') }}" required>
     @error('designation')

@@ -68,4 +68,8 @@ new #[Layout('layouts.guest')] class extends Component
             </x-primary-button>
         </div>
     </form>
+    <div class="row text-center mt-4" >
+        <h5 style="color: white">Vous n'avez pas compte ?
+            <a href="{{ route('register')}}">S'identifier</a> </h5>
+    </div>
 </div>
