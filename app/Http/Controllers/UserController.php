@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -18,7 +19,17 @@ class UserController extends Controller
 
     public function create()
     {
+
         $roles = Role::all();
+
+        if($roles->count() == 0){
+            Role::create([
+              'name' => 'ADMIN',
+            ]);
+            Role::create([
+              'name' => 'USER',
+            ]);
+        }
         return view('users.create',compact('roles'));
     }
 
@@ -61,6 +72,18 @@ class UserController extends Controller
 
         return redirect()->route('users.index')
             ->with('success', 'Utilisateur mis à jour avec succès.');
+    }
+
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        
+        $request->session()->invalidate();
+        
+        $request->session()->regenerateToken();
+        
+        return redirect('/'); // Redirige vers la page d'accueil après la déconnexion
     }
 }
 

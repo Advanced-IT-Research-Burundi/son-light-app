@@ -125,7 +125,7 @@
                                 <i class="bi bi-box-arrow-right me-2"></i>
                                 {{ __('Déconnexion') }}
                             </a>
-                            <form id="logout-form" action="" method="POST" class="d-none">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </div>

@@ -8,7 +8,11 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockMovementController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+//Route::view('/', 'welcome');
+
+Route::get('/', function(){
+    return redirect()->route('login');
+});
 
 Route::middleware(['auth'])->group(function(){
     Route::get('dashboard', [DashboardController::class , 'dashboard'])->name('dashboard');
@@ -16,16 +20,13 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('users', UserController::class);
     Route::resource('orders', controller: OrderController::class);
     Route::resource('clients', ClientController::class);
-
+    
     Route::resource('stocks', StockController::class);
-Route::post('stock-movements', [StockMovementController::class, 'store'])->name('stock-movements.store');
-
+    Route::post('stock-movements', [StockMovementController::class, 'store'])->name('stock-movements.store');
+    
+    Route::resource('tasks', App\Http\Controllers\TaskController::class);
+    
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
 require_once __DIR__.'/auth.php';
-
-
-Route::resource('tasks', App\Http\Controllers\TaskController::class);
-
-
-Route::resource('tasks', App\Http\Controllers\TaskController::class);
 
