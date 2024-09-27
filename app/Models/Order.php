@@ -28,6 +28,7 @@ class Order extends Model
         'delivery_date',
         'status',
         'description',
+        'company'
     ];
 
     /**

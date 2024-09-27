@@ -6,15 +6,17 @@
 <div class="container-fluid">
     <h1 class="mt-4 mb-4">Tableau de bord</h1>
 
-    <!-- Cartes d'aperçu -->
+    <!-- Cartes d aperçu -->
     <div class="row mb-4">
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Commandes en cours</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 text-center">Commandes en cours</div>
+                            <div class="h5 mb-0 font-weight-bold text-center text-gray-800 ">
+                                {{ $commande_cours }}
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -29,8 +31,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Chiffre d'affaires mensuel</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">45 230 FBU</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1 text-center ">{{ "Chiffre d'affaires mensuel" }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center ">{{ $chiffre_affaire }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
@@ -45,8 +47,10 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tâches en cours</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">12</div>
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1 text-center ">Tâches en cours</div>
+                            <div class="h5 mb-0 font-weight-bold text-center text-gray-800">
+                                {{ $tasks_count }}
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -61,8 +65,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Alertes stock</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 text-center">Alertes stock</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">3</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
@@ -79,7 +83,7 @@
         <div class="col-xl-8 col-lg-7">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Aperçu des commandes</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Aperçu des commandes</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
@@ -123,30 +127,21 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                        @foreach ($last_commands as $item )
                         <tr>
-                            <td>001</td>
-                            <td>Entreprise A</td>
-                            <td>2024-09-20</td>
-                            <td>1500 FBU</td>
-                            <td><span class="badge badge-success">Livrée</span></td>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->client->name }}</td>
+                            <td>{{ $item->created_at }}</td>
+                            <td>{{ $item->amount  }}</td>
+                            <td>
+                                {{ $item->status }}
+                            </td>
                             <td><a href="#" class="btn btn-primary btn-sm">Détails</a></td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>Entreprise B</td>
-                            <td>2024-09-22</td>
-                            <td>2300 FBU</td>
-                            <td><span class="badge badge-warning">En cours</span></td>
-                            <td><a href="#" class="btn btn-primary btn-sm">Détails</a></td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>Entreprise C</td>
-                            <td>2024-09-23</td>
-                            <td>980 FBU</td>
-                            <td><span class="badge badge-info">En préparation</span></td>
-                            <td><a href="#" class="btn btn-primary btn-sm">Détails</a></td>
-                        </tr>
+                        </tr>  
+                        @endforeach
+
+
                     </tbody>
                 </table>
             </div>
