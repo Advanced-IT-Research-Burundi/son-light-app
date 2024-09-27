@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderStoreRequest;
 use App\Models\Client;
 use App\Models\Order;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -23,16 +24,11 @@ class OrderController extends Controller
         return view('orders.create', compact('clients'));
     }
 
-    public function store(Request $request)
+    public function store(OrderStoreRequest $request)
     {
-        $validatedData = $request->validate([
-            'client_id' => 'required|exists:clients,id',
-            'order_date' => 'required|date',
-            'amount' => 'required|numeric|min:0',
-            'status' => 'required|in:pending,processing,completed,cancelled',
-            'description' => 'nullable|string',
-        ]);
-        $validatedData['user_id'] = auth()->user()->id;
+
+        $validatedData = $request->all();
+        $validatedData['user_id'] = Auth::user()->id;
         $validatedData['delivery_date'] = now();
 
 
