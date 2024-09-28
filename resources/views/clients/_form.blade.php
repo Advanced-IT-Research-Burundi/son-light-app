@@ -31,6 +31,25 @@
 </div>
 
 <div class="form-group mb-3">
+    <label for="name" class="form-label">
+        <i class="bi bi-person"></i> Personnne de reference
+    </label>
+    <input type="text" class="form-control @error('persone_reference1') is-invalid @enderror" id="persone_reference1" name="persone_reference1" value="{{ old('persone_reference1', $client->persone_reference1 ?? '') }}" required>
+    @error('persone_reference1')
+        <div class="invalid-feedback">{{ $persone_reference1 }}</div>
+    @enderror
+</div>
+<div class="form-group mb-3">
+    <label for="name" class="form-label">
+        <i class="bi bi-person"></i> Personnne de reference
+    </label>
+    <input type="text" class="form-control @error('persone_reference2') is-invalid @enderror" id="persone_reference2" name="persone_reference2" value="{{ old('persone_reference2', $client->persone_reference2 ?? '') }}" required>
+    @error('persone_reference2')
+        <div class="invalid-feedback">{{ $persone_reference2 }}</div>
+    @enderror
+</div>
+
+<div class="form-group mb-3">
     <label for="company" class="form-label">
         <i class="bi bi-building"></i> Entreprise
     </label>
