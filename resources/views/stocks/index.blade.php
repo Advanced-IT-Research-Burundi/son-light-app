@@ -25,7 +25,7 @@
                 <table class="table table-bordered" id="stocksTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>SKU</th>
+                            <th>CODE</th>
                             <th>Produit</th>
                             <th>Quantité</th>
                             <th>Unité</th>
@@ -37,7 +37,7 @@
                     <tbody>
                         @foreach($stocks as $stock)
                         <tr class="{{ $stock->quantity <= $stock->min_quantity ? 'table-danger' : '' }}">
-                            <td>{{ $stock->sku }}</td>
+                            <td>{{ $stock->code }}</td>
                             <td>{{ $stock->product_name }}</td>
                             <td>{{ $stock->quantity }}</td>
                             <td>{{ $stock->unit }}</td>
