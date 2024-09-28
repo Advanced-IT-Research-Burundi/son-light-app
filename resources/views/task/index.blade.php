@@ -37,7 +37,7 @@
                         @foreach($tasks as $task)
                         <tr>
                             <td>{{ $task->id }}</td>
-                            <td>{{ $task->order->id }}</td>
+                            <td>#{{ $task->order->id }}  : {{ $task->order->designation }} </td>
                             <td>{{ $task->creator->name }}</td>
                             <td>{{ $task->user->name }}</td>
                             <td>{{ $task->status }}</td>

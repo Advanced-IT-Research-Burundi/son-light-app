@@ -24,7 +24,7 @@ class StockController extends Controller
     {
         $validatedData = $request->validate([
             'product_name' => 'required|string|max:255',
-            'sku' => 'required|string|unique:stocks,sku|max:50',
+            'code' => 'required|string|unique:stocks,sku|max:50',
             'quantity' => 'required|integer|min:0',
             'unit' => 'required|string|max:50',
             'min_quantity' => 'required|integer|min:0',
@@ -52,7 +52,7 @@ class StockController extends Controller
     {
         $validatedData = $request->validate([
             'product_name' => 'required|string|max:255',
-            'sku' => 'required|string|unique:stocks,sku,' . $stock->id . '|max:50',
+            'code' => 'required|string|unique:stocks,code,' . $stock->id . '|max:50',
             'quantity' => 'required|integer|min:0',
             'unit' => 'required|string|max:50',
             'min_quantity' => 'required|integer|min:0',

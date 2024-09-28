@@ -59,9 +59,9 @@
                                 </span>
                             </td> --}}
                             <td>
-                                <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-info">
+                                {{-- <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i>
-                                </a>
+                                </a> --}}
                                 <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-sm btn-primary">
                                     <i class="bi bi-pencil"></i>
                                 </a>

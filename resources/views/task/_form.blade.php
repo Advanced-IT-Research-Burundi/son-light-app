@@ -7,7 +7,7 @@
     <select name="order_id" id="order_id" class="form-control @error('order_id') is-invalid @enderror" required>
         <option value="">Sélectionnez une commande</option>
         @foreach($orders as $order)
-            <option value="{{ $order->id }}" {{ isset($task) && $task->order_id == $order->id ? 'selected' : '' }}>{{ $order->id }}</option>
+            <option value="{{ $order->id }}" {{ isset($task) && $task->order_id == $order->id ? 'selected' : '' }}>#{{ $order->id }}   : {{ $order->designation }}</option>
         @endforeach
     </select>
     @error('order_id')
