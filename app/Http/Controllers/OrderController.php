@@ -24,14 +24,17 @@ class OrderController extends Controller
         return view('orders.create', compact('clients'));
     }
 
+    public function show(Order $order)
+    {
+        return view('orders.show', compact('order'));
+    }
+
     public function store(OrderStoreRequest $request)
     {
 
         $validatedData = $request->all();
         $validatedData['user_id'] = Auth::user()->id;
         $validatedData['delivery_date'] = now();
-
-
          Order::create($validatedData);
 
         return redirect()->route('orders.index')

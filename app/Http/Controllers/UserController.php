@@ -19,9 +19,7 @@ class UserController extends Controller
 
     public function create()
     {
-
         $roles = Role::all();
-
         if($roles->count() == 0){
             Role::create([
               'name' => 'ADMIN',
@@ -44,7 +42,6 @@ class UserController extends Controller
         ]);
 
         $user = User::create($validatedData);
-
         return redirect()->route('users.index')
             ->with('success', 'Utilisateur créé avec succès.');
     }
