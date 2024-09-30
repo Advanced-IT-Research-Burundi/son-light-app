@@ -1,29 +1,17 @@
 models:
-  Stock:
-    product_name: string
-    code: string nullable
-    quantity: integer
-    unit: string
-    min_quantity: integer
-    description: text nullable
-    last_restock_date: date nullable
-    timestamps: true
-    softDeletes: true
-
-  StockMovement:
+  MaterialUsage:
     stock_id: id foreign
-    quantity: integer
-    type: string
-    reason: string nullable
+    task_id: id foreign
     user_id: id foreign
-    timestamps: true
+    quantity_used: integer
+    usage_date: date
+    description: text nullable
     softDeletes: true
+    relationships:
+      belongsTo: Stock, Task, User
 
 controllers:
-  Stock:
+  MaterialUsage:
     resource: web
 
-  StockMovement:
-    resource: web
-
-seeders: Stock, StockMovement
+ 

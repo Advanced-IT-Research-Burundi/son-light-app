@@ -20,13 +20,16 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('users', UserController::class);
     Route::resource('orders', controller: OrderController::class);
     Route::resource('clients', ClientController::class);
-    
+
     Route::resource('stocks', StockController::class);
     Route::post('stock-movements', [StockMovementController::class, 'store'])->name('stock-movements.store');
-    
+
     Route::resource('tasks', App\Http\Controllers\TaskController::class);
-    
+
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::resource('material-usages', App\Http\Controllers\MaterialUsageController::class);
 });
 require_once __DIR__.'/auth.php';
+
+
 

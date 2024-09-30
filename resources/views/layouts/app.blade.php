@@ -102,6 +102,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('material-usages.*') ? 'active' : '' }}" href="{{ route('material-usages.index') }}">
+                            <i class="bi bi-text-indent-left"></i> Utilisation Materielle
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('reports.*') ? 'active' : '' }}" href="#">
                             <i class="bi bi-file-earmark-text"></i> Rapports
                         </a>
