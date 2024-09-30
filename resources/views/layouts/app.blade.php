@@ -107,6 +107,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('payments.*') ? 'active' : '' }}" href="{{ route('payments.index') }}">
+                            <i class="bi bi-cash-coin"></i> Payement
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('reports.*') ? 'active' : '' }}" href="#">
                             <i class="bi bi-file-earmark-text"></i> Rapports
                         </a>

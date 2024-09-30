@@ -1,17 +1,16 @@
 models:
-  MaterialUsage:
-    stock_id: id foreign
-    task_id: id foreign
+  Payment:
+    order_id: id foreign
     user_id: id foreign
-    quantity_used: integer
-    usage_date: date
+    amount: decimal
+    payment_date: date
+    payment_method: string
     description: text nullable
     softDeletes: true
     relationships:
-      belongsTo: Stock, Task, User
+      belongsTo: Order, User
 
 controllers:
-  MaterialUsage:
+  Payment:
     resource: web
 
- 

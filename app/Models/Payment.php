@@ -25,6 +25,8 @@ class Payment extends Model
         'description',
     ];
 
+    protected $with = ['order'];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -34,7 +36,7 @@ class Payment extends Model
         'id' => 'integer',
         'order_id' => 'integer',
         'user_id' => 'integer',
-        'amount' => 'decimal',
+        'amount' => 'float',
         'payment_date' => 'date',
     ];
 

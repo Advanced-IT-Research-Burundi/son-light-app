@@ -1,15 +1,15 @@
 created:
-    - app/Http/Controllers/MaterialUsageController.php
-    - database/factories/MaterialUsageFactory.php
-    - database/migrations/2024_09_30_114826_create_material_usages_table.php
-    - app/Models/MaterialUsage.php
-    - tests/Feature/Http/Controllers/MaterialUsageControllerTest.php
-    - app/Http/Requests/MaterialUsageStoreRequest.php
-    - app/Http/Requests/MaterialUsageUpdateRequest.php
-    - resources/views/materialUsage/index.blade.php
-    - resources/views/materialUsage/create.blade.php
-    - resources/views/materialUsage/show.blade.php
-    - resources/views/materialUsage/edit.blade.php
+    - app/Http/Controllers/PaymentController.php
+    - database/factories/PaymentFactory.php
+    - database/migrations/2024_09_30_132000_create_payments_table.php
+    - app/Models/Payment.php
+    - tests/Feature/Http/Controllers/PaymentControllerTest.php
+    - app/Http/Requests/PaymentStoreRequest.php
+    - app/Http/Requests/PaymentUpdateRequest.php
+    - resources/views/payment/index.blade.php
+    - resources/views/payment/create.blade.php
+    - resources/views/payment/show.blade.php
+    - resources/views/payment/edit.blade.php
 updated:
     - routes/web.php
 models:
