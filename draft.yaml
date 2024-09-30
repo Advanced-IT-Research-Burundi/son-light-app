@@ -1,16 +1,15 @@
 models:
-  Payment:
-    order_id: id foreign
+  Report:
     user_id: id foreign
-    amount: decimal
-    payment_date: date
-    payment_method: string
+    type: string
+    content: longtext
+    report_date: date
     description: text nullable
     softDeletes: true
     relationships:
-      belongsTo: Order, User
+      belongsTo: User
 
 controllers:
-  Payment:
+  Report:
     resource: web
 

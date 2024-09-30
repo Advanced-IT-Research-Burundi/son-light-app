@@ -1,15 +1,15 @@
 created:
-    - app/Http/Controllers/PaymentController.php
-    - database/factories/PaymentFactory.php
-    - database/migrations/2024_09_30_132000_create_payments_table.php
-    - app/Models/Payment.php
-    - tests/Feature/Http/Controllers/PaymentControllerTest.php
-    - app/Http/Requests/PaymentStoreRequest.php
-    - app/Http/Requests/PaymentUpdateRequest.php
-    - resources/views/payment/index.blade.php
-    - resources/views/payment/create.blade.php
-    - resources/views/payment/show.blade.php
-    - resources/views/payment/edit.blade.php
+    - app/Http/Controllers/ReportController.php
+    - database/factories/ReportFactory.php
+    - database/migrations/2024_09_30_143927_create_reports_table.php
+    - app/Models/Report.php
+    - tests/Feature/Http/Controllers/ReportControllerTest.php
+    - app/Http/Requests/ReportStoreRequest.php
+    - app/Http/Requests/ReportUpdateRequest.php
+    - resources/views/report/index.blade.php
+    - resources/views/report/create.blade.php
+    - resources/views/report/show.blade.php
+    - resources/views/report/edit.blade.php
 updated:
     - routes/web.php
 models:

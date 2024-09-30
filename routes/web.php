@@ -29,8 +29,11 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     Route::resource('material-usages', App\Http\Controllers\MaterialUsageController::class);
     Route::resource('payments', App\Http\Controllers\PaymentController::class);
+    Route::resource('reports', App\Http\Controllers\ReportController::class);
 });
 require_once __DIR__.'/auth.php';
+
+
 
 
 
