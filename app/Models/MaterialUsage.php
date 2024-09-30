@@ -38,6 +38,7 @@ class MaterialUsage extends Model
         'usage_date' => 'date',
     ];
 
+    protected $with = ['task','stock'];
     public function stock(): BelongsTo
     {
         return $this->belongsTo(Stock::class);

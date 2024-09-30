@@ -111,11 +111,22 @@
                             <i class="bi bi-cash-coin"></i> Payement
                         </a>
                     </li>
-                    <li class="nav-item">
+
+                    <li>
                         <a class="nav-link {{ Request::routeIs('reports.*') ? 'active' : '' }}" href="{{ route('reports.index') }}">
                             <i class="bi bi-file-earmark-text"></i> Rapports
                         </a>
                     </li>
+
+                    {{-- <li class="nav-item dropdown dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link {{ Request::routeIs('reports.*') ? 'active' : '' }}" href="{{ route('reports.index') }}" >
+                            <i class="bi bi-file-earmark-text"></i> Rapports
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ route('reports.index') }}">Rapports</a>
+                            <a class="dropdown-item" href="{{ route('rapport-generale') }}">Rapport Générale</a>
+                        </div>
+                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                             <i class="bi bi-people"></i> Utilisateurs
@@ -154,6 +165,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
+
 
     <!-- Pour la traduction en français -->
     <script src="https://cdn.datatables.net/plug-ins/1.10.25/i18n/French.json"></script>

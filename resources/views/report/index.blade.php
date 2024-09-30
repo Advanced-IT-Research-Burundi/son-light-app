@@ -27,7 +27,7 @@ report.index template
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-braported" id="raportsTable" width="100%" cellspacing="0">
+                <table class="table table-braported" id="raports" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -81,12 +81,26 @@ report.index template
 
 @section('scripts')
 <script>
-$(document).ready(function() {
-    $('#raportsTable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/French.json"
-        }
-    });
-});
+    $(document).ready(function(){
+
+        $('#raports').DataTable({
+            "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/French.json"
+                },
+            // "processing" : true,
+            // "serverSide" : true,
+            // "ajax" : {
+            // url:"fetch.php",
+            // type:"POST"
+            // },
+            dom: 'lBfrtip',
+            buttons: [
+            'excel', 'csv', 'pdf', 'copy'
+            ],
+            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+            });
+
+        });
+
 </script>
 @endsection

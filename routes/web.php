@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockMovementController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('material-usages', App\Http\Controllers\MaterialUsageController::class);
     Route::resource('payments', App\Http\Controllers\PaymentController::class);
     Route::resource('reports', App\Http\Controllers\ReportController::class);
+    Route::get('rapport-generale', [ReportController::class, 'rapportgenerale'])->name('rapport-generale');
 });
 require_once __DIR__.'/auth.php';
 

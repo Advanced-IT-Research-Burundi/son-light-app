@@ -40,6 +40,8 @@ class Task extends Model
         'end_date' => 'date',
     ];
 
+    protected $with = ['order', 'user', 'creator'];
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);

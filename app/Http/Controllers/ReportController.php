@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ReportStoreRequest;
 use App\Http\Requests\ReportUpdateRequest;
+use App\Models\MaterialUsage;
 use App\Models\Report;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -63,6 +64,12 @@ class ReportController extends Controller
     {
         $report->delete();
 
-        return redirect()->route('reports.index');
+        return redirect ()->route('reports.index');
+    }
+
+    public function rapportgenerale(){
+        $rapports = MaterialUsage::latest()->get();
+
+        return view('report.index', compact('raports'));
     }
 }
