@@ -22,6 +22,8 @@ class StoreClientRequest extends FormRequest
         return [
             'name' => ['required','string','max:255'],
             'email' => ['required','string','email','max:255','unique:clients'],
+            'persone_reference1'=>['nullable','string','max:255'],
+            'persone_reference2'=>['nullable','string','max:255'],
             'phone' => ['required','string','max:255'],
             'address' => ['required','string','max:255'],
             'description' => ['nullable','string','max:255'],

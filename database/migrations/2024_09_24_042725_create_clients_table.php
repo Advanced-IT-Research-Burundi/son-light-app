@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('name');
-            $table->string('persone_reference1')->nullable();
-            $table->string('persone_reference2')->nullable();
+            $table->string('persone_reference1');
+            $table->string('persone_reference2');
             $table->string('email');
             $table->string('phone');
             $table->string('company')->nullable();

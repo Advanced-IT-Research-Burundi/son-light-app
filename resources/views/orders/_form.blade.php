@@ -1,5 +1,35 @@
 <!-- resources/views/orders/_form.blade.php -->
+<div class="form-group mb-3">
+    <label for="client_id" class="form-label">
+        <i class="bi bi-person"></i> Client
+    </label>
+    <select class="form-select @error('client_id') is-invalid @enderror" id="client_id" name="client_id" required>
+        <option value="">Sélectionnez un client</option>
+        @foreach($clients as $client)
+            <option value="{{ $client->id }}" {{ old('client_id', $order->client_id ?? '') == $client->id ? 'selected' : '' }}>
+                {{ $client->name }}
+            </option>
+        @endforeach
+    </select>
+    @error('client_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+{{-- <div class="form-group mb-3">
+    <label for="client_id" class="form-label">
+        <i class="bi bi-people-fill"></i> Facturation
+    </label>
 
+    <select class="form-select @error('company') is-invalid @enderror" id="company" name="company" required>
+        <option value="">Sélectionnez le moyen de facturation</option>
+        <option value="1" {{ old('company', $order->company ?? '') == '1' ? 'selected' : '' }}>HTVA</option>
+        <option value="2" {{ old('company', $order->company ?? '') == '2' ? 'selected' : '' }}>TVAC</option>
+    </select>
+    @error('company')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+
+</div> --}}
 <div class="form-group mb-3">
     <label for="client_id" class="form-label">
         <i class="bi bi-people-fill"></i> Societe
@@ -11,6 +41,7 @@
         <option value="DEALER GROUP" {{ old('company', $order->company ?? '') == 'DEALER GROUP' ? 'selected' : '' }}>DEALER GROUP</option>
         <option value=" BUFI TECHNOLOGIE" {{ old('company', $order->company ?? '') == ' BUFI TECHNOLOGIE' ? 'selected' : '' }}> BUFI TECHNOLOGIE</option>
         <option value="NOVA TECH" {{ old('company', $order->company ?? '') == 'NOVA TECH' ? 'selected' : '' }}>NOVA TECH</option>
+        <option value="AFRO BUSINESS GROUP" {{ old('company', $order->company ?? '') == 'AFRO BUSINESS GROUP' ? 'selected' : '' }}>AFRO BUSINESS GROUP</option>
         <option value="SOCIETE ANONYME" {{ old('company', $order->company ?? '') == 'SOCIETE ANONYME' ? 'selected' : '' }}>SOCIETE ANONYME</option>
     </select>
     @error('company')
@@ -29,7 +60,7 @@
 </div>
 <div class="form-group mb-3">
     <label for="amount" class="form-label">
-        <i class="bi bi-cash-coin"></i> Montant
+        <i class="bi bi-cash-coin"></i> P.U
     </label>
     <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $order->amount ?? '') }}" required>
     @error('amount')
@@ -46,23 +77,6 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3">
-    <label for="client_id" class="form-label">
-        <i class="bi bi-person"></i> Client
-    </label>
-    <select class="form-select @error('client_id') is-invalid @enderror" id="client_id" name="client_id" required>
-        <option value="">Sélectionnez un client</option>
-        @foreach($clients as $client)
-            <option value="{{ $client->id }}" {{ old('client_id', $order->client_id ?? '') == $client->id ? 'selected' : '' }}>
-                {{ $client->name }}
-            </option>
-        @endforeach
-    </select>
-    @error('client_id')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
 <div class="form-group mb-3">
     <label for="order_date" class="form-label">
         <i class="bi bi-calendar"></i> Date de livraison

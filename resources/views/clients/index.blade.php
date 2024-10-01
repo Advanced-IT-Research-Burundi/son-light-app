@@ -27,9 +27,12 @@
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
+                            <th>Entreprise</th>
+                            <th>NIF</th>
                             <th>Email</th>
                             <th>Téléphone</th>
-                            <th>Entreprise</th>
+                            <th>P1 de contact</th>
+                            <th>P2 de contact</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -38,9 +41,12 @@
                         <tr>
                             <td>{{ $client->id }}</td>
                             <td>{{ $client->name }}</td>
+                            <td>{{ $client->company ?? 'N/A' }}</td>
+                            <td>{{ $client->nif }}</td>
                             <td>{{ $client->email }}</td>
                             <td>{{ $client->phone ?? 'N/A' }}</td>
-                            <td>{{ $client->company ?? 'N/A' }}</td>
+                            <td>{{ $client->persone_reference1 ?? 'N/A' }}</td>
+                            <td>{{ $client->persone_reference2 ?? 'N/A'}}</td>
                             <td>
                                 <a href="{{ route('clients.show', $client->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i>

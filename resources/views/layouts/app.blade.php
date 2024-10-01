@@ -78,7 +78,19 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-                            <i class="bi bi-speedometer2"></i> Dashboard
+                            <i class="bi bi-speedometer2"></i> Home
+                        </a>
+                    </li>
+                    @if (auth()->user()->isAdmin() )
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                            <i class="bi bi-people"></i> Utilisateurs
+                        </a>
+                    </li>
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('clients.*') ? 'active' : '' }}" href="{{ route('clients.index') }}">
+                            <i class="bi bi-people"></i> Clients
                         </a>
                     </li>
                     <li class="nav-item">
@@ -86,16 +98,18 @@
                             <i class="bi bi-cart"></i> Commandes
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('clients.*') ? 'active' : '' }}" href="{{ route('clients.index') }}">
-                            <i class="bi bi-people"></i> Clients
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('tasks.*') ? 'active' : '' }}" href="{{ route('tasks.index')}}">
                             <i class="bi bi-list-task"></i> Tâches
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('payments.*') ? 'active' : '' }}" href="{{ route('payments.index') }}">
+                            <i class="bi bi-cash-coin"></i> Payement
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('stocks.*') ? 'active' : '' }}" href="{{ route('stocks.index') }}">
                             <i class="bi bi-box"></i> Stock
@@ -106,17 +120,14 @@
                             <i class="bi bi-text-indent-left"></i> Utilisation Materielle
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('payments.*') ? 'active' : '' }}" href="{{ route('payments.index') }}">
-                            <i class="bi bi-cash-coin"></i> Payement
-                        </a>
-                    </li>
+                    {{-- @dump() --}}
 
-                    <li>
-                        <a class="nav-link {{ Request::routeIs('reports.*') ? 'active' : '' }}" href="{{ route('reports.index') }}">
-                            <i class="bi bi-file-earmark-text"></i> Rapports
-                        </a>
-                    </li>
+                        <li>
+                            <a class="nav-link {{ Request::routeIs('reports.*') ? 'active' : '' }}" href="{{ route('reports.index') }}">
+                                <i class="bi bi-file-earmark-text"></i> Rapports
+                            </a>
+                        </li>
+
 
                     {{-- <li class="nav-item dropdown dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <a class="nav-link {{ Request::routeIs('reports.*') ? 'active' : '' }}" href="{{ route('reports.index') }}" >
@@ -127,11 +138,8 @@
                             <a class="dropdown-item" href="{{ route('rapport-generale') }}">Rapport Générale</a>
                         </div>
                     </li> --}}
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                            <i class="bi bi-people"></i> Utilisateurs
-                        </a>
-                    </li>
+
+
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">

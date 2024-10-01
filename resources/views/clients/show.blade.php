@@ -30,7 +30,10 @@
 
                 <dt class="col-sm-3">Adresse</dt>
                 <dd class="col-sm-9">{{ $client->address ?? 'N/A' }}</dd>
-
+                <dt class="col-sm-3">Premiere personnne de reference avec son Tel</dt>
+                <dd class="col-sm-9">{{ $client->persone_reference1 ?? 'N/A' }}</dd>
+                <dt class="col-sm-3">Seconde personnne de reference avec son Tel</dt>
+                <dd class="col-sm-9">{{ $client->persone_reference2 ?? 'N/A' }}</dd>
                 <dt class="col-sm-3">Description</dt>
                 <dd class="col-sm-9">{{ $client->description ?? 'N/A' }}</dd>
             </dl>

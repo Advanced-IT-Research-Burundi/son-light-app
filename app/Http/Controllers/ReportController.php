@@ -15,9 +15,16 @@ class ReportController extends Controller
 {
     public function index(Request $request): View
     {
-        $raports = Report::all();
+        if (Auth::user()->isAdmin()) {
+            $raports = Report::all();
 
-        return view('report.index', compact('raports'));
+            return view('report.index', compact('raports'));
+        } else {
+            $raports = Report::where('user_id', Auth::user()->id)->get();
+            return view('report.index', compact('raports'));
+        }
+
+
     }
 
     public function create(Request $request): View
