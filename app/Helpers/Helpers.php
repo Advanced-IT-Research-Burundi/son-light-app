@@ -8,3 +8,5 @@ define( 'COMPANY_LIST',
     'AFRO BUSINESS GROUP',
     'SOCIETE ANONYME'
 ]);
+
+define('TVA_RANGE',value: [0, 4, 10, 18, 22]);

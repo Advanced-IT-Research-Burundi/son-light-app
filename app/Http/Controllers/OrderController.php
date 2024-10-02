@@ -14,7 +14,6 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('client')->latest()->get();
-
         return view('orders.index', compact('orders'));
     }
 
@@ -31,12 +30,13 @@ class OrderController extends Controller
 
     public function store(OrderStoreRequest $request)
     {
-
         $validatedData = $request->all();
+
+        //dd($validatedData);
         $validatedData['user_id'] = Auth::user()->id;
         $validatedData['delivery_date'] = now();
          Order::create($validatedData);
-
+        
         return redirect()->route('orders.index')
             ->with('success', 'Commande créée avec succès.');
     }
@@ -49,7 +49,7 @@ class OrderController extends Controller
 
     public function update(Request $request, Order $order)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'client_id' => ['required', 'integer', 'exists:clients,id'],
             'amount' => ['required', 'numeric'],
             'order_date' => ['required', 'date'],
@@ -57,7 +57,7 @@ class OrderController extends Controller
             'description' => ['nullable', 'string'],
         ]);
 
-        $order->update($validatedData);
+        $order->update(attributes: $request->all());
 
         return redirect()->route('orders.index')
             ->with('success', 'Commande mise à jour avec succès.');

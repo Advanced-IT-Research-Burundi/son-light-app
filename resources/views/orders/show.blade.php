@@ -1,15 +1,11 @@
 <!-- resources/views/orders/show.blade.php -->
-
 @extends('layouts.app')
-
 @section('title', 'Détails de la commande')
-
 @section('content')
 <div class="container">
     <h1 class="my-4">
         <i class="bi bi-bag"></i> Détails de la commande #{{ $order->id }}
     </h1>
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Informations de la commande</h6>
@@ -31,8 +27,15 @@
                 <dt class="col-sm-3">Quantité</dt>
                 <dd class="col-sm-9">{{ $order->quantity ?? 'Non spécifié' }}</dd>
 
+            
+                <dt class="col-sm-3">Montant HT</dt>
+                <dd class="col-sm-9">{{ number_format($order->amount_ht, 2, ',', ' ') }} BIF</dd>
+
+                <dt class="col-sm-3">Montant TVAC</dt>
+                <dd class="col-sm-9">{{ number_format($order->amount_tvac, 2, ',', ' ') }} BIF</dd>
+
                 <dt class="col-sm-3">Montant</dt>
-                <dd class="col-sm-9">{{ number_format($order->amount, 2, ',', ' ') }} €</dd>
+                <dd class="col-sm-9">{{ number_format($order->amount, 2, ',', ' ') }} BIF</dd>
 
                 <dt class="col-sm-3">Date de commande</dt>
                 <dd class="col-sm-9">{{ $order->order_date->format('d/m/Y') }}</dd>

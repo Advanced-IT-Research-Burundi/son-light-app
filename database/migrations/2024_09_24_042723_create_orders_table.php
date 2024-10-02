@@ -22,9 +22,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->integer('quantity')->nullable();
             $table->double('amount');
-            $table->double('tva')->default(0);
-            $table->double(column: 'prix_hors_tva')->default(0);
-            $table->double(column: 'prix_tvac')->default(0);
+            $table->double(column: 'tva')->default(0);
+            $table->double(column: 'amount_ht')->default(0);
+            $table->double(column: 'amount_tvac')->default(0);
             $table->date('order_date');
             $table->date('delivery_date');
             $table->string('status');

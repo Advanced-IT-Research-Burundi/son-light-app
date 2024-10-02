@@ -68,7 +68,7 @@
         </label>
         <select class="form-select @error('tva') is-invalid @enderror" id="tva" name="tva" required data-calc="tva">
             <option value="">Sélectionnez un taux</option>
-            @foreach([0, 4, 10, 18, 22] as $rate)
+            @foreach(TVA_RANGE as $rate)
                 <option value="{{ $rate }}" {{ old('tva', $order->tva ?? '') == $rate ? 'selected' : '' }}>
                     {{ $rate }}%
                 </option>
@@ -84,13 +84,13 @@
         <label for="amount_ht" class="form-label">
             Montant HT
         </label>
-        <input type="text" class="form-control" id="amount_ht" name="amount_ht" readonly>
+        <input type="text"  class="form-control" id="amount_ht" name="amount_ht" readonly>
     </div>
     <div class="form-group mb-3 col">
         <label for="amount_tvac" class="form-label">
             Montant TTC
         </label>
-        <input type="text" class="form-control" id="amount_tvac" name="amount_tvac" readonly>
+        <input type="text"  class="form-control" id="amount_tvac" name="amount_tvac" readonly>
     </div>
 </div>
 
@@ -156,8 +156,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalHt = priceValue * quantityValue;
         const totalTvac = totalHt * (1 + tvaRate / 100);
 
-        amountHt.value = totalHt.toFixed(2) + ' BIF';
-        amountTvac.value = totalTvac.toFixed(2) + ' BIF';
+        amountHt.value = totalHt.toFixed(2);
+        amountTvac.value = totalTvac.toFixed(2);
     }
 
     [price, quantity, tva].forEach(element => {
