@@ -1,9 +1,7 @@
 <!-- resources/views/orders/index.blade.php -->
 
 @extends('layouts.app')
-
 @section('title', 'Gestion des commandes')
-
 @section('content')
 <div class="container-fluid">
     <h1 class="my-4">
