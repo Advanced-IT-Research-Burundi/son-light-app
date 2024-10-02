@@ -128,20 +128,14 @@
                             </a>
                         </li>
 
-
-                    {{-- <li class="nav-item dropdown dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <a class="nav-link {{ Request::routeIs('reports.*') ? 'active' : '' }}" href="{{ route('reports.index') }}" >
-                            <i class="bi bi-file-earmark-text"></i> Rapports
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{{ route('reports.index') }}">Rapports</a>
-                            <a class="dropdown-item" href="{{ route('rapport-generale') }}">Rapport Générale</a>
-                        </div>
-                    </li> --}}
-
-
                 </ul>
+                
                 <ul class="navbar-nav">
+                <li>
+
+                @livewire('dashoboards.badge')
+              
+                </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="bi bi-person-circle me-1"></i>

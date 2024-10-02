@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlertController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
@@ -21,7 +22,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('users', UserController::class);
     Route::resource('orders', controller: OrderController::class);
     Route::resource('clients', ClientController::class);
-
+    Route::get('/alerts', [AlertController::class, 'index'])->name('alerts.index');
     Route::resource('stocks', StockController::class);
     Route::post('stock-movements', [StockMovementController::class, 'store'])->name('stock-movements.store');
 
