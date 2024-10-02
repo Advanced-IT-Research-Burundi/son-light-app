@@ -18,10 +18,13 @@ return new class extends Migration
             $table->id();
             $table->string('company')->nullable();
             $table->string('designation')->nullable();
-            $table->integer('quantity')->nullable();
             $table->foreignId('client_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->decimal('amount', 10, 2);
+            $table->integer('quantity')->nullable();
+            $table->double('amount');
+            $table->double('tva')->default(0);
+            $table->double(column: 'prix_hors_tva')->default(0);
+            $table->double(column: 'prix_tvac')->default(0);
             $table->date('order_date');
             $table->date('delivery_date');
             $table->string('status');

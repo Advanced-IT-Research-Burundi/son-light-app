@@ -15,35 +15,19 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-{{-- <div class="form-group mb-3">
-    <label for="client_id" class="form-label">
-        <i class="bi bi-people-fill"></i> Facturation
-    </label>
 
-    <select class="form-select @error('company') is-invalid @enderror" id="company" name="company" required>
-        <option value="">Sélectionnez le moyen de facturation</option>
-        <option value="1" {{ old('company', $order->company ?? '') == '1' ? 'selected' : '' }}>HTVA</option>
-        <option value="2" {{ old('company', $order->company ?? '') == '2' ? 'selected' : '' }}>TVAC</option>
-    </select>
-    @error('company')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-
-</div> --}}
 <div class="form-group mb-3">
     <label for="client_id" class="form-label">
         <i class="bi bi-people-fill"></i> Societe
     </label>
-
     <select class="form-select @error('company') is-invalid @enderror" id="company" name="company" required>
-        <option value="">Sélectionnez une société</option>
-        <option value="Son light IMPRIMERIE" {{ old('company', $order->company ?? '') == 'Son light IMPRIMERIE' ? 'selected' : '' }}>Son light IMPRIMERIE</option>
-        <option value="DEALER GROUP" {{ old('company', $order->company ?? '') == 'DEALER GROUP' ? 'selected' : '' }}>DEALER GROUP</option>
-        <option value=" BUFI TECHNOLOGIE" {{ old('company', $order->company ?? '') == ' BUFI TECHNOLOGIE' ? 'selected' : '' }}> BUFI TECHNOLOGIE</option>
-        <option value="NOVA TECH" {{ old('company', $order->company ?? '') == 'NOVA TECH' ? 'selected' : '' }}>NOVA TECH</option>
-        <option value="AFRO BUSINESS GROUP" {{ old('company', $order->company ?? '') == 'AFRO BUSINESS GROUP' ? 'selected' : '' }}>AFRO BUSINESS GROUP</option>
-        <option value="SOCIETE ANONYME" {{ old('company', $order->company ?? '') == 'SOCIETE ANONYME' ? 'selected' : '' }}>SOCIETE ANONYME</option>
-    </select>
+    <option value="">Sélectionnez une société</option>
+    @foreach(COMPANY_LIST as $company)
+        <option value="{{ $company }}" {{ old('company', $order->company ?? '') == $company ? 'selected' : '' }}>
+            {{ $company }}
+        </option>
+    @endforeach
+</select>
     @error('company')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
@@ -58,25 +42,59 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3">
-    <label for="amount" class="form-label">
-        <i class="bi bi-cash-coin"></i> P.U
-    </label>
-    <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $order->amount ?? '') }}" required>
-    @error('amount')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
+
+<div class="row">
+    <div class="form-group mb-3 col">
+        <label for="amount" class="form-label">
+            <i class="bi bi-cash-coin"></i> P.U
+        </label>
+        <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $order->amount ?? '') }}" required data-calc="price">
+        @error('amount')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="form-group mb-3 col">
+        <label for="quantity" class="form-label">
+            Quantité
+        </label>
+        <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity', $order->quantity ?? '') }}" required data-calc="quantity">
+        @error('quantity')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="form-group mb-3 col">
+        <label for="tva" class="form-label">
+            TVA
+        </label>
+        <select class="form-select @error('tva') is-invalid @enderror" id="tva" name="tva" required data-calc="tva">
+            <option value="">Sélectionnez un taux</option>
+            @foreach([0, 4, 10, 18, 22] as $rate)
+                <option value="{{ $rate }}" {{ old('tva', $order->tva ?? '') == $rate ? 'selected' : '' }}>
+                    {{ $rate }}%
+                </option>
+            @endforeach
+        </select>
+        @error('tva')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="form-group mb-3 col">
+        <label for="amount_ht" class="form-label">
+            Montant HT
+        </label>
+        <input type="text" class="form-control" id="amount_ht" name="amount_ht" readonly>
+    </div>
+    <div class="form-group mb-3 col">
+        <label for="amount_tvac" class="form-label">
+            Montant TTC
+        </label>
+        <input type="text" class="form-control" id="amount_tvac" name="amount_tvac" readonly>
+    </div>
 </div>
 
-<div class="form-group mb-3">
-    <label for="order_date" class="form-label">
-        <i class="bi bi-calendar"></i> Quantité
-    </label>
-    <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity', $order->quantity ?? '') }}" required>
-    @error('quantity')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
+
 <div class="form-group mb-3">
     <label for="order_date" class="form-label">
         <i class="bi bi-calendar"></i> Date de livraison
@@ -120,3 +138,35 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const price = document.querySelector('[data-calc="price"]');
+    const quantity = document.querySelector('[data-calc="quantity"]');
+    const tva = document.querySelector('[data-calc="tva"]');
+    const amountHt = document.getElementById('amount_ht');
+    const amountTvac = document.getElementById('amount_tvac');
+    function calculateAmounts() {
+        const priceValue = parseFloat(price.value) || 0;
+        const quantityValue = parseInt(quantity.value) || 0;
+        const tvaRate = parseFloat(tva.value) || 0;
+
+        const totalHt = priceValue * quantityValue;
+        const totalTvac = totalHt * (1 + tvaRate / 100);
+
+        amountHt.value = totalHt.toFixed(2) + ' BIF';
+        amountTvac.value = totalTvac.toFixed(2) + ' BIF';
+    }
+
+    [price, quantity, tva].forEach(element => {
+        element.addEventListener('input', calculateAmounts);
+    });
+
+    // Initial calculation
+    calculateAmounts();
+});
+</script>
+
+@stop

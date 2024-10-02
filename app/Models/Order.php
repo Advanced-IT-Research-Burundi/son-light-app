@@ -17,19 +17,7 @@ class Order extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'company',
-        'designation',
-        'quantity',
-        'client_id',
-        'user_id',
-        'amount',
-        'order_date',
-        'delivery_date',
-        'status',
-        'description',
-        'company'
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.
