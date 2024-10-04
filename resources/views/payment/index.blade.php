@@ -31,6 +31,7 @@ payment.index template
                         <tr>
                             <th>ID</th>
                             <th>Commande</th>
+                            <th>Client</th>
                             <th>Montant</th>
                             <th>Mode Payement</th>
                             <th>Date </th>
@@ -47,6 +48,7 @@ payment.index template
                          <tr>
                             <td>{{ $count }}</td>
                             <td>{{ $payment->order->designation ?? ''}}</td>
+                            <td>{{ $payment->order->client->name?? ''}}</td>
                             <th>{{ $payment->amount ?? ''}}</th>
                             <td>{{ $payment->payment_method ?? ''}}</td>
                             <td>{{ $payment->payment_date }}</td>
