@@ -109,6 +109,9 @@
                             <i class="bi bi-cash-coin"></i> Payement
                         </a>
                     </li>
+                   <li>
+                   <a href="{{ route('companies.index') }}" class="nav-link">Entreprises</a>
+                   </li>
 
                     <li class="nav-item">
                         <a class="nav-link {{ Request::routeIs('stocks.*') ? 'active' : '' }}" href="{{ route('stocks.index') }}">

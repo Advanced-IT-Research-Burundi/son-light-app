@@ -67,5 +67,54 @@
             <i class="bi bi-arrow-left"></i> Retour à la liste
         </a>
     </div>
+
+
+    
+</div>
+
+<div class="container">
+    <h1>Détails de la commande #{{ $order->id }}</h1>
+
+    <!-- ... autres détails de la commande ... -->
+
+    <h2>Produits commandés</h2>
+    <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary mb-3">Ajouter un produit</a>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Prix total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($order->detailOrders as $detail)
+            <tr>
+                <td>{{ $detail->product_name }}</td>
+                <td>{{ $detail->quantity }}</td>
+                <td>{{ number_format($detail->unit_price, 2) }} €</td>
+                <td>{{ number_format($detail->total_price, 2) }} €</td>
+                <td>
+                    <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info">Modifier</a>
+                    <form action="{{ route('orders.detail-orders.destroy', [$order, $detail]) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3">Total</th>
+                <th>{{ number_format($order->amount, 2) }} €</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
 </div>
 @endsection

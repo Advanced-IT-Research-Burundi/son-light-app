@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AlertController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DetailOrderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
@@ -33,6 +35,8 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('payments', App\Http\Controllers\PaymentController::class);
     Route::resource('reports', App\Http\Controllers\ReportController::class);
     Route::get('rapport-generale', [ReportController::class, 'rapportgenerale'])->name('rapport-generale');
+    Route::resource('orders.detail-orders', DetailOrderController::class)->except(['index', 'show']);
+    Route::resource('companies', CompanyController::class);
 });
 require_once __DIR__.'/auth.php';
 

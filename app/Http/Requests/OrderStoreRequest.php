@@ -25,6 +25,7 @@ class OrderStoreRequest extends FormRequest
             'order_date' => ['required', 'date'],
             'status' => ['required', 'string'],
             'description' => ['nullable', 'string'],
+            'company_id' => 'required|exists:companies,id',
         ];
     }
 }

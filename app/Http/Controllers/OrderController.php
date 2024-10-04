@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderStoreRequest;
 use App\Models\Client;
+use App\Models\Company;
 use App\Models\Order;
 
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class OrderController extends Controller
     public function create()
     {
         $clients = Client::all();
-        return view('orders.create', compact('clients'));
+        $companies = Company::all();
+        return view('orders.create', compact('clients', 'companies'));
     }
 
     public function show(Order $order)
@@ -44,7 +46,8 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         $clients = Client::all();
-        return view('orders.edit', compact('order', 'clients'));
+        $companies = Company::all();
+        return view('orders.edit', compact('order', 'clients','companies'));
     }
 
     public function update(Request $request, Order $order)
@@ -55,6 +58,7 @@ class OrderController extends Controller
             'order_date' => ['required', 'date'],
             'status' => ['required', 'string'],
             'description' => ['nullable', 'string'],
+            'company_id' => 'required|exists:companies,id',
         ]);
 
         $order->update(attributes: $request->all());
