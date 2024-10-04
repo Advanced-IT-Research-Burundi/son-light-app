@@ -55,9 +55,9 @@ payment.index template
                             <td> {{ $payment->description }}</td>
 
                             <td>
-                                {{-- <a href="{{ route('payments.show', $payment->id) }}" class="btn btn-sm btn-info">
+                                <a href="{{ route('payments.show', $payment->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i>
-                                </a> --}}
+                                </a>
                                 <a href="{{ route('payments.edit', $payment->id) }}" class="btn btn-sm btn-primary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
