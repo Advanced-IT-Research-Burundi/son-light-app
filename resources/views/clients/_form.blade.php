@@ -14,7 +14,7 @@
     <label for="email" class="form-label">
         <i class="bi bi-envelope"></i> Email
     </label>
-    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $client->email ?? '') }}" required>
+    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $client->email ?? '') }}" >
     @error('email')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
@@ -61,7 +61,7 @@
     <label for="persone_reference1" class="form-label">
         <i class="bi bi-person"></i>Premiere personnne de reference avec son Tel
     </label>
-    <input type="text" class="form-control @error('persone_reference1') is-invalid @enderror" id="persone_reference1" name="persone_reference1" value="{{ old('persone_reference1', $client->persone_reference1 ?? '') }}" required>
+    <input type="text" class="form-control @error('persone_reference1') is-invalid @enderror" id="persone_reference1" name="persone_reference1" value="{{ old('persone_reference1', $client->persone_reference1 ?? '') }}" >
     @error('persone_reference1')
         <div class="invalid-feedback">{{ $persone_reference1 }}</div>
     @enderror
@@ -70,7 +70,7 @@
     <label for="persone_reference2" class="form-label">
         <i class="bi bi-person"></i> Seconde personnne de reference avec son Tel
     </label>
-    <input type="text" class="form-control @error('persone_reference2') is-invalid @enderror" id="persone_reference2" name="persone_reference2" value="{{ old('persone_reference2', $client->persone_reference2 ?? '') }}" required>
+    <input type="text" class="form-control @error('persone_reference2') is-invalid @enderror" id="persone_reference2" name="persone_reference2" value="{{ old('persone_reference2', $client->persone_reference2 ?? '') }}" >
     @error('persone_reference2')
         <div class="invalid-feedback">{{ $persone_reference2 }}</div>
     @enderror
