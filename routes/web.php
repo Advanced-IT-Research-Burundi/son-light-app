@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailOrderController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProformaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ReportController;
@@ -27,9 +28,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/alerts', [AlertController::class, 'index'])->name('alerts.index');
     Route::resource('stocks', StockController::class);
     Route::post('stock-movements', [StockMovementController::class, 'store'])->name('stock-movements.store');
-
+    
     Route::resource('tasks', App\Http\Controllers\TaskController::class);
-
+    
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     Route::resource('material-usages', App\Http\Controllers\MaterialUsageController::class);
     Route::resource('payments', App\Http\Controllers\PaymentController::class);
@@ -37,6 +38,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('rapport-generale', [ReportController::class, 'rapportgenerale'])->name('rapport-generale');
     Route::resource('orders.detail-orders', DetailOrderController::class)->except(['index', 'show']);
     Route::resource('companies', CompanyController::class);
+    Route::resource('proformas', ProformaController::class);
+    Route::get('orders/{order}/proformas/create', [ProformaController::class, 'create'])->name('proformas.create');
+    Route::post('orders/{order}/proformas', [ProformaController::class, 'store'])->name('proformas.store');
+    Route::get('proformas/{proforma}/generate-pdf', [ProformaController::class, 'generatePDF'])->name('proformas.generatePDF');
+   
 });
 require_once __DIR__.'/auth.php';
 

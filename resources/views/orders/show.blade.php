@@ -6,6 +6,10 @@
     <h1 class="my-4">
         <i class="bi bi-bag"></i> Détails de la commande #{{ $order->id }}
     </h1>
+    <div class="mt-4">
+        <a href="{{ route('proformas.create', $order) }}" class="btn btn-primary">Créer une facture proforma</a>
+        <!-- ... autres boutons ... -->
+    </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Informations de la commande</h6>
