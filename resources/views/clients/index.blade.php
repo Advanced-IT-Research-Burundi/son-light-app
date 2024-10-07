@@ -22,8 +22,8 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="clientsTable" width="100%" cellspacing="0">
-                    <thead>
+                    <table class="table table-bordered" id="clientsTable" width="100%" cellspacing="0">
+                        <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
