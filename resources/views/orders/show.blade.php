@@ -31,6 +31,8 @@
                 <dt class="col-sm-3">Quantité</dt>
                 <dd class="col-sm-9">{{ $order->quantity ?? 'Non spécifié' }}</dd>
 
+                <dt class="col-sm-3">Prix Unitaire</dt>
+                <dd class="col-sm-9">{{ number_format($order->amount, 2, ',', ' ') }} BIF</dd>
 
                 <dt class="col-sm-3">Montant HT</dt>
                 <dd class="col-sm-9">{{ number_format($order->amount_ht, 2, ',', ' ') }} BIF</dd>
@@ -38,8 +40,6 @@
                 <dt class="col-sm-3">Montant TVAC</dt>
                 <dd class="col-sm-9">{{ number_format($order->amount_tvac, 2, ',', ' ') }} BIF</dd>
 
-                <dt class="col-sm-3">Montant</dt>
-                <dd class="col-sm-9">{{ number_format($order->amount, 2, ',', ' ') }} BIF</dd>
 
                 <dt class="col-sm-3">Date de commande</dt>
                 <dd class="col-sm-9">{{ $order->order_date->format('d/m/Y') }}</dd>
@@ -84,23 +84,32 @@
     <h2>Produits commandés</h2>
     <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary mb-3">Ajouter un produit</a>
 
+    @php
+        $count = 1;
+    @endphp
     <table class="table">
         <thead>
             <tr>
+                <th>Ordre</th>
                 <th>Produit</th>
                 <th>Quantité</th>
                 <th>Prix unitaire</th>
-                <th>Prix total</th>
+                <th>Prix total HT</th>
+                <th>TVA</th>
+                <th>Prix total TVAC</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach($order->detailOrders as $detail)
             <tr>
+                <td>{{ $count}}</td>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }} Fr</td>
-                <td>{{ number_format($detail->total_price, 2) }} Fr</td>
+                <td>{{ number_format($detail->unit_price, 2) }} Fr Bu</td>
+                <td>{{ number_format($detail->total_price, 2) }} Fr Bu</td>
+                <td>{{ $detail->total_price * $order->tva / 100 }} Fr Bu</td>
+                <td>{{ number_format( ($detail->total_price + ($detail->total_price * $order->tva / 100)), 2) }} Fr Bu</td>
                 <td>
                     <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info">Modifier</a>
                     <form action="{{ route('orders.detail-orders.destroy', [$order, $detail]) }}" method="POST" class="d-inline">
@@ -110,15 +119,18 @@
                     </form>
                 </td>
             </tr>
+            @php
+                $count++;
+            @endphp
             @endforeach
         </tbody>
-        <tfoot>
+        {{-- <tfoot>
             <tr>
-                <th colspan="3">Total</th>
-                <th>{{ number_format($order->amount, 2) }} Fr</th>
+                <th colspan="4">Total</th>
+                <th>{{ number_format($order->amount, 2) }} Fr Bu</th>
                 <th></th>
             </tr>
-        </tfoot>
+        </tfoot> --}}
     </table>
 </div>
 @endsection

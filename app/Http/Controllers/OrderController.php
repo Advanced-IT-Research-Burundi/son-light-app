@@ -37,8 +37,16 @@ class OrderController extends Controller
         //dd($validatedData);
         $validatedData['user_id'] = Auth::user()->id;
         $validatedData['delivery_date'] = now();
-         Order::create($validatedData);
-        
+        $order = Order::create($validatedData);
+
+
+        $detailOrder = $order->detailOrders()->create([
+            'product_name' => $request->designation,
+            'quantity' => $request->quantity,
+            'unit_price' => $request->amount,
+            'total_price' => ($request->amount * $request->quantity),
+        ]);
+
         return redirect()->route('orders.index')
             ->with('success', 'Commande créée avec succès.');
     }
@@ -62,6 +70,8 @@ class OrderController extends Controller
         ]);
 
         $order->update(attributes: $request->all());
+
+        
 
         return redirect()->route('orders.index')
             ->with('success', 'Commande mise à jour avec succès.');
