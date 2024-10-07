@@ -109,8 +109,8 @@
                             <i class="bi bi-cash-coin"></i> Payement
                         </a>
                     </li>
-                   <li>
-                   <a href="{{ route('companies.index') }}" class="nav-link">Entreprises</a>
+                   <li  class="nav-item">
+                   <a  class="nav-link {{ Request::routeIs('companies.*') ? 'active' : '' }}" href="{{ route('companies.index') }}" class="nav-link">Entreprises</a>
                    </li>
 
                     <li class="nav-item">
@@ -132,12 +132,12 @@
                         </li>
 
                 </ul>
-                
+
                 <ul class="navbar-nav">
                 <li>
 
                 @livewire('dashoboards.badge')
-              
+
                 </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

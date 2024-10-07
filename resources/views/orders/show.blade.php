@@ -31,7 +31,7 @@
                 <dt class="col-sm-3">Quantité</dt>
                 <dd class="col-sm-9">{{ $order->quantity ?? 'Non spécifié' }}</dd>
 
-            
+
                 <dt class="col-sm-3">Montant HT</dt>
                 <dd class="col-sm-9">{{ number_format($order->amount_ht, 2, ',', ' ') }} BIF</dd>
 
@@ -73,7 +73,7 @@
     </div>
 
 
-    
+
 </div>
 
 <div class="container">
@@ -83,7 +83,7 @@
 
     <h2>Produits commandés</h2>
     <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary mb-3">Ajouter un produit</a>
-    
+
     <table class="table">
         <thead>
             <tr>
@@ -99,8 +99,8 @@
             <tr>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }} €</td>
-                <td>{{ number_format($detail->total_price, 2) }} €</td>
+                <td>{{ number_format($detail->unit_price, 2) }} Fr</td>
+                <td>{{ number_format($detail->total_price, 2) }} Fr</td>
                 <td>
                     <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info">Modifier</a>
                     <form action="{{ route('orders.detail-orders.destroy', [$order, $detail]) }}" method="POST" class="d-inline">
@@ -115,7 +115,7 @@
         <tfoot>
             <tr>
                 <th colspan="3">Total</th>
-                <th>{{ number_format($order->amount, 2) }} €</th>
+                <th>{{ number_format($order->amount, 2) }} Fr</th>
                 <th></th>
             </tr>
         </tfoot>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proforma;
 use App\Models\Order;
-use PDF; 
+use PDF;
 use Illuminate\Http\Request;
 
 class ProformaController extends Controller
@@ -70,10 +70,10 @@ class ProformaController extends Controller
 
     public function generatePDF(Proforma $proforma)
     {
-        $proforma->load('order.detailOrders', 'order.client', 'order.company');
-        
+        $proforma->load('order.detailOrders', 'order.client', 'order.entreprise');
+
         $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
-        
+
         return $pdf->download('facture_proforma_' . $proforma->number . '.pdf');
     }
 }

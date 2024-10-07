@@ -1,4 +1,4 @@
-<!-- resources/views/proformas/show.blade.php -->
+s<!-- resources/views/proformas/show.blade.php -->
 @extends('layouts.app')
 
 @section('content')
@@ -40,6 +40,6 @@
         <a href="{{ route('proformas.edit', $proforma) }}" class="btn btn-primary">Modifier</a>
         <a href="{{ route('proformas.generatePDF', $proforma) }}" class="btn btn-success">Générer PDF</a>
     </div>
-    
+
 </div>
 @endsection

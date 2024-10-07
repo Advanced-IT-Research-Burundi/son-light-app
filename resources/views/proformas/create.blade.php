@@ -9,7 +9,7 @@
         @csrf
         <div class="mb-3">
             <label for="number" class="form-label">Numéro de facture proforma</label>
-            <input type="text" class="form-control" id="number" name="number" value="{{ $number }}" readonly>
+            <input type="text" class="form-control" id="number" name="number" value="{{ $order->id}}" readonly>
         </div>
 
         <div class="mb-3">
@@ -37,15 +37,15 @@
                 <tr>
                     <td>{{ $detail->product_name }}</td>
                     <td>{{ $detail->quantity }}</td>
-                    <td>{{ number_format($detail->unit_price, 2) }} €</td>
-                    <td>{{ number_format($detail->total_price, 2) }} €</td>
+                    <td>{{ number_format($detail->unit_price, 2) }} Fr</td>
+                    <td>{{ number_format($detail->total_price, 2) }} Fr</td>
                 </tr>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="3">Total</th>
-                    <th>{{ number_format($order->amount, 2) }} €</th>
+                    <th>{{ number_format($order->amount, 2) }} Fr</th>
                 </tr>
             </tfoot>
         </table>

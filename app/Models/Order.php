@@ -58,8 +58,8 @@ class Order extends Model
         return $this->hasMany(DetailOrder::class);
     }
 
-    public function company()
+    public function entreprise()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class,'company_id');
     }
 }

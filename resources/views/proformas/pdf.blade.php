@@ -43,10 +43,10 @@
     </div>
 
     <div class="info">
-        <p><strong>Date :</strong> {{ $proforma->date->format('d/m/Y') }}</p>
+        <p><strong>Date :</strong> {{ $proforma->date }}</p>
         <p><strong>Validité :</strong> {{ $proforma->validity_period }} jours</p>
         <p><strong>Client :</strong> {{ $proforma->order->client->name }}</p>
-        <p><strong>Entreprise :</strong> {{ $proforma->order->company->name }}</p>
+        <p><strong>Entreprise :</strong> {{ $proforma->order->entreprise->name ??'' }}</p>
     </div>
 
     <table>
@@ -63,21 +63,21 @@
             <tr>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }} €</td>
-                <td>{{ number_format($detail->total_price, 2) }} €</td>
+                <td>{{ number_format($detail->unit_price, 2) }} Fr</td>
+                <td>{{ number_format($detail->total_price, 2) }} Fr</td>
             </tr>
             @endforeach
         </tbody>
     </table>
 
     <div class="total">
-        <p><strong>Total HT :</strong> {{ number_format($proforma->total_amount, 2) }} €</p>
-        <p><strong>TVA (20%) :</strong> {{ number_format($proforma->total_amount * 0.2, 2) }} €</p>
-        <p><strong>Total TTC :</strong> {{ number_format($proforma->total_amount * 1.2, 2) }} €</p>
+        <p><strong>Total HT :</strong> {{ number_format($proforma->total_amount, 2) }} Fr</p>
+        <p><strong>TVA ({{ $proforma->order->tva }} % ) :</strong> {{ number_format($proforma->total_amount * ($proforma->order->tva/100), 2) }} Fr</p>
+        <p><strong>Total TTC :</strong> {{ number_format($proforma->total_amount * 1.2, 2) }} Fr</p>
     </div>
 
     <div class="footer">
-        <p>Cette facture proforma est valable jusqu'au {{ $proforma->date->addDays($proforma->validity_period)->format('d/m/Y') }}.</p>
+        <p>Cette facture proforma est valable jusqu'au {{ (new DateTime($proforma->date))->add(new DateInterval('P' . $proforma->validity_period . 'D'))->format('d/m/Y') }}.</p>
     </div>
 </body>
 </html>

@@ -42,7 +42,7 @@
                         @foreach($orders as $order)
                         <tr>
                             <td>{{ $count }}</td>
-                            <td>{{ $order->company ?? ''}}</td>
+                            <td>{{ $order->entreprise->name ?? ''}}</td>
                             <td>{{ $order->designation?? ''}}</td>
                             <th>{{ $order->amount ?? ''}}</th>
                             <td>{{ $order->quantity ?? ''}}</td>
@@ -50,7 +50,7 @@
                             <td>{{ $order->client->name }}</td>
                             <td>{{ $order->order_date->format('d/m/Y') }}</td>
                             <td> {{ $order->status }}</td>
-                            {{-- <td>{{ number_format($order->amount, 2, ',', ' ') }} €</td> --}}
+                            {{-- <td>{{ number_format($order->amount, 2, ',', ' ') }} Fr</td> --}}
                             {{-- <td>
                                 <span class="badge bg-{{ $order->status_color }}">
                                     {{ $order->status_label }}
