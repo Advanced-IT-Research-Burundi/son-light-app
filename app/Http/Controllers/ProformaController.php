@@ -6,6 +6,7 @@ use App\Models\Proforma;
 use App\Models\Order;
 use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class ProformaController extends Controller
 {
@@ -72,6 +73,7 @@ class ProformaController extends Controller
     {
         $proforma->load('order.detailOrders', 'order.client', 'order.entreprise');
 
+        // return view('proformas.pdf',compact('proforma'));
         $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
 
         return $pdf->download('facture_proforma_' . $proforma->number . '.pdf');
