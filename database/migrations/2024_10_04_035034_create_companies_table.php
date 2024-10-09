@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('nif')->nullable();
             $table->string('rc')->nullable();
             $table->boolean('assujeti')->default(0);
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

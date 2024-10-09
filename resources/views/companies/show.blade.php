@@ -30,6 +30,9 @@
         <dt class="col-sm-3">Adresse</dt>
         <dd class="col-sm-9">{{ $company->address ?? 'Non spécifiée' }}</dd>
 
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">{{ $company->description ?? 'Non spécifiée' }}</dd>
+
     </dl>
     <a href="{{ route('companies.edit', $company) }}" class="btn btn-primary">Modifier</a>
     <a href="{{ route('companies.index') }}" class="btn btn-secondary">Retour à la liste</a>

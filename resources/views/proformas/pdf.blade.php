@@ -9,8 +9,7 @@
             font-family: 'Roboto', sans-serif;
             font-size: 12px;
             line-height: 1.5;
-            background-color: #f9f9f9;
-            margin: 20px;
+            margin: 10px;
             color: #333;
         }
         .header {
@@ -39,7 +38,8 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin: 0;
+            padding: 0;
         }
         th, td {
             border: 1px solid #ddd;
@@ -67,7 +67,7 @@
             <table>
                 <tr style="text-align: center">
                     {{-- <td><img src="{{ asset('images/logo.jpeg') }}" alt="Son Light Logo" class="logo"></td> --}}
-                    <h3>SON LIGHT / PAPER SERVICES</h3>
+                    <h3>{{ $proforma->order->entreprise->name }} </h3>
                 </tr>
             </table>
         </div>
@@ -75,8 +75,12 @@
     <div class="info-box">
         <table style="border: none;">
             <tr>
-                <td style="border: none"><strong>NIF :</strong> 4000652612<br><strong>RC :</strong> 06190</td>
-                <td style="border: none"> <p>Travaux d'imprimerie, Fourniture du matériel, <br>Bureautique et Informatique, Sérigraphie, <br>Location des Rétroprojecteurs et Commerce général</p>
+                <td style="border: none; width: 30%">
+                    <p><strong>NIF :{{$proforma->order->entreprise->nif}} </strong> </p>
+                    <p><strong>  RC :{{$proforma->order->entreprise->rc}} </strong></p>
+                </td>
+                <td style="border: none">
+                    <p>{{ $proforma->order->entreprise->description ?? ''}}</p>
                 </td>
             </tr>
         </table>
@@ -102,7 +106,8 @@
             <strong>Nom et prénom ou raison sociale :</strong> {{ $proforma->order->client->name }}<br>
             <strong>NIF :</strong> {{ $proforma->order->client->nif ?? '_________' }}<br>
             <strong>Résidence à :</strong> {{ $proforma->order->client->address ?? 'BUJA' }}<br>
-            <strong>Assujetti à la TVA :</strong> Oui [ ] Non [ ]
+            <strong>Assujetti à la TVA :</strong> Oui [ {{ $proforma->order->client->assujeti?'X':' ' }}] Non [{{ $proforma->order->client->assujeti?' ':'X' }}]
+
         </p>
     </div>
 
@@ -146,7 +151,7 @@
     </div>
 
     <div class="footer">
-        <p>Rohero 2, Av de France N°12, Galerie Kusta Place n°E,D,M | Tél: +257 79 881 769 (whatsapp) +257 69 723 126 / 79 732 102 | E-mail: sonlightimprimerie@gmail.com</p>
+        <p> {{$proforma->order->entreprise->address}} | Tél: {{$proforma->order->entreprise->phone}} | E-mail: {{$proforma->order->entreprise->email}}</p>
     </div>
 </body>
 </html>

@@ -28,7 +28,8 @@ class CompanyController extends Controller
                 'email' => 'required|email|max:255',
                 'nif' => 'required',
                 'rc' => 'required',
-                'assujeti' => 'required'
+                'assujeti' => 'required',
+                'description' => 'required'
             ]);
 
             Company::create($validatedData);
@@ -59,7 +60,8 @@ class CompanyController extends Controller
                 'email' => 'required|email|max:255',
                 'nif' => 'required',
                 'rc' => 'required',
-                'assujeti' => 'required'
+                'assujeti' => 'required',
+                'description' => 'required'
             ]);
 
             $company->update($validatedData);
