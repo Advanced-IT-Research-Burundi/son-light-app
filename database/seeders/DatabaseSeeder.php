@@ -23,10 +23,10 @@ class DatabaseSeeder extends Seeder
           ]);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-            'role_id' => 2, // Employé role id
+            'name' => 'NIMPAGARITSE Léandre',
+            'email' => 'leandrenimpagaritse22@gmail.com',
+            'password' => bcrypt('leandre@2024'),
+            'role_id' => 1, // Admin role id
         ]);
     }
 }

@@ -38,12 +38,18 @@
                 <td>{{ $company->phone }}</td>
                 <td>{{ $company->email }}</td>
                 <td>
-                    <a href="{{ route('companies.show', $company) }}" class="btn btn-info btn-sm">Voir</a>
-                    <a href="{{ route('companies.edit', $company) }}" class="btn btn-primary btn-sm">Modifier</a>
+                    <a href="{{ route('companies.show', $company) }}" class="btn btn-info btn-sm">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{{ route('companies.edit', $company) }}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-pencil"></i>
+                    </a>
                     <form action="{{ route('companies.destroy', $company) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette entreprise ?')">Supprimer</button>
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette entreprise ?')">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </form>
                 </td>
             </tr>

@@ -110,7 +110,7 @@
                         </a>
                     </li>
                    <li  class="nav-item">
-                   <a  class="nav-link {{ Request::routeIs('companies.*') ? 'active' : '' }}" href="{{ route('companies.index') }}" class="nav-link">Entreprises</a>
+                   <a  class="nav-link {{ Request::routeIs('companies.*') ? 'active' : '' }}" href="{{ route('companies.index') }}" class="nav-link"> <i class="bi bi-building"></i> Entreprises</a>
                    </li>
 
                     <li class="nav-item">

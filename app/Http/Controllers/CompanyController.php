@@ -8,7 +8,7 @@ class CompanyController extends Controller
 {
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::latest()->get();
         return view('companies.index', compact('companies'));
     }
 
@@ -19,20 +19,28 @@ class CompanyController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255|unique:companies',
-            'address' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255',
-        ]);
 
-        Company::create($validatedData);
 
-        return redirect()->route('companies.index')->with('success', 'Entreprise créée avec succès.');
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255|unique:companies',
+                'address' => 'required|string|max:255',
+                'phone' => 'required|string|max:20',
+                'email' => 'required|email|max:255',
+                'nif' => 'required',
+                'rc' => 'required',
+                'assujeti' => 'required'
+            ]);
+
+            Company::create($validatedData);
+
+            return redirect()->route('companies.index')->with('success', 'Entreprise créée avec succès.');
+
+
     }
 
     public function show(Company $company)
     {
+        // dd($company);
         return view('companies.show', compact('company'));
     }
 
