@@ -39,6 +39,9 @@
                             <td>{{ $user->role->name??'' }}</td>
                             <td>{{ $user->created_at->format('Y-m-d') }}</td>
                             <td>
+                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info">
+                                    <i class="bi bi-eye"></i>
+                                </a>
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-pencil"></i>
                                     </a>

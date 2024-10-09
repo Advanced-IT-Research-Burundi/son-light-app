@@ -63,4 +63,8 @@ class User extends Authenticatable
     public function isEmployee(){
         return $this->role()->where('name', 'Employé')->exists();
     }
+
+    public function tasks(){
+        return $this->hasMany(Task::class);
+    }
 }
