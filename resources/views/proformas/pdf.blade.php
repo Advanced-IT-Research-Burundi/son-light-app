@@ -88,13 +88,13 @@
     <div>
         <h4>A. Identification du vendeur</h4>
         <p>
-            <strong>Raison sociale :</strong> SON LIGHT<br>
-            <strong>NIF :</strong> 4000652612<br>
-            <strong>RC :</strong> 06190<br>
-            <strong>Tél :</strong> +257 69 723 126 / 79 881 769<br>
-            <strong>Commune :</strong> Mukaza, quartier Rohero2<br>
-            <strong>Avenue :</strong> Avenue de la France<br>
-            <strong>Assujetti à la TVA :</strong> Oui [x] Non [ ]
+            <strong>Raison sociale :</strong> {{$proforma->order->entreprise->name}}<br>
+            <strong>NIF :</strong> {{$proforma->order->entreprise->nif}}<br>
+            <strong>RC :</strong> {{$proforma->order->entreprise->rc}}<br>
+            <strong>Tél :</strong> {{$proforma->order->entreprise->phone}}<br>
+            <strong>Adresse :</strong> {{$proforma->order->entreprise->address}}<br>
+            {{-- <strong>Avenue :</strong> Avenue de la France<br> --}}
+            <strong>Assujetti à la TVA :</strong> Oui [ {{ $proforma->order->entreprise->assujeti?'X':' ' }}] Non [{{ $proforma->order->entreprise->assujeti?' ':'X' }}]
         </p>
 
         <h4>B. Le Client</h4>

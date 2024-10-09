@@ -51,17 +51,23 @@ class CompanyController extends Controller
 
     public function update(Request $request, Company $company)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255|unique:companies,name,' . $company->id,
-            'address' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255',
-        ]);
 
-        $company->update($validatedData);
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255|unique:companies,name,' . $company->id,
+                'address' => 'required|string|max:255',
+                'phone' => 'required|string|max:20',
+                'email' => 'required|email|max:255',
+                'nif' => 'required',
+                'rc' => 'required',
+                'assujeti' => 'required'
+            ]);
 
-        return redirect()->route('companies.index')->with('success', 'Entreprise mise à jour avec succès.');
-    }
+            $company->update($validatedData);
+
+            return redirect()->route('companies.index')->with('success', 'Entreprise mise à jour avec succès.');
+
+
+     }
 
     public function destroy(Company $company)
     {

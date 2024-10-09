@@ -10,6 +10,8 @@
         @method('PUT')
         @include('companies._form')
         <button type="submit" class="btn btn-primary">Mettre à jour l'entreprise</button>
+        <a href="{{ route('companies.index') }}" class="btn btn-secondary">Retour à la liste</a>
+
     </form>
 </div>
 @endsection
