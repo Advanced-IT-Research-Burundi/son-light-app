@@ -47,7 +47,27 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-
+<div class="mb-3">
+    <label for="rc" class="form-label">RC</label>
+    <input type="text" class="form-control @error('rc') is-invalid @enderror" id="rc" name="rc" value="{{ old('rc', $company->rc ?? '') }}">
+    @error('rc')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+<div class="mb-3">
+    <label for="assujeti" class="form-label">Assujeti TVA  :  </label>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="assujeti" id="inlineRadio1"  value="1">
+        <label class="form-check-label" for="inlineRadio1">OUI</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="assujeti" id="inlineRadio2" value="0">
+        <label class="form-check-label" for="inlineRadio2">NON</label>
+    </div>
+    @error('assujeti')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
 <div class="form-group mb-3">
     <label for="address" class="form-label">
         <i class="bi bi-geo-alt"></i> Adresse
@@ -75,6 +95,7 @@
         <div class="invalid-feedback">{{ $persone_reference2 }}</div>
     @enderror
 </div>
+
 <div class="form-group mb-3">
     <label for="description" class="form-label">
         <i class="bi bi-chat-left-text"></i> Description

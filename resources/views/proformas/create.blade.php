@@ -3,26 +3,29 @@
 
 @section('content')
 <div class="container">
-    <h1>Créer une facture proforma pour la commande #{{ $order->id }}</h1>
+    <h3>Créer une facture proforma pour la commande #{{ $order->id }}</h3>
 
     <form action="{{ route('proformas.store', $order) }}" method="POST">
         @csrf
-        <div class="mb-3">
-            <label for="number" class="form-label">Numéro de facture proforma</label>
-            <input type="text" class="form-control" id="number" name="number" value="{{ $order->id}}" readonly>
+        <div class="row my-4">
+            <div class="mb-3 col-4">
+                <label for="number" class="form-label">Numéro de facture proforma</label>
+                <input type="text" class="form-control" id="number" name="number" value="{{ $order->id}}" readonly>
+            </div>
+
+            <div class="mb-3 col-4">
+                <label for="date" class="form-label">Date de la facture</label>
+                <input type="date" class="form-control" id="date" name="date" value="{{ date('Y-m-d') }}" required>
+            </div>
+
+            <div class="mb-3 col-4">
+                <label for="validity_period" class="form-label">Période de validité (en jours)</label>
+                <input type="number" class="form-control" id="validity_period" name="validity_period" value="30" required min="1">
+            </div>
         </div>
 
-        <div class="mb-3">
-            <label for="date" class="form-label">Date de la facture</label>
-            <input type="date" class="form-control" id="date" name="date" value="{{ date('Y-m-d') }}" required>
-        </div>
 
-        <div class="mb-3">
-            <label for="validity_period" class="form-label">Période de validité (en jours)</label>
-            <input type="number" class="form-control" id="validity_period" name="validity_period" value="30" required min="1">
-        </div>
-
-        <h2>Détails de la commande</h2>
+        <h3>Détails de la commande</h3>
         @php
             $count = 1;
             $total = 0;

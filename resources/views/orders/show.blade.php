@@ -6,8 +6,8 @@
     <h1 class="my-4">
         <i class="bi bi-bag"></i> Détails de la commande #{{ $order->id }}
     </h1>
-    <div class="mt-4">
-        <a href="{{ route('proformas.create', $order) }}" class="btn btn-primary">Créer une facture proforma</a>
+    <div class="my-2">
+        <a href="{{ route('proformas.create', $order) }}" class="btn btn-primary">Créer la facture proforma</a>
         <!-- ... autres boutons ... -->
     </div>
     <div class="card shadow mb-4">
@@ -23,16 +23,16 @@
                 <dd class="col-sm-9">{{ $order->client->name }}</dd>
 
                 <dt class="col-sm-3">Entreprise</dt>
-                <dd class="col-sm-9">{{ $order->company ?? 'Non spécifié' }}</dd>
+                <dd class="col-sm-9">{{ $order->entreprise->name ?? 'Non spécifié' }}</dd>
 
-                <dt class="col-sm-3">Désignation</dt>
+                {{-- <dt class="col-sm-3">Désignation</dt>
                 <dd class="col-sm-9">{{ $order->designation ?? 'Non spécifié' }}</dd>
 
                 <dt class="col-sm-3">Quantité</dt>
                 <dd class="col-sm-9">{{ $order->quantity ?? 'Non spécifié' }}</dd>
 
                 <dt class="col-sm-3">Prix Unitaire</dt>
-                <dd class="col-sm-9">{{ number_format($order->amount, 2, ',', ' ') }} BIF</dd>
+                <dd class="col-sm-9">{{ number_format($order->amount, 2, ',', ' ') }} BIF</dd> --}}
 
                 <dt class="col-sm-3">Montant HT</dt>
                 <dd class="col-sm-9">{{ number_format($order->amount_ht, 2, ',', ' ') }} BIF</dd>
@@ -49,7 +49,7 @@
 
                 <dt class="col-sm-3">Statut</dt>
                 <dd class="col-sm-9">
-                    <span class="badge bg-{{ $order->status_color }}">
+                    <span class="">
                         {{ $order->status }}
                     </span>
                 </dd>

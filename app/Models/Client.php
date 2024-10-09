@@ -26,6 +26,8 @@ class Client extends Model
         'persone_reference2',
         'company',
         'nif',
+        'rc',
+        'assujeti',
         'address',
         'description',
     ];

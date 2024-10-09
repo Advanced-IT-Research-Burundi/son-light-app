@@ -33,7 +33,7 @@
         <input class="form-check-input" type="radio" name="assujeti" id="inlineRadio2" value="0">
         <label class="form-check-label" for="inlineRadio2">NON</label>
     </div>
-    @error('rc')
+    @error('assujeti')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>

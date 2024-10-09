@@ -28,11 +28,20 @@
                 <dt class="col-sm-3">Entreprise</dt>
                 <dd class="col-sm-9">{{ $client->company ?? 'N/A' }}</dd>
 
+                <dt class="col-sm-3">NIF</dt>
+                <dd class="col-sm-9">{{ $client->nif ?? 'N/A' }}</dd>
+
+                <dt class="col-sm-3">RC</dt>
+                <dd class="col-sm-9">{{ $client->rc ?? 'N/A' }}</dd>
+
+                <dt class="col-sm-3">ASSUJETI</dt>
+                <dd class="col-sm-9">{{ $client->assujeti ? 'OUI' : 'NON' }}</dd>
+
                 <dt class="col-sm-3">Adresse</dt>
                 <dd class="col-sm-9">{{ $client->address ?? 'N/A' }}</dd>
-                <dt class="col-sm-3">Premiere personnne de reference avec son Tel</dt>
+                <dt class="col-sm-3">Personnne de reference 1</dt>
                 <dd class="col-sm-9">{{ $client->persone_reference1 ?? 'N/A' }}</dd>
-                <dt class="col-sm-3">Seconde personnne de reference avec son Tel</dt>
+                <dt class="col-sm-3">Personnne de reference 2</dt>
                 <dd class="col-sm-9">{{ $client->persone_reference2 ?? 'N/A' }}</dd>
                 <dt class="col-sm-3">Description</dt>
                 <dd class="col-sm-9">{{ $client->description ?? 'N/A' }}</dd>

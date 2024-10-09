@@ -29,6 +29,8 @@ class StoreClientRequest extends FormRequest
             'description' => ['nullable','string','max:255'],
             'company' => ['nullable','string','max:255'],
             'nif' => ['nullable','string','max:255'],
+            'rc' =>['nullable','string'],
+            'assujeti' => ['nullable']
 
         ];
     }

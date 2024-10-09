@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('phone');
             $table->string('company')->nullable();
             $table->string('nif')->nullable();
+            $table->string('rc')->nullable();
+            $table->boolean('assujeti')->default(0);
             $table->string('address')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
