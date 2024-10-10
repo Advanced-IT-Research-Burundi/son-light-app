@@ -46,3 +46,19 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+<div class="form-group mb-3">
+    <label for="role" class="form-label">
+        <i class="bi bi-person-badge"></i> Entreprise
+    </label>
+    <select class="form-select @error('company_id') is-invalid @enderror" id="company_id" name="company_id" required>
+        <option value="">Sélectionnez un Entreprise</option>
+        @foreach ($companies as $item)
+            <option  value="{{ $item->id }}" {{ old('company_id', $user->company->id ?? '') == $item->id ? 'selected' : '' }}>
+                {{ $item->name }}
+            </option>
+        @endforeach
+         </select>
+    @error('company_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>

@@ -6,7 +6,6 @@ use App\Models\Proforma;
 use App\Models\Order;
 use PDF;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 
 class ProformaController extends Controller
 {
@@ -15,7 +14,6 @@ class ProformaController extends Controller
         $proformas = Proforma::with('order')->get();
         return view('proformas.index', compact('proformas'));
     }
-
     public function create(Order $order)
     {
         return view('proformas.create', compact('order'));

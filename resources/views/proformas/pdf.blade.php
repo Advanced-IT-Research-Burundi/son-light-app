@@ -66,7 +66,7 @@
         <div class="header">
             <table>
                 <tr style="text-align: center">
-                    {{-- <td><img src="{{ asset('images/logo.jpeg') }}" alt="Son Light Logo" class="logo"></td> --}}
+                     <td><img src="{{ asset('images/logo.jpeg') }}" alt="Son Light Logo" class="logo"></td> 
                     <h3>{{ $proforma->order->entreprise->name }} </h3>
                 </tr>
             </table>
@@ -76,11 +76,11 @@
         <table style="border: none;">
             <tr>
                 <td style="border: none; width: 30%">
-                    <p><strong>NIF :{{$proforma->order->entreprise->nif}} </strong> </p>
-                    <p><strong>  RC :{{$proforma->order->entreprise->rc}} </strong></p>
+                    <p><strong>NIF :{{$proforma?->order?->entreprise->nif}} </strong> </p>
+                    <p><strong>  RC :{{$proforma?->order?->entreprise->rc}} </strong></p>
                 </td>
                 <td style="border: none">
-                    <p>{{ $proforma->order->entreprise->description ?? ''}}</p>
+                    <p>{{ $proforma?->order?->entreprise->description ?? ''}}</p>
                 </td>
             </tr>
         </table>
@@ -92,7 +92,7 @@
     <div>
         <h4>A. Identification du vendeur</h4>
         <p>
-            <strong>Raison sociale :</strong> {{$proforma->order->entreprise->name}}<br>
+            <strong>Raison sociale :</strong> {{$proforma?->order?->entreprise->name}}<br>
             <strong>NIF :</strong> {{$proforma->order->entreprise->nif}}<br>
             <strong>RC :</strong> {{$proforma->order->entreprise->rc}}<br>
             <strong>Tél :</strong> {{$proforma->order->entreprise->phone}}<br>

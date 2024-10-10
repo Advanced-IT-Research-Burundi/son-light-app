@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'company_id',
     ];
 
     /**
@@ -54,7 +55,9 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-
+    public function company(){
+        return $this->belongsTo(Company::class);
+    }
 
     public function isAdmin(){
         return $this->role()->where('name', 'Administrateur')->exists();
