@@ -131,17 +131,17 @@
                 <td>{{ $detail->quantity }}</td>
                 <td>{{ number_format($detail->unit_price, 2) }}</td>
                 <td>{{ number_format($detail->total_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price * $proforma->order->tva / 100, 2) }}</td>
-                <td>{{ number_format($detail->total_price + ($detail->total_price * $proforma->order->tva / 100), 2) }}</td>
+                <td>{{ $proforma->order->entreprise->assujeti?number_format($detail->total_price * $proforma->order->tva / 100, 2):'' }}</td>
+                <td>{{ $proforma->order->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $proforma->order->tva / 100), 2):'' }}</td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+                <td colspan="4" style="text-align: left;"><strong>Total</strong></td>
                 <td>{{ number_format($proforma->order->detailOrders->sum('total_price'), 2) }}</td>
-                <td>{{ number_format($proforma->order->detailOrders->sum('total_price') * $proforma->order->tva / 100, 2) }}</td>
-                <td>{{ number_format($proforma->order->detailOrders->sum('total_price') * (1 + $proforma->order->tva / 100), 2) }}</td>
+                <td>{{ $proforma->order->entreprise->assujeti?number_format($proforma->order->detailOrders->sum('total_price') * $proforma->order->tva / 100, 2):'' }}</td>
+                <td>{{ $proforma->order->entreprise->assujeti?number_format($proforma->order->detailOrders->sum('total_price') * (1 + $proforma->order->tva / 100), 2):'' }}</td>
             </tr>
         </tfoot>
     </table>
