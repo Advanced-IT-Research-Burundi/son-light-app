@@ -14,7 +14,7 @@ class ProformaController extends Controller
     {
         $order_id = $request->order_id;
         $proformas = Proforma::with('order')->where('order_id',$order_id)->latest()->get();
-        return view('proformas.index', compact('proformas'));
+        return view('proformas.index', compact(['proformas','order_id']));
     }
     public function create(Order $order)
     {
@@ -72,7 +72,7 @@ class ProformaController extends Controller
     public function generatePDF(Proforma $proforma)
     {
 
-      
+
         $proforma->load('order.detailOrders', 'order.client', 'order.entreprise');
 
         // return view('proformas.pdf',compact('proforma'));

@@ -89,7 +89,7 @@
 
     <table style="margin: 0; padding: 0; border: none">
         <tr>
-            <td style="border: none"><h2 style="margin: 0; padding: 0;">FACTURE No  </h2></td>
+            <td style="border: none"><h2 style="margin: 0; padding: 0;">FACTURE No  : {{ $invoice->id }}</h2></td>
             <td style="text-align: right; border: none">Le {{ $invoice->proforma->created_at->format('d - m - Y') }}</td>
         </tr>
     </table>

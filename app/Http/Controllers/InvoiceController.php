@@ -19,7 +19,7 @@ class InvoiceController extends Controller
     public function create(Proforma $proforma)
     {
 
-        $number = 'INV-' . date('Ymd') . '-' . Str::random(5);
+        $number = 'INV-' . date('Y-m-d') . '';
         return view('invoices.create', compact('proforma', 'number'));
     }
 

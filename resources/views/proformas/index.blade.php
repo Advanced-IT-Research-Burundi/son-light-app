@@ -9,7 +9,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="ordersTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="ProformaTable" width="100%" cellspacing="0">
 
         <thead>
             <tr>
@@ -22,6 +22,7 @@
             </tr>
         </thead>
         <tbody>
+
             @foreach($proformas as $proforma)
             <tr>
                 <td>{{ $proforma->number }}</td>
@@ -56,7 +57,24 @@
         </table>
     </div>
     </div>
-</div>
+    </div>
+
+    @if ($proformas->count() < 1)
+        <a href="{{ route('proformas.create', $order_id) }}" class="btn btn-primary">Créer la facture proforma</a>
+    @endif
+
+    <a href="{{ route('orders.show', $order_id) }}" class="btn btn-secondary">Annuler</a>
 </div>
 
+@endsection
+@section('scripts')
+<script>
+$(document).ready(function() {
+    $('#ProformaTable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/French.json"
+        }
+    });
+});
+</script>
 @endsection
