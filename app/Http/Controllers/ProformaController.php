@@ -71,7 +71,7 @@ class ProformaController extends Controller
     {
         $proforma->load('order.detailOrders', 'order.client', 'order.entreprise');
 
-        // return view('proformas.pdf',compact('proforma'));
+        return view('proformas.pdf',compact('proforma'));
         $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
 
         return $pdf->download('facture_proforma_' . $proforma->number . '.pdf');

@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function(){
 
 Route::resource('invoices', InvoiceController::class)->except(['edit', 'update', 'destroy']);
 Route::get('proformas/{proforma}/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
-Route::post(uri: 'proformas/{proforma}/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
+//Route::post(uri: 'proformas/{proforma}', [InvoiceController::class, 'store'])->name('invoices.store');
 Route::get('invoices/{invoice}/generate-pdf', [InvoiceController::class, 'generatePDF'])->name('invoices.generatePDF');
    
 });
