@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class UserController extends Controller
               'name' => 'USER',
             ]);
         }
-        return view('users.create',compact('roles'));
+        $companies = Company::all();
+        return view('users.create',compact('roles', 'companies'));
     }
 
     public function store(Request $request)
@@ -37,6 +39,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role_id' => 'required',
+            'company_id' => 'nullable',
         ]);
 
         $user = User::create($validatedData);
@@ -47,7 +50,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
-        return view('users.edit', compact('user','roles'));
+        $companies = Company::all();
+        return view('users.edit', compact('user','roles', 'companies'));
     }
 
     public function update(Request $request, User $user)
@@ -57,6 +61,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8',
             'role_id' => 'required',
+            'company_id' => 'nullable',
         ]);
 
         if (empty($validatedData['password'])) {

@@ -1,6 +1,5 @@
 <!-- resources/views/proformas/index.blade.php -->
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <h1>Factures Proforma</h1>

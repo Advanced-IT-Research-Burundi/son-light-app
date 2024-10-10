@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="container">
+<a href="{{ route('invoices.create', $proforma) }}" class="btn btn-success">Générer la facture</a>
     <h1>Facture Proforma #{{ $proforma->number }}</h1>
     <div class="card">
         <div class="card-body">

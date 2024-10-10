@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProformaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockMovementController;
@@ -42,6 +43,13 @@ Route::middleware(['auth'])->group(function(){
     Route::get('orders/{order}/proformas/create', [ProformaController::class, 'create'])->name('proformas.create');
     Route::post('orders/{order}/proformas', [ProformaController::class, 'store'])->name('proformas.store');
     Route::get('proformas/{proforma}/generate-pdf', [ProformaController::class, 'generatePDF'])->name('proformas.generatePDF');
+
+    // Dans routes/web.php
+
+Route::resource('invoices', InvoiceController::class)->except(['edit', 'update', 'destroy']);
+Route::get('proformas/{proforma}/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
+//Route::post(uri: 'proformas/{proforma}', [InvoiceController::class, 'store'])->name('invoices.store');
+Route::get('invoices/{invoice}/generate-pdf', [InvoiceController::class, 'generatePDF'])->name('invoices.generatePDF');
    
 });
 require_once __DIR__.'/auth.php';
