@@ -48,7 +48,7 @@
 </div>
 <div class="form-group mb-3">
     <label for="role" class="form-label">
-        <i class="bi bi-person-badge"></i> Entreprise
+        <i class="bi bi-building"></i> Entreprise
     </label>
     <select class="form-select @error('company_id') is-invalid @enderror" id="company_id" name="company_id" required>
         <option value="">Sélectionnez un Entreprise</option>

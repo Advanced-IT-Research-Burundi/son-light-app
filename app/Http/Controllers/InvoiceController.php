@@ -18,12 +18,14 @@ class InvoiceController extends Controller
 
     public function create(Proforma $proforma)
     {
+
         $number = 'INV-' . date('Ymd') . '-' . Str::random(5);
         return view('invoices.create', compact('proforma', 'number'));
     }
 
-    public function store(Request $request, Proforma $proforma)
+    public function store(Request $request)
     {
+        $proforma = Proforma::find($request->proforma_id);
         $validatedData = $request->validate([
             'number' => 'required|unique:invoices',
             'date' => 'required|date',
@@ -50,10 +52,10 @@ class InvoiceController extends Controller
 
     public function generatePDF(Invoice $invoice)
     {
-        $invoice->load('proforma.order.detailOrders', 'proforma.order.client', 'proforma.order.company');
-        
+        $invoice->load('proforma.order.detailOrders', 'proforma.order.client', 'proforma.order.entreprise');
+
         $pdf = PDF::loadView('invoices.pdf', compact('invoice'));
-        
+
         return $pdf->download('facture_' . $invoice->number . '.pdf');
     }
 }

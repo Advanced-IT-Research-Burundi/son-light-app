@@ -8,8 +8,8 @@
     <div class="card mb-3">
         <div class="card-body">
             <h5 class="card-title">Détails de la facture</h5>
-            <p><strong>Date:</strong> {{ $invoice->date->format('d/m/Y') }}</p>
-            <p><strong>Date d'échéance:</strong> {{ $invoice->due_date->format('d/m/Y') }}</p>
+            <p><strong>Date:</strong> {{ $invoice->created_at->format('d/m/Y') }}</p>
+            <p><strong>Date d'échéance:</strong> {{ $invoice->created_at->format('d/m/Y') }}</p>
             <p><strong>Statut:</strong> {{ $invoice->status }}</p>
             <p><strong>Montant total:</strong> {{ number_format($invoice->total_amount, 2) }} €</p>
         </div>

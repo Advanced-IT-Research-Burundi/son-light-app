@@ -7,11 +7,13 @@ use App\Models\Order;
 use PDF;
 use Illuminate\Http\Request;
 
+
 class ProformaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $proformas = Proforma::with('order')->get();
+        $order_id = $request->order_id;
+        $proformas = Proforma::with('order')->where('order_id',$order_id)->latest()->get();
         return view('proformas.index', compact('proformas'));
     }
     public function create(Order $order)
@@ -69,9 +71,11 @@ class ProformaController extends Controller
 
     public function generatePDF(Proforma $proforma)
     {
+
+      
         $proforma->load('order.detailOrders', 'order.client', 'order.entreprise');
 
-        return view('proformas.pdf',compact('proforma'));
+        // return view('proformas.pdf',compact('proforma'));
         $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
 
         return $pdf->download('facture_proforma_' . $proforma->number . '.pdf');

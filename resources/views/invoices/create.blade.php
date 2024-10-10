@@ -5,7 +5,8 @@
 <div class="container">
     <h1>Créer une facture pour la facture proforma #{{ $proforma->number }}</h1>
 
-    <form action="{{ route('invoices.store', $proforma) }}" method="POST">
+    {{-- @dump( $proforma->id) --}}
+    <form action="{{ route('invoices.store', ['proforma_id'=>$proforma->id]) }}" method="POST">
         @csrf
         <div class="mb-3">
             <label for="number" class="form-label">Numéro de facture</label>

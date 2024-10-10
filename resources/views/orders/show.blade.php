@@ -9,7 +9,8 @@
     <div class="my-2">
         <a href="{{ route('proformas.create', $order) }}" class="btn btn-primary">Créer la facture proforma</a>
         <!-- ... autres boutons ... -->
-        
+        <a href="{{ route('proformas.index', ['order_id' => $order]) }}" class="btn btn-primary">Créer la facture </a>
+
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
