@@ -44,13 +44,13 @@
                     <a href="{{ route('companies.edit', $company) }}" class="btn btn-primary btn-sm">
                         <i class="bi bi-pencil"></i>
                     </a>
-                    <form action="{{ route('companies.destroy', $company) }}" method="POST" class="d-inline">
+                    {{-- <form action="{{ route('companies.destroy', $company) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette entreprise ?')">
                             <i class="bi bi-trash"></i>
                         </button>
-                    </form>
+                    </form> --}}
                 </td>
             </tr>
             @endforeach

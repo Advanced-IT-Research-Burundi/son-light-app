@@ -71,12 +71,41 @@ class ProformaController extends Controller
 
     public function generatePDF(Proforma $proforma)
     {
-
-
         $proforma->load('order.detailOrders', 'order.client', 'order.entreprise');
 
-        // return view('proformas.pdf',compact('proforma'));
-        $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
+        $companies = [
+            ['name' => 'Son light IMPRIMERIE'],
+            ['name' => 'DEALER GROUP'],
+            ['name' => 'BUFI TECHNOLOGIE'],
+            ['name' => 'NOVA TECH'],
+            ['name' => 'AFRO BUSINESS GROUP'],
+            ['name' => 'SOCIETE ANONYME'],
+        ];
+
+        // CREATION DES PROFORMA A PARTIR DES COMPANY_KEY EN UTILISANT SWICH EN GENERA PDF POUR CHAQUE COMPANY
+        switch ($proforma->order->entreprise->id) {
+            case 1:
+                $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
+                break;
+            case 2:
+                $pdf = PDF::loadView('proformas.pdf_Dealer_Group', compact('proforma'));
+                break;
+            case 3:
+                $pdf = PDF::loadView('proformas.pdf_bufi', compact('proforma'));
+                break;
+            case 4:
+                $pdf = PDF::loadView('proformas.pdf_nova', compact('proforma'));
+                break;
+            case 5:
+                $pdf = PDF::loadView('proformas.pdf_afro', compact('proforma'));
+                break;
+            default:
+                $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
+        }
+
+
+
+        // $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
 
         return $pdf->download('facture_proforma_' . $proforma->number . '.pdf');
     }
