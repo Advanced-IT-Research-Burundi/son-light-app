@@ -9,6 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    
     public function up(): void
     {
 
@@ -26,9 +27,9 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::table('orders', function (Blueprint $table) {
-            $table->foreignId('company_id')->nullable()->constrained()->onDelete('set null');
-        });
+       // Schema::table('orders', function (Blueprint $table) {
+           // $table->foreignId('company_id')->nullable()->constrained()->onDelete('set null');
+       // });
     }
 
     /**
@@ -36,10 +37,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('companies');
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropForeign(['company_id']);
-            $table->dropColumn('company_id');
-        });
+        //Schema::dropIfExists('companies');
+       // Schema::table('orders', function (Blueprint $table) {
+            //$table->dropForeign(['company_id']);
+           // $table->dropColumn('company_id');
+       // });
     }
 };

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrderStoreRequest extends FormRequest
+class StoreProformaInvoiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,19 +16,15 @@ class OrderStoreRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
             'client_id' => ['required', 'integer', 'exists:clients,id'],
-            'proforma_invoice_id' => ['required'],
-            'amount' => ['required','numeric'],
-            'quantity' => ['required','numeric'],
-            // 'order_date' => ['required', 'date'],
-            'delivery_date' => ['required', 'date'],
-            'designation' => ['required', 'string'],
-            'status' => ['required', 'string'],
-            'description' => ['nullable', 'string'],
+            'amount' => ['required', 'numeric'],
+            'validity_period' => ['required', 'integer'],
             'company_id' => 'required|exists:companies,id',
         ];
     }

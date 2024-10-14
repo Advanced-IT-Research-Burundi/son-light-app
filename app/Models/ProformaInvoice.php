@@ -1,17 +1,16 @@
 <?php
 
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class ProformaInvoice extends Model
 {
     use HasFactory, SoftDeletes;
-
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -28,29 +27,28 @@ class Order extends Model
         'id' => 'integer',
         'client_id' => 'integer',
         'user_id' => 'integer',
+        'company_id' => 'integer',
         'amount' => 'float',
-        'order_date' => 'date',
-        'delivery_date' => 'date',
+        'quantity'=>'integer',
+        'proforma_invoice_date'=>'date',
+        'validity_period'=>'integer',
     ];
-
+  /*
+  protected $fillable = [
+    'id',
+    'client_id',
+    'user_id',
+    'company_id',
+    'amount',
+    'quantity',
+    'proforma_invoice_date',
+    'validity_period',
+]; */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    public function tasks(): HasMany
-    {
-        return $this->hasMany(Task::class);
-    }
 
-    public function payments(): HasMany
-    {
-        return $this->hasMany(Payment::class);
-    }
-
-    public function detailOrders()
-    {
-        return $this->hasMany(DetailOrder::class);
-    }
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
@@ -59,9 +57,8 @@ class Order extends Model
     {
         return $this->belongsTo(Company::class,'company_id');
     }
-    public function proformaInvoice()
+    public function proformaInvoiceList()
     {
-        return $this->belongsTo(ProformaInvoice::class);
+        return $this->hasMany(ProformaInvoiceList::class);
     }
 }
-   

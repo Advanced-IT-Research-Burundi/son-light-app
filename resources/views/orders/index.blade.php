@@ -4,12 +4,15 @@
 @section('title', 'Gestion des commandes')
 @section('content')
 <div class="container-fluid">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-cart3"></i> Gestion des commandes
-    </h1>
+    </h3>
 
     <div class="mb-4">
-        <a href="{{ route('orders.create') }}" class="btn btn-primary">
+       <a href="{{ route('proforma_invoices.index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste des factures proforma
+        </a>
+        <a href="" class="btn btn-primary">
             <i class="bi bi-plus-circle"></i> Nouvelle commande
         </a>
     </div>

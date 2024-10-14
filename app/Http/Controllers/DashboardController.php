@@ -21,7 +21,7 @@ class DashboardController extends Controller
             'commande_cours' => $orders_count,
             'tasks_count' => $tasks_count,
             'chiffre_affaire' => number_format($chiffre_affaire,0,',','.')  . ' FBU',
-            'last_commands' => $last_commands,
+           'last_commands' => $last_commands,
           
         ]);
     }

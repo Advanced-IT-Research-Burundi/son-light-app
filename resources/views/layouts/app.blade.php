@@ -94,8 +94,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('orders.*') ? 'active' : '' }}" href="{{ route('orders.index') }}">
-                            <i class="bi bi-cart"></i> Commandes
+                        <a class="nav-link {{ Request::routeIs('proforma_invoices.*') ? 'active' : '' }}" href="{{ route('proforma_invoices.index') }}">
+                            <i class="bi bi-cart"></i> Fact. proforma
                         </a>
                     </li>
 

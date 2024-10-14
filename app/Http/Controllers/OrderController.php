@@ -6,9 +6,10 @@ use App\Http\Requests\OrderStoreRequest;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\Order;
-
+use App\Models\ProformaInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\Cast;
 
 class OrderController extends Controller
 {
@@ -18,11 +19,12 @@ class OrderController extends Controller
         return view('orders.index', compact('orders'));
     }
 
-    public function create()
+    public function create(ProformaInvoice $proforma_invoice)
     {
         $clients = Client::all();
         $companies = Company::all();
-        return view('orders.create', compact('clients', 'companies'));
+        $order=null;
+        return view('orders.create', compact('clients', 'companies','proforma_invoice','order'));
     }
 
     public function show(Order $order)
@@ -34,12 +36,13 @@ class OrderController extends Controller
     {
         $validatedData = $request->all();
 
-        //dd($validatedData);
+        // dd($validatedData);
         $validatedData['user_id'] = Auth::user()->id;
-        $validatedData['delivery_date'] = now();
+        $validatedData['order_date'] = now();
         $order = Order::create($validatedData);
 
-
+            // dd(($request->amount * $request->quantity));
+            
         $detailOrder = $order->detailOrders()->create([
             'product_name' => $request->designation,
             'quantity' => $request->quantity,
@@ -47,7 +50,7 @@ class OrderController extends Controller
             'total_price' => ($request->amount * $request->quantity),
         ]);
 
-        return redirect()->route('orders.index')
+        return redirect()->route('orders.show',$order)
             ->with('success', 'Commande créée avec succès.');
     }
 

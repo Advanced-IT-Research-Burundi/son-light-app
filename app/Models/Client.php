@@ -42,9 +42,9 @@ class Client extends Model
         'user_id' => 'integer',
     ];
 
-    public function orders(): HasMany
+    public function proformaInvoice(): HasMany
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(ProformaInvoice::class);
     }
 
     public function user(): BelongsTo

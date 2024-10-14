@@ -66,12 +66,12 @@
     </div>
 
     <div class="mt-4">
-        <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary">
+        <a href="" class="btn btn-primary">
             <i class="bi bi-pencil"></i> Modifier
         </a>
-        <a href="{{ route('orders.index') }}" class="btn btn-secondary">
+        <a href="" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i> Retour à la liste
-        </a>
+        </a> 
     </div>
 
 
