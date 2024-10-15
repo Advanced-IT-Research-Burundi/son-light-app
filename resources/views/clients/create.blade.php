@@ -6,9 +6,9 @@
 
 @section('content')
 <div class="container">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-person-plus"></i> Créer un nouveau client
-    </h1>
+    </h3>
 
     <div class="card shadow">
         <div class="card-body">

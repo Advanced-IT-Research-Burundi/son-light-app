@@ -6,9 +6,9 @@
 
 @section('content')
 <div class="container">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-person"></i> Détails du client : {{ $client->name }}
-    </h1>
+    </h3>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -45,10 +45,23 @@
                 <dd class="col-sm-9">{{ $client->persone_reference2 ?? 'N/A' }}</dd>
                 <dt class="col-sm-3">Description</dt>
                 <dd class="col-sm-9">{{ $client->description ?? 'N/A' }}</dd>
+                
+                <dt class="col-sm-3">Date de création</dt>
+                <dd class="col-sm-9">{{ $client->created_at->format('d/m/Y') }}</dd>
+
+                <dt class="col-sm-3">Date de mise  à jour </dt>
+                <dd class="col-sm-9">{{ $client->updated_at->format('d/m/Y') }}</dd>
             </dl>
         </div>
     </div>
-
+    <div class="my-4 ">
+         <a href="{{ route('clients.index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste des clients
+        </a>
+        <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-primary">
+            <i class="bi bi-pencil"></i> Modifier
+        </a>
+    </div>
     <div class="card shadow">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Commandes du client</h6>

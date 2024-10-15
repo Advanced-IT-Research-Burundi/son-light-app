@@ -1,6 +1,7 @@
 <!-- resources/views/users/_form.blade.php -->
 
-<div class="form-group mb-3">
+<div class="row">
+<div class="form-group mb-3 col-6">
     <label for="name" class="form-label">
         <i class="bi bi-person"></i> Nom
     </label>
@@ -10,7 +11,7 @@
     @enderror
 </div>
 
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-6">
     <label for="email" class="form-label">
         <i class="bi bi-envelope"></i> Email
     </label>
@@ -19,8 +20,9 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-
-<div class="form-group mb-3">
+</div>
+<div class="row">
+<div class="form-group mb-3 col-4">
     <label for="password" class="form-label">
         <i class="bi bi-lock"></i> Mot de passe
     </label>
@@ -30,7 +32,7 @@
     @enderror
 </div>
 
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-4">
     <label for="role" class="form-label">
         <i class="bi bi-person-badge"></i> Rôle
     </label>
@@ -46,7 +48,7 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-4">
     <label for="role" class="form-label">
         <i class="bi bi-building"></i> Entreprise
     </label>
@@ -61,4 +63,5 @@
     @error('company_id')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
+</div>
 </div>

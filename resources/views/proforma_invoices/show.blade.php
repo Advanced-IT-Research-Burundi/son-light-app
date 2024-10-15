@@ -61,9 +61,13 @@
         <a href="{{ route('proforma_invoices.orders.create', $proforma_invoice) }}" class="btn btn-primary">
         <i class="bi bi-plus-circle"></i> Créer la commande</a>
       
-        <a href="{{ route('proforma_invoices.generatePDF', $proforma_invoice) }}" class="btn btn-success">Générer PDF</a>
-             <a href="" class="btn btn-primary">
-             <i class="bi bi-plus-circle"></i> Créer la facture simple </a>
+        <a href="{{ route('proforma_invoices.generatePDF', $proforma_invoice) }}" class="btn btn-success">
+            <i class="bi bi-attach">             
+            </i>
+            Générer PDF
+        </a>
+             <a href="{{ route('order_alllist')}}" class="btn btn-primary">
+             <i class="bi bi-plus-circle"></i> visualiser des commandes </a>
     </div>
 
 

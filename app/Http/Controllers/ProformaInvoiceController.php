@@ -28,7 +28,8 @@ class ProformaInvoiceController extends Controller
 
     public function show(ProformaInvoice $proforma_invoice)
     {  
-        return view('proforma_invoices.show', compact('proforma_invoice'));
+        $order=Order::all();
+        return view('proforma_invoices.show', compact('proforma_invoice','order'));
     }
 
     public function store(StoreProformaInvoiceRequest $request)

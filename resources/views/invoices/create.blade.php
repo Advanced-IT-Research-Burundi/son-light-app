@@ -3,10 +3,10 @@
 
 @section('content')
 <div class="container">
-    <h1>Créer une facture pour la facture proforma #{{ $proforma->number }}</h1>
+    <h1>Créer une facture pour la facture proforma #{{ $order->number }}</h1>
 
     {{-- @dump( $proforma->id) --}}
-    <form action="{{ route('invoices.store', ['proforma_id'=>$proforma->id]) }}" method="POST">
+    <form action="{{ route('invoices.store', ['order_id'=>$order->id]) }}" method="POST">
         @csrf
         <div class="mb-3">
             <label for="number" class="form-label">Numéro de facture</label>
@@ -23,7 +23,7 @@
             <input type="date" class="form-control" id="due_date" name="due_date" value="{{ date('Y-m-d', strtotime('+30 days')) }}" required>
         </div>
 
-        <h2>Détails de la facture proforma</h2>
+        <h2>Détails de la facture</h2>
         <table class="table">
             <thead>
                 <tr>
@@ -34,25 +34,25 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($proforma->order->detailOrders as $detail)
+                @foreach($order->detailOrders as $detail)
                 <tr>
                     <td>{{ $detail->product_name }}</td>
                     <td>{{ $detail->quantity }}</td>
-                    <td>{{ number_format($detail->unit_price, 2) }} €</td>
-                    <td>{{ number_format($detail->total_price, 2) }} €</td>
+                    <td>{{ number_format($detail->unit_price, 2) }}</td>
+                    
                 </tr>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="3">Total</th>
-                    <th>{{ number_format($proforma->total_amount, 2) }} €</th>
+                    <th>{{ number_format($order->total_amount, 2) }} €</th>
                 </tr>
             </tfoot>
         </table>
 
         <button type="submit" class="btn btn-primary">Créer la facture</button>
-        <a href="{{ route('proformas.show', $proforma) }}" class="btn btn-secondary">Annuler</a>
+        <a href="{{ route('orders.show', $order) }}" class="btn btn-secondary">Annuler</a>
     </form>
 </div>
 @endsection

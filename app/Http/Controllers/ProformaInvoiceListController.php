@@ -31,7 +31,7 @@ class ProformaInvoiceListController extends Controller
             'total_price' => $totalPrice,
         ]);
 
-        $proforma_invoice->update(['amount' => $proforma_invoice->amount + $totalPrice]);
+        //$proforma_invoice->update(['amount' => $proforma_invoice->amount + $totalPrice]);
 
         return redirect()->route('proforma_invoices.show', $proforma_invoice)->with('success', 'article ou service a été ajouté à la facture proforma avec succès.');
     }
@@ -59,14 +59,14 @@ class ProformaInvoiceListController extends Controller
             'total_price' => $newTotalPrice,
         ]);
 
-        $proforma_invoice->update(['amount' => $proforma_invoice->amount - $oldTotalPrice + $newTotalPrice]);
+       // $proforma_invoice->update(['amount' => $proforma_invoice->amount - $oldTotalPrice + $newTotalPrice]);
 
         return redirect()->route('proforma_invoices.show', $proforma_invoice)->with('success', 'Détail de la facture proforma a été  mis à jour avec succès.');
     }
 
     public function destroy(ProformaInvoice $proforma_invoice, ProformaInvoiceList $proformaInvoiceList)
     {
-        $proforma_invoice->update(['amount' => $proforma_invoice->amount - $proformaInvoiceList->total_price]);
+        //$proforma_invoice->update(['amount' => $proforma_invoice->amount - $proformaInvoiceList->total_price]);
         $proformaInvoiceList->delete();
 
         return redirect()->route('proforma_invoices.show', $proforma_invoice)->with('success', 'L\'article ou service a été supprimé de la facture proforma avec succès.');

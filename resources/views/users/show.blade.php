@@ -3,9 +3,9 @@
 @section('title', 'Détails de la commande')
 @section('content')
 <div class="container">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-eye"></i> Détails de l'utilisateur #{{ $user->name }}
-    </h1>
+    </h3>
 
 
     <div class="card shadow mb-4">
@@ -27,16 +27,19 @@
                 <dt class="col-sm-3">Date de création</dt>
                 <dd class="col-sm-9">{{ $user->created_at->format('d/m/Y') }}</dd>
 
+                <dt class="col-sm-3">Date de mise  à jour </dt>
+                <dd class="col-sm-9">{{ $user->updated_at->format('d/m/Y') }}</dd>
+
              </dl>
         </div>
     </div>
 
     <div class="my-4 ">
+         <a href="{{ route('users.index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste
+        </a>
         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">
             <i class="bi bi-pencil"></i> Modifier
-        </a>
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Retour à la liste
         </a>
     </div>
 
@@ -45,7 +48,7 @@
 </div>
 
 <div class="container">
-    <h1>Détails des taches liés  à {{ $user->name }}</h1>
+    <h3> <i class="bi bi-eye"></i> Détails des taches liés  à {{ $user->name }}</h3>
 
     @php
         $count = 1;

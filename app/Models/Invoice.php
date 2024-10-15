@@ -11,7 +11,7 @@ class Invoice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'proforma_id',
+        'order_id',
         'number',
         'date',
         'due_date',
@@ -19,9 +19,9 @@ class Invoice extends Model
         'status'
     ];
 
-    public function proforma()
+    public function order()
     {
-        return $this->belongsTo(Proforma::class);
+        return $this->belongsTo(Order::class);
     }
 }
 

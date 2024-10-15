@@ -13,11 +13,6 @@
             <i class="bi bi-plus-circle"></i> Nouvelle facture proforma
         </a>
     </div>
-    <div class="mb-4 col-3">
-        <a href="" class="btn btn-info">
-            <i class="bi bi-plus-circle"></i> Nouvelle commande
-        </a>
-    </div>
      </div>
    
 
@@ -30,13 +25,13 @@
                 <table class="table table-bordered" id="proforma_invoicesTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Num. Fac.Proforma</th>
                             <th>Client</th>
-                            <th>Num. Fact. Proforma</th>
                             <th>SOCIETE</th>
                             <th>Désigation</th>
-                            <th>Prix Unitaire</th>
-                            <th>Quantite</th>
-                            <th>Total</th>
+                            <th>P.U</th>
+                            <th>Qté</th>
+                            <th>PVHTVA en FBu</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -46,8 +41,8 @@
                     <tbody>
                         @foreach($proforma_invoice as $proforma_invoice)
                         <tr>
-                            <td>{{ $proforma_invoice->client->name }}</td>
                             <td>{{ $count }}</td>
+                            <td>{{ $proforma_invoice->client->name }}</td>
                             <td>{{ $proforma_invoice->entreprise->name ?? ''}}</td>
                             <td>{{ $proforma_invoice->designation?? ''}}</td>
                             <th>{{ $proforma_invoice->amount ?? ''}}</th>

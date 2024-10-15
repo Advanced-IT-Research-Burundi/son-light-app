@@ -14,6 +14,8 @@ use App\Http\Controllers\ProformaInvoiceListController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockMovementController;
+use App\Models\DetailOrder;
+use App\Models\Order;
 use App\Models\ProformaInvoice;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +42,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('material-usages', App\Http\Controllers\MaterialUsageController::class);
     Route::resource('payments', App\Http\Controllers\PaymentController::class);
     Route::resource('reports', App\Http\Controllers\ReportController::class);
+    Route::resource('detail-orders', App\Http\Controllers\DetailOrderController::class);
     Route::get('rapport-generale', [ReportController::class, 'rapportgenerale'])->name('rapport-generale');
     Route::resource('orders.detail-orders', DetailOrderController::class)->except(['index', 'show']);
     Route::resource('proforma_invoices.proforma_invoice_lists', ProformaInvoiceListController::class)->except(['index', 'show']);
@@ -57,10 +60,11 @@ Route::middleware(['auth'])->group(function(){
     // Dans routes/web.php
 
 Route::resource('invoices', InvoiceController::class)->except(['edit', 'update', 'destroy']);
-Route::get('proformas/{proforma}/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
+Route::get('orders/{order}/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
 //Route::post(uri: 'proformas/{proforma}', [InvoiceController::class, 'store'])->name('invoices.store');
 Route::get('invoices/{invoice}/generate-pdf', [InvoiceController::class, 'generatePDF'])->name('invoices.generatePDF');
-   
+Route::post('addselect',[DetailOrderController::class,'addselect'])->name('addselect');
+Route::get('order_alllist',[OrderController::class,'order_alllist'])->name('order_alllist');
 });
 require_once __DIR__.'/auth.php';
 

@@ -58,26 +58,28 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         $clients = Client::all();
+        $proforma_invoice = ProformaInvoice::find($order->proforma_invoice_id); 
         $companies = Company::all();
-        return view('orders.edit', compact('order', 'clients','companies'));
+        return view('orders.edit', compact('order', 'clients','companies','proforma_invoice'));
     }
 
     public function update(Request $request, Order $order)
     {
         $request->validate([
             'client_id' => ['required', 'integer', 'exists:clients,id'],
-            'amount' => ['required', 'numeric'],
-            'order_date' => ['required', 'date'],
+            'proforma_invoice_id' => ['required'],
+            'amount' => ['required','numeric'],
+            'quantity' => ['required','numeric'],
+            // 'order_date' => ['required', 'date'],
+            'delivery_date' => ['required', 'date'],
+            'designation' => ['required', 'string'],
             'status' => ['required', 'string'],
             'description' => ['nullable', 'string'],
             'company_id' => 'required|exists:companies,id',
         ]);
+        $order->update($request->all());
 
-        $order->update(attributes: $request->all());
-
-        
-
-        return redirect()->route('orders.index')
+        return redirect()->route('orders.show', $order->id)
             ->with('success', 'Commande mise à jour avec succès.');
     }
 
@@ -87,5 +89,9 @@ class OrderController extends Controller
 
         return redirect()->route('orders.index')
             ->with('success', 'Commande supprimée avec succès.');
+    }
+    public function order_alllist(){
+        $orders = Order::with('client')->latest()->get();
+        return view('orders.index', compact('orders'));
     }
 }

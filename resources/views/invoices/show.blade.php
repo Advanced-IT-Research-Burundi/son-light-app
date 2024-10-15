@@ -21,17 +21,17 @@
             <tr>
                 <th>Produit</th>
                 <th>Quantité</th>
-                <th>Prix unitaire</th>
-                <th>Total</th>
+                <th>Prix unitaire en FBu</th>
+                <th>Total Fbu</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($invoice->proforma->order->detailOrders as $detail)
+            @foreach($invoice->order->detailOrders as $detail)
             <tr>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }} €</td>
-                <td>{{ number_format($detail->total_price, 2) }} €</td>
+                <td>{{ number_format($detail->unit_price, 2) }} </td>
+                <td>{{ number_format($detail->total_price, 2) }} </td>
             </tr>
             @endforeach
         </tbody>
