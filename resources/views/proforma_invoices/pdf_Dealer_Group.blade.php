@@ -9,50 +9,37 @@
             margin: 0;
             font-family: Arial, sans-serif;
             color: black;
-            padding: 20px;
             background-color: #ffffff; 
         }
 
-        header {
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size:x-large;
+            font-size:large;
             margin-bottom: 2%;
         }
 
         .dealer {
             color: blue;
-            font-weight: bold;
+            font-weight: 300;
         }
 
         .group {
             color: red;
-            font-weight: bold;
+            font-weight: 300;
         }
 
         .header_left {
-            margin-left: 10%;
-            flex: 2;
+            float: left;
         }
 
         .header_right {
-            flex: 2;
-            margin-left: 10%;
+            float: right;
+            margin-left: 0%;
             text-align: left;
-            padding-left: 20px;
+            padding-right: 5%;
         }
-
-        .header_right h3 {
-            margin: 5px 0; 
-            line-height: 1.5; 
-        }
-
-        .header_right h3::before {
-            content: "➔ "; 
-            color: blue;
-        }
-
         .colored-bars {
             display: flex;
             flex-direction: column;
@@ -61,7 +48,7 @@
         }
 
         .bar {
-            width: 90%;
+            width: 100%;
             height: 4px; 
         }
 
@@ -93,16 +80,18 @@
         th {
             font-weight: bold; 
         }
-
-        footer {
-            text-align: center; 
-            margin-top: 20px;
+        .footer {
+            position: absolute;
+            bottom: 0;
             font-weight: bold; 
+            font-size: 15px;
+            width: 100%;
+            text-align: center;
             text-decoration: overline;
         }
 
         .border_header {
-        margin-left: 4.3%;
+        margin-left: 0%;
         text-align: center; 
         font-size: 1.5em; 
         font-weight: bold;
@@ -110,14 +99,15 @@
         color: red;
         border-radius: 10px; 
         padding: 4px; 
-        width: 28%;
+        width: 40%;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
         .border-text {
+            float: left;
             padding: 20px;
             text-align: left; 
-            margin-left: 4%;
+            margin-left: 0%;
         }
 
         @media (max-width: 600px) {
@@ -134,26 +124,32 @@
             display: flex;
         }
         .date{
-            margin-left: 10%;
+            float: right;
         }
     </style>
 </head>
 <body>
-    <header>
+    <div class="header">
         <div class="header_left">
-            <h1><span class="dealer" style=" font-size: 4.5rem;">D</span>EALER <span class="group" style=" font-size: 4.5rem;">G</span>ROUP</h1>
-            <h3 class="dealer">NIF : 4001564154 <br> RC: 27895/20</h3>
+            <p><strong>
+            <span class="dealer" style=" font-size: 4.5rem;">D</span>EALER <span class="group" style=" font-size: 4.5rem;">G</span>ROUP <br>
+            NIF : 4001564154 <br> RC: 27895/20
+            </strong></p>
         </div> 
         <div class="header_right">
-            <h3>Informatique</h3>
-            <h3>Bureautique</h3>
-            <h3>Imprimerie</h3>
-            <h3>Agro Business</h3>
-            <h3>Location Véhicule</h3>
-            <h3>Commerce Général</h3>
-            
+           <p>
+           <ul>
+                <li><strong>Informatique</strong></li>
+                <li><strong>Bureautique</strong></li>
+                <li> <strong>Imprimerie</strong></li>
+                <li> <strong>Agro Business</strong></li>
+                <li><strong>Location Véhicule</strong></li>
+                <li> <strong>Commerce Général</strong></li>
+            </ul>  
+           </p>  
         </div>  
-    </header>
+    </div>
+    <br><br><br><br><br><br><br><br><br>
     <div class="colored-bars">
         <div class="bar yellow"></div>
         <div class="bar blue"></div>
@@ -161,11 +157,11 @@
     </div>
     <div class=" bordertitre">
         <h4 class="border_header">FACTURE PROFORMA</h4>
-        <h4 class="date">Date:  ......./....../2024</h4>
+        <h4 class="date">Date: Le {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
     </div>
     
     <div class="border-text">
-        <h4 style="text-decoration: underline;">CLIENT :</h4>
+        <h4 style="text-decoration: underline;">CLIENT : {{ $proforma_invoice->client->name }}</h4>
         <table>
             <tr>
                 <th>ORDRE</th>
@@ -176,35 +172,35 @@
                 <th>TVA*</th>
                 <th>TV-TVAC*</th>
             </tr>
+            <tbody>
+            @foreach($proforma_invoice->proformaInvoiceList as $detail)
             <tr>
-                <td>1</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $detail->product_name }}</td>
+                <td>{{ $detail->quantity }}</td>
+                <td>{{ number_format($detail->unit_price, 2) }}</td>
+                <td>{{ number_format($detail->total_price, 2) }}</td>
+                <td>{{ $proforma_invoice->entreprise->assujeti?number_format($detail->total_price * $proforma_invoice->tva / 100, 2):'' }}</td>
+                <td>{{ $proforma_invoice->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100), 2):'' }}</td>
             </tr>
+            @endforeach
+        </tbody>
+        <tfoot>
             <tr>
-                <td>2</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colspan="4" style="text-align: left;"><strong>Total</strong></td>
+                <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }}</strong></td>
+                <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</strong></td>
+                <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'' }}</strong></td>
             </tr>
-            <tr>
-                <td colspan="6"><strong>TOTAL</strong></td>
-                <td></td>
-            </tr>
+        </tfoot>
         </table>
-        <h4>Mention obligatoire</h4>
-        <h4>NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes</h4>
+        <p><strong>Mention obligatoire <br>
+        NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes
+        </strong></p>
     </div>
 
-    <footer>
+    <div class="footer">
         <p>Rohero 2, Av de la Mission n0 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290</p>
-    </footer>
+    </div>
 </body>
 </html>

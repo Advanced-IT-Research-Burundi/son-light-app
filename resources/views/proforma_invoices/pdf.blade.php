@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facture Proforma {{ $proforma->number }}</title>
+    <title>Facture Proforma </title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -67,7 +67,7 @@
             <table>
                 <tr style="text-align: center">
                      {{-- <td><img src="{{ asset('images/logo.jpeg') }}" alt="Son Light Logo" class="logo"></td>  --}}
-                    <h3>{{ $proforma->order->entreprise->name }} </h3>
+                    <h3>{{ $proforma_invoice->entreprise->name }} </h3>
                 </tr>
             </table>
         </div>
@@ -76,37 +76,37 @@
         <table style="border: none;">
             <tr>
                 <td style="border: none; width: 30%">
-                    <p><strong>NIF :{{$proforma?->order?->entreprise->nif}} </strong> </p>
-                    <p><strong>  RC :{{$proforma?->order?->entreprise->rc}} </strong></p>
+                    <p><strong>NIF :{{$proforma_invoice?->entreprise->nif}} </strong> </p>
+                    <p><strong>  RC :{{$proforma_invoice?->entreprise->rc}} </strong></p>
                 </td>
                 <td style="border: none">
-                    <p>{{ $proforma?->order?->entreprise->description ?? ''}}</p>
+                    <p>{{ $proforma_invoice?->entreprise->description ?? ''}}</p>
                 </td>
             </tr>
         </table>
 
     </div>
 
-    <h2>FACTURE PROFORMA du {{ $proforma->created_at->format('d/m/Y') }}</h2>
+    <h2>FACTURE PROFORMA du {{ $proforma_invoice->created_at->format('d/m/Y') }}</h2>
 
     <div>
         <h4>A. Identification du vendeur</h4>
         <p>
-            <strong>Raison sociale :</strong> {{$proforma?->order?->entreprise->name}}<br>
-            <strong>NIF :</strong> {{$proforma->order->entreprise->nif}}<br>
-            <strong>RC :</strong> {{$proforma->order->entreprise->rc}}<br>
-            <strong>Tél :</strong> {{$proforma->order->entreprise->phone}}<br>
-            <strong>Adresse :</strong> {{$proforma->order->entreprise->address}}<br>
+            <strong>Raison sociale :</strong> {{$proforma_invoice?->entreprise->name}}<br>
+            <strong>NIF :</strong> {{$proforma_invoice->entreprise->nif}}<br>
+            <strong>RC :</strong> {{$proforma_invoice->entreprise->rc}}<br>
+            <strong>Tél :</strong> {{$proforma_invoice->entreprise->phone}}<br>
+            <strong>Adresse :</strong> {{$proforma_invoice->entreprise->address}}<br>
             {{-- <strong>Avenue :</strong> Avenue de la France<br> --}}
-            <strong>Assujetti à la TVA :</strong> Oui [ {{ $proforma->order->entreprise->assujeti?'X':' ' }}] Non [{{ $proforma->order->entreprise->assujeti?' ':'X' }}]
+            <strong>Assujetti à la TVA :</strong> Oui [ {{ $proforma_invoice->entreprise->assujeti?'X':' ' }}] Non [{{ $proforma_invoice->entreprise->assujeti?' ':'X' }}]
         </p>
 
         <h4>B. Le Client</h4>
         <p>
-            <strong>Nom et prénom ou raison sociale :</strong> {{ $proforma->order->client->name }}<br>
-            <strong>NIF :</strong> {{ $proforma->order->client->nif ?? '_________' }}<br>
-            <strong>Résidence à :</strong> {{ $proforma->order->client->address ?? 'BUJA' }}<br>
-            <strong>Assujetti à la TVA :</strong> Oui [ {{ $proforma->order->client->assujeti?'X':' ' }}] Non [{{ $proforma->order->client->assujeti?' ':'X' }}]
+            <strong>Nom et prénom ou raison sociale :</strong> {{ $proforma_invoice->client->name }}<br>
+            <strong>NIF :</strong> {{ $proforma_invoice->client->nif ?? '_________' }}<br>
+            <strong>Résidence à :</strong> {{ $proforma_invoice->client->address ?? 'BUJA' }}<br>
+            <strong>Assujetti à la TVA :</strong> Oui [ {{ $proforma_invoice->client->assujeti?'X':' ' }}] Non [{{ $proforma_invoice->client->assujeti?' ':'X' }}]
 
         </p>
     </div>
@@ -124,24 +124,24 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($proforma->order->detailOrders as $detail)
+            @foreach($proforma_invoice->proformaInvoiceList as $detail)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
                 <td>{{ number_format($detail->unit_price, 2) }}</td>
                 <td>{{ number_format($detail->total_price, 2) }}</td>
-                <td>{{ $proforma->order->entreprise->assujeti?number_format($detail->total_price * $proforma->order->tva / 100, 2):'' }}</td>
-                <td>{{ $proforma->order->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $proforma->order->tva / 100), 2):'' }}</td>
+                <td>{{ $proforma_invoice->entreprise->assujeti?number_format($detail->total_price * $proforma_invoice->tva / 100, 2):'' }}</td>
+                <td>{{ $proforma_invoice->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100), 2):'' }}</td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="4" style="text-align: left;"><strong>Total</strong></td>
-                <td>{{ number_format($proforma->order->detailOrders->sum('total_price'), 2) }}</td>
-                <td>{{ $proforma->order->entreprise->assujeti?number_format($proforma->order->detailOrders->sum('total_price') * $proforma->order->tva / 100, 2):'' }}</td>
-                <td>{{ $proforma->order->entreprise->assujeti?number_format($proforma->order->detailOrders->sum('total_price') * (1 + $proforma->order->tva / 100), 2):'' }}</td>
+                <td>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }}</td>
+                <td>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</td>
+                <td>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'' }}</td>
             </tr>
         </tfoot>
     </table>
@@ -151,7 +151,7 @@
     </div>
 
     <div class="footer">
-        <p> {{$proforma->order->entreprise->address}} | Tél: {{$proforma->order->entreprise->phone}} | E-mail: {{$proforma->order->entreprise->email}}</p>
+        <p> {{$proforma_invoice->entreprise->address}} | Tél: {{$proforma_invoice->entreprise->phone}} | E-mail: {{$proforma_invoice->entreprise->email}}</p>
     </div>
 </body>
 </html>

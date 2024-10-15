@@ -71,7 +71,8 @@ class ProformaController extends Controller
 
     public function generatePDF(Proforma $proforma)
     {
-        $proforma->load('order.detailOrders', 'order.client', 'order.entreprise');
+        //$proforma->load('order.detailOrders', 'order.client', 'order.entreprise');
+        $proforma->load('client', 'entreprise', 'proformaInvoiceList');
 
         $companies = [
             ['name' => 'Son light IMPRIMERIE'],

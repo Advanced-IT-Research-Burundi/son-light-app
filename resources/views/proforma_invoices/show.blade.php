@@ -59,11 +59,11 @@
         <i class="bi bi-plus-circle"></i>  Ajouter un article ou un service
         </a>
         <a href="{{ route('proforma_invoices.orders.create', $proforma_invoice) }}" class="btn btn-primary">
-        <i class="bi bi-plus-circle"></i> Créer la facture proforma(la commande)</a>
+        <i class="bi bi-plus-circle"></i> Créer la commande</a>
       
         <a href="{{ route('proforma_invoices.generatePDF', $proforma_invoice) }}" class="btn btn-success">Générer PDF</a>
              <a href="" class="btn btn-primary">
-             <i class="bi bi-plus-circle"></i> Créer la facture(simple) </a>
+             <i class="bi bi-plus-circle"></i> Créer la facture simple </a>
     </div>
 
 

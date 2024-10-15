@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\Order;
+use PDF;
 use Illuminate\Support\Facades\Auth;
 
 class ProformaInvoiceController extends Controller
@@ -82,9 +83,9 @@ class ProformaInvoiceController extends Controller
             ->with('success', 'l\'article ou le service a été supprimée avec succès.');
     }
     public function generatePDF(ProformaInvoice $proforma_invoice)
-    {
+    {    
         // $proforma_invoice->load('proforma_invoice.proformaInvoiceList', ' proforma_invoice.client', ' proforma_invoice.entreprise');
-         dd($proforma_invoice);
+        $proforma_invoice->load('proformaInvoiceList', 'client', 'entreprise');
         $companies = [
             ['name' => 'Son light IMPRIMERIE'],
             ['name' => 'DEALER GROUP'],
@@ -103,7 +104,7 @@ class ProformaInvoiceController extends Controller
                 $pdf = PDF::loadView('proforma_invoices.pdf_Dealer_Group', compact('proforma_invoice'));
                 break;
             case 3:
-                $pdf = PDF::loadView('proformas.pdf_bufi', compact('proforma_invoice'));
+                $pdf = PDF::loadView('proforma_invoices.pdf_bufi', compact('proforma_invoice'));
                 break;
             case 4:
                 $pdf = PDF::loadView('proforma_invoices.pdf_nova', compact('proforma_invoice'));
@@ -119,6 +120,6 @@ class ProformaInvoiceController extends Controller
 
         // $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
 
-        return $pdf->download('facture_proforma_' . $proforma_invoice->number . '.pdf');
+        return $pdf->download('facture_proforma_' . '.pdf');
     }
 }

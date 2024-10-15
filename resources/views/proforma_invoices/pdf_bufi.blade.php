@@ -9,27 +9,30 @@
             margin: 0;
             font-family: Arial, sans-serif;
             color: black;
-            padding: 20px;
+            padding: 0px;
         }
 
         header {
             background-color: #f9e79f; 
             border: 1px solid black;
             border-radius: 15px; 
-            padding: 5px;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             text-align: center;
+            padding-left: 10px;
+            padding-right: 5px;
+            padding-bottom: 100px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .header_left{
-            margin-left: 10%;
-            font-weight: 900;
-            font-size: xx-large;
+            font-weight: 300;
+            font-size: large;
+            float: left;
+            margin-left: 40px;
         }
 
         .title {
-            font-size: 4.5rem;
+            font-size: 3rem;
             font-weight: bold;
             margin: 0;
             text-decoration: underline; 
@@ -54,28 +57,25 @@
         }
 
         .header_right {
-            font-weight: 600;
-            font-size: x-large;
+            font-weight: 300;
+            font-size: large;
             text-align: left; 
+            float: right;
+            margin-right: 40px;
         }
-        .header_right li::before {
-            content: "➔ "; 
-            color: black;
-        }
-
         .header_right ul {
             list-style: none;
             padding: 0;
             margin: 0;
-            margin-left: -20%;
         }
 
         .header_right li {
-            margin: 5px 0;
+            margin: 2px 0;
         }
 
         .border_header {
-            margin: 20px 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
             text-align: left;
             font-size: 1.8em;
             font-weight: bold;
@@ -83,7 +83,7 @@
         }
 
         .border-text {
-            padding: 20px;
+            padding: 10px;
             text-align: left; 
         }
 
@@ -143,6 +143,14 @@
                 font-size: 0.9em;
             }
         }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            font-size: 15px;
+            color: red;
+            width: 100%;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -165,11 +173,11 @@
     </header>
 
     <div class="border_header">
-        <h4>FACTURE PROFORMA DU ...../....../2024</h4>
+        <h4>FACTURE PROFORMA DU {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
     </div>
     
     <div class="border-text">
-        <h4 style="text-decoration: underline;">CLIENT :</h4>
+        <h4 style="text-decoration: underline;">CLIENT : {{ $proforma_invoice->client->name }}</h4>
         <table>
             <tr>
                 <th>ORDRE</th>
@@ -178,39 +186,35 @@
                 <th>P.U en FBU</th>
                 <th>PVHTVA en FBU</th>
             </tr>
+            @foreach($proforma_invoice->proformaInvoiceList as $detail)
             <tr>
-                <td>1</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $detail->product_name }}</td>
+                <td>{{ $detail->quantity }}</td>
+                <td>{{ number_format($detail->unit_price, 2) }}</td>
+                <td>{{ number_format($detail->total_price, 2) }}</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="4"><strong>PRIX TOTAL</strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="4"><strong>TVA</strong></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="4"><strong>TV-TVAC</strong></td>
-                <td></td>
-            </tr>
+             @endforeach
+                <tr>
+                    <td colspan="4" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
+                    <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align: left;"><strong>TVA</strong></td>
+                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align: left;"><strong>PT TVAC</strong></td>
+                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'' }}</strong></td>
+                </tr>
         </table>
-        <h4>Mention obligatoire</h4>
-        <h4>NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes</h4>
+        <p><strong>Mention obligatoire <br>
+        NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes
+        </strong></p>
     </div>
 
-    <footer>
+    <div class="footer">
         <p>Quartier ROHERO I Centre Ville, Tél: +257 69 450 198, Compte BCB No 20974710004</p>
-    </footer>
+    </div>
 </body>
 </html>

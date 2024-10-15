@@ -9,9 +9,7 @@
             margin: 0;
             font-family: Arial, sans-serif;
             color: black;
-            padding: 20px;
             background-color: #ffffff; 
-            margin-left: 5%;
         }
        
         header {
@@ -21,13 +19,12 @@
         
         .title {
             color: green;
-            font-size: 2.5rem;
-            font-weight: bold;
+            font-size: 1.5rem;
+            font-weight: 400;
             margin: 0;
         }
 
         .header_info {
-            display: flex;
             justify-content: space-between;
             align-items: flex-start;
            width: 100%;
@@ -35,18 +32,15 @@
 
         .header_left {
             text-align: left;
-            font-weight: 400;
-            flex: 3; 
-            padding-right: 20px;
+            float: left;
         }
 
         .header_right {
             text-align: left;
-            flex: 2;
-            padding-left: 20px; 
+            float: right;
         }
 
-        .header_right h1 {
+        .header_right h3 {
             font-size: 2rem;
             margin: 10px 0;
         }
@@ -61,7 +55,7 @@
         }
 
         .liste {
-            list-style-type: none;
+            list-style-type: symbols(circle);
             padding: 0;
         }
 
@@ -111,13 +105,13 @@
             font-weight: bold; 
             color: white;
         }
-
-        footer {
-            text-align: center; 
-            margin-top: 20px;
-            font-weight: bold; 
+        .footer {
+            position: absolute;
+            bottom: 0;
+            font-size: 15px;
+            width: 100%;
+            text-align: center;
         }
-
         @media (max-width: 600px) {
             .header_info {
                 flex-direction: column;
@@ -134,10 +128,9 @@
     <header>
         <div class="header_info">
             <div class="header_left">
-                <h1 class="title">AFRO BUSINESS GROUP</h1>
-                <h4>NIF : 4002771212</h4>
-                <h4>RC: 0060277/24</h4>
-                <h4>Nos Services:</h4>
+                <h3 class="title">AFRO BUSINESS GROUP</h3>
+                <h5>NIF : 4002771212</h5>
+                <h5>RC: 0060277/24</h5>
                 <ul class="liste">
                     <li>Fourniture de Bureau</li>
                     <li>Fourniture des Imprimes</li>
@@ -146,12 +139,13 @@
                 </ul>
             </div> 
             <div class="header_right">
-                <h1 class="title">FACTURE PROFORMA</h1>
-                <h6>Date de facturation: <strong>11/10/2024</strong></h6>
-                <h6><strong>Facturé à :</strong></h6>
+                <h3 class="title">FACTURE PROFORMA</h3>
+                <h5>Date de facturation: <strong> Le {{ $proforma_invoice->created_at->format('d/m/Y') }}</strong></h5>
+                <h5><strong>Facturé à : {{ $proforma_invoice->client->name }}</strong></h5>
             </div> 
         </div> 
     </header>
+    <br><br><br><br><br><br><br><br><br><br>
     <div class="border-text">
         <table>
             <tr>
@@ -163,38 +157,38 @@
                 <th>TVA*</th>
                 <th>TV-TVAC*</th>
             </tr>
+            <tbody>
+            @foreach($proforma_invoice->proformaInvoiceList as $detail)
             <tr>
-                <td>1</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $detail->product_name }}</td>
+                <td>{{ $detail->quantity }}</td>
+                <td>{{ number_format($detail->unit_price, 2) }}</td>
+                <td>{{ number_format($detail->total_price, 2) }}</td>
+                <td>{{ $proforma_invoice->entreprise->assujeti?number_format($detail->total_price * $proforma_invoice->tva / 100, 2):'' }}</td>
+                <td>{{ $proforma_invoice->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100), 2):'' }}</td>
             </tr>
+            @endforeach
+        </tbody>
+        <tfoot>
             <tr>
-                <td>2</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colspan="4" style="text-align: left;"><strong>Total</strong></td>
+                <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }}</strong></td>
+                <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</strong></td>
+                <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'' }}</strong></td>
             </tr>
-            <tr>
-                <td colspan="6"><strong>TOTAL</strong></td>
-                <td></td>
-            </tr>
+        </tfoot>
         </table>
-        <h4>Mention obligatoire</h4>
-        <h4>NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes</h4>
+        <p><strong>Mention obligatoire <br>
+        NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes
+        </strong></p>
     </div>
 
-    <footer>
+    <div class="footer">
         <div class="colored-bars">
             <div class="bar green"></div>
             <p>Rohero 1, Av de Luxambourg, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 732 102</p>
         </div>
-    </footer>
+    </div>
 </body>
 </html>
