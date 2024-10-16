@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="mt-4 mb-4">Tableau de bord</h1>
+    <h3 class="mt-4 mb-4">Tableau de bord</h3>
 
     <!-- Cartes d aperçu -->
     <div class="row mb-4">
