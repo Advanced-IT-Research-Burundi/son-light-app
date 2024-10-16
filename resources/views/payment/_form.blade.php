@@ -1,6 +1,7 @@
 <!-- resources/views/orders/_form.blade.php -->
 @csrf
-<div class="form-group mb-4">
+<div class="row">
+<div class="form-group mb-4 col-6">
     <label for="order_id" class="mb-2"><i class="bi bi-cart3"></i> Commande</label>
     <select name="order_id" id="order_id" class="form-control @error('order_id') is-invalid @enderror" required>
         <option value="">Sélectionnez une commande</option>
@@ -13,7 +14,7 @@
     @enderror
 </div>
 
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-6">
     <label for="amount" class="form-label">
         <i class="bi bi-cash-coin"></i> Montant
     </label>
@@ -22,8 +23,9 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-
-<div class="form-group mb-3">
+</div>
+<div class="row">
+<div class="form-group mb-3 col-6">
     <label for="payment_date" class="form-label">
         <i class="bi bi-calendar"></i> Date de payement
     </label>
@@ -32,7 +34,7 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-6">
     <label for="payment_method" class="form-label">
         <i class="bi bi-calendar"></i> Mode de payement
     </label>
@@ -47,8 +49,7 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-
-
+</div>
 <div class="form-group mb-3">
     <label for="description" class="form-label">
         <i class="bi bi-text-paragraph"></i> Description
