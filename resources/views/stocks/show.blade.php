@@ -6,9 +6,9 @@
 
 @section('content')
 <div class="container">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-box-seam"></i> Détails du produit : {{ $stock->product_name }}
-    </h1>
+    </h3>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">

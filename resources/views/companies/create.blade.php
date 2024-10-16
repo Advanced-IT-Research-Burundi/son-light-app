@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Ajouter une entreprise</h1>
+    <h3>Ajouter une entreprise</h3>
     <form action="{{ route('companies.store') }}" method="POST">
         @csrf
         @include('companies._form')
