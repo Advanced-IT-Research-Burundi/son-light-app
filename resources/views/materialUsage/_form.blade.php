@@ -1,6 +1,7 @@
 <!-- resources/views/materialUsages/_form.blade.php -->
+<div class="row">
 
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-3">
     <label for="client_id" class="form-label">
         <i class="bi bi-people-fill"></i> Stock
     </label>
@@ -16,7 +17,7 @@
     @enderror
 
 </div>
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-3">
     <label for="client_id" class="form-label">
         <i class="bi bi-list-task"></i> Tache
     </label>
@@ -33,7 +34,7 @@
 
 </div>
 
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-3">
     <label for="materialUsage_date" class="form-label">
         <i class="bi bi-calendar"></i> Quantité
     </label>
@@ -44,7 +45,7 @@
 </div>
 
 
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-3">
     <label for="materialUsage_date" class="form-label">
         <i class="bi bi-calendar"></i> Date d'utilisation
     </label>
@@ -53,8 +54,9 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+</div>
 
-<div class="form-group mb-3">
+<div class="form-group mb-3 ">
     <label for="description" class="form-label">
         <i class="bi bi-text-paragraph"></i> Description
     </label>

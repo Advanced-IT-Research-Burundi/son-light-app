@@ -5,9 +5,9 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-cart3"></i> Gestion de materiel utilisé
-    </h1>
+    </h3>
 
     <div class="mb-4">
         <a href="{{ route('material-usages.create') }}" class="btn btn-primary">

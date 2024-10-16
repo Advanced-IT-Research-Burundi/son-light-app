@@ -14,9 +14,9 @@
 
 @section('content')
 <div class="container">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-bag"></i> Détails de la matielle utilisé #{{ $materialUsage->id }}
-    </h1>
+    </h3>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -51,11 +51,11 @@
     </div>
 
     <div class="mt-4">
+           <a href="{{ route('material-usages.index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste
+        </a>
         <a href="{{ route('material-usages.edit', $materialUsage->id) }}" class="btn btn-primary">
             <i class="bi bi-pencil"></i> Modifier
-        </a>
-        <a href="{{ route('material-usages.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Retour à la liste
         </a>
     </div>
 </div>
