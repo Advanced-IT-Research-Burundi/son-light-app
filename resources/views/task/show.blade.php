@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-eye"></i> Détails de la tâche #{{ $task->id }}
-    </h1>
+    </h3>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -37,11 +37,11 @@
     </div>
 
     <div class="mt-4">
+     <a href="{{ route('tasks.index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste
+        </a>
         <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-primary">
             <i class="bi bi-pencil"></i> Modifier
-        </a>
-        <a href="{{ route('tasks.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Retour à la liste
         </a>
         <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline">
             @csrf

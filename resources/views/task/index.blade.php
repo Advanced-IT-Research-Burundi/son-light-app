@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-list-task"></i> Gestion des Tâches
-    </h1>
+    </h3>
 
     <div class="mb-4">
         <a href="{{ route('tasks.create') }}" class="btn btn-primary">
