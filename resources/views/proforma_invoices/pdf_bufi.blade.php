@@ -163,9 +163,9 @@
             </div>
             <div class="header_right">
                 <ul>
-                    <li>Imprimerie</li>
-                    <li>Informatique</li>
-                    <li>Sérigraphie</li>
+                   
+                    <li>Services Informatiques</li>
+                    <li>Imprimerie - Sérigraphie</li>
                     <li>Location des matériels pour les Evénements</li>
                 </ul>
             </div>

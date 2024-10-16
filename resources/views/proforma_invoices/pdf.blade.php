@@ -75,7 +75,7 @@
         <div class="header">
             <table>
                 <tr style="text-align: center">
-                      <img src="{{ asset('images/LOGOSONLIGHT.png') }}" alt="Son Light Logo" style="border-radius: 10%" class="d-inline-block align-top">
+                      <img src="{{ asset('images/logo.png') }}" alt="Son Light Logo" style="border-radius: 10%" class="d-inline-block align-top">
                      {{-- <td><img src="{{ asset('images/logo.jpeg') }}" alt="Son Light Logo" class="logo"></td>  --}}
                 </tr>
             </table>

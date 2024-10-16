@@ -136,12 +136,14 @@
             NIF : 4001564154 <br> RC: 27895/20
             </strong></p>
         </div> 
+        <div> 
+           <div class="vertical-bar"></div>
+           <div class="vertical-bar"></div>
+           </div>
         <div class="header_right">
            <p>
            <ul>
-                <li><strong>Informatique</strong></li>
-                <li><strong>Bureautique</strong></li>
-                <li> <strong>Imprimerie</strong></li>
+                <li><strong>Services TICs</strong></li>
                 <li> <strong>Agro Business</strong></li>
                 <li><strong>Location Véhicule</strong></li>
                 <li> <strong>Commerce Général</strong></li>
