@@ -65,7 +65,7 @@ class DetailOrderController extends Controller
         return redirect()->route('orders.show', $order)->with('success', 'Détail de la commande mis à jour avec succès.');
     }
 
-    public function destroy( DetailOrder $detailOrder)
+    public function destroy( Order $order,DetailOrder $detailOrder)
     {
        // $order->update(['amount' => $order->amount - $detailOrder->total_price]);
         $detailOrder->delete();

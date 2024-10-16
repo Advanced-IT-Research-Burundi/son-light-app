@@ -14,10 +14,16 @@ use PhpParser\Node\Expr\Cast;
 
 class OrderController extends Controller
 {
-    public function index()
+    /*public function index()
     {
         $orders = Order::with('client')->latest()->get();
         return view('orders.index', compact('orders'));
+    }*/
+    public function index(Request $request)
+    {
+        $proforma_invoice_id = $request->proforma_invoice_id;
+        $orders = Order::with('proforma_invoice')->where('proforma_invoice_id',$proforma_invoice_id)->latest()->get();
+        return view('orders.index', compact(['orders','proforma_invoice_id']));
     }
 
     public function create(ProformaInvoice $proforma_invoice)
@@ -84,12 +90,19 @@ class OrderController extends Controller
     }
 
     public function destroy(Order $order)
-    {
+    {   $proforma_invoice = $order->proformaInvoice; 
         $order->delete();
-
-        return redirect()->route('orders.index')
+        return redirect()->route('proforma_invoices.orders.index', $proforma_invoice->id)
             ->with('success', 'Commande supprimée avec succès.');
     }
+            /*
+            public function destroy(Order $order)
+            {
+             $proforma_invoice = $order->proforma_invoice; 
+             $order->delete();
+            return redirect()->route('proforma_invoices.orders.index', $proforma_invoice->id)
+            ->with('success', 'Commande supprimée avec succès.');
+           }*/
     public function order_alllist(){
         $orders = Order::with('client')->latest()->get();
         return view('orders.index', compact('orders'));

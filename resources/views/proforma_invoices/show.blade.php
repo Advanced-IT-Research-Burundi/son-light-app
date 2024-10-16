@@ -21,22 +21,8 @@
                 <dt class="col-sm-3">Entreprise</dt>
                 <dd class="col-sm-9">{{ $proforma_invoice->entreprise->name ?? 'Non spécifié' }}</dd>
 
-                {{-- <dt class="col-sm-3">Désignation</dt>
+                 <dt class="col-sm-3">Désignation</dt>
                 <dd class="col-sm-9">{{ $proforma_invoice->designation ?? 'Non spécifié' }}</dd>
-
-                <dt class="col-sm-3">Quantité</dt>
-                <dd class="col-sm-9">{{ $proforma_invoice->quantity ?? 'Non spécifié' }}</dd>
-
-                <dt class="col-sm-3">Prix Unitaire</dt>
-                <dd class="col-sm-9">{{ number_format($proforma_invoice->amount, 2, ',', ' ') }} BIF</dd> --}}
-
-                <dt class="col-sm-3">Montant HT</dt>
-                <dd class="col-sm-9">{{ number_format($proforma_invoice->amount_ht, 2, ',', ' ') }} BIF</dd>
-
-                <dt class="col-sm-3">Montant TVAC</dt>
-                <dd class="col-sm-9">{{ number_format($proforma_invoice->amount_tvac, 2, ',', ' ') }} BIF</dd>
-
-
                 <dt class="col-sm-3">Date de facturation</dt>
                 <dd class="col-sm-9">{{ $proforma_invoice->proforma_invoice_date }}</dd>
                

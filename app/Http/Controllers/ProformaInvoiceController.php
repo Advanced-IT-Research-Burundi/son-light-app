@@ -15,8 +15,8 @@ class ProformaInvoiceController extends Controller
 {
     public function index()
     {
-        $proforma_invoice = ProformaInvoice::with('client')->latest()->get();
-        return view('proforma_invoices.index', compact('proforma_invoice'));
+        $proforma_invoices = ProformaInvoice::with('client')->latest()->get();
+        return view('proforma_invoices.index', compact('proforma_invoices'));
     }
 
     public function create()

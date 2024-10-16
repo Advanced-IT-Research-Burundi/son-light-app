@@ -39,7 +39,7 @@
                         $count = 1;
                     @endphp
                     <tbody>
-                        @foreach($proforma_invoice as $proforma_invoice)
+                        @foreach($proforma_invoices as $proforma_invoice)
                         <tr>
                             <td>{{ $count }}</td>
                             <td>{{ $proforma_invoice->client->name }}</td>
