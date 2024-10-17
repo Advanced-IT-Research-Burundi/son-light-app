@@ -2,7 +2,7 @@
 @extends('layouts.app')
 @section('title', 'Détails de la facture proforma')
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <h3 class="my-4">
         <i class="bi bi-bag"></i> Détails de la facture proforma #{{ $proforma_invoice->id }}
     </h3>
@@ -25,7 +25,7 @@
                 <dd class="col-sm-9">{{ $proforma_invoice->designation ?? 'Non spécifié' }}</dd>
                 <dt class="col-sm-3">Date de facturation</dt>
                 <dd class="col-sm-9">{{ $proforma_invoice->proforma_invoice_date }}</dd>
-               
+
 
                 <dt class="col-sm-3">Créé par</dt>
                 <dd class="col-sm-9">{{ $proforma_invoice->user->name }}</dd>
@@ -46,14 +46,15 @@
         </a>
         <a href="{{ route('proforma_invoices.orders.create', $proforma_invoice) }}" class="btn btn-primary">
         <i class="bi bi-plus-circle"></i> Créer la commande</a>
-      
+
         <a href="{{ route('proforma_invoices.generatePDF', $proforma_invoice) }}" class="btn btn-success">
-            <i class="bi bi-attach">             
-            </i>
+            <i class="bi bi-filetype-pdf"></i>
             Générer PDF
         </a>
-             <a href="{{ route('order_alllist')}}" class="btn btn-primary">
-             <i class="bi bi-plus-circle"></i> visualiser des commandes </a>
+        <a href="{{ route('order_alllist')}}" class="btn btn-primary">
+             visualiser des commandes
+        </a>
+
     </div>
 
 
@@ -61,7 +62,7 @@
 </div>
 
 <div class="container">
-   
+
     <!-- ... autres détails de la commande ... -->
      <div class="row">
         <p><br></p>

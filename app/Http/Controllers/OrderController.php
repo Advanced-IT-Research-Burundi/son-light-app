@@ -49,7 +49,7 @@ class OrderController extends Controller
         $order = Order::create($validatedData);
 
             // dd(($request->amount * $request->quantity));
-            
+
         $detailOrder = $order->detailOrders()->create([
             'product_name' => $request->designation,
             'quantity' => $request->quantity,
@@ -64,7 +64,7 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         $clients = Client::all();
-        $proforma_invoice = ProformaInvoice::find($order->proforma_invoice_id); 
+        $proforma_invoice = ProformaInvoice::find($order->proforma_invoice_id);
         $companies = Company::all();
         return view('orders.edit', compact('order', 'clients','companies','proforma_invoice'));
     }
@@ -90,7 +90,7 @@ class OrderController extends Controller
     }
 
     public function destroy(Order $order)
-    {   $proforma_invoice = $order->proformaInvoice; 
+    {   $proforma_invoice = $order->proformaInvoice;
         $order->delete();
         return redirect()->route('proforma_invoices.orders.index', $proforma_invoice->id)
             ->with('success', 'Commande supprimée avec succès.');
@@ -98,7 +98,7 @@ class OrderController extends Controller
             /*
             public function destroy(Order $order)
             {
-             $proforma_invoice = $order->proforma_invoice; 
+             $proforma_invoice = $order->proforma_invoice;
              $order->delete();
             return redirect()->route('proforma_invoices.orders.index', $proforma_invoice->id)
             ->with('success', 'Commande supprimée avec succès.');
@@ -106,5 +106,12 @@ class OrderController extends Controller
     public function order_alllist(){
         $orders = Order::with('client')->latest()->get();
         return view('orders.index', compact('orders'));
+    }
+
+    public function generatePDF(Order $order)
+    {
+        $order->load('proforma_invoice', 'proforma_invoice.client', 'proforma_invoice.entreprise');
+        $pdf = PDF::loadView('orders.pdf', compact('order'));
+        return $pdf->download('commande_' . $order->id . '.pdf');
     }
 }

@@ -28,7 +28,7 @@
                 <dd class="col-sm-9">{{ $order->quantity ?? 'Non spécifié' }}</dd>
 
                 <dt class="col-sm-3">Prix Unitaire</dt>
-                <dd class="col-sm-9">{{ number_format($order->amount, 2, ',', ' ') }} BIF</dd> 
+                <dd class="col-sm-9">{{ number_format($order->amount, 2, ',', ' ') }} BIF</dd>
 
                 <dt class="col-sm-3">Montant HT</dt>
                 <dd class="col-sm-9">{{ number_format($order->amount *$order->quantity, 2, ',', ' ') }} BIF</dd>
@@ -62,11 +62,18 @@
     <div class="mt-4">
     <a href="{{  route('order_alllist') }}" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i> Retour à la liste des commandes
-        </a> 
+        </a>
         <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary">
             <i class="bi bi-pencil"></i> Modifier
         </a>
         <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary">Ajouter un article ou service</a>
+        <a href="{{ route('orders.generatePDF', $order) }}" class="btn btn-success">
+            <i class="bi bi-filetype-pdf"></i>
+            </i>
+            Générer PDF
+        </a>
+        <a href="{{ route('order_alllist')}}" class="btn btn-primary">
+        <i class="bi bi-eye"></i> visualiser des commandes </a>
     </div>
 
 

@@ -35,9 +35,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/alerts', [AlertController::class, 'index'])->name('alerts.index');
     Route::resource('stocks', StockController::class);
     Route::post('stock-movements', [StockMovementController::class, 'store'])->name('stock-movements.store');
-    
+
     Route::resource('tasks', App\Http\Controllers\TaskController::class);
-    
+
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     Route::resource('material-usages', App\Http\Controllers\MaterialUsageController::class);
     Route::resource('payments', App\Http\Controllers\PaymentController::class);
@@ -63,8 +63,10 @@ Route::resource('invoices', InvoiceController::class)->except(['edit', 'update',
 Route::get('orders/{order}/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
 //Route::post(uri: 'proformas/{proforma}', [InvoiceController::class, 'store'])->name('invoices.store');
 Route::get('invoices/{invoice}/generate-pdf', [InvoiceController::class, 'generatePDF'])->name('invoices.generatePDF');
+Route::get('orders/{order}/generate-pdf', [OrderController::class, 'generatePDF'])->name('orders.generatePDF');
 Route::post('addselect',[DetailOrderController::class,'addselect'])->name('addselect');
 Route::get('order_alllist',[OrderController::class,'order_alllist'])->name('order_alllist');
+
 });
 require_once __DIR__.'/auth.php';
 
