@@ -110,7 +110,41 @@ class OrderController extends Controller
 
     public function generatePDF(Order $order)
     {
-        $order->load('proforma_invoice', 'proforma_invoice.client', 'proforma_invoice.entreprise');
+         $order->load('detailOrders', 'client', 'entreprise');
+        $companies = [
+            ['name' => 'Son light IMPRIMERIE'],
+            ['name' => 'DEALER GROUP'],
+            ['name' => 'BUFI TECHNOLOGIE'],
+            ['name' => 'NOVA TECH'],
+            ['name' => 'AFRO BUSINESS GROUP'],
+            ['name' => 'SOCIETE ANONYME'],
+        ];
+
+        // CREATION DES PROFORMA A PARTIR DES COMPANY_KEY EN UTILISANT SWICH EN GENERA PDF POUR CHAQUE COMPANY
+        switch ($order->entreprise->id) {
+            case 1:
+                $pdf = PDF::loadView('orders.pdf', compact('order'));
+                break;
+            case 2:
+                $pdf = PDF::loadView('orders.pdf_Dealer_Group', compact('order'));
+                break;
+            case 3:
+                $pdf = PDF::loadView('orders.pdf_bufi', compact('order'));
+                break;
+            case 4:
+                $pdf = PDF::loadView('orders.pdf_nova', compact('order'));
+                break;
+            case 5:
+                $pdf = PDF::loadView('orders.pdf_afro', compact('order'));
+                break;
+            default:
+                $pdf = PDF::loadView('orders.pdf', compact('order'));
+        }
+
+
+
+        return $pdf->download('order' . '.pdf');
+        $order->load('order', 'order.client', 'order.entreprise');
         $pdf = PDF::loadView('orders.pdf', compact('order'));
         return $pdf->download('commande_' . $order->id . '.pdf');
     }
