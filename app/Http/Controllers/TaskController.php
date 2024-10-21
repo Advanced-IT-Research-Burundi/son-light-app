@@ -17,7 +17,6 @@ class TaskController extends Controller
     public function index(Request $request): View
     {
         $tasks = Task::all();
-
         return view('task.index', compact('tasks'));
     }
 
@@ -33,11 +32,7 @@ class TaskController extends Controller
 
         $data = $request->validated();
         $data['creator_id'] = Auth::user()->id;
-
-      
-       Task::create($data);
-
-
+        Task::create($data);
         return redirect()->route('tasks.index');
     }
 

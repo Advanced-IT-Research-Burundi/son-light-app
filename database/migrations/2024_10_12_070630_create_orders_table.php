@@ -31,6 +31,7 @@ return new class extends Migration
             $table->date('order_date');
             $table->date('delivery_date');
             $table->string('status');
+            $table->integer('status_livraison');
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

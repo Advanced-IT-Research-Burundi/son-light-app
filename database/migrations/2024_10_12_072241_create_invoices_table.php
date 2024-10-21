@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('number')->unique();
             $table->date('date');
             $table->date('due_date');
-            $table->decimal('total_amount', 10, 2);
             $table->string('status')->default('unpaid');
             $table->timestamps();
             $table->softDeletes();

@@ -32,6 +32,7 @@ class Order extends Model
         'amount' => 'float',
         'order_date' => 'date',
         'delivery_date' => 'date',
+        'status_livraison'=>'integer',
     ];
 
     protected $with = ['proformaInvoice'];

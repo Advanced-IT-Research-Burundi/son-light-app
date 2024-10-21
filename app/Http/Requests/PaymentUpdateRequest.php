@@ -20,7 +20,7 @@ class PaymentUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'order_id' => ['required', 'integer', 'exists:orders,id'],
+            'invoice_id' => ['required', 'integer', 'exists:orders,id'],
             // 'user_id' => ['required', 'integer', 'exists:users,id'],
             'amount' => ['required', 'numeric'],
             'payment_date' => ['required', 'date'],

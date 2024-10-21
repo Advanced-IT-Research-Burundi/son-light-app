@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PaymentStoreRequest;
 use App\Http\Requests\PaymentUpdateRequest;
-use App\Models\Order;
+use App\Models\Invoice;
 use App\Models\Payment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,15 +16,13 @@ class PaymentController extends Controller
     public function index(Request $request): View
     {
         $payments = Payment::latest()->get();
-
-
         return view('payment.index', compact('payments'));
     }
 
     public function create(Request $request): View
     {
-        $orders = Order::latest()->get();
-        return view('payment.create', compact('orders'));
+        $invoices = Invoice::latest()->get();
+        return view('payment.create', compact('invoices'));
     }
 
     public function store(PaymentStoreRequest $request): RedirectResponse
@@ -43,8 +41,8 @@ class PaymentController extends Controller
 
     public function edit(Request $request, Payment $payment): View
     {
-        $orders = Order::latest()->get();
-        return view('payment.edit', compact(['payment','orders']));
+        $invoices = Invoice::latest()->get();
+        return view('payment.edit', compact(['payment','invoices']));
     }
 
     public function update(PaymentUpdateRequest $request, Payment $payment): RedirectResponse

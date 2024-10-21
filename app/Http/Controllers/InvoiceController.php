@@ -12,14 +12,14 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        $invoices = Invoice::with('orders')->get();
+        $invoices = Invoice::with('order')->get();
         return view('invoices.index', compact('invoices'));
     }
 
     public function create(Order $order)
     {
 
-        $number = 'INV-' . date('Y-m-d') . '';
+        $number = 'INV-' . date("Y-m-d h:i:sa") . '';
         return view('invoices.create', compact('order', 'number'));
     }
 
@@ -34,7 +34,6 @@ class InvoiceController extends Controller
 
         $invoice = new Invoice($validatedData);
         $invoice->order_id = $order->id;
-        $invoice->total_amount = $order->total_amount;
         $invoice->status = 'unpaid';
         $invoice->save();
 
@@ -43,24 +42,36 @@ class InvoiceController extends Controller
 
         return redirect()->route('invoices.show', $invoice)->with('success', 'Facture créée avec succès.');
     }
+    public function destroy(Invoice $invoice)
+    {
+        $invoice->delete();
+        return redirect()->route('invoices.index')
+            ->with('success', 'la facture a ete supprimée avec succès.');
+    }
 
     public function show(Invoice $invoice)
     {
-        $invoice->load('order.detailOrders');
+        $invoice->load('order.detailOrders', 'order.client', 'order.entreprise');
         return view('invoices.show', compact('invoice'));
     }
-
-    /*public function generatePDF(Invoice $invoice)
+    public function edit(Invoice $invoice)
     {
-        $invoice->load('order.detailOrders', 'order.client', 'order.entreprise');
+        return view('invoices.edit', compact('invoice'));
+    }
+    public function update(Request $request, Invoice $invoice)
+    {
+        $request->validate([    
+            'number' => 'required',
+            'date' => 'required|date',
+            'due_date' => 'required|date|after:date',
+        ]);
+        $invoice->update($request->all());
 
-        $pdf = PDF::loadView('invoices.pdf', compact('invoice'));
-
-        return $pdf->download('facture_' . $invoice->number . '.pdf');
-    }*/
+        return redirect()->route('invoices.show', $invoice->id)
+            ->with('success', 'La facture a ete mise à jour avec succès.');
+    }
     public function generatePDF(Invoice $invoice)
     {    
-        // $proforma_invoice->load('proforma_invoice.proformaInvoiceList', ' proforma_invoice.client', ' proforma_invoice.entreprise');
         $invoice->load('order.detailOrders', 'order.client', 'order.entreprise');
         $companies = [
             ['name' => 'Son light IMPRIMERIE'],

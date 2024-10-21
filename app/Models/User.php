@@ -58,7 +58,6 @@ class User extends Authenticatable
     public function company(){
         return $this->belongsTo(Company::class);
     }
-
     public function isAdmin(){
         return $this->role()->where('name', 'Administrateur')->exists();
     }

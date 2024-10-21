@@ -10,6 +10,8 @@
             font-family: Arial, sans-serif;
             color: black;
             padding: 0px;
+             font-size: 16px;
+            
         }
 
         header {
@@ -26,9 +28,10 @@
 
         .header_left{
             font-weight: 300;
-            font-size: large;
             float: left;
             margin-left: 40px;
+             font-size: 24px;
+            
         }
 
         .title {
@@ -43,6 +46,7 @@
             justify-content: space-between;
             width: 100%;
             margin: 20px 0;
+             font-size: 18px;
         }
 
         .header_info div {
@@ -52,13 +56,11 @@
 
         .header_info h5 {
             margin: 5px 0;
-            font-size: 1em;
             text-align: left;
         }
 
         .header_right {
             font-weight: 300;
-            font-size: large;
             text-align: left;
             float: right;
             margin-right: 40px;
@@ -77,7 +79,6 @@
             margin-top: 10px;
             margin-bottom: 10px;
             text-align: left;
-            font-size: 1.8em;
             font-weight: bold;
             color: #333;
         }
@@ -93,16 +94,11 @@
             margin: 20px 0;
         }
 
-        th, td {
-            border: 1px solid #ccc;
+        th,tr, td {
+            border: 1px solid black;
             padding: 10px;
             text-align: left;
         }
-
-        th {
-            background-color: #f8f8f8;
-        }
-
         footer {
             text-align: center;
             margin-top: 20px;
@@ -138,15 +134,10 @@
                 text-align: left;
                 margin: 10px 0;
             }
-
-            table {
-                font-size: 0.9em;
-            }
         }
         .footer {
             position: absolute;
             bottom: 0;
-            font-size: 15px;
             color: red;
             width: 100%;
             text-align: center;
@@ -173,11 +164,10 @@
     </header>
 
     <div class="border_header">
-        <h4>FACTURE  DU {{ $order->created_at->format('d/m/Y') }}</h4>
-    </div>
-
+        <h2>FACTURE  NUMERO {{ $invoice->id }} <br><br>
+    <span style="color:black;  font-size: 14px;">Date de facturation: <strong> Le {{ $invoice->created_at->format('d/m/Y') }}</strong></span></h2>
     <div class="border-text">
-        <h4 style="text-decoration: underline;">CLIENT : {{ $order->client->name }}</h4>
+        <h4 style="text-decoration: underline;">CLIENT : {{ $invoice->order->client->name }}</h4>
         <table>
             <tr>
                 <th>ORDRE</th>
@@ -186,7 +176,7 @@
                 <th>P.U en FBU</th>
                 <th>PVHTVA en FBU</th>
             </tr>
-            @foreach($order->detailOrders as $detail)
+            @foreach($invoice->order->detailOrders as $detail)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
@@ -197,15 +187,15 @@
              @endforeach
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
-                    <td><strong>{{ number_format($order->detailOrders->sum('total_price'), 2) }}</strong></td>
+                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2) }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>TVA</strong></td>
-                    <td><strong>{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * $order->tva / 100, 2):'' }}</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2):'' }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>PT TVAC</strong></td>
-                    <td><strong>{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * (1 + $order->tva / 100), 2):'' }}</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 2):'' }}</strong></td>
                 </tr>
         </table>
         <p><strong>Mention obligatoire <br>

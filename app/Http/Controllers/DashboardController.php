@@ -9,7 +9,6 @@ use App\Models\Task;
 
 class DashboardController extends Controller
 {
-    //
     public function dashboard(){
         $orders_count = Order::where('status', 'En cours')->count();
         $tasks_count = Task::where('status', 'en cours')->count();

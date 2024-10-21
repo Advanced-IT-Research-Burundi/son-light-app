@@ -24,6 +24,7 @@ class OrderStoreRequest extends FormRequest
             'proforma_invoice_id' => ['required'],
             'amount' => ['required','numeric'],
             'quantity' => ['required','numeric'],
+            'status_livraison'=>['required','integer'],
             // 'order_date' => ['required', 'date'],
             'delivery_date' => ['required', 'date'],
             'designation' => ['required', 'string'],

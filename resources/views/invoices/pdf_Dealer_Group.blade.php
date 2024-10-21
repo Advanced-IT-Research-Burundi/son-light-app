@@ -158,12 +158,13 @@
         <div class="bar red"></div>
     </div>
     <div class=" bordertitre">
-        <h4 class="border_header">FACTURE </h4>
-        <h4 class="date">Date: Le {{ $order->created_at->format('d/m/Y') }}</h4>
+        <h4 class="border_header">FACTURE  NUMERO {{ $invoice->number }} <br><br>
+    <span style="color:red;  font-size: 12px;">Date de facturation: <strong> Le {{ $invoice->created_at->format('d/m/Y') }}</strong></span></h2>
+    <div style=" font-size: 14px;" >
     </div>
 
     <div class="border-text">
-        <h4 style="text-decoration: underline;">CLIENT : {{ $order->client->name }}</h4>
+        <h4 style="text-decoration: underline;">CLIENT : {{ $invoice->order->client->name }}</h4>
         <table>
             <tr>
                 <th>ORDRE</th>
@@ -175,15 +176,15 @@
                 <th>TV-TVAC*</th>
             </tr>
             <tbody>
-            @foreach($order->detailOrders as $detail)
+            @foreach($invoice->order->detailOrders as $detail)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
                 <td>{{ number_format($detail->unit_price, 2) }}</td>
                 <td>{{ number_format($detail->total_price, 2) }}</td>
-                <td>{{ $order->entreprise->assujeti?number_format($detail->total_price * $order->tva / 100, 2):'' }}</td>
-                <td>{{ $order->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $order->tva / 100), 2):'' }}</td>
+                <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price * $invoice->order->tva / 100, 2):'' }}</td>
+                <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $invoice->order->tva / 100), 2):'' }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -191,8 +192,8 @@
             <tr>
                 <td colspan="4" style="text-align: left;"><strong>Total</strong></td>
                 <td><strong>{{ number_format($order->detailOrders->sum('total_price'), 2) }}</strong></td>
-                <td><strong>{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * $order->tva / 100, 2):'' }}</strong></td>
-                <td><strong>{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * (1 + $order->tva / 100), 2):'' }}</strong></td>
+                <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2):'' }}</strong></td>
+                <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 2):'' }}</strong></td>
             </tr>
         </tfoot>
         </table>

@@ -42,8 +42,13 @@
 
                 <dt class="col-sm-3">Date de livraison</dt>
                 <dd class="col-sm-9">{{ $order->delivery_date->format('d/m/Y') }}</dd>
-
-                <dt class="col-sm-3">Statut</dt>
+                <dt class="col-sm-3">La livraison a été  Terminée ?</dt>
+                @if($order->status_livraison==1)
+                     <dd class="col-sm-9" style="color:blue;">OUI</dd>
+                     @else
+                     <dd class="col-sm-9" style="color:red;">Non</dd>
+                @endif
+                <dt class="col-sm-3">Statut de la commande</dt>
                 <dd class="col-sm-9">
                     <span class="">
                         {{ $order->status }}
@@ -66,14 +71,15 @@
         <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary">
             <i class="bi bi-pencil"></i> Modifier
         </a>
-        <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary">Ajouter un article ou service</a>
-        <a href="{{ route('orders.generatePDF', $order) }}" class="btn btn-success">
-            <i class="bi bi-filetype-pdf"></i>
-            </i>
-            Générer PDF
+        <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary">
+          <i class="bi bi-plus-circle"></i> 
+        Ajouter un article ou service</a>
+        <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
+             <i class="bi bi-plus-circle"></i> 
+            Ajouter la facture simple
         </a>
         <a href="{{ route('order_alllist')}}" class="btn btn-primary">
-        <i class="bi bi-eye"></i> visualiser des commandes </a>
+        <i class="bi bi-eye"></i> Visualiser des commandes </a>
     </div>
 
 

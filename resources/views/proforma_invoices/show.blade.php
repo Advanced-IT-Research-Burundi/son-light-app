@@ -36,13 +36,13 @@
 
     <div class="mt-4">
        <a href="{{ route('proforma_invoices.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Retour à la liste des factures
+            <i class="bi bi-arrow-left"></i> Retour à la liste des proforma
         </a>
         <a href="{{ route('proforma_invoices.edit', $proforma_invoice->id) }}" class="btn btn-primary">
             <i class="bi bi-pencil"></i> Modifier la proforma
         </a>
         <a href="{{ route('proforma_invoices.proforma_invoice_lists.create', $proforma_invoice) }}" class="btn btn-primary">
-        <i class="bi bi-plus-circle"></i>  Ajouter un article ou un service
+        <i class="bi bi-plus-circle"></i>  Ajouter un article
         </a>
         <a href="{{ route('proforma_invoices.orders.create', $proforma_invoice) }}" class="btn btn-primary">
         <i class="bi bi-plus-circle"></i> Créer la commande</a>
@@ -52,7 +52,8 @@
             Générer PDF
         </a>
         <a href="{{ route('order_alllist')}}" class="btn btn-primary">
-             visualiser des commandes
+            <i class="bi bi-eye"></i>
+             Visualiser des commandes
         </a>
 
     </div>

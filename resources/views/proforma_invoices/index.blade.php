@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
     <h3 class="my-4">
-        <i class="bi bi-cart3"></i> Gestion des factures proforma et des commandes
+        <i class="bi bi-cart3"></i> Gestion des factures proforma
     </h3>
      <div class="row">
      <div class="mb-4 col-3">

@@ -7,16 +7,6 @@
     <h3 class="my-4">
         <i class="bi bi-cart3"></i> Gestion des commandes
     </h3>
-
-    <div class="mb-4">
-       <a href="{{ route('proforma_invoices.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Retour à la liste des factures proforma
-        </a>
-        <a href="" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Nouvelle commande
-        </a>
-    </div>
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Liste des commandes</h6>
@@ -82,6 +72,11 @@
                     </tbody>
                 </table>
             </div>
+                <div class="mb-4">
+       <a href="{{ route('proforma_invoices.index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste des factures proforma
+        </a>
+    </div>
         </div>
     </div>
 </div>
