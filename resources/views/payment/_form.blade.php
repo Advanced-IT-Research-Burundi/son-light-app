@@ -1,38 +1,41 @@
 <!-- resources/views/orders/_form.blade.php -->
 @csrf
-<div class="form-group mb-4">
-    <label for="order_id" class="mb-2"><i class="bi bi-cart3"></i> Commande</label>
-    <select name="order_id" id="order_id" class="form-control @error('order_id') is-invalid @enderror" required>
-        <option value="">Sélectionnez une commande</option>
-        @foreach($orders as $order)
-            <option value="{{ $order->id }}" {{ isset($task) && $task->order_id == $order->id ? 'selected' : '' }}>#{{ $order->id }}   : {{ $order->designation }}</option>
+<div class="row">
+<div class="form-group mb-3 col-3">
+    <label for="invoice_id" class="form-label">
+        <i class="bi bi-person"></i> Facture
+    </label>
+    <select class="form-select @error('invoice_id') is-invalid @enderror" id="invoice_id" name="invoice_id" required>
+        <option value="">Sélectionnez une facture</option>
+        @foreach($invoices as $invoice)
+            <option value="{{ $invoice->id }}" {{ old('invoice_id', $invoice->id ?? '') == $invoice->id ? 'selected' : '' }}>
+                # {{ $invoice->id }}   {{$invoice->number}}
+            </option>
         @endforeach
     </select>
-    @error('order_id')
+    @error('invoice_id')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-3">
     <label for="amount" class="form-label">
         <i class="bi bi-cash-coin"></i> Montant
     </label>
-    <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $order->amount ?? '') }}" required>
+    <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $invoice->order->amount ?? '') }}" required>
     @error('amount')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-3">
     <label for="payment_date" class="form-label">
         <i class="bi bi-calendar"></i> Date de payement
     </label>
-    <input type="date" class="form-control @error('payment_date') is-invalid @enderror" id="payment_date" name="payment_date" value="{{ old('payment_date', $order->payment_date ?? '') }}" required>
+    <input type="date" class="form-control @error('payment_date') is-invalid @enderror" id="payment_date" name="payment_date" value="{{ old('payment_date', $invoice->payment_date ?? '') }}" required>
     @error('payment_date')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-3">
     <label for="payment_method" class="form-label">
         <i class="bi bi-calendar"></i> Mode de payement
     </label>
@@ -47,8 +50,7 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-
-
+</div>
 <div class="form-group mb-3">
     <label for="description" class="form-label">
         <i class="bi bi-text-paragraph"></i> Description

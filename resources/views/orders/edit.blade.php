@@ -6,9 +6,9 @@
 
 @section('content')
 <div class="container">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-pencil"></i> Modifier la commande #{{ $order->id }}
-    </h1>
+    </h3>
 
     <div class="card shadow">
         <div class="card-body">
@@ -22,7 +22,7 @@
                     <button type="submit" class="btn btn-primary">
                         <i class="bi bi-check-lg"></i> Mettre à jour la commande
                     </button>
-                    <a href="{{ route('orders.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-secondary">
                         <i class="bi bi-x-lg"></i> Annuler
                     </a>
                 </div>

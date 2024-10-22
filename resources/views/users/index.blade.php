@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="mt-4 mb-4">Gestion des utilisateurs</h1>
+    <h3 class="mt-4 mb-4">Gestion des utilisateurs</h3>
     <!-- Bouton pour ajouter un nouvel utilisateur -->
     <div class="mb-4">
         <a href="{{ route('users.create') }}" class="btn btn-primary">

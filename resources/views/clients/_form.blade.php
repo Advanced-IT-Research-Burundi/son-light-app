@@ -1,6 +1,7 @@
 <!-- resources/views/clients/_form.blade.php -->
-
-<div class="form-group mb-3">
+<div class="row">
+    
+<div class="form-group mb-3 col-4">
     <label for="name" class="form-label">
         <i class="bi bi-person"></i> Nom & Prénom
     </label>
@@ -10,7 +11,7 @@
     @enderror
 </div>
 
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-4">
     <label for="email" class="form-label">
         <i class="bi bi-envelope"></i> Email
     </label>
@@ -20,7 +21,7 @@
     @enderror
 </div>
 
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-4">
     <label for="phone" class="form-label">
         <i class="bi bi-telephone"></i> Téléphone
     </label>
@@ -29,7 +30,9 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3">
+</div>
+<div class="row">
+<div class="form-group mb-3 col-3">
     <label for="company" class="form-label">
         <i class="bi bi-building"></i> Entreprise
     </label>
@@ -38,7 +41,7 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-3">
     <label for="company" class="form-label">
         <i class="bi bi-building"></i> NIF
     </label>
@@ -47,14 +50,15 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="mb-3">
+<div class="mb-3 col-3">
     <label for="rc" class="form-label">RC</label>
-    <input type="text" class="form-control @error('rc') is-invalid @enderror" id="rc" name="rc" value="{{ old('rc', $company->rc ?? '') }}">
+    <input type="text" class="form-control @error('rc') is-invalid @enderror" id="rc" name="rc" value="{{ old('rc', $client->rc ?? '') }}">
     @error('rc')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="mb-3">
+<div class="mb-3 col-3">
+    <br><br>
     <label for="assujeti" class="form-label">Assujeti TVA  :  </label>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="assujeti" id="inlineRadio1"  value="1">
@@ -68,16 +72,9 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3">
-    <label for="address" class="form-label">
-        <i class="bi bi-geo-alt"></i> Adresse
-    </label>
-    <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3">{{ old('address', $client->address ?? '') }}</textarea>
-    @error('address')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
 </div>
-<div class="form-group mb-3">
+<div class="row">
+<div class="form-group mb-3 col-6">
     <label for="persone_reference1" class="form-label">
         <i class="bi bi-person"></i>Premiere personnne de reference avec son Tel
     </label>
@@ -86,13 +83,23 @@
         <div class="invalid-feedback">{{ $persone_reference1 }}</div>
     @enderror
 </div>
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-6">
     <label for="persone_reference2" class="form-label">
         <i class="bi bi-person"></i> Seconde personnne de reference avec son Tel
     </label>
     <input type="text" class="form-control @error('persone_reference2') is-invalid @enderror" id="persone_reference2" name="persone_reference2" value="{{ old('persone_reference2', $client->persone_reference2 ?? '') }}" >
     @error('persone_reference2')
         <div class="invalid-feedback">{{ $persone_reference2 }}</div>
+    @enderror
+</div>
+</div>
+<div class="form-group mb-3">
+    <label for="address" class="form-label">
+        <i class="bi bi-geo-alt"></i> Adresse
+    </label>
+    <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3">{{ old('address', $client->address ?? '') }}</textarea>
+    @error('address')
+        <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
 

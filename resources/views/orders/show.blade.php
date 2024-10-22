@@ -3,15 +3,9 @@
 @section('title', 'Détails de la commande')
 @section('content')
 <div class="container">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-bag"></i> Détails de la commande #{{ $order->id }}
-    </h1>
-    <div class="my-2">
-        <a href="{{ route('proformas.create', $order) }}" class="btn btn-primary">Créer la facture proforma</a>
-        <!-- ... autres boutons ... -->
-        <a href="{{ route('proformas.index', ['order_id' =>$order]) }}" class="btn btn-primary">Créer la facture </a>
-
-    </div>
+    </h3>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Informations de la commande</h6>
@@ -27,29 +21,34 @@
                 <dt class="col-sm-3">Entreprise</dt>
                 <dd class="col-sm-9">{{ $order->entreprise->name ?? 'Non spécifié' }}</dd>
 
-                {{-- <dt class="col-sm-3">Désignation</dt>
+               {{-- <dt class="col-sm-3">Désignation</dt>
                 <dd class="col-sm-9">{{ $order->designation ?? 'Non spécifié' }}</dd>
 
                 <dt class="col-sm-3">Quantité</dt>
                 <dd class="col-sm-9">{{ $order->quantity ?? 'Non spécifié' }}</dd>
 
                 <dt class="col-sm-3">Prix Unitaire</dt>
-                <dd class="col-sm-9">{{ number_format($order->amount, 2, ',', ' ') }} BIF</dd> --}}
+                <dd class="col-sm-9">{{ number_format($order->amount, 2, ',', ' ') }} BIF</dd>
 
                 <dt class="col-sm-3">Montant HT</dt>
-                <dd class="col-sm-9">{{ number_format($order->amount_ht, 2, ',', ' ') }} BIF</dd>
+                <dd class="col-sm-9">{{ number_format($order->amount *$order->quantity, 2, ',', ' ') }} BIF</dd>
 
                 <dt class="col-sm-3">Montant TVAC</dt>
                 <dd class="col-sm-9">{{ number_format($order->amount_tvac, 2, ',', ' ') }} BIF</dd>
 
-
+                  --}}
                 <dt class="col-sm-3">Date de commande</dt>
                 <dd class="col-sm-9">{{ $order->order_date->format('d/m/Y') }}</dd>
 
                 <dt class="col-sm-3">Date de livraison</dt>
                 <dd class="col-sm-9">{{ $order->delivery_date->format('d/m/Y') }}</dd>
-
-                <dt class="col-sm-3">Statut</dt>
+                <dt class="col-sm-3">La livraison a été  Terminée ?</dt>
+                @if($order->status_livraison==1)
+                     <dd class="col-sm-9" style="color:blue;">OUI</dd>
+                     @else
+                     <dd class="col-sm-9" style="color:red;">Non</dd>
+                @endif
+                <dt class="col-sm-3">Statut de la commande</dt>
                 <dd class="col-sm-9">
                     <span class="">
                         {{ $order->status }}
@@ -66,26 +65,27 @@
     </div>
 
     <div class="mt-4">
+    <a href="{{  route('order_alllist') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste des commandes
+        </a>
         <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary">
             <i class="bi bi-pencil"></i> Modifier
         </a>
-        <a href="{{ route('orders.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Retour à la liste
+        <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary">
+          <i class="bi bi-plus-circle"></i> 
+        Ajouter un article ou service</a>
+        <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
+             <i class="bi bi-plus-circle"></i> 
+            Ajouter la facture simple
         </a>
+        <a href="{{ route('order_alllist')}}" class="btn btn-primary">
+        <i class="bi bi-eye"></i> Visualiser des commandes </a>
     </div>
 
 
 
 </div>
-
-<div class="container">
-    <h1>Détails de la commande #{{ $order->id }}</h1>
-
-    <!-- ... autres détails de la commande ... -->
-
-    <h2>Produits commandés</h2>
-    <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary mb-3">Ajouter un produit</a>
-
+<br>
     @php
         $count = 1;
     @endphp
@@ -128,8 +128,8 @@
         </tbody>
         {{-- <tfoot>
             <tr>
-                <th colspan="4">Total</th>
-                <th>{{ number_format($order->amount, 2) }} Fr Bu</th>
+                <th colspan="4">Total en Fbu</th>
+                <th>{{ number_format($order->amount, 2) }}</th>
                 <th></th>
             </tr>
         </tfoot> --}}

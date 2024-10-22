@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\DetailOrder;
+use App\Models\ProformaInvoiceList;
 use Illuminate\Http\Request;
 
 class DetailOrderController extends Controller
 {
     public function create(Order $order)
     {
-        return view('detail_orders.create', compact('order'));
+        $proformaInvoiceList =ProformaInvoiceList::all();
+        return view('detail_orders.create', compact('order','proformaInvoiceList'));
     }
 
     public function store(Request $request, Order $order)
@@ -30,7 +32,7 @@ class DetailOrderController extends Controller
             'total_price' => $totalPrice,
         ]);
 
-        $order->update(['amount' => $order->amount + $totalPrice]);
+        //$order->update(['amount' => $order->amount + $totalPrice]);
 
         return redirect()->route('orders.show', $order)->with('success', 'Produit ajouté à la commande avec succès.');
     }
@@ -58,16 +60,37 @@ class DetailOrderController extends Controller
             'total_price' => $newTotalPrice,
         ]);
 
-        $order->update(['amount' => $order->amount - $oldTotalPrice + $newTotalPrice]);
+        //$order->update(['amount' => $order->amount - $oldTotalPrice + $newTotalPrice]);
 
         return redirect()->route('orders.show', $order)->with('success', 'Détail de la commande mis à jour avec succès.');
     }
 
-    public function destroy(Order $order, DetailOrder $detailOrder)
+    public function destroy( Order $order,DetailOrder $detailOrder)
     {
-        $order->update(['amount' => $order->amount - $detailOrder->total_price]);
+       // $order->update(['amount' => $order->amount - $detailOrder->total_price]);
         $detailOrder->delete();
 
-        return redirect()->route('orders.show', $order)->with('success', 'Produit supprimé de la commande avec succès.');
+        return redirect()->route('orders.show', $detailOrder->order_id)->with('success', 'Produit supprimé de la commande avec succès.');
+    }
+
+    public function addselect(Request $request,Order $order){
+
+        // dd($request->all());
+        foreach ($request->select as $key => $value) {
+            $detailOrder =  json_decode( $value);
+
+            DetailOrder::create([
+                'order_id' =>$request->order_id,
+                'product_name'=>$detailOrder->product_name,
+                'quantity'=>$detailOrder->quantity,
+                'unit_price'=>$detailOrder->unit_price,
+                'total_price'=>$detailOrder->total_price,
+            ]);
+            
+        }
+
+     return redirect()->route('orders.show', $request->order_id)->with('success', 'Produit supprimé de la commande avec succès.');
+   
+       
     }
 }

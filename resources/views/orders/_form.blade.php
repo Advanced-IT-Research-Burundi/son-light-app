@@ -1,86 +1,41 @@
 <!-- resources/views/orders/_form.blade.php -->
+ <input type="hidden" name="proforma_invoice_id"  value="{{ $proforma_invoice->id }}">
+ <input type="hidden" name="client_id"  value="{{ $proforma_invoice->client->id }}">
+ <input type="hidden" name="company_id"  value="{{ $proforma_invoice->entreprise->id }}">
+ <input type="hidden" name="designation"  value="{{ $proforma_invoice->designation }}">
 <div class="form-group mb-3">
-    <label for="client_id" class="form-label">
-        <i class="bi bi-person"></i> Client
-    </label>
-    <select class="form-select @error('client_id') is-invalid @enderror" id="client_id" name="client_id" required>
-        <option value="">Sélectionnez un client</option>
-        @foreach($clients as $client)
-            <option value="{{ $client->id }}" {{ old('client_id', $order->client_id ?? '') == $client->id ? 'selected' : '' }}>
-                {{ $client->name }}
-            </option>
-        @endforeach
-    </select>
-    @error('client_id')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-
-<div class="form-group mb-3">
-    <label for="company_id" class="form-label">
-    <i class="bi bi-people-fill"></i> 
-        Entreprise</label>
-    <select class="form-select @error('company_id') is-invalid @enderror" id="company_id" name="company_id" required>
-        <option value="">Sélectionnez une entreprise</option>
-        @foreach($companies as $company)
-            <option value="{{ $company->id }}" {{ old('company_id', $order->company_id ?? '') == $company->id ? 'selected' : '' }}>
-                {{ $company->name }}
-            </option>
-        @endforeach
-    </select>
-    @error('company_id')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-<!-- <div class="form-group mb-3">
-    <label for="client_id" class="form-label">
-        <i class="bi bi-people-fill"></i> Societe
-    </label>
-    <select class="form-select @error('company') is-invalid @enderror" id="company" name="company" required>
-    <option value="">Sélectionnez une société</option>
-    @foreach(COMPANY_LIST as $company)
-        <option value="{{ $company }}" {{ old('company', $order->company ?? '') == $company ? 'selected' : '' }}>
-            {{ $company }}
-        </option>
-    @endforeach
-</select>
-    @error('company')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-
-</div> -->
-<div class="form-group mb-3">
-    <label for="order_date" class="form-label">
-        <i class="bi bi-calendar"></i> Désignation
-    </label>
-    <input type="text" class="form-control @error('designation') is-invalid @enderror" id="designation" name="designation" value="{{ old('designation', $order->designation ?? '') }}" required>
-    @error('designation')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-<div class="row">
-    <div class="form-group mb-3 col">
-        <label for="amount" class="form-label">
-            <i class="bi bi-cash-coin"></i> P.U
-        </label>
-        <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $order->amount ?? '') }}" required data-calc="price">
-        @error('amount')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+    <div class="row">
+    <div class="mb-3 col-4">
+          <label for="number" class="form-label"><i class="bi bi-person"></i> Client</label>
+          <input type="text" class="form-control" id="number" name="" value="{{ $proforma_invoice->client->name}}" readonly>
     </div>
-    <div class="form-group mb-3 col">
-        <label for="quantity" class="form-label">
-            Quantité
-        </label>
-        <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity', $order->quantity ?? '') }}" required data-calc="quantity">
+    <div class="mb-3 col-4">
+          <label for=""><i class="bi bi-people-fill"></i> Entreprise</label>
+          <input type="text" class="form-control" id="company_id" name="" value="{{ $proforma_invoice->entreprise->name}}" readonly>
+    </div>
+    <div class="mb-3 col-4">
+          <label for="">  <i class="bi bi-calendar"></i> Désignation</label>
+          <input type="text" class="form-control" id="designation" name="" value="{{ $proforma_invoice->designation}}" readonly>
+    </div>
+    </div>
+    <div class="row">
+    <div class="form-group mb-3 col-2">
+    <label for="amount" class="form-label"><i class="bi bi-cash-coin"></i> P.U</label>
+        <input type="number" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount',  $order?->amount?$order?->amount: $proforma_invoice->amount??'') }}" required data-calc="price">
         @error('quantity')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="form-group mb-3 col">
+    <div class="form-group mb-3 col-2">
+        <label for="quantity" class="form-label">
+            Quantité
+        </label>
+        <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity',  $order?->quantity?$order?->quantity: $proforma_invoice->quantity??'') }}" required data-calc="quantity">
+        @error('quantity')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="form-group mb-3 col-2">
         <label for="tva" class="form-label">
             TVA
         </label>
@@ -96,40 +51,50 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-</div>
-<div class="row mt-3">
-    <div class="form-group mb-3 col">
+      <div class="form-group mb-3 col-3">
         <label for="amount_ht" class="form-label">
             Montant HT
         </label>
         <input type="text"  class="form-control" id="amount_ht" name="amount_ht" readonly>
     </div>
-    <div class="form-group mb-3 col">
+    <div class="form-group mb-3 col-3">
         <label for="amount_tvac" class="form-label">
             Montant TTC
         </label>
         <input type="text"  class="form-control" id="amount_tvac" name="amount_tvac" readonly>
     </div>
+    </div>
 </div>
 
-
-<div class="form-group mb-3">
-    <label for="order_date" class="form-label">
+<div class="row mt-3">
+<div class="form-group mb-3 col-4">
+    <label for="delivery_date" class="form-label">
         <i class="bi bi-calendar"></i> Date de livraison
     </label>
-    <input type="date" class="form-control @error('order_date') is-invalid @enderror" id="order_date" name="order_date" value="{{ old('order_date', $order->order_date ?? '') }}" required>
-    @error('order_date')
+    <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" name="delivery_date" value="{{ old('delivery_date', $order->order_date ?? '') }}" required>
+    @error('delivery_date')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-
-
-<div class="form-group mb-3">
+<div class="form-group mb-3 col-4">
     <label for="status" class="form-label">
-        <i class="bi bi-check2-circle"></i> Statut
+        <i class="bi bi-check2-circle"></i> Statut de la livraison
+    </label>
+          <select class="form-select @error('status_livraison') is-invalid @enderror" id="status_livraison" name="status_livraison" required>
+        <option value="">Sélectionnez un statut correspondant</option>
+        <option value="2" {{ old('status_livraison', $order->status_livraison ?? '') == 2 ? 'selected' : '' }}>En attente</option>
+        <option value="1" {{ old('status_livraison', $order->status_livraison ?? '') == 1 ? 'selected' : '' }}>Immediatement</option>
+    </select>
+        @error('status_livraison')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+<div class="form-group mb-3 col-4">
+    <label for="status" class="form-label">
+        <i class="bi bi-check2-circle"></i> Statut de la commande
     </label>
     <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
-        <option value="">Sélectionnez un statut</option>
+        <option value="">Sélectionnez un statut correspondant</option>
         <option value="En attente" {{ old('status', $order->status ?? '') == 'En attente' ? 'selected' : '' }}>En attente</option>
         <option value="En cours" {{ old('status', $order->status ?? '') == 'En cours' ? 'selected' : '' }}>En cours</option>
         <option value="Terminée" {{ old('status', $order->status ?? '') == 'Terminée' ? 'selected' : '' }}>Terminée</option>
@@ -146,7 +111,6 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-
 <div class="form-group mb-3">
     <label for="description" class="form-label">
         <i class="bi bi-text-paragraph"></i> Description

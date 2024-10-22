@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Détails de l'entreprise</h1>
+    <h3>Détails de l'entreprise</h3>
     <dl class="row">
         <dt class="col-sm-3">Nom</dt>
         <dd class="col-sm-9">{{ $company->name }}</dd>

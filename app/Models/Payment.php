@@ -17,7 +17,7 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        'order_id',
+        'invoice_id',
         'user_id',
         'amount',
         'payment_date',
@@ -34,13 +34,13 @@ class Payment extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'order_id' => 'integer',
+        'invoice_id' => 'integer',
         'user_id' => 'integer',
         'amount' => 'float',
         'payment_date' => 'date',
     ];
 
-    public function order(): BelongsTo
+    public function invoice(): BelongsTo
     {
         return $this->belongsTo(Order::class);
     }

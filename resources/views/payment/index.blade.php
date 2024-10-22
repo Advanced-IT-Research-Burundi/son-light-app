@@ -10,9 +10,9 @@ payment.index template
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="my-4">
+    <h3 class="my-4">
         <i class="bi bi-cash-coin"></i> Gestion des payements
-    </h1>
+    </h3>
 
     <div class="mb-4">
         <a href="{{ route('payments.create') }}" class="btn btn-primary">

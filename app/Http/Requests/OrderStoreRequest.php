@@ -21,8 +21,13 @@ class OrderStoreRequest extends FormRequest
     {
         return [
             'client_id' => ['required', 'integer', 'exists:clients,id'],
-            'amount' => ['required', 'numeric'],
-            'order_date' => ['required', 'date'],
+            'proforma_invoice_id' => ['required'],
+            'amount' => ['required','numeric'],
+            'quantity' => ['required','numeric'],
+            'status_livraison'=>['required','integer'],
+            // 'order_date' => ['required', 'date'],
+            'delivery_date' => ['required', 'date'],
+            'designation' => ['required', 'string'],
             'status' => ['required', 'string'],
             'description' => ['nullable', 'string'],
             'company_id' => 'required|exists:companies,id',

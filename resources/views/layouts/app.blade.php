@@ -71,9 +71,9 @@
                 <img src="{{ asset('images/logo.jpeg') }}" alt="Son Light Logo" style="border-radius: 10%" class="d-inline-block align-top">
                 {{-- Son Light --}}
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+            </button> --}}
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -94,8 +94,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('orders.*') ? 'active' : '' }}" href="{{ route('orders.index') }}">
-                            <i class="bi bi-cart"></i> Commandes
+                        <a class="nav-link {{ Request::routeIs('proforma_invoices.*') ? 'active' : '' }}" href="{{ route('proforma_invoices.index') }}">
+                            <i class="bi bi-cart"></i> Fact. proforma
                         </a>
                     </li>
 

@@ -11,8 +11,8 @@ class Company extends Model
     use HasFactory,SoftDeletes;
 
     protected $guarded =[];
-    public function orders()
+    public function proformaInvoice()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(ProformaInvoice::class);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Route;
 
 class Order extends Model
 {
@@ -31,18 +32,14 @@ class Order extends Model
         'amount' => 'float',
         'order_date' => 'date',
         'delivery_date' => 'date',
+        'status_livraison'=>'integer',
     ];
 
+    protected $with = ['proformaInvoice'];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-
-    public function client(): BelongsTo
-    {
-        return $this->belongsTo(Client::class);
-    }
-
     public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
@@ -57,9 +54,19 @@ class Order extends Model
     {
         return $this->hasMany(DetailOrder::class);
     }
-
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
+    }
     public function entreprise()
     {
         return $this->belongsTo(Company::class,'company_id');
     }
+    public function proformaInvoice()
+    {
+        return $this->belongsTo(ProformaInvoice::class);
+    }
+
+    
 }
+   

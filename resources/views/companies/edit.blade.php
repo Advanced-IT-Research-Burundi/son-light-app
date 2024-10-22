@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Modifier l'entreprise</h1>
+    <h3>Modifier l'entreprise</h3>
     <form action="{{ route('companies.update', $company) }}" method="POST">
         @csrf
         @method('PUT')

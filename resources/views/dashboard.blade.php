@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="mt-4 mb-4">Tableau de bord</h1>
+    <h3 class="mt-4 mb-4">Tableau de bord</h3>
 
     <!-- Cartes d aperçu -->
     <div class="row mb-4">
@@ -127,21 +127,18 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @foreach ($last_commands as $item )
                         <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->client->name }}</td>
-                            <td>{{ $item->created_at }}</td>
-                            <td>{{ $item->amount  }}</td>
-                            <td>
-                                {{ $item->status }}
+                           <td>{{ $item->id }}</td>
+                           <td>{{ $item->client->name }}</td>
+                           <td>{{ $item->created_at }}</td>
+                           <td>{{ $item->amount  }}</td>
+                           <td>
+                              {{ $item->status }}
                             </td>
                             <td><a href="{{ route('orders.show',$item->id) }}" class="btn btn-primary btn-sm">Détails</a></td>
                         </tr>
                         @endforeach
-
-
                     </tbody>
                 </table>
             </div>
