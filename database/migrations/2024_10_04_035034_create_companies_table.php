@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
 
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('companies', callback: function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('address')->nullable();
@@ -27,9 +27,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-       // Schema::table('orders', function (Blueprint $table) {
-           // $table->foreignId('company_id')->nullable()->constrained()->onDelete('set null');
-       // });
+      
     }
 
     /**
@@ -37,10 +35,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //Schema::dropIfExists('companies');
-       // Schema::table('orders', function (Blueprint $table) {
-            //$table->dropForeign(['company_id']);
-           // $table->dropColumn('company_id');
-       // });
+        Schema::dropIfExists('companies');
+      
     }
 };
