@@ -20,7 +20,8 @@ class PaymentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'invoice_id' => ['required', 'integer', 'exists:orders,id'],
+            // 'invoice_id' => ['required', 'integer', 'exists:orders,id'],
+            'order_id' => ['required', 'integer', 'exists:orders,id'],
             // 'user_id' => ['required', 'integer', 'exists:users,id'],
             'amount' => ['required', 'numeric'],
             'payment_date' => ['required', 'date'],

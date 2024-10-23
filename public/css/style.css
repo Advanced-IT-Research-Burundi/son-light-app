@@ -1,0 +1,53 @@
+
+:root {
+    --primary-color: rgb(26, 35, 126);
+    --hover-color: rgb(21, 28, 100);
+    --active-color: rgb(13, 17, 60);
+}
+.navbar-custom {
+    background-color: var(--primary-color) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+}
+.navbar-custom .nav-link {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin: 0 0.2rem;
+}
+.navbar-custom .nav-link:hover {
+    background-color: var(--hover-color);
+}
+.navbar-custom .nav-link.active {
+    background-color: var(--active-color);
+    font-weight: bold;
+}
+.navbar-custom .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.navbar-brand img {
+    height: 40px;
+    margin-right: 10px;
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.btn-primary:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
+}
+.dropdown-menu {
+    background-color: var(--primary-color);
+    border: none;
+}
+.dropdown-item {
+    color: #ffffff;
+}
+.dropdown-item:hover {
+    background-color: var(--hover-color);
+    color: #ffffff;
+}

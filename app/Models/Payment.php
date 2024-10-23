@@ -17,7 +17,8 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        'invoice_id',
+        // 'invoice_id',
+        'order_id',
         'user_id',
         'amount',
         'payment_date',
@@ -40,7 +41,12 @@ class Payment extends Model
         'payment_date' => 'date',
     ];
 
-    public function invoice(): BelongsTo
+    // public function invoice(): BelongsTo
+    // {
+    //     return $this->belongsTo(Order::class, 'invoice_id');
+    // }
+
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
     }

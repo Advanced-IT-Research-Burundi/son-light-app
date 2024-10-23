@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PaymentStoreRequest;
 use App\Http\Requests\PaymentUpdateRequest;
 use App\Models\Invoice;
+use App\Models\Order;
 use App\Models\Payment;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +24,8 @@ class PaymentController extends Controller
     public function create(Request $request): View
     {
         $invoices = Invoice::latest()->get();
-        return view('payment.create', compact('invoices'));
+        $orders = Order::latest()->get();
+        return view('payment.create', compact('orders'));
     }
 
     public function store(PaymentStoreRequest $request): RedirectResponse
@@ -32,6 +35,7 @@ class PaymentController extends Controller
         $payment = Payment::create($data);
 
         return redirect()->route('payments.index');
+
     }
 
     public function show(Request $request, Payment $payment): View
@@ -41,8 +45,9 @@ class PaymentController extends Controller
 
     public function edit(Request $request, Payment $payment): View
     {
-        $invoices = Invoice::latest()->get();
-        return view('payment.edit', compact(['payment','invoices']));
+        // $invoices = Invoice::latest()->get();
+        $orders = Order::latest()->get();
+        return view('payment.edit', compact(['payment','orders']));
     }
 
     public function update(PaymentUpdateRequest $request, Payment $payment): RedirectResponse
