@@ -23,8 +23,8 @@ class PaymentController extends Controller
 
     public function create(Request $request): View
     {
-        $invoices = Invoice::latest()->get();
-        $orders = Order::latest()->get();
+        // $invoices = Invoice::latest()->get();
+        $orders = Invoice::latest()->get();
         return view('payment.create', compact('orders'));
     }
 
@@ -46,7 +46,7 @@ class PaymentController extends Controller
     public function edit(Request $request, Payment $payment): View
     {
         // $invoices = Invoice::latest()->get();
-        $orders = Order::latest()->get();
+        $orders = Invoice::latest()->get();
         return view('payment.edit', compact(['payment','orders']));
     }
 

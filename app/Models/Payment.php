@@ -17,8 +17,7 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        // 'invoice_id',
-        'order_id',
+        'invoice_id',
         'user_id',
         'amount',
         'payment_date',
@@ -26,7 +25,7 @@ class Payment extends Model
         'description',
     ];
 
-    protected $with = ['order'];
+    protected $with = ['invoice'];
 
     /**
      * The attributes that should be cast to native types.
@@ -41,10 +40,11 @@ class Payment extends Model
         'payment_date' => 'date',
     ];
 
-    // public function invoice(): BelongsTo
-    // {
-    //     return $this->belongsTo(Order::class, 'invoice_id');
-    // }
+
+    public function invoice(): BelongsTo
+    {
+        return $this->belongsTo(Invoice::class, 'invoice_id');
+    }
 
     public function order(): BelongsTo
     {

@@ -47,8 +47,8 @@ payment.index template
                         @foreach($payments as $payment)
                          <tr>
                             <td>{{ $count }}</td>
-                            <td>{{ $payment->order->designation ?? ''}}</td>
-                            <td>{{ $payment->order->client->name?? ''}}</td>
+                            <td>{{ $payment->invoice->order->designation ?? ''}}</td>
+                            <td>{{ $payment->invoice->order->client->name?? ''}}</td>
                             <th>{{ $payment->amount ?? ''}}</th>
                             <td>{{ $payment->payment_method ?? ''}}</td>
                             <td>{{ $payment->payment_date }}</td>

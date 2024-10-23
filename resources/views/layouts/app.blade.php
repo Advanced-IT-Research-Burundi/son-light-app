@@ -15,9 +15,8 @@
 </head>
 <body>
 
-    {{-- mettre le navbar dans le position fix top --}}
-    <div class="fixed-top">
-        @include('components.navbar')
+    <div class="">
+        @include('layouts.navbar')
     </div>
 
 
