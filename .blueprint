@@ -1,17 +1,16 @@
 created:
     - app/Http/Controllers/ReportController.php
     - database/factories/ReportFactory.php
-    - database/migrations/2024_09_30_143927_create_reports_table.php
+    - database/migrations/2024_10_24_043352_create_reports_table.php
     - app/Models/Report.php
     - tests/Feature/Http/Controllers/ReportControllerTest.php
-    - app/Http/Requests/ReportStoreRequest.php
-    - app/Http/Requests/ReportUpdateRequest.php
+updated:
+    - routes/web.php
+skipped:
     - resources/views/report/index.blade.php
     - resources/views/report/create.blade.php
     - resources/views/report/show.blade.php
     - resources/views/report/edit.blade.php
-updated:
-    - routes/web.php
 models:
     User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable' }
     Order: { client_id: 'id foreign', user_id: 'id foreign', amount: decimal, order_date: date, delivery_date: date, status: string, description: 'text nullable', softdeletes: softDeletes, relationships: { belongsTo: 'User, Client', hasMany: 'Task, Payment' } }
