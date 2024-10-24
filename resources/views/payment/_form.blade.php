@@ -5,11 +5,11 @@
     <label for="invoice_id" class="form-label">
         <i class="bi bi-person"></i> Facture
     </label>
-    <select class="form-select @error('invoice_id') is-invalid @enderror" id="invoice_id" name="invoice_id" required>
+    <select class="form-select @error('order_id') is-invalid @enderror" id="order_id" name="invoice_id" required>
         <option value="">Sélectionnez une facture</option>
-        @foreach($invoices as $invoice)
-            <option value="{{ $invoice->id }}" {{ old('invoice_id', $invoice->id ?? '') == $invoice->id ? 'selected' : '' }}>
-                # {{ $invoice->id }}   {{$invoice->number}}
+        @foreach($orders as $order)
+            <option value="{{ $order->id }}" {{ old('order_id', $order->id ?? '') == $order->id ? 'selected' : '' }}>
+                # {{ $order->id }}   {{$order->number}}
             </option>
         @endforeach
     </select>

@@ -25,7 +25,7 @@ class Payment extends Model
         'description',
     ];
 
-    protected $with = ['order'];
+    protected $with = ['invoice'];
 
     /**
      * The attributes that should be cast to native types.
@@ -40,7 +40,13 @@ class Payment extends Model
         'payment_date' => 'date',
     ];
 
+
     public function invoice(): BelongsTo
+    {
+        return $this->belongsTo(Invoice::class, 'invoice_id');
+    }
+
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
     }
