@@ -94,19 +94,9 @@
         }
 
         th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
+            border: 1px solid black;
+            padding: 3px;
             text-align: left; 
-        }
-
-        th {
-            background-color: #f8f8f8;
-        }
-
-        footer {
-            text-align: center; 
-            margin-top: 20px;
-            color: red;
         }
 
         @media print {
@@ -172,10 +162,8 @@
         </div>
     </header>
 
-    <div class="border_header">
-        <h4>FACTURE PROFORMA DU {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
-    </div>
-    
+   
+        <h4 class="border_header">FACTURE PROFORMA DU {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
     <div class="border-text">
         <h4 style="text-decoration: underline;">CLIENT : {{ $proforma_invoice->client->name }}</h4>
         <table>
@@ -191,13 +179,13 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
+                <td>{{ number_format($detail->unit_price, 0) }}</td>
+                <td>{{ number_format($detail->total_price, 0) }}</td>
             </tr>
              @endforeach
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
-                    <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }}</strong></td>
+                    <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 0) }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>TVA</strong></td>
