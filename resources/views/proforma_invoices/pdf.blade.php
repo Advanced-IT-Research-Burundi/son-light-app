@@ -11,6 +11,7 @@
             line-height: 1.1;
             margin: 10px;
             color: #333;
+            margin-top:-30px;
         }
         .header {
             font-size: 13px;
@@ -72,17 +73,12 @@
 </head>
 <body>
         <div class="header">
-          
+            <img src="images/logo.png" alt="Son Light Logo" style="border-radius: 10%; height:100px; ">
         </div>
 
     <div class="info-box">
         <table style="border: none; color:white;padding-left: 40px;">
-        <tr style="text-align: center">
-                     <td>
-                     <img src="images/logo.png" alt="Son Light Logo" style="border-radius: 10%">
-                     </td>
-                    
-                   
+        <tr style="text-align: center">    
                 </tr>
             <tr>
                 <td style="border: none; width: 30%;font-size: 16px;">
@@ -91,7 +87,7 @@
                     <p><strong>  RC : 06190 </strong></p>
                 </td>
                 <td style="border: none;padding-left: 120px;">
-                    <p>Travaux d'imprimerie, Fourniture du matériel <br> Bureautique et Informatique, Logistique <br> Lacations divers et commerce général </p>
+                    <p>Travaux d'imprimerie, Fourniture du matériel <br> Bureautique et Informatique, Logistique <br> Lacations diverses et commerce général </p>
                 </td>
             </tr>
         </table>
@@ -106,7 +102,7 @@
             <strong>Raison sociale : </strong> SON LIGHT PAPER SERVICES<br>
             <strong>NIF :</strong> 4000652612 <br>
             <strong>RC :</strong> 06190 <br>
-            <strong>Tél :</strong> +257 69 723 126/ 79 881 769 <br>
+            <strong>Tél :</strong> +257 79 881 769 / 69 723 126 <br>
             <strong>Commune :</strong> Mukaza, quartier Rohero2 <br>
             <strong>Avenue :</strong> Avenue de la France <br>
             <strong>Assujetti à la TVA :</strong> Oui [ X ] Non [  ]

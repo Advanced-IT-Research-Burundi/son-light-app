@@ -93,8 +93,7 @@
         </div>
         <div class="header_right">
             <h5>Centre Fiscal: DPMC</h5>
-            <p>Activités:</p>
-            <ul>
+            <ul> Activités:
                 <li>Fournitures de Bureau et Informatique</li>
                 <li>Travaux d'édition</li>
                 <li>Location des Véhicules</li>
