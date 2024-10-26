@@ -4,41 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUFI</title>
-    <style>
+       <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             color: black;
             padding: 0px;
-             font-size: 16px;
-            
         }
 
         header {
-            background-color: #f9e79f;
+            background-color: #f9e79f; 
             border: 1px solid black;
-            border-radius: 15px;
+            border-radius: 15px; 
             margin-bottom: 5px;
             text-align: center;
             padding-left: 10px;
             padding-right: 5px;
-            padding-bottom: 100px;
+            padding-bottom: 60px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .header_left{
             font-weight: 300;
+            font-size: large;
             float: left;
             margin-left: 40px;
-             font-size: 24px;
-            
         }
 
         .title {
             font-size: 3rem;
-            font-weight: bold;
+            font-weight: 400;
             margin: 0;
-            text-decoration: underline;
+            text-decoration: underline; 
         }
 
         .header_info {
@@ -46,22 +43,23 @@
             justify-content: space-between;
             width: 100%;
             margin: 20px 0;
-             font-size: 18px;
         }
 
         .header_info div {
             flex: 1;
-            text-align: left;
+            text-align: left; 
         }
 
         .header_info h5 {
             margin: 5px 0;
-            text-align: left;
+            font-size: 1em;
+            text-align: left; 
         }
 
         .header_right {
             font-weight: 300;
-            text-align: left;
+            font-size: large;
+            text-align: left; 
             float: right;
             margin-right: 40px;
         }
@@ -77,15 +75,16 @@
 
         .border_header {
             margin-top: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 0px;
             text-align: left;
+            font-size: 1.2em;
             font-weight: bold;
-            color: #333;
+            color: black;
         }
 
         .border-text {
             padding: 10px;
-            text-align: left;
+            text-align: left; 
         }
 
         table {
@@ -94,15 +93,10 @@
             margin: 20px 0;
         }
 
-        th,tr, td {
+        th, td {
             border: 1px solid black;
-            padding: 10px;
-            text-align: left;
-        }
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            color: red;
+            padding: 3px;
+            text-align: left; 
         }
 
         @media print {
@@ -119,7 +113,7 @@
             }
 
             .header_info div {
-                text-align: left;
+                text-align: left; 
                 margin: 10px 0;
             }
         }
@@ -131,13 +125,18 @@
             }
 
             .header_info div {
-                text-align: left;
+                text-align: left; 
                 margin: 10px 0;
+            }
+
+            table {
+                font-size: 0.9em;
             }
         }
         .footer {
             position: absolute;
             bottom: 0;
+            font-size: 15px;
             color: red;
             width: 100%;
             text-align: center;
@@ -164,10 +163,11 @@
     </header>
 
     <div class="border_header">
-        <h2>FACTURE  NUMERO {{ $invoice->id }} <br><br>
-    <span style="color:black;  font-size: 14px;">Date de facturation: <strong> Le {{ $invoice->created_at->format('d/m/Y') }}</strong></span></h2>
+        <h2 style="margin: 0; padding: 0">FACTURE  NUMERO {{ $invoice->id }} <br><br>
+    <span style="color:black;  font-size: 14px;">Date de facturation: <strong style="margin: 0; padding: 0"> Le {{ $invoice->created_at->format('d/m/Y') }}</strong></span></h2>
+    </div>
     <div class="border-text">
-        <h4 style="text-decoration: underline;">CLIENT : {{ $invoice->order->client->name }}</h4>
+        <h4 style="text-decoration: underline; margin: 0; padding: 0"">CLIENT : {{ $invoice->order->client->name }}</h4>
         <table>
             <tr>
                 <th>ORDRE</th>
@@ -181,26 +181,26 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
+                <td>{{ number_format($detail->unit_price, 0) }}</td>
+                <td>{{ number_format($detail->total_price, 0) }}</td>
             </tr>
              @endforeach
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
-                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2) }}</strong></td>
+                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>TVA</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2):'' }}</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0):'' }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>PT TVAC</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 2):'' }}</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }}</strong></td>
                 </tr>
         </table>
-        <p><strong>Mention obligatoire <br>
+        <p><strong>Mention obligatoire  </strong> <br>
         NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes
-        </strong></p>
+       </p>
     </div>
 
     <div class="footer">

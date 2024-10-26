@@ -20,7 +20,7 @@
             text-align: center;
             padding-left: 10px;
             padding-right: 5px;
-            padding-bottom: 100px;
+            padding-bottom: 60px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -33,7 +33,7 @@
 
         .title {
             font-size: 3rem;
-            font-weight: bold;
+            font-weight: 400;
             margin: 0;
             text-decoration: underline; 
         }
@@ -75,11 +75,11 @@
 
         .border_header {
             margin-top: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 0px;
             text-align: left;
-            font-size: 1.8em;
+            font-size: 1.2em;
             font-weight: bold;
-            color: #333;
+            color: black;
         }
 
         .border-text {
@@ -145,7 +145,7 @@
 </head>
 <body>
     <header>
-        <h1 class="title">BUFI TECHNOLOGIES</h1>
+        <h2 class="title">BUFI TECHNOLOGIES</h2>
         <div class="header_info">
             <div class="header_left">
                 <h5>NIF: 4001934464</h5>
@@ -163,9 +163,9 @@
     </header>
 
    
-        <h4 class="border_header">FACTURE PROFORMA DU {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
+        <h5 class="border_header">FACTURE PROFORMA DU {{ $proforma_invoice->created_at->format('d/m/Y') }}</h5>
     <div class="border-text">
-        <h4 style="text-decoration: underline;">CLIENT : {{ $proforma_invoice->client->name }}</h4>
+        <h5 "><span style="text-decoration: underline;">CLIENT :</span> {{ $proforma_invoice->client->name }}</h5>
         <table>
             <tr>
                 <th>ORDRE</th>
