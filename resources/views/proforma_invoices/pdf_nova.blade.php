@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            color: #333;
+
             margin-top: 0;
         }
         .title {
@@ -43,9 +43,7 @@
             padding: 8px;
             text-align: center;
         }
-        th {
-            background-color: #f2f2f2;
-        }
+
         .date {
             text-align: left;
            float: right;
