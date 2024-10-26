@@ -22,11 +22,11 @@ class UpdateClientRequest extends FormRequest
 
         return [
             'name' => ['required','string','max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:clients,email,' . $clientId],
+            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:clients,email,' . $clientId],
             'persone_reference1'=>['nullable','string','max:255'],
             'persone_reference2'=>['nullable','string','max:255'],
-            'phone' => ['required','string','max:255'],
-            'address' => ['required','string','max:255'],
+            'phone' => ['nullable','string','max:255'],
+            'address' => ['nullable','string','max:255'],
             'description' => ['nullable','string','max:255'],
             'company' => ['nullable','string','max:255'],
             'nif' => ['nullable','string','max:255'],
