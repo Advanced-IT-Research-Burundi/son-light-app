@@ -8,11 +8,13 @@
         body {
             font-family: Arial, sans-serif;
             color: #333;
-            margin: 0;
+            margin-top: 0;
         }
         .title {
             color: blue;
             font-size: 24px;
+            margin: 0;
+            padding: 0;
         }
         header {
             margin-bottom: 10px;
@@ -48,11 +50,13 @@
             text-align: left;
            float: right;
             font-size: 16px;
+            padding: 0;
+            margin: 0;
         }
-        .cli{
-            float: left;
-        }
+
         .fact{
+            padding: 0;
+            margin: 0;
             float: left;
         }
         .footer {
@@ -64,7 +68,7 @@
         }
         .bar {
             width: 100%;
-            height: 4px; 
+            height: 4px;
         }
 
         .yellow {
@@ -74,51 +78,52 @@
         .blue {
             background-color: blue;
         }
+        .header_left ,.
         @media (max-width: 400px) {
             header {
                 flex-direction: column;
             }
-            .header_left, .header_right {
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
+
         }
     </style>
 </head>
 <body>
     <div class="header">
-               <div class="header_left">
+        <div class="header_left">
             <h3 class="title">NOVA TECH BUSINESS</h3>
-            <h5>NIF: 4002394858<br>RC: 0049244/23</h5>
+            <h5 style="margin: 0;padding: 0">NIF: 4002394858<br>RC: 0049244/23</h5>
         </div>
         <div class="header_right">
-            <h5>Centre Fiscal: DPMC</h5>
-            <ul> Activités:
-                <li>Fournitures de Bureau et Informatique</li>
-                <li>Travaux d'édition</li>
-                <li>Location des Véhicules</li>
-                <li>Commerce Divers</li>
-            </ul>
-            <p>Forme Juridique: SURL</p>
+            <h5 style="margin: 0; padding: 0">Centre Fiscal: DPMC</h5>
+            <p style="margin: 0; padding: 0">Activités:</p>
+            <div style="padding-left: 40px">
+                <ul style="margin: 0; padding: 0">
+                    <li style="margin: 0; padding: 0">Fournitures de Bureau et Informatique</li>
+                    <li style="margin: 0; padding: 0">Travaux d'édition</li>
+                    <li style="margin: 0; padding: 0">Location des Véhicules</li>
+                    <li style="margin: 0; padding: 0">Commerce Divers</li>
+                </ul>
+            </div>
+
+            <p style="margin: 0; padding: 0">Forme Juridique: SURL</p>
         </div>
+
     </div>
-    <br><br><br><br><br><br> <br><br><br><br><br><br>
+    <br><br><br><br><br><br> <br>
     <div class="boder">
            <div class="colored-bars">
                <div class="bar blue"></div>
                <div class="bar yellow"></div>
            </div>
         <div class="border_header">
+            <br>
             <h4 class="fact">FACTURE PROFORMA</h4>
             <h4 class="date">Date: Le {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
-          
+
         </div>
-        
+
         <div class="border-text">
-            <br><br>
-            <br><br>
-            <h4 class="cli">CLIENT :  {{ $proforma_invoice->client->name }}</h4>
-            <br><br><br>
+            <h5 style="padding-top: 15px">CLIENT :  {{ $proforma_invoice->client->name }}</h5>
             <table>
                 <tr>
                     <th>ORDRE</th>
