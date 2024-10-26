@@ -9,17 +9,20 @@
             margin: 0;
             font-family: Arial, sans-serif;
             color: black;
-            background-color: #ffffff;
+            padding-top: 80px;
         }
-
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size:large;
-            margin-bottom: 2%;
+            position: fixed; 
+            top: -70px; 
+            left: 0; 
+            width: 100%;
+            z-index: 2; 
+            margin-bottom: 0; 
+            padding: 10px 0; 
         }
-
+          li{
+            list-style: none;
+        }
         .dealer {
             color: blue;
             font-weight: 300;
@@ -32,28 +35,28 @@
 
         .header_left {
             float: left;
+            padding-left: 8%;
         }
 
         .header_right {
             float: right;
-            margin-left: 0%;
             text-align: left;
-            padding-right: 5%;
+            padding-right: 35%;
         }
+
         .colored-bars {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 10px;
+            margin-top: 10px; 
         }
 
         .bar {
             width: 100%;
-            height: 4px;
+            height: 4px; 
         }
 
         .yellow {
-            margin-top: -2%;
             background-color: yellow;
         }
 
@@ -65,6 +68,11 @@
             background-color: red;
         }
 
+        .bordertitre {
+            margin-top: 5px;
+            display: flex;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -72,138 +80,154 @@
         }
 
         th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: left;
+            border: 1px solid black;
+            padding: 4px;
+            text-align: left; 
         }
 
         th {
-            font-weight: bold;
+            font-weight: bold; 
         }
+
         .footer {
             position: absolute;
             bottom: 0;
-            font-weight: bold;
+            font-weight: bold; 
             font-size: 15px;
             width: 100%;
             text-align: center;
-            text-decoration: overline;
         }
 
         .border_header {
-        margin-left: 0%;
-        text-align: center;
-        font-size: 1.5em;
-        font-weight: bold;
-        background-color: blue;
-        color: red;
-        border-radius: 10px;
-        padding: 4px;
-        width: 40%;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
+            text-align: center; 
+            font-size: 1.5em; 
+            font-weight: bold;
+            background-color: blue; 
+            color: red;
+            border-radius: 10px; 
+            padding: 4px; 
+            width: 40%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            float: left;
+        }
+
+        .date {
+            float: right;
+        }
 
         .border-text {
-            float: left;
-            padding: 20px;
+            text-align: left; 
+            margin-top: 5px; 
+        }
+
+        .client-title {
             text-align: left;
-            margin-left: 0%;
         }
 
         @media (max-width: 600px) {
             .header_right {
-                padding-left: 10px;
+                padding-left: 10px; 
             }
 
             table {
-                font-size: 0.9em;
-
+                font-size: 0.9em; 
             }
         }
-        .bordertitre{
-            display: flex;
+          .vertical-barr{
+            height: 90px;
+            width: 3px;
+            transform: rotate(15deg);
+            border: 2px solid black;
+            float: left;
+            margin-right: 0px;
+            margin-top:50px;
         }
-        .date{
+        .liste{
             float: right;
+            margin-left: 0px;
         }
+    
     </style>
 </head>
 <body>
     <div class="header">
         <div class="header_left">
             <p><strong>
-            <span class="dealer" style=" font-size: 4.5rem;">D</span>EALER <span class="group" style=" font-size: 4.5rem;">G</span>ROUP <br>
-            NIF : 4001564154 <br> RC: 27895/20
+            <span class="dealer" style="font-size: 4.5rem;">D</span>EALER <span class="group" style="font-size: 4.5rem;">G</span>ROUP <br>
+           <span style="color:blue"> NIF : 4001564154 <br> RC: 27895/20</span>
             </strong></p>
-        </div>
-        <div>
-           <div class="vertical-bar"></div>
-           <div class="vertical-bar"></div>
-           </div>
+        </div> 
         <div class="header_right">
-           <p>
-           <ul>
-                <li><strong>Services TICs</strong></li>
-                <li> <strong>Agro Business</strong></li>
-                <li><strong>Location Véhicule</strong></li>
-                <li> <strong>Commerce Général</strong></li>
-            </ul>
-           </p>
-        </div>
+       <div class="vertical-barr"></div>
+            <div class="liste">
+                <p><br></p>
+                <p style="padding:0;margin:0;"> &nbsp;&nbsp;&nbsp;&nbsp; <strong><span style="color: blue;">=></span>Services TICs</strong></p>
+                <p style="padding:0;margin:0;"> &nbsp;&nbsp;&nbsp;<strong><span style="color: blue;">=></span>Agro Business</strong></p>
+                <p  style="padding:0;margin:0;"> &nbsp;&nbsp;<strong><span style="color: blue;">=></span>Location Véhicule</strong></p>
+                <p  style="padding:0;margin:0;"><strong><span style="color: blue;">=></span> Commerce Général</strong></p>
+            
+         </div>  
+        </div>  
     </div>
-    <br><br><br><br><br><br><br><br><br>
+
     <div class="colored-bars">
         <div class="bar yellow"></div>
         <div class="bar blue"></div>
         <div class="bar red"></div>
     </div>
-    <div class=" bordertitre">
-        <h4 class="border_header">FACTURE  NUMERO {{ $invoice->number }} <br><br>
-    <span style="color:red;  font-size: 12px;">Date de facturation: <strong> Le {{ $invoice->created_at->format('d/m/Y') }}</strong></span></h2>
-    <div style=" font-size: 14px;" >
-    </div>
 
+    <div class="bordertitre">
+        <h4 class="border_header">FACTURE  NUMERO {{ $invoice->id }}</h4>
+        <h4 class="date">Date: Le {{ $invoice->created_at->format('d/m/Y') }}</h4>
+    </div>
+    <p><br></p><br>  <p><br></p>
+    <h4 class="client-title" style="padding:0;margin:0;"> <span style=" text-decoration: underline;">CLIENT </span>:{{ $invoice->order->client->name }}</h4>
     <div class="border-text">
-        <h4 style="text-decoration: underline;">CLIENT : {{ $invoice->order->client->name }}</h4>
-        <table>
+          <table class="table2">
+        <thead>
             <tr>
-                <th>ORDRE</th>
+                <th>Ordre</th>
                 <th>Nature de l'article ou service</th>
-                <th>Quantité</th>
-                <th>P.U en FBU</th>
+                <th>Qté</th>
+                <th>PU en FBU</th>
                 <th>PVHTVA en FBU</th>
                 <th>TVA*</th>
                 <th>TV-TVAC*</th>
             </tr>
-            <tbody>
+        </thead>
+        <tbody>
             @foreach($invoice->order->detailOrders as $detail)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
-                <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price * $invoice->order->tva / 100, 2):'' }}</td>
-                <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $invoice->order->tva / 100), 2):'' }}</td>
+                <td>{{ number_format($detail->unit_price, 0) }}</td>
+                <td>{{ number_format($detail->total_price, 0) }}</td>
+                <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price * $invoice->order->tva / 100, 0):'' }}</td>
+                <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $invoice->order->tva / 100), 0):'' }}</td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="4" style="text-align: left;"><strong>Total</strong></td>
-                <td><strong>{{ number_format($order->detailOrders->sum('total_price'), 2) }}</strong></td>
-                <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2):'' }}</strong></td>
-                <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 2):'' }}</strong></td>
+                <td>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2) }}</td>
+                <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0):'' }}</td>
+                <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }}</td>
             </tr>
         </tfoot>
-        </table>
-        <p><strong>Mention obligatoire <br>
+    </table>
+        <p><strong>Mention obligatoire <br>  </strong>
         NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes
-        </strong></p>
+      </p>
     </div>
 
     <div class="footer">
+        
+    <div class="colored-bars">
+        <div class="bar blue"></div>
         <p>Rohero 2, Av de la Mission n0 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290</p>
+    </div>
     </div>
 </body>
 </html>
