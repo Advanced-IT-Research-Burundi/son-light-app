@@ -97,7 +97,7 @@ class InvoiceController extends Controller
                 $pdf = PDF::loadView('invoices.pdf_nova', compact('invoice'));
                 break;
             case 5:
-                $pdf = PDF::loadView('invoices.pdf_afro', compact('invoice'));
+                $pdf = PDF::loadView('invoices.pdf_afroOrgin', compact('invoice'));
                 break;
             default:
                 $pdf = PDF::loadView('invoices.pdf', compact('invoice'));
