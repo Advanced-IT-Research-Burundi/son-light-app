@@ -39,8 +39,8 @@
             margin-top: 10px;
         }
         th, td {
-            border: 1px solid #000;
-            padding: 8px;
+            border: 1px solid black;
+            padding: 4px;
             text-align: center;
         }
 
@@ -115,13 +115,14 @@
            </div>
         <div class="border_header">
             <br>
-            <h4 class="fact">FACTURE </h4>
+            <h4 class="fact">FACTURE  NUMERO {{ $invoice->id }} <br><br> </h4>
             <h4 class="date">Date: Le {{ $invoice->created_at->format('d/m/Y') }}</h4>
 
         </div>
 
         <div class="border-text">
-            <h5 style="padding-top: 15px">CLIENT :  {{ $invoice->order->client->name }}</h5>
+            <p><br></p>
+            <h5 style="margin: 0; padding: 0;  text-align: left;">CLIENT :  {{ $invoice->order->client->name }}</h5>
             <table>
                 <tr>
                     <th>N<sup>o</sup></th>
@@ -135,21 +136,21 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
+                <td>{{ number_format($detail->unit_price, 0) }}</td>
+                <td>{{ number_format($detail->total_price, 0) }}</td>
             </tr>
              @endforeach
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
-                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2) }}</strong></td>
+                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>TVA</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->detailOrders->sum('total_price') * $invoice->tva / 100, 2):'' }}</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->detailOrders->sum('total_price') * $invoice->tva / 100, 0):'' }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>PT TVAC</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 2):'' }}</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 0):'' }}</strong></td>
                 </tr>
             </table>
            <div>
@@ -163,7 +164,9 @@
        <div class="colored-bars">
              <div class="bar yellow"></div>
             <div class="bar blue"></div>
-            <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com</p>
+            <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com 
+             <span style="color:blue;"> Compte BCB N<sup>o</sup>  21633140002 <span>
+            </p>
         </div>
 
     </div>

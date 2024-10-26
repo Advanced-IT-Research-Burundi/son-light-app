@@ -163,7 +163,9 @@
        <div class="colored-bars">
             <div class="bar yellow"></div>
             <div class="bar blue"></div>
-            <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com</p>
+              <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com 
+             <span style="color:blue;"> Compte BCB N<sup>o</sup>  21633140002 <span>
+            </p>
         </div>
 
     </div>
