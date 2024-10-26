@@ -87,7 +87,7 @@
                     <p><strong>  RC : 06190 </strong></p>
                 </td>
                 <td style="border: none;padding-left: 120px;">
-                    <p>Travaux d'imprimerie, Fourniture du matériel <br> Bureautique et Informatique, Logistique <br> Lacations diverses et commerce général </p>
+                    <p>Travaux d'imprimerie, Fourniture du matériel <br> Bureautique et Informatique, Logistique <br> Locations diverses et commerce général </p>
                 </td>
             </tr>
         </table>
@@ -113,7 +113,7 @@
             <strong>Nom et prénom ou raison sociale :</strong> {{ $proforma_invoice->client->name }}<br>
             <strong>NIF :</strong> {{ $proforma_invoice->client->nif ?? '_________' }}<br>
             <strong>Résidence à :</strong> {{ $proforma_invoice->client->address ?? 'BUJA' }}<br>
-            <strong>Assujetti à la TVA :</strong> Oui [ {{ $proforma_invoice->client->assujeti?'X':' ' }}] Non [{{ $proforma_invoice->client->assujeti?' ':'X' }}]
+            <strong>Assujetti à la TVA :</strong> Oui [  ] Non [  ]
 
         </p>
     </div>

@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facture  </title>
-    <style>
+   <style>
         body {
             font-family: 'Roboto', sans-serif;
             font-size: 16px;
             line-height: 1.1;
             margin: 10px;
             color: #333;
+            margin-top:-30px;
         }
         .header {
             font-size: 13px;
@@ -47,7 +48,7 @@
         .table2 tr,
         .table2 td {
             border: 1px solid black;
-            padding: 10px;
+            padding: 3px;
             text-align: left;
         }
         .footer {
@@ -59,9 +60,8 @@
         }
           .bar {
             width: 100%;
-            height: 4px;
+            height: 4px; 
         }
-
         .red {
             background-color: #c1107a;
         }
@@ -72,36 +72,32 @@
     </style>
 </head>
 <body>
-        <div class="header">
-            <table>
-                <tr style="text-align: center">
-                      <img src="{{ asset('images/logo.png') }}" alt="Son Light Logo" style="border-radius: 10%" class="d-inline-block align-top">
-                     {{-- <td><img src="{{ asset('images/logo.jpeg') }}" alt="Son Light Logo" class="logo"></td>  --}}
-                </tr>
-            </table>
+     <div class="header">
+            <img src="images/logo.png" alt="Son Light Logo" style="border-radius: 10%; height:100px; ">
         </div>
 
     <div class="info-box">
         <table style="border: none; color:white;padding-left: 40px;">
+        <tr style="text-align: center">    
+                </tr>
             <tr>
                 <td style="border: none; width: 30%;font-size: 16px;">
-
+                
                     <p><strong>NIF : 4000652612 </strong> </p>
                     <p><strong>  RC : 06190 </strong></p>
                 </td>
                 <td style="border: none;padding-left: 120px;">
-                    <p>Travaux d'imprimerie, Fourniture du matériel <br> Bureautique et Informatique, Logistique <br> Lacations divers et commerce général </p>
+                    <p>Travaux d'imprimerie, Fourniture du matériel <br> Bureautique et Informatique, Logistique <br> Locations diverses et commerce général </p>
                 </td>
             </tr>
         </table>
 
     </div>
 
-    <h2 style="color:red;">FACTURE  NUMERO {{ $invoice->number }} <br><br>
-    <span style="color:blue;  font-size: 12px;">Date de facturation: <strong> Le {{ $invoice->created_at->format('d/m/Y') }}</strong></span></h2>
-    <div style=" font-size: 14px;" >
+    <h3 style="color:red;">FACTURE  NUMERO {{ $invoice->number }} <br><br>
+    <span style="color:blue;  font-size: 14px;margin-top:-30px;">Date de facturation: <strong> Le {{ $invoice->created_at->format('d/m/Y') }}</strong></span></h3>
+    <div style=" font-size: 14px;margin-top:-15px;" >
         <h3>A. Identification du vendeur</h3>
-        <p>
             <strong>Raison sociale : </strong> SON LIGHT PAPER SERVICES<br>
             <strong>NIF :</strong> 4000652612 <br>
             <strong>RC :</strong> 06190 <br>
@@ -109,7 +105,6 @@
             <strong>Commune :</strong> Mukaza, quartier Rohero2 <br>
             <strong>Avenue :</strong> Avenue de la France <br>
             <strong>Assujetti à la TVA :</strong> Oui [ X ] Non [  ]
-        </p>
 
         <h3>B. Le Client</h3>
         <p>
