@@ -114,7 +114,7 @@ class ProformaInvoiceController extends Controller
                 $pdf = PDF::loadView('proforma_invoices.pdf_nova', compact('proforma_invoice'));
                 break;
             case 5:
-                $pdf = PDF::loadView('proforma_invoices.pdf_afro', compact('proforma_invoice'));
+                $pdf = PDF::loadView('proforma_invoices.pdf_afroOrgin', compact('proforma_invoice'));
                 break;
             default:
                 $pdf = PDF::loadView('proforma_invoices.pdf', compact('proforma_invoice'));

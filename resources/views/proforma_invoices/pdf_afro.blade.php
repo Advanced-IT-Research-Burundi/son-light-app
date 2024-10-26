@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -100,15 +100,15 @@
         th {
             background-color: #2E7D32 !important;
             color: white;
-            padding: 8px;
+            padding: 4px;
             font-weight: bold;
             text-transform: uppercase;
             border: 1px solid #ddd;
         }
 
         td {
-            padding: 8px;
-            border: 1px solid #ddd;
+            padding: 4px;
+            border: 1px solid black;
             background-color: white;
         }
 
@@ -230,4 +230,4 @@
         <p>Tél: +257 79 881 769 (WhatsApp) | +257 69 723 126 | +257 79 732 102</p>
     </div>
 </body>
-</html>
+</html> --}}
