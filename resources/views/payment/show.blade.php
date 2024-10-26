@@ -36,21 +36,21 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <p><strong>ID de la commande :</strong> {{ $payment->order->id }}</p>
-                    <p><strong>Entreprise :</strong> {{ $payment->order->company }}</p>
-                    <p><strong>Désignation :</strong> {{ $payment->order->designation }}</p>
-                    <p><strong>Quantité :</strong> {{ $payment->order->quantity }}</p>
+                    <p><strong>ID de la commande :</strong> {{ $payment->invoice->id }}</p>
+                    <p><strong>Entreprise :</strong> {{ $payment->invoice->company }}</p>
+                    <p><strong>Désignation :</strong> {{ $payment->invoice->designation }}</p>
+                    <p><strong>Quantité :</strong> {{ $payment->invoice->quantity }}</p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Montant de la commande :</strong> {{ $payment->order->amount }}</p>
-                    <p><strong>Date de commande :</strong> {{ \Carbon\Carbon::parse($payment->order->order_date)->format('d/m/Y') }}</p>
-                    <p><strong>Date de livraison :</strong> {{ \Carbon\Carbon::parse($payment->order->delivery_date)->format('d/m/Y') }}</p>
-                    <p><strong>Statut :</strong> {{ $payment->order->status }}</p>
+                    <p><strong>Montant de la commande :</strong> {{ $payment->invoice->amount }}</p>
+                    <p><strong>Date de commande :</strong> {{ \Carbon\Carbon::parse($payment->invoice->order_date)->format('d/m/Y') }}</p>
+                    <p><strong>Date de livraison :</strong> {{ \Carbon\Carbon::parse($payment->invoice->delivery_date)->format('d/m/Y') }}</p>
+                    <p><strong>Statut :</strong> {{ $payment->invoice->status }}</p>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-12">
-                    <p><strong>Description de la commande :</strong> {{ $payment->order->description }}</p>
+                    <p><strong>Description de la commande :</strong> {{ $payment->invoice->description }}</p>
                 </div>
             </div>
         </div>
