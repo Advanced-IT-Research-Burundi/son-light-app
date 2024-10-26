@@ -40,7 +40,7 @@
         }
         th, td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 4px;
             text-align: center;
         }
 
@@ -124,7 +124,7 @@
             <h5 style="padding-top: 15px">CLIENT :  {{ $proforma_invoice->client->name }}</h5>
             <table>
                 <tr>
-                    <th>ORDRE</th>
+                    <th>N<sup>o</sup></th>
                     <th>DESIGNATION</th>
                     <th>QTE</th>
                     <th>P.U</th>
@@ -135,30 +135,33 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
+                <td>{{ number_format($detail->unit_price, 0) }}</td>
+                <td>{{ number_format($detail->total_price, 0) }}</td>
             </tr>
              @endforeach
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
-                    <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }}</strong></td>
+                    <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 0) }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>TVA</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</strong></td>
+                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 0):'' }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: left;"><strong>PT TVAC</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'' }}</strong></td>
+                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 0):'' }}</strong></td>
                 </tr>
             </table>
-            <h6>Mention obligatoire</h6>
-            <h6>NB: Les non-assujettis à la TVA ne remplissent pas les deux dernières lignes</h6>
+              <div>
+              <strong>Mention obligatoire</strong><br>
+              <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span>
+            </div>
         </div>
     </div>
 
     <div class="footer">
        <div class="colored-bars">
+            <div class="bar yellow"></div>
             <div class="bar blue"></div>
             <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com</p>
         </div>

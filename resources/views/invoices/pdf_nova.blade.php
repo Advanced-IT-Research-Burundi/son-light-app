@@ -124,7 +124,7 @@
             <h5 style="padding-top: 15px">CLIENT :  {{ $invoice->order->client->name }}</h5>
             <table>
                 <tr>
-                    <th>ORDRE</th>
+                    <th>N<sup>o</sup></th>
                     <th>DESIGNATION</th>
                     <th>QTE</th>
                     <th>P.U</th>
@@ -152,13 +152,16 @@
                     <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 2):'' }}</strong></td>
                 </tr>
             </table>
-            <h6>Mention obligatoire</h6>
-            <h6>NB: Les non-assujettis à la TVA ne remplissent pas les deux dernières lignes</h6>
+           <div>
+              <strong>Mention obligatoire</strong><br>
+              <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span>
+            </div>
         </div>
     </div>
 
     <div class="footer">
        <div class="colored-bars">
+             <div class="bar yellow"></div>
             <div class="bar blue"></div>
             <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com</p>
         </div>
