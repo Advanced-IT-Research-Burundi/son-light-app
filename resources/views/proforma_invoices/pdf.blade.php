@@ -61,7 +61,6 @@
             width: 100%;
             height: 4px; 
         }
-
         .red {
             background-color: #c1107a;
         }
@@ -73,16 +72,18 @@
 </head>
 <body>
         <div class="header">
-            <table>
-                <tr style="text-align: center">
-                      <img src="{{ asset('images/logo.png') }}" alt="Son Light Logo" style="border-radius: 10%" class="d-inline-block align-top">
-                     {{-- <td><img src="{{ asset('images/logo.jpeg') }}" alt="Son Light Logo" class="logo"></td>  --}}
-                </tr>
-            </table>
+          
         </div>
 
     <div class="info-box">
         <table style="border: none; color:white;padding-left: 40px;">
+        <tr style="text-align: center">
+                     <td>
+                     <img src="images/logo.png" alt="Son Light Logo" style="border-radius: 10%">
+                     </td>
+                    
+                   
+                </tr>
             <tr>
                 <td style="border: none; width: 30%;font-size: 16px;">
                 

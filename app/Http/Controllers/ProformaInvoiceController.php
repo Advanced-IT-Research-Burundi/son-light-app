@@ -99,7 +99,10 @@ class ProformaInvoiceController extends Controller
         // CREATION DES PROFORMA A PARTIR DES COMPANY_KEY EN UTILISANT SWICH EN GENERA PDF POUR CHAQUE COMPANY
         switch ($proforma_invoice->entreprise->id) {
             case 1:
+                // return view('proforma_invoices.pdf', compact('proforma_invoice'));
+                
                 $pdf = PDF::loadView('proforma_invoices.pdf', compact('proforma_invoice'));
+              
                 break;
             case 2:
                 $pdf = PDF::loadView('proforma_invoices.pdf_Dealer_Group', compact('proforma_invoice'));
