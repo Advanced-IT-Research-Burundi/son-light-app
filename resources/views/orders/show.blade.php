@@ -74,12 +74,16 @@
         <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary">
           <i class="bi bi-plus-circle"></i> 
         Ajouter un article ou service</a>
-        <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
-             <i class="bi bi-plus-circle"></i> 
-            Ajouter la facture simple
-        </a>
         <a href="{{ route('order_alllist')}}" class="btn btn-primary">
         <i class="bi bi-eye"></i> Visualiser des commandes </a>
+         <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
+             <i class="bi bi-plus-circle"></i> 
+            Ajouter la facture
+        </a>
+              <a href="{{ route('invoices.index', $order) }}" class="btn btn-primary">
+              <i class="bi bi-eye"></i>  
+            Visualiser les factures 
+        </a>
     </div>
 
 
