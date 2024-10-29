@@ -45,7 +45,7 @@
                 <dd class="col-sm-9">{{ $client->persone_reference2 ?? 'N/A' }}</dd>
                 <dt class="col-sm-3">Description</dt>
                 <dd class="col-sm-9">{{ $client->description ?? 'N/A' }}</dd>
-                
+
                 <dt class="col-sm-3">Date de création</dt>
                 <dd class="col-sm-9">{{ $client->created_at->format('d/m/Y') }}</dd>
 
@@ -98,9 +98,8 @@
 
                             <td>
                                 {{-- <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-info"> --}}
-                                <a href="" class="btn btn-sm btn-info">
+                                <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i>
-                                </a>
                             </td>
                         </tr>
                         @endforeach
@@ -112,13 +111,13 @@
         </div>
     </div>
 
-    <div class="mt-4">
+    {{-- <div class="mt-4">
         <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-primary">
             <i class="bi bi-pencil"></i> Modifier
         </a>
         <a href="{{ route('clients.index') }}" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i> Retour à la liste
         </a>
-    </div>
+    </div> --}}
 </div>
 @endsection
