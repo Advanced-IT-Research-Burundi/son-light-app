@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-
+            font-size: 12px;
             margin-top: 0;
         }
         .title {
@@ -21,42 +21,23 @@
         }
         .header_left {
             float: left;
-        }
-        .header_right {
-            float: right;
-             margin-right: 30px;
-        }
-        h5 {
             font-size: 16px;
         }
-        h4 {
-            font-size: 20px;
+        .header_right {
+            font-size: 14px;
+            float: right;
+             margin-right: 30px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            font-size: 15px;
         }
         th, td {
-            border: 1px solid #000;
+            border: 1px solid black;
             padding: 4px;
             text-align: center;
-        }
-
-        .date {
-            text-align: left;
-           float: right;
-            font-size: 16px;
-            padding: 0;
-            margin: 0;
-            color:green;
-        }
-
-        .fact{
-            padding: 0;
-            margin: 0;
-            float: left;
-            color:green;
         }
         .footer {
             position: absolute;
@@ -87,12 +68,12 @@
 
         }
            .vertical-barr{
-            height: 150px;
+            height: 110px;
             transform: rotate(15deg);
             border: 4px solid green;
             float: left;
             margin-right: 5px;
-            margin-top:-10px;
+            margin-top:-5px;
             margin-right:70px;
         }
         .liste{
@@ -118,7 +99,6 @@
         <div class="header_right">
         <div class="vertical-barr"></div>
         <div class="liste">
-            <h5 style="margin: 0; padding: 0">Centre Fiscal: DPMC</h5>
             <p style="margin: 0; padding: 0"><strong>Activités:</strong></p>
             <div style="padding-left: 40px">
                 <ul style="margin: 0; padding: 0">
@@ -129,7 +109,7 @@
                 </ul>
             </div>
 
-            <p style="margin: 0; padding: 0"><strong>Forme Juridique</strong> SURL</p>
+            <p style="margin: 0; padding: 0"><strong>Forme Juridique</strong> : SURL</p>
         </div>
      </div> 
     </div>
@@ -139,16 +119,29 @@
                <div class="bar yellow"></div>
                <div class="bar blue"></div>
            </div>
-        <div class="border_header">
-            <br>
-            <h4 class="fact">FACTURE NUMERO {{ $invoice->id }}</h4>
-            <h4 class="date">Date: Le {{ $invoice->created_at->format('d/m/Y') }}</h4>
-
-        </div>
-
+        <div style=" padding:0; margin:0;" >
+            <p></p>
+            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->id }} du {{ $invoice->created_at->format('d/m/Y') }}<br>
+            <strong style="font-size: 14px;">A. Identification du vendeur</strong></h2>
+            <p  style="padding:0; margin:0;">
+            <strong>Raison sociale : </strong> AFRO BUSINESS GROUP<br>
+            <strong>NIF :</strong> 4002771212<br>
+            <strong>RC :</strong> 0060277/24 <br>
+            <strong>Commune :</strong> Mukaza, Rohero 1 <br>
+            <strong>Avenue :</strong> Avenue de Luxembourg <br>
+            <strong>Assujetti à la TVA :</strong> Oui[  ]  Non[ X ]
+            </p>
+        <h3  style=" padding:0; margin:0;">B. Le Client</h3>
+        <p style=" padding:0; margin:0;">
+            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client->name }}<br>
+            <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
+            <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
+            <strong>Assujetti à la TVA :</strong> Oui [ {{ $invoice->order->client->assujeti?'X':' ' }}] Non [{{ $invoice->order->client->assujeti?' ':'X' }}] <br>
+            <strong>Doit ce qui suit: </strong>
+        </p>
+    </div>
         <div class="border-text">
-            <h5 style="padding-top: 15px">CLIENT :  {{ $invoice->order->client->name }}</h5>
-            <table>
+            <table  style=" padding:0; margin:0;">
                 <tr>
                     <th>N<sup>o</sup></th>
                     <th>DESIGNATION</th>
@@ -178,7 +171,7 @@
                     <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 0):'' }}</strong></td>
                 </tr>
             </table>
-              <div>
+              <div style="font-size: 15px;">
               <strong>Mention obligatoire</strong><br>
               <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span>
             </div>

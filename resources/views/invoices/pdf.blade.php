@@ -94,26 +94,42 @@
 
     </div>
 
-    <h3 style="color:red;">FACTURE  NUMERO {{ $invoice->number }} <br><br>
-    <span style="color:blue;  font-size: 14px;margin-top:-30px;">Date de facturation: <strong> Le {{ $invoice->created_at->format('d/m/Y') }}</strong></span></h3>
-    <div style=" font-size: 14px;margin-top:-15px;" >
-        <h3>A. Identification du vendeur</h3>
-            <strong>Raison sociale : </strong> SON LIGHT PAPER SERVICES<br>
-            <strong>NIF :</strong> 4000652612 <br>
-            <strong>RC :</strong> 06190 <br>
-            <strong>Tél :</strong> +257 69 723 126/ 79 881 769 <br>
-            <strong>Commune :</strong> Mukaza, quartier Rohero2 <br>
-            <strong>Avenue :</strong> Avenue de la France <br>
-            <strong>Assujetti à la TVA :</strong> Oui [ X ] Non [  ]
-
-        <h3>B. Le Client</h3>
-        <p>
-            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client->name }}<br>
-            <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
-            <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
-            <strong>Assujetti à la TVA :</strong> Oui [ {{ $invoice->order->client->assujeti?'X':' ' }}] Non [{{ $invoice->order->client->assujeti?' ':'X' }}]
-
+    <h4>Facture no {{ $invoice->number }}, Date: <strong>{{ $invoice->created_at->format('d/m/Y') }}</h4>
+    <div style=" font-size: 13px;margin-top:-15px;" >
+    <table>
+    <tr> 
+         <td>
+            <h3  style="padding:0; margin:0;">A. Identification du vendeur</h3>
+          <p  style="padding:0; margin:0;">
+            Personne physique:|  | Société | X | <br>
+            Centre Fiscal: DPMC <br>
+            Nom du contribuable : SON LIGHT PAPER SERVICES<br>
+            Secteur d'activité: 008-INDUSTRIES MANUFACTURIERES <br>
+            NIF : 4000652612 <br>
+            Registre de Commerce : 06190 <br>
+            B.P: <br>
+            Tél : 79 881 769/69 723 126 <br>
+            Commune :Mukaza, quartier Rohero2 <br>
+            Avenue : Avenue de la France <br>
+            Numéro:12 <br><br>
+            Exonéré a la TVA: | |OUI |X|NON <br>
+            Assujetti a la TVA:|X|OUI | |NON <br>
+            Assujetti a la TC:| |OUI |X|NON <br>
+            Assujetti au PF:| |OUI |X|NON <br>
+            Doit pour ce qui suit: 
+          </p>
+         </td> 
+         <td  style="padding-bottom:190px;">
+        <h3  style="padding:0; margin:0;">B. Client</h3>
+        <p  style="padding:0; margin:0;">
+            Nom et prénom ou raison sociale : {{ $invoice->order->client->name }}<br>
+            NIF : {{ $invoice->order->client->nif ?? '_________' }}<br>
+            Résidence à : {{ $invoice->order->client->address ?? 'BUJA' }}<br>
+            Assujetti à la TVA : Oui [ {{ $invoice->order->client->assujeti?'X':' ' }}] Non [{{ $invoice->order->client->assujeti?' ':'X' }}]
         </p>
+         </td>
+    </tr>
+    </table>
     </div>
 
     <table class="table2">

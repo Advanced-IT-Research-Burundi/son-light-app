@@ -6,20 +6,21 @@
     <title>nova</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-
+            font-family: Verdana, Tahoma, Arial, sans-serif;
+            font-size: 12px;
             margin-top: 0;
         }
         .title {
             color: blue;
-            font-size: 24px;
             margin: 0;
             padding: 0;
         }
         header {
             margin-bottom: 10px;
+            
         }
         .header_left {
+            font-size: 16px;
             margin-right: 10px;
             float: left;
         }
@@ -27,35 +28,16 @@
             margin-right: 0;
             float: right;
         }
-        h5 {
-            font-size: 16px;
-        }
-        h4 {
-            font-size: 20px;
-        }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            font-size: 15px;
         }
         th, td {
             border: 1px solid black;
             padding: 4px;
             text-align: center;
-        }
-
-        .date {
-            text-align: left;
-           float: right;
-            font-size: 16px;
-            padding: 0;
-            margin: 0;
-        }
-
-        .fact{
-            padding: 0;
-            margin: 0;
-            float: left;
         }
         .footer {
             position: absolute;
@@ -113,17 +95,29 @@
                <div class="bar blue"></div>
                <div class="bar yellow"></div>
            </div>
-        <div class="border_header">
-            <br>
-            <h4 class="fact">FACTURE  NUMERO {{ $invoice->id }} <br><br> </h4>
-            <h4 class="date">Date: Le {{ $invoice->created_at->format('d/m/Y') }}</h4>
-
-        </div>
+         <div style=" padding:0; margin:0;" >
+            <p></p>
+            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->id }} du {{ $invoice->created_at->format('d/m/Y') }}<br>
+            <strong style="font-size: 14px;">A. Identification du vendeur</strong></h2>
+            <p  style="padding:0; margin:0;">
+            <strong>Raison sociale : </strong> NOVA TECH BUSINESS<br>
+            <strong>NIF :</strong>  4002394858 <br>
+            <strong>RC :</strong>  0049244/23 <br>
+            <strong>Commune :</strong> Mukaza, Rohero 1 <br>
+            <strong>Assujetti à la TVA :</strong> Oui[  ]  Non[ X ]
+            </p>
+        <h3  style=" padding:0; margin:0;">B. Le Client</h3>
+        <p style=" padding:0; margin:0;">
+            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client->name }}<br>
+            <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
+            <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
+            <strong>Assujetti à la TVA :</strong> Oui [ {{ $invoice->order->client->assujeti?'X':' ' }}] Non [{{ $invoice->order->client->assujeti?' ':'X' }}] <br>
+            <strong>Doit ce qui suit: </strong>
+        </p>
+    </div>
 
         <div class="border-text">
-            <p><br></p>
-            <h5 style="margin: 0; padding: 0;  text-align: left;">CLIENT :  {{ $invoice->order->client->name }}</h5>
-            <table>
+            <table  style=" padding:0; margin:0;">
                 <tr>
                     <th>N<sup>o</sup></th>
                     <th>DESIGNATION</th>
@@ -153,7 +147,7 @@
                     <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 0):'' }}</strong></td>
                 </tr>
             </table>
-           <div>
+           <div style="font-size: 15px;">
               <strong>Mention obligatoire</strong><br>
               <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span>
             </div>

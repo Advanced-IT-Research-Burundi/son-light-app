@@ -83,14 +83,13 @@
         }
 
         .border-text {
-            padding: 10px;
             text-align: left; 
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 0px 0;
         }
 
         th, td {
@@ -161,14 +160,28 @@
             </div>
         </div>
     </header>
-
-    <div class="border_header">
-        <h2 style="margin: 0; padding: 0">FACTURE  NUMERO {{ $invoice->id }} <br><br>
-    <span style="color:black;  font-size: 14px;">Date de facturation: <strong style="margin: 0; padding: 0"> Le {{ $invoice->created_at->format('d/m/Y') }}</strong></span></h2>
+      <div style=" padding:0; margin:0; font-size: 12px;" >
+            <p></p>
+            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->id }} du {{ $invoice->created_at->format('d/m/Y') }}<br>
+            <strong style="font-size: 14px;">A. Identification du vendeur</strong></h2>
+            <p  style="padding:0; margin:0;">
+            <strong>Raison sociale : </strong> BUFI TECHNOLOGIES<br>
+            <strong>NIF :</strong>  4001934464 <br>
+            <strong>RC :</strong> 35991/22 <br>
+            <strong>Commune :</strong> Mukaza, quartier Rohero 1 Centre-ville <br>
+            <strong>Assujetti à la TVA :</strong>[  ]Oui  [ X ]Non
+            </p>
+        <h3  style=" padding:0; margin:0;">B. Le Client</h3>
+        <p style=" padding:0; margin:0;">
+            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client->name }}<br>
+            <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
+            <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
+            <strong>Assujetti à la TVA :</strong> [ {{ $invoice->order->client->assujeti?'X':' ' }}]Oui   [{{ $invoice->order->client->assujeti?' ':'X' }}]Non <br>
+            <strong>Doit ce qui suit: </strong>
+        </p>
     </div>
     <div class="border-text">
-        <h4 style="text-decoration: underline; margin: 0; padding: 0"">CLIENT : {{ $invoice->order->client->name }}</h4>
-        <table>
+        <table  style=" padding:0; margin:0;">
             <tr>
                 <th>ORDRE</th>
                 <th>Nature de l'article ou service</th>

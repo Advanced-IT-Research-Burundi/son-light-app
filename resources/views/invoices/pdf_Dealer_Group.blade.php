@@ -176,14 +176,28 @@
         <div class="bar red"></div>
     </div>
 
-    <div class="bordertitre">
-        <h4 class="border_header">FACTURE  NUMERO {{ $invoice->id }}</h4>
-        <h4 class="date">Date: Le {{ $invoice->created_at->format('d/m/Y') }}</h4>
+      <div style=" padding:0; margin:0; font-size: 12px;" >
+            <p></p>
+            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->id }} du {{ $invoice->created_at->format('d/m/Y') }}<br>
+            <strong style="font-size: 14px;">A. Identification du vendeur</strong></h2>
+            <p  style="padding:0; margin:0;">
+            <strong>Raison sociale : </strong> DEALER GROUP<br>
+            <strong>NIF :</strong>  4001564154 <br>
+            <strong>RC :</strong> 27895/20 <br>
+            <strong>Commune :</strong> Mukaza, quartier Rohero 2 <br>
+            <strong>Assujetti à la TVA :</strong>[  ]Oui  [ X ]Non
+            </p>
+        <h3  style=" padding:0; margin:0;">B. Le Client</h3>
+        <p style=" padding:0; margin:0;">
+            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client->name }}<br>
+            <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
+            <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
+            <strong>Assujetti à la TVA :</strong> [ {{ $invoice->order->client->assujeti?'X':' ' }}]Oui   [{{ $invoice->order->client->assujeti?' ':'X' }}]Non <br>
+            <strong>Doit ce qui suit: </strong>
+        </p>
     </div>
-    <p><br></p><br>  <p><br></p>
-    <h4 class="client-title" style="padding:0;margin:0;"> <span style=" text-decoration: underline;">CLIENT </span>:{{ $invoice->order->client->name }}</h4>
     <div class="border-text">
-          <table class="table2">
+          <table class="table2"  style=" padding:0; margin:0;">
         <thead>
             <tr>
                 <th>Ordre</th>
@@ -211,14 +225,14 @@
         <tfoot>
             <tr>
                 <td colspan="4" style="text-align: left;"><strong>Total</strong></td>
-                <td>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2) }}</td>
-                <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0):'' }}</td>
-                <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }}</td>
+                <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</strong></td>
+                <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0):'' }}</strong></td>
+                <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }}</strong></td>
             </tr>
         </tfoot>
     </table>
         <p><strong>Mention obligatoire <br>  </strong>
-        NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes
+        NB: Les non assujettis à la TVA ne remplissent les deux dernières colonnes
       </p>
     </div>
 
@@ -226,7 +240,8 @@
         
     <div class="colored-bars">
         <div class="bar blue"></div>
-        <p>Rohero 2, Av de la Mission n0 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290</p>
+        <p>Rohero 2, Av de la Mission n0 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>
+          <span style="color:red;"> Compte BANCOBU N<sup>o</sup> 12721620101 <span> </p>
     </div>
     </div>
 </body>
