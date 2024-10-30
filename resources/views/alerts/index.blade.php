@@ -46,6 +46,7 @@
                     @else
                         <ul class="list-group">
                             @foreach($orderAlerts as $order)
+                             @if($order->status_livraison==2)
                                 <li class="list-group-item">
                                     <h6>Commande #{{ $order->id }} - {{ $order->client->name }}</h6>
                                     <p class="mb-0">
@@ -55,9 +56,16 @@
                                         </strong>
                                     </p>
                                     <small class="text-muted">
-                                        Statut : {{ $order->status }}
+                                        Statut de la commande: {{ $order->status }}
+                                    </small>
+                                     <small class="text-muted">
+                                     <dt class="col-sm-3">La livraison a été  Terminée ?</dt>
+                                         @if($order->status_livraison==2)
+                                         <dd class="col-sm-9" style="color:red;">Non</dd>
+                                     @endif
                                     </small>
                                 </li>
+                                 @endif
                             @endforeach
                         </ul>
                     @endif
