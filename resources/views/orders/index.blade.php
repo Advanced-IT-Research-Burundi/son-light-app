@@ -72,11 +72,12 @@
                     </tbody>
                 </table>
             </div>
-                <div class="mb-4">
-       <a href="{{ route('proforma_invoices.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Retour à la liste des factures proforma
-        </a>
-    </div>
+            <div class="mb-4">
+                   <a href="{{ route('proforma_invoices.index') }}" class="btn btn-secondary">
+                   <i class="bi bi-arrow-left"></i> Retour à la liste des factures proforma</a>
+                    <a href="{{ route('invoices.index') }}" class="btn btn-secondary">
+                   <i class="bi bi-arrow-right"></i> Aller à la liste des factures</a>
+            </div>
         </div>
     </div>
 </div>

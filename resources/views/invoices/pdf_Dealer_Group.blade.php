@@ -184,7 +184,9 @@
             <strong>Raison sociale : </strong> DEALER GROUP<br>
             <strong>NIF :</strong>  4001564154 <br>
             <strong>RC :</strong> 27895/20 <br>
+            <strong> Tél:</strong>  +257 69 723 126<br>
             <strong>Commune :</strong> Mukaza, quartier Rohero 2 <br>
+             <strong>Avenue :</strong> Avenue de la mission N<sup>o</sup> 1 <br>
             <strong>Assujetti à la TVA :</strong>[  ]Oui  [ X ]Non
             </p>
         <h3  style=" padding:0; margin:0;">B. Le Client</h3>
@@ -240,7 +242,7 @@
         
     <div class="colored-bars">
         <div class="bar blue"></div>
-        <p>Rohero 2, Av de la Mission n0 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>
+        <p>Rohero 2, Av de la Mission N<sup>o</sup> 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>
           <span style="color:red;"> Compte BANCOBU N<sup>o</sup> 12721620101 <span> </p>
     </div>
     </div>

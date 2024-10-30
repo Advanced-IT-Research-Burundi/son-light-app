@@ -84,6 +84,7 @@
         <option value="">Sélectionnez un statut correspondant</option>
         <option value="2" {{ old('status_livraison', $order->status_livraison ?? '') == 2 ? 'selected' : '' }}>En attente</option>
         <option value="1" {{ old('status_livraison', $order->status_livraison ?? '') == 1 ? 'selected' : '' }}>Immediatement</option>
+         <option value="1" {{ old('status_livraison', $order->status_livraison ?? '') == 1 ? 'selected' : '' }}>Terminée</option>
     </select>
         @error('status_livraison')
         <div class="invalid-feedback">{{ $message }}</div>

@@ -13,6 +13,7 @@ use App\Http\Controllers\ProformaInvoiceListController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockMovementController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 

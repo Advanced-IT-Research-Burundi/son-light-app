@@ -17,8 +17,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Numero de la facture</th>
-                            <th>Date d'echeance</th>
+                            <th>Num facture</th>
+                            <th>Num commande</th>
+                             <th>Client</th>
+                            <th>Societe facturation</th>
+                            <th>Date creation</th>
                             <th>Date d'echeance</th>
                             <th>Actions</th>
                         </tr>
@@ -31,7 +34,10 @@
                         <tr>
                             <td>{{ $count }}</td>
                             <td>{{ $invoice->number ?? ''}}</td>
-                            <td>{{ $invoice->date}}</td>
+                            <td>{{ $invoice->order_id}}</td>
+                            <td>{{ $invoice->order->client->name}}</td>
+                            <td>{{ $invoice->order->entreprise->name}}</td>
+                            <td>{{ $invoice->created_at}}</td>
                             <td>{{ $invoice->due_date}}</td> 
                             {{-- <td>{{ $invoice->date->format('d/m/Y') }}</td>
                             <td>{{ $invoice->due_date->format('d/m/Y') }}</td> --}}
@@ -59,7 +65,9 @@
                 </table>
             </div>
                 <div class="mb-4">
-    </div>
+                  <a href="{{ route('order_alllist')}}" class="btn btn-primary">
+                   <i class="bi bi-arrow-left"></i> Retour à la liste des commandes</a>
+                </div>
         </div>
     </div>
 </div>

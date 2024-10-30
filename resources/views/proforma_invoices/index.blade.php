@@ -13,6 +13,10 @@
             <i class="bi bi-plus-circle"></i> Nouvelle facture proforma
         </a>
     </div>
+       <div class="mb-4 col-4">
+                  <a href="{{ route('order_alllist')}}" class="btn btn-primary">
+                   <i class="bi bi-arrow-right"></i> Aller à la liste des commandes</a>
+        </div>
      </div>
    
 
