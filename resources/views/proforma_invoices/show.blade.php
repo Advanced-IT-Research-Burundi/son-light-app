@@ -77,10 +77,10 @@
                 <th>Ordre</th>
                 <th>Produit</th>
                 <th>Quantité</th>
-                <th>Prix unitaire</th>
-                <th>Prix total HT</th>
-                <th>TVA</th>
-                <th>Prix total TVAC</th>
+                <th>Prix unitaire en FBu</th>
+                <th>Prix total HT en FBu</th>
+                <th>TVA en  FBu</th>
+                <th>Prix total TVAC en FBu</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -90,10 +90,10 @@
                 <td>{{ $count}}</td>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }} Fr Bu</td>
-                <td>{{ number_format($detail->total_price, 2) }} Fr Bu</td>
-                <td>{{ $detail->total_price * $proforma_invoice->tva / 100 }} Fr Bu</td>
-                <td>{{ number_format( ($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100)), 2) }} Fr Bu</td>
+                <td>{{ number_format($detail->unit_price, 0) }}</td>
+                <td>{{ number_format($detail->total_price, 0) }}</td>
+                <td>{{ $detail->total_price * $proforma_invoice->tva / 100 }}</td>
+                <td>{{ number_format( ($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100)), 0) }}</td>
                 <td>
                     <a href="{{ route('proforma_invoices.proforma_invoice_lists.edit', [$proforma_invoice, $detail]) }}" class="btn btn-sm btn-info">Modifier</a>
                     <form action="{{ route('proforma_invoices.proforma_invoice_lists.destroy', [$proforma_invoice, $detail]) }}" method="POST" class="d-inline">

@@ -184,15 +184,15 @@
             </tr>
              @endforeach
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
+                    <td colspan="4" style="text-align: left;"><strong>PRIX TOTAL en FBU</strong></td>
                     <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 0) }}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>TVA</strong></td>
+                    <td colspan="4" style="text-align: left;"><strong>TVA (18%)</strong></td>
                     <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>PT TVAC</strong></td>
+                    <td colspan="4" style="text-align: left;"><strong>PT TVAC en FBU</strong></td>
                     <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'' }}</strong></td>
                 </tr>
         </table>

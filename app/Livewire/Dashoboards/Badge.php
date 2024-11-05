@@ -26,7 +26,8 @@ class Badge extends Component
 
     public function alertManager(){
     $orderAlerts =  \App\Models\Order::where(function($query) {
-        $query->whereDate('delivery_date', '=', now()->addDay())
+        $query->where('status_livraison', '==',2)
+        ->whereDate('delivery_date', '=', now()->addDay())
             ->orWhereDate('delivery_date', '=', now())
             ->orWhere(function($q) {
                 $q->whereDate('delivery_date', '<', now())

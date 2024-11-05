@@ -33,7 +33,7 @@
                             <th>Client</th>
                             <th>SOCIETE</th>
                             <th>Désigation</th>
-                            <th>P.U</th>
+                            <th>P.U en FBu</th>
                             <th>Qté</th>
                             <th>PVHTVA en FBu</th>
                             <th>Actions</th>
@@ -51,7 +51,7 @@
                             <td>{{ $proforma_invoice->designation?? ''}}</td>
                             <th>{{ $proforma_invoice->amount ?? ''}}</th>
                             <td>{{ $proforma_invoice->quantity ?? ''}}</td>
-                            <td>{{ number_format($proforma_invoice->amount * $proforma_invoice->quantity, 2, ',', ' ')??'' }} FBu</td>
+                            <td>{{ number_format($proforma_invoice->amount * $proforma_invoice->quantity, 0, ',', ' ')??'' }} </td>
                             {{-- <td>{{ number_format($proforma_invoice->amount, 2, ',', ' ') }} FBu</td> --}}
                             {{-- <td>
                             </td> --}}

@@ -202,15 +202,15 @@
             </tr>
             @endforeach
                <tr>
-                    <td colspan="4" style="text-align: left;"><strong>TOTAL HTVA</strong></td>
+                    <td colspan="4" style="text-align: left;"><strong>TOTAL HTVA en FBU</strong></td>
                     <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 0) }}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>TVA</strong></td>
+                    <td colspan="4" style="text-align: left;"><strong>TVA (18%)</strong></td>
                     <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 0):'' }}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>TV-TVAC</strong></td>
+                    <td colspan="4" style="text-align: left;"><strong>TV-TVAC en FBU</strong></td>
                     <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 0):'' }}</strong></td>
                 </tr>
         </tbody>
@@ -224,7 +224,10 @@
         
     <div class="colored-bars">
         <div class="bar blue"></div>
-        <p>Rohero 2, Av de la Mission n0 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290</p>
+        <p>
+          Rohero 2, Av de la Mission n0 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>
+          <span style="color:red;"> Compte BANCOBU N<sup>o</sup> 12721620101 <span> 
+        </p>
     </div>
     </div>
 </body>
