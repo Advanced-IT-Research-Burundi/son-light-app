@@ -30,6 +30,8 @@ return new class extends Migration
             $table->double(column: 'amount_tvac')->default(0);
             $table->date('order_date');
             $table->date('delivery_date');
+            $table->string('price_letter');
+            $table->string('unit')->nullable();
             $table->string('status');
             $table->integer('status_livraison');
             $table->text('description')->nullable();

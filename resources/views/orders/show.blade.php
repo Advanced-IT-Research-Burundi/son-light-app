@@ -61,33 +61,13 @@
                 <dt class="col-sm-3">Description</dt>
                 <dd class="col-sm-9">{{ $order->description ?? 'Aucune description' }}</dd>
             </dl>
+                   <div class="mt-4">
+                        <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary">
+            <i class="bi bi-pencil"></i> Modifier la commande
+        </a>
+                   </div>
         </div>
     </div>
-
-    <div class="mt-4">
-    <a href="{{  route('order_alllist') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Retour à la liste des commandes
-        </a>
-        <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary">
-            <i class="bi bi-pencil"></i> Modifier
-        </a>
-        <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary">
-          <i class="bi bi-plus-circle"></i> 
-        Ajouter un article ou service</a>
-        <a href="{{ route('order_alllist')}}" class="btn btn-primary">
-        <i class="bi bi-eye"></i> Visualiser des commandes </a>
-         <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
-             <i class="bi bi-plus-circle"></i> 
-            Ajouter la facture
-        </a>
-              <a href="{{ route('invoices.index', $order) }}" class="btn btn-primary">
-              <i class="bi bi-eye"></i>  
-            Visualiser les factures 
-        </a>
-    </div>
-
-
-
 </div>
 <br>
     @php
@@ -97,7 +77,8 @@
         <thead>
             <tr>
                 <th>Ordre</th>
-                <th>Produit</th>
+                <th>Article</th>
+                   <th>Unité</th>
                 <th>Quantité</th>
                 <th>Prix unitaire</th>
                 <th>Prix total HT</th>
@@ -111,11 +92,12 @@
             <tr>
                 <td>{{ $count}}</td>
                 <td>{{ $detail->product_name }}</td>
+                <td>{{ $detail->unit}}</td>
                 <td>{{ $detail->quantity }}</td>
                 <td>{{ number_format($detail->unit_price, 2) }} Fr Bu</td>
                 <td>{{ number_format($detail->total_price, 2) }} Fr Bu</td>
                 <td>{{ $detail->total_price * $order->tva / 100 }} Fr Bu</td>
-                <td>{{ number_format( ($detail->total_price + ($detail->total_price * $order->tva / 100)), 2) }} Fr Bu</td>
+                <td>{{ number_format( ($detail->total_price + ($detail->total_price * $order->tva / 100)), 2) }} FBu</td>
                 <td>
                     <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info">Modifier</a>
                     <form action="{{ route('orders.detail-orders.destroy', [$order, $detail]) }}" method="POST" class="d-inline">
@@ -138,5 +120,26 @@
             </tr>
         </tfoot> --}}
     </table>
+    <div class="row">
+       <div class="mt-4">
+    <a href="{{  route('order_alllist') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste des commandes
+        </a>
+     
+        <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary">
+          <i class="bi bi-plus-circle"></i> 
+        Ajouter un article ou service</a>
+        <a href="{{ route('order_alllist')}}" class="btn btn-primary">
+        <i class="bi bi-eye"></i> Visualiser des commandes </a>
+         <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
+             <i class="bi bi-plus-circle"></i> 
+            Ajouter la facture
+        </a>
+              <a href="{{ route('invoices.index', $order) }}" class="btn btn-primary">
+              <i class="bi bi-eye"></i>  
+            Visualiser les factures 
+        </a>
+    </div>
+    </div>
 </div>
 @endsection

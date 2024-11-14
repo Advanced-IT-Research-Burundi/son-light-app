@@ -1,6 +1,6 @@
 <!-- resources/views/orders/_form.blade.php -->
 <div class="row">
-<div class="form-group mb-3 col-3">
+<div class="form-group mb-3 col-6">
     <label for="client_id" class="form-label">
         <i class="bi bi-person"></i> Client
     </label>
@@ -18,7 +18,7 @@
 </div>
 
 
-<div class="form-group mb-3  col-3">
+<div class="form-group mb-3  col-6">
     <label for="company_id" class="form-label">
     <i class="bi bi-people-fill"></i> 
         Entreprise</label>
@@ -34,7 +34,9 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3  col-3">
+</div>
+<div class="row">
+<div class="form-group mb-3  col-6">
     <label for="order_date" class="form-label">
         <i class="bi bi-calendar"></i> Désignation
     </label>
@@ -43,14 +45,22 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-
-<div class="mb-3 col-3">
-        <label for="validity_period" class="form-label">Période de validité (en jours)</label>
-         <input type="number" class="form-control" id="validity_period" name="validity_period" value="{{ old('amount', $proforma_invoice->validity_period ?? '30') }}" required min="1">
+<div class="form-group mb-3  col-6">
+    <label for="order_date" class="form-label">
+        <i class="bi bi-unit"></i> Unite de Mesure
+    </label>
+    <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit', $proforma_invoice->unit ?? '') }}" required>
+    @error('unit')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
 </div>
 </div>
 <div class="row">
-    <div class="form-group mb-3 col-2">
+<div class="mb-3 col-6">
+        <label for="validity_period" class="form-label">Période de validité (en jours)</label>
+         <input type="number" class="form-control" id="validity_period" name="validity_period" value="{{ old('amount', $proforma_invoice->validity_period ?? '30') }}" required min="1">
+</div>
+    <div class="form-group mb-3 col-6">
         <label for="amount" class="form-label">
             <i class="bi bi-cash-coin"></i> Prix Unitaire
         </label>
@@ -59,7 +69,9 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="form-group mb-3 col-2">
+</div>
+<div class="row">
+    <div class="form-group mb-3 col-6">
         <label for="quantity" class="form-label">
             Quantité
         </label>
@@ -68,7 +80,7 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="form-group mb-3 col-2">
+    <div class="form-group mb-3 col-6">
         <label for="tva" class="form-label">
             TVA
         </label>
@@ -84,18 +96,32 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="form-group mb-3 col-3">
+    </div>
+    <div class="row">
+    <div class="form-group mb-3 col-6">
         <label for="amount_ht" class="form-label">
             Montant HT
         </label>
         <input type="text"  class="form-control" id="amount_ht" name="amount_ht" readonly>
     </div>
-    <div class="form-group mb-3 col-3">
+    <div class="form-group mb-3 col-6">
         <label for="amount_tvac" class="form-label">
             Montant TTC
         </label>
         <input type="text"  class="form-control" id="amount_tvac" name="amount_tvac" readonly>
     </div>
+    </div>
+    <div class="row">
+    <div class="form-group mb-3  col-">
+    <label for="order_date" class="form-label">
+        <i class="bi bi-calendar"></i> Prix en lettre
+    </label>
+    <input type="text" class="form-control @error('price_letter') is-invalid @enderror" id="price_letter" name="price_letter" value="{{ old('price_letter', $proforma_invoice->price_letter ?? '') }}" required>
+    @error('price_letter')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+</div>
 </div>
 @section('scripts')
 <script>

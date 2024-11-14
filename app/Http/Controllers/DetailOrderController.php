@@ -20,6 +20,7 @@ class DetailOrderController extends Controller
         $validatedData = $request->validate([
             'product_name' => 'required|string',
             'quantity' => 'required|integer|min:1',
+            'unit' => 'nullable|string',
             'unit_price' => 'required|numeric|min:0',
         ]);
 
@@ -28,6 +29,7 @@ class DetailOrderController extends Controller
         $detailOrder = $order->detailOrders()->create([
             'product_name' => $validatedData['product_name'],
             'quantity' => $validatedData['quantity'],
+            'unit' => $validatedData['unit'],
             'unit_price' => $validatedData['unit_price'],
             'total_price' => $totalPrice,
         ]);
@@ -48,6 +50,7 @@ class DetailOrderController extends Controller
             'product_name' => 'required|string',
             'quantity' => 'required|integer|min:1',
             'unit_price' => 'required|numeric|min:0',
+            'unit' => 'nullable|string',
         ]);
 
         $oldTotalPrice = $detailOrder->total_price;
@@ -57,6 +60,7 @@ class DetailOrderController extends Controller
             'product_name' => $validatedData['product_name'],
             'quantity' => $validatedData['quantity'],
             'unit_price' => $validatedData['unit_price'],
+            'unit'=>$validatedData['unit'],
             'total_price' => $newTotalPrice,
         ]);
 
@@ -84,6 +88,7 @@ class DetailOrderController extends Controller
                 'product_name'=>$detailOrder->product_name,
                 'quantity'=>$detailOrder->quantity,
                 'unit_price'=>$detailOrder->unit_price,
+                'unit'=>$detailOrder->unit,
                 'total_price'=>$detailOrder->total_price,
             ]);
             

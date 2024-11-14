@@ -185,7 +185,7 @@
             <tr>
                 <th>ORDRE</th>
                 <th>Nature de l'article ou service</th>
-                <th>Quantité</th>
+                   <td>{{ $detail->quantity }} {{ $detail->unit }}</td>
                 <th>P.U en FBU</th>
                 <th>PVHTVA en FBU</th>
             </tr>
@@ -211,9 +211,13 @@
                     <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }}</strong></td>
                 </tr>
         </table>
-        <p><strong>Mention obligatoire  </strong> <br>
-        NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes
-       </p>
+        <div>
+      <p>
+          <strong>Mention obligatoire</strong><br>
+        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
+         <strong>Nous disons {{ $invoice->order->price_letter}} </strong>
+         </p>
+    </div>
     </div>
 
     <div class="footer">

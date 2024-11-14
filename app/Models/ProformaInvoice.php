@@ -28,6 +28,8 @@ class ProformaInvoice extends Model
         'client_id' => 'integer',
         'user_id' => 'integer',
         'company_id' => 'integer',
+        'unit'=>'string',
+        'price_letter'=>'string',
         'amount' => 'float',
         'quantity'=>'integer',
         'proforma_invoice_date'=>'date',

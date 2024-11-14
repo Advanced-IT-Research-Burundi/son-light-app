@@ -179,7 +179,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 0) }}</td>
+                <td>{{ number_format($detail->unit_price, 0) }} {{$detail->unit}}</td>
                 <td>{{ number_format($detail->total_price, 0) }}</td>
             </tr>
              @endforeach
@@ -196,9 +196,13 @@
                     <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'' }}</strong></td>
                 </tr>
         </table>
-        <p><strong>Mention obligatoire <br>
-        NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes
-        </strong></p>
+       <div>
+      <p>
+          <strong>Mention obligatoire</strong><br>
+          <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
+         <strong>Nous disons {{$proforma_invoice->price_letter}} </strong>
+         </p>
+    </div>
     </div>
 
     <div class="footer">

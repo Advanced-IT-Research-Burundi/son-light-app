@@ -13,6 +13,7 @@ class ProformaInvoiceList extends Model
         'product_name',
         'quantity',
         'unit_price',
+        'unit',
         'total_price',
     ];
     public function proformaInvoice()

@@ -94,11 +94,11 @@
 
     </div>
 
-    <h2 style="color:red;">FACTURE PROFORMA du {{ $proforma_invoice->created_at->format('d/m/Y') }}</h2>
+    <h4 style="color:red;">FACTURE PROFORMA du {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
 
     <div style=" font-size: 14px;" >
-        <h3>A. Identification du vendeur</h3>
-        <p>
+        <h3 style="padding:0; margin:0;">A. Identification du vendeur</h3>
+        <p style="padding:0; margin:0;">
             <strong>Raison sociale : </strong> SON LIGHT PAPER SERVICES<br>
             <strong>NIF :</strong> 4000652612 <br>
             <strong>RC :</strong> 06190 <br>
@@ -106,10 +106,11 @@
             <strong>Commune :</strong> Mukaza, quartier Rohero2 <br>
             <strong>Avenue :</strong> Avenue de la France <br>
             <strong>Assujetti à la TVA :</strong> Oui [ X ] Non [  ]
+            <br><br>
         </p>
 
-        <h3>B. Le Client</h3>
-        <p>
+        <h3 style="padding:0; margin:0;">B. Le Client</h3>
+        <p style="padding:0; margin:0;">
             <strong>Nom et prénom ou raison sociale :</strong> {{ $proforma_invoice->client->name }}<br>
             <strong>NIF :</strong> {{ $proforma_invoice->client->nif ?? '_________' }}<br>
             <strong>Résidence à :</strong> {{ $proforma_invoice->client->address ?? 'BUJA' }}<br>
@@ -133,7 +134,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                <td>{{ $detail->quantity }}</td>
+                <td>{{ $detail->quantity }} {{$detail->unit}}</td>
                 <td>{{ number_format($detail->unit_price, 0) }}</td>
                 <td>{{ number_format($detail->total_price, 0) }}</td>
             </tr>
@@ -153,8 +154,11 @@
         </tbody>
     </table>
     <div>
-        <strong>Mention obligatoire</strong><br>
-        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières colonnes.</span>
+      <p>
+          <strong>Mention obligatoire</strong><br>
+        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
+         <strong>Nous disons {{$proforma_invoice->price_letter}} </strong>
+         </p>
     </div>
 
     <div class="footer">

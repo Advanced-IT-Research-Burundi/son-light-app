@@ -5,28 +5,37 @@
  <input type="hidden" name="designation"  value="{{ $proforma_invoice->designation }}">
 <div class="form-group mb-3">
     <div class="row">
-    <div class="mb-3 col-4">
+    <div class="mb-3 col-6">
           <label for="number" class="form-label"><i class="bi bi-person"></i> Client</label>
           <input type="text" class="form-control" id="number" name="" value="{{ $proforma_invoice->client->name}}" readonly>
     </div>
-    <div class="mb-3 col-4">
+    <div class="mb-3 col-6">
           <label for=""><i class="bi bi-people-fill"></i> Entreprise</label>
           <input type="text" class="form-control" id="company_id" name="" value="{{ $proforma_invoice->entreprise->name}}" readonly>
     </div>
-    <div class="mb-3 col-4">
+    </div>
+    <div class="row">
+    <div class="mb-3 col-6">
           <label for="">  <i class="bi bi-calendar"></i> Désignation</label>
           <input type="text" class="form-control" id="designation" name="" value="{{ $proforma_invoice->designation}}" readonly>
     </div>
+        <div class="mb-3 col-6">
+    <label for="unit" class="form-label">Unité</label>
+    <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit',  $order?->unit?$order?->unit: $proforma_invoice->unit??'') }}"" >
+    @error('unit')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
     </div>
     <div class="row">
-    <div class="form-group mb-3 col-2">
+      <div class="form-group mb-3 col-4">
     <label for="amount" class="form-label"><i class="bi bi-cash-coin"></i> P.U</label>
         <input type="number" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount',  $order?->amount?$order?->amount: $proforma_invoice->amount??'') }}" required data-calc="price">
         @error('quantity')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="form-group mb-3 col-2">
+    <div class="form-group mb-3 col-4">
         <label for="quantity" class="form-label">
             Quantité
         </label>
@@ -35,7 +44,7 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="form-group mb-3 col-2">
+    <div class="form-group mb-3 col-4">
         <label for="tva" class="form-label">
             TVA
         </label>
@@ -51,13 +60,16 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-      <div class="form-group mb-3 col-3">
+    </div>
+
+    <div class="row">
+      <div class="form-group mb-3 col-6">
         <label for="amount_ht" class="form-label">
             Montant HT
         </label>
         <input type="text"  class="form-control" id="amount_ht" name="amount_ht" readonly>
     </div>
-    <div class="form-group mb-3 col-3">
+    <div class="form-group mb-3 col-6">
         <label for="amount_tvac" class="form-label">
             Montant TTC
         </label>
@@ -65,9 +77,17 @@
     </div>
     </div>
 </div>
-
-<div class="row mt-3">
-<div class="form-group mb-3 col-4">
+<div class="row">
+ <div class="form-group mb-3  col-6">
+    <label for="order_date" class="form-label">
+        <i class="bi bi-calendar"></i> Prix en lettre
+    </label>
+    <input type="text" class="form-control @error('price_letter') is-invalid @enderror" id="price_letter" name="price_letter" value="{{ old('price_letter', $proforma_invoice->price_letter ?? '') }}" required>
+    @error('price_letter')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+<div class="form-group mb-3 col-6">
     <label for="delivery_date" class="form-label">
         <i class="bi bi-calendar"></i> Date de livraison
     </label>
@@ -76,7 +96,11 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3 col-4">
+
+</div>
+
+<div class="row mt-3">
+<div class="form-group mb-3 col-6">
     <label for="status" class="form-label">
         <i class="bi bi-check2-circle"></i> Statut de la livraison
     </label>
@@ -90,7 +114,7 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3 col-4">
+<div class="form-group mb-3 col-6">
     <label for="status" class="form-label">
         <i class="bi bi-check2-circle"></i> Statut de la commande
     </label>
@@ -121,6 +145,7 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+
 
 
 @section('scripts')

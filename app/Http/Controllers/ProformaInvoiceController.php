@@ -46,6 +46,8 @@ class ProformaInvoiceController extends Controller
             'product_name' => $request->designation,
             'quantity' => $request->quantity,
             'unit_price' => $request->amount,
+            'price_letter'=>$request->price_letter,
+            'unit'=>$request->unit,
             'total_price' => ($request->amount * $request->quantity),
         ]);
          
@@ -65,6 +67,8 @@ class ProformaInvoiceController extends Controller
         $request->validate([
             'client_id' => ['required', 'integer', 'exists:clients,id'],
             'amount' => ['required', 'numeric'],
+            'unit'=>['nullable','string'],
+            'price_letter'=>['nullable','string'],
             'company_id' => 'required|exists:companies,id',
         ]);
 

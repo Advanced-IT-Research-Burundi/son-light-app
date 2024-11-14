@@ -153,7 +153,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                <td>{{ $detail->quantity }}</td>
+                   <td>{{ $detail->quantity }} {{ $detail->unit }}</td>
                 <td>{{ number_format($detail->unit_price, 0) }}</td>
                 <td>{{ number_format($detail->total_price, 0) }}</td>
             </tr>
@@ -171,10 +171,13 @@
                     <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 0):'' }}</strong></td>
                 </tr>
             </table>
-              <div style="font-size: 15px;">
-              <strong>Mention obligatoire</strong><br>
-              <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span>
-            </div>
+               <div>
+      <p>
+          <strong>Mention obligatoire</strong><br>
+        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
+         <strong>Nous disons {{ $invoice->order->price_letter}} </strong>
+         </p>
+    </div>
         </div>
     </div>
 

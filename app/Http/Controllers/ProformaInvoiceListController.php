@@ -20,6 +20,7 @@ class ProformaInvoiceListController extends Controller
             'product_name' => 'required|string',
             'quantity' => 'required|integer|min:1',
             'unit_price' => 'required|numeric|min:0',
+            'unit'=>'nullable|string',
         ]);
 
         $totalPrice = $validatedData['quantity'] * $validatedData['unit_price'];
@@ -28,6 +29,7 @@ class ProformaInvoiceListController extends Controller
             'product_name' => $validatedData['product_name'],
             'quantity' => $validatedData['quantity'],
             'unit_price' => $validatedData['unit_price'],
+            'unit'=>$validatedData['unit'],
             'total_price' => $totalPrice,
         ]);
 
@@ -46,6 +48,7 @@ class ProformaInvoiceListController extends Controller
         $validatedData = $request->validate([
             'product_name' => 'required|string',
             'quantity' => 'required|integer|min:1',
+            'unit'=>'nullable|string',
             'unit_price' => 'required|numeric|min:0',
         ]);
 
@@ -56,6 +59,7 @@ class ProformaInvoiceListController extends Controller
             'product_name' => $validatedData['product_name'],
             'quantity' => $validatedData['quantity'],
             'unit_price' => $validatedData['unit_price'],
+            'unit'=>$validatedData['unit'],
             'total_price' => $newTotalPrice,
         ]);
 

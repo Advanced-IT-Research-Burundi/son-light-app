@@ -7,6 +7,13 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+<div class="mb-3">
+    <label for="unit" class="form-label">Unité</label>
+    <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit', $proformaInvoiceList->unit ?? '') }}" >
+    @error('unit')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
 
 <div class="mb-3">
     <label for="quantity" class="form-label">Quantité</label>

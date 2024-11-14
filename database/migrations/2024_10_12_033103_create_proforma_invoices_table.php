@@ -23,6 +23,8 @@ return new class extends Migration
             $table->double(column: 'amount_ht')->default(0);
             $table->double(column: 'amount_tvac')->default(0);
             $table->date('proforma_invoice_date');
+            $table->string('price_letter')->nullable();
+            $table->string('unit')->nullable();
             $table->integer('validity_period')->default(30);
             $table->timestamps();
             $table->softDeletes();

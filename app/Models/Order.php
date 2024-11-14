@@ -32,6 +32,8 @@ class Order extends Model
         'amount' => 'float',
         'order_date' => 'date',
         'delivery_date' => 'date',
+        'unit'=>'string',
+        'price_letter'=>'string',
         'status_livraison'=>'integer',
     ];
 

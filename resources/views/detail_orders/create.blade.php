@@ -24,7 +24,8 @@
         <thead>
             <tr>
                 <th>Ordre</th>
-                <th>Produit</th>
+                <th>Article</th>
+                <th>Unité</th>
                 <th>Quantité</th>
                 <th>Prix unitaire</th>
                 <th>Prix total HT en FBu</th>
@@ -39,6 +40,7 @@
             <tr>
                 <td>{{ $count}}</td>
                 <td>{{ $detail->product_name }}</td>
+                <td>{{$detail->unit}}</td>
                 <td>{{ $detail->quantity }}</td>
                 <td>{{ number_format($detail->unit_price, 2) }}</td>
                 <td>{{ number_format($detail->total_price, 2) }} </td>
@@ -85,7 +87,8 @@
         <thead>
             <tr>
                 <th>Ordre</th>
-                <th>Produit</th>
+                <th>Article</th>
+                 <th>Unité</th>
                 <th>Quantité</th>
                 <th>Prix unitaire</th>
                 <th>Prix total HT en FBu</th>
@@ -99,7 +102,9 @@
             <tr>
                 <td>{{ $count}}</td>
                 <td>{{ $detail->product_name }}</td>
+                  <td>{{ $detail->unit}}</td>
                 <td>{{ $detail->quantity }}</td>
+                   
                 <td>{{ number_format($detail->unit_price, 2) }}</td>
                 <td>{{ number_format($detail->total_price, 2) }} </td>
                 <td>{{ $detail->total_price * $order->tva / 100 }}</td>

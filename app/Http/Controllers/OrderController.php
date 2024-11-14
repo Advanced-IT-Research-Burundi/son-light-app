@@ -53,6 +53,8 @@ class OrderController extends Controller
         $detailOrder = $order->detailOrders()->create([
             'product_name' => $request->designation,
             'quantity' => $request->quantity,
+            'unit' => $request->unit,
+            'price_letter'=>$request->price_letter,
             'unit_price' => $request->amount,
             'total_price' => ($request->amount * $request->quantity),
         ]);
@@ -76,6 +78,8 @@ class OrderController extends Controller
             'proforma_invoice_id' => ['required'],
             'amount' => ['required','numeric'],
             'quantity' => ['required','numeric'],
+            'unit' => ['nullable','string'],
+            'price_letter' => ['nullable','string'],
             'status_livraison'=>['required','integer'],
             // 'order_date' => ['required', 'date'],
             'delivery_date' => ['required', 'date'],

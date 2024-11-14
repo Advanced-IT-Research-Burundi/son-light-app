@@ -180,7 +180,7 @@
         <h4 class="border_header">FACTURE PROFORMA</h4>
         <h4 class="date">Date: Le {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
     </div>
-    <p><br></p><br>  <p><br></p>
+    <p><br></p><br>  <p></p>
     <h4 class="client-title" style="padding:0;margin:0;"> <span style=" text-decoration: underline;">CLIENT </span>:{{ $proforma_invoice->client->name }}</h4>
     <div class="border-text">
         <table>
@@ -196,7 +196,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                <td>{{ $detail->quantity }}</td>
+                <td>{{ $detail->quantity }} {{$detail->unit}}</td>
                 <td>{{ number_format($detail->unit_price, 0) }}</td>
                 <td>{{ number_format($detail->total_price, 0) }}</td>
             </tr>
@@ -215,9 +215,13 @@
                 </tr>
         </tbody>
         </table>
-        <p><strong>Mention obligatoire <br>  </strong>
-        NB: Les non assujettis à la TVA ne remplissent les deux dernières lignes
-      </p>
+       <div>
+      <p>
+          <strong>Mention obligatoire</strong><br>
+        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
+         <strong>Nous disons {{$proforma_invoice->price_letter}} </strong>
+         </p>
+    </div>
     </div>
 
     <div class="footer">

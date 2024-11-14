@@ -216,7 +216,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                <td>{{ $detail->quantity }}</td>
+                <td>{{ $detail->quantity }} {{ $detail->unit }}</td>
                 <td>{{ number_format($detail->unit_price, 0) }}</td>
                 <td>{{ number_format($detail->total_price, 0) }}</td>
                 <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price * $invoice->order->tva / 100, 0):'' }}</td>
@@ -233,9 +233,13 @@
             </tr>
         </tfoot>
     </table>
-        <p><strong>Mention obligatoire <br>  </strong>
-        NB: Les non assujettis à la TVA ne remplissent les deux dernières colonnes
-      </p>
+         <div>
+      <p>
+          <strong>Mention obligatoire</strong><br>
+        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières colonnes.</span> <br> <br>
+         <strong>Nous disons {{ $invoice->order->price_letter}} </strong>
+         </p>
+    </div>
     </div>
 
     <div class="footer">

@@ -160,7 +160,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                <td>{{ $detail->quantity }}</td>
+                <td>{{ $detail->quantity }} {{$detail->unit}} </td>
                 <td>{{ number_format($detail->unit_price, 0) }}</td>
                 <td>{{ number_format($detail->total_price, 0) }}</td>
             </tr>
@@ -179,9 +179,12 @@
                 </tr>
             </table>
               <div>
-              <strong>Mention obligatoire</strong><br>
-              <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span>
-            </div>
+      <p>
+          <strong>Mention obligatoire</strong><br>
+        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
+         <strong>Nous disons {{$proforma_invoice->price_letter}} </strong>
+         </p>
+    </div>
         </div>
     </div>
 

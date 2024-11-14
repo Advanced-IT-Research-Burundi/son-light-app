@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Ajouter un article ou service à la facture proforma #{{ $proforma_invoice->id }}</h1>
+    <h4>Ajouter un article ou service à la facture proforma #{{ $proforma_invoice->id }}</h4>
 
     <form action="{{ route('proforma_invoices.proforma_invoice_lists.store', $proforma_invoice) }}" method="POST">
         @csrf
