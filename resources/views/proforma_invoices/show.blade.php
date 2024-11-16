@@ -72,16 +72,16 @@
         <tbody>
             @foreach($proforma_invoice->proformaInvoiceList as $detail)
             <tr>
-                <td>{{ $count}}</td>
-                <td>{{$detail->proformaInvoice->invoice_number}}</td>
-                <td>{{ $detail->product_name }}</td>
-                 <td>{{ $detail->unit }}</td>
-                <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
-                <td>{{ $detail->total_price * $proforma_invoice->tva / 100 }}</td>
-                <td>{{ number_format( ($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100)), 2) }}</td>
-                <td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count}}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{$detail->proformaInvoice->invoice_number}}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->product_name }}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->unit }}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->quantity }}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->unit_price, 2) }}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->total_price, 2) }}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->total_price * $proforma_invoice->tva / 100 }}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format( ($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100)), 2) }}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
                     <a href="{{ route('proforma_invoices.proforma_invoice_lists.edit', [$proforma_invoice, $detail]) }}" class="btn btn-sm btn-info"> <i class="bi bi-pencil"></i></a>
                     <form action="{{ route('proforma_invoices.proforma_invoice_lists.destroy', [$proforma_invoice, $detail]) }}" method="POST" class="d-inline">
                         @csrf
@@ -98,17 +98,17 @@
          <tfoot>
             <tr>
                 <th colspan="8">Total</th>
-                <th>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }} </th>
+                <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }} </th>
                 <th></th>
             </tr>
                <tr>
                 <th colspan="8">TVA</th>
-                <th>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'0' }} </th>
+                <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'0' }} </th>
                 <th></th>
             </tr>
                <tr>
                 <th colspan="8">Prix total TVAC</th>
-                <th>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'0' }} </th>
+                <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'0' }} </th>
                 <th></th>
             </tr>
         </tfoot> 

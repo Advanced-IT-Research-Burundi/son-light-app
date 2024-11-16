@@ -83,7 +83,13 @@
             border: 1px solid black;
             padding: 4px;
             text-align: left; 
+             vertical-align: top;
+            
         }
+        td{ 
+            max-width: 150px;
+            word-wrap: break-word;
+         }
 
         th {
             font-weight: bold; 

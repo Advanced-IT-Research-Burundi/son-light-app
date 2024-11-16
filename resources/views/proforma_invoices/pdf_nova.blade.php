@@ -42,7 +42,13 @@
             border: 1px solid #000;
             padding: 4px;
             text-align: center;
+             vertical-align: top;
+            
         }
+        td{ 
+            max-width: 150px;
+            word-wrap: break-word;
+         }
 
         .date {
             text-align: left;
@@ -115,7 +121,7 @@
            </div>
         <div class="border_header">
             <br>
-            <h4 class="fact">FACTURE PROFORMA</h4>
+            <h4 class="fact">FACTURE PROFORMA </h4>
             <h4 class="date">Date: Le {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
 
         </div>

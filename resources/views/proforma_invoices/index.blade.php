@@ -46,18 +46,18 @@
                     <tbody>
                         @foreach($proforma_invoices as $proforma_invoice)
                         <tr>
-                            <td>{{ $count }}</td>
-                             <td>{{ $proforma_invoice->invoice_number }}</td>
-                            <td>{{ $proforma_invoice->client->name }}</td>
-                            <td>{{ $proforma_invoice->entreprise->name ?? ''}}</td>
-                            <td>{{ $proforma_invoice->designation?? ''}}</td>
-                            <th>{{ $proforma_invoice->amount ?? ''}}</th>
-                            <td>{{ $proforma_invoice->quantity ?? ''}}</td>
-                            <td>{{ number_format($proforma_invoice->amount * $proforma_invoice->quantity, 0, ',', ' ')??'' }} </td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
+                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->invoice_number }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->client->name }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->name ?? ''}}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->designation?? ''}}</td>
+                            <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->amount ?? ''}}</th>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->quantity ?? ''}}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($proforma_invoice->amount * $proforma_invoice->quantity, 0, ',', ' ')??'' }} </td>
                             {{-- <td>{{ number_format($proforma_invoice->amount, 2, ',', ' ') }} FBu</td> --}}
                             {{-- <td>
                             </td> --}}
-                            <td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
                                 <a href="{{ route('proforma_invoices.show', $proforma_invoice->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i>
                                 </a>

@@ -34,22 +34,22 @@
                     <tbody>
                         @foreach($orders as $order)
                         <tr>
-                            <td>{{ $count }}</td>
-                            <td>{{ $order->entreprise->name ?? ''}}</td>
-                            <td>{{ $order->designation?? ''}}</td>
-                            <th>{{ $order->amount ?? ''}}</th>
-                            <td>{{ $order->quantity ?? ''}}</td>
-                            <td>{{ number_format($order->amount * $order->quantity, 2, ',', ' ')??'' }} Fr Bu</td>
-                            <td>{{ $order->client->name }}</td>
-                            <td>{{ $order->order_date->format('d/m/Y') }}</td>
-                            <td> {{ $order->status }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->name ?? ''}}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->designation?? ''}}</td>
+                            <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->amount ?? ''}}</th>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->quantity ?? ''}}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($order->amount * $order->quantity, 2, ',', ' ')??'' }} Fr Bu</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->client->name }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->order_date->format('d/m/Y') }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; "> {{ $order->status }}</td>
                             {{-- <td>{{ number_format($order->amount, 2, ',', ' ') }} Fr Bu</td> --}}
                             {{-- <td>
                                 <span class="badge bg-{{ $order->status_color }}">
                                     {{ $order->status_label }}
                                 </span>
                             </td> --}}
-                            <td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
                                 <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i>
                                 </a>

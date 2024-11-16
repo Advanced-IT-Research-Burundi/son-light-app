@@ -51,6 +51,13 @@
             padding: 3px;
             text-align: left;
         }
+        .table2 td,th{    
+           vertical-align: top;   
+        }
+        .table2 td{ 
+            max-width: 150px;
+            word-wrap: break-word;
+         }
         .footer {
             position: absolute;
             bottom: 0;
