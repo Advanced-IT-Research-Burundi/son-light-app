@@ -148,7 +148,7 @@
         <div class="border_header">
             <br>
             <h4 class="fact">FACTURE PROFORMA </h4>
-            <h4 class="date">Date: Le {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
+            <h4 class="date">Date: Le {{ $proforma_invoice->proforma_invoice_date->format('d/m/Y') }}</h4>
 
         </div>
 

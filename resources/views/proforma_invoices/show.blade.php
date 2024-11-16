@@ -12,7 +12,9 @@
         </div>
                     <div class="card-body">
                         <dl class="row">
-                             <dt class="col-sm-3">Date de facturation</dt>
+                             <dt class="col-sm-3">Date de création</dt>
+                              <dd class="col-sm-9">{{ $proforma_invoice->proforma_invoice_date }}</dd>
+                               <dt class="col-sm-3">Date de facturation</dt>
                               <dd class="col-sm-9">{{ $proforma_invoice->proforma_invoice_date }}</dd>
                               <dt class="col-sm-3">Numéro de la facture proforma</dt>
                               <dd class="col-sm-9">{{ $proforma_invoice->invoice_number }}</dd>

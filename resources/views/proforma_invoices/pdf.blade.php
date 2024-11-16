@@ -101,7 +101,7 @@
 
     </div>
 
-    <h4 style="color:red;">FACTURE PROFORMA du {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
+    <h4 style="color:red;">FACTURE PROFORMA du {{ $proforma_invoice->proforma_invoice_date->format('d/m/Y') }}</h4>
 
     <div style=" font-size: 14px;" >
         <h3 style="padding:0; margin:0;">A. Identification du vendeur</h3>

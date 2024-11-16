@@ -25,6 +25,7 @@ class StoreProformaInvoiceRequest extends FormRequest
             'client_id' => ['required', 'integer', 'exists:clients,id'],
             'amount' => ['required', 'numeric'],
             'invoice_number'=>['nullable','string'],
+            'proforma_invoice_date'=>['nullable','string'],
             'unit'=>['nullable','string'],
             'price_letter'=>['nullable','string'],
             'validity_period' => ['required', 'integer'],

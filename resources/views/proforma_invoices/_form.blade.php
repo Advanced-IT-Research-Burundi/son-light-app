@@ -1,6 +1,6 @@
 <!-- resources/views/orders/_form.blade.php -->
   <div class="row">
-    <div class="form-group mb-3  col-12">
+    <div class="form-group mb-3  col-6">
     <label for="invoice_number" class="form-label">
         <i class="bi bi-calendar"></i> Numéro de la facture
     </label>
@@ -9,6 +9,16 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+   <div class="form-group mb-3  col-6">
+    <label for="invoice_number" class="form-label">
+        <i class="bi bi-calendar"></i> Date de facturation
+    </label>
+    <input type="date" class="form-control @error('proforma_invoice_date') is-invalid @enderror" id="proforma_invoice_date" name="proforma_invoice_date" value="{{ old('proforma_invoice_date', $proforma_invoice->proforma_invoice_date ?? '') }}" >
+    @error('proforma_invoice_date')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
 </div>
 <div class="row">
 <div class="form-group mb-3 col-6">

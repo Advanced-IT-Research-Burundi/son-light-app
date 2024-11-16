@@ -38,7 +38,6 @@ class ProformaInvoiceController extends Controller
 
         //dd($validatedData);
         $validatedData['user_id'] = Auth::user()->id;
-        $validatedData['proforma_invoice_date'] = now();
         $proforma_invoice = ProformaInvoice::create($validatedData);
 
        
@@ -46,6 +45,7 @@ class ProformaInvoiceController extends Controller
             'product_name' => $request->designation,
             'quantity' => $request->quantity,
             'unit_price' => $request->amount,
+            'proforma_invoice_date'=>$request->proforma_invoice_date,
             'invoice_number'=>$request->invoice_number,
             'price_letter'=>$request->price_letter,
             'unit'=>$request->unit,
@@ -69,6 +69,7 @@ class ProformaInvoiceController extends Controller
             'client_id' => ['required', 'integer', 'exists:clients,id'],
             'amount' => ['required', 'numeric'],
             'unit'=>['nullable','string'],
+            'proforma_invoice_date'=>['nullable','date'],
             'invoice_number'=>['nullable','string'],
             'price_letter'=>['nullable','string'],
             'company_id' => 'required|exists:companies,id',

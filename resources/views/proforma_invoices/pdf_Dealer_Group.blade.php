@@ -184,7 +184,7 @@
 
     <div class="bordertitre">
         <h4 class="border_header">FACTURE PROFORMA</h4>
-        <h4 class="date">Date: Le {{ $proforma_invoice->created_at->format('d/m/Y') }}</h4>
+        <h4 class="date">Date: Le {{ $proforma_invoice->proforma_invoice_date->format('d/m/Y') }}</h4>
     </div>
     <p><br></p><br>  <p></p>
     <h4 class="client-title" style="padding:0;margin:0;"> <span style=" text-decoration: underline;">CLIENT </span>:{{ $proforma_invoice->client->name }}</h4>
