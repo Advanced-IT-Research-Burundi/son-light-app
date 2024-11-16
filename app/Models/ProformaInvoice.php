@@ -30,6 +30,7 @@ class ProformaInvoice extends Model
         'company_id' => 'integer',
         'unit'=>'string',
         'price_letter'=>'string',
+        'invoice_number'=>'string',
         'amount' => 'float',
         'quantity'=>'integer',
         'proforma_invoice_date'=>'date',

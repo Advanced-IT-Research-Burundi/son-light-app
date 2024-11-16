@@ -46,6 +46,7 @@ class ProformaInvoiceController extends Controller
             'product_name' => $request->designation,
             'quantity' => $request->quantity,
             'unit_price' => $request->amount,
+            'invoice_number'=>$request->invoice_number,
             'price_letter'=>$request->price_letter,
             'unit'=>$request->unit,
             'total_price' => ($request->amount * $request->quantity),
@@ -68,13 +69,12 @@ class ProformaInvoiceController extends Controller
             'client_id' => ['required', 'integer', 'exists:clients,id'],
             'amount' => ['required', 'numeric'],
             'unit'=>['nullable','string'],
+            'invoice_number'=>['nullable','string'],
             'price_letter'=>['nullable','string'],
             'company_id' => 'required|exists:companies,id',
         ]);
 
         $proforma_invoice->update(attributes: $request->all());
-
-        
 
         return redirect()->route('proforma_invoices.index')
             ->with('success', 'l\'article ou le service a été mise à jour avec succès.');

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('proforma_invoices', function (Blueprint $table) {
             $table->id();
             $table->string('designation')->nullable();
+            $table->string('invoice_number')->nullable();
             $table->foreignId('client_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('company_id')->constrained();

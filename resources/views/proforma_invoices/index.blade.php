@@ -29,7 +29,8 @@
                 <table class="table table-bordered" id="proforma_invoicesTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Num. Fac.Proforma</th>
+                        <th>Ordre</th>
+                            <th>Num. Fac.</th>
                             <th>Client</th>
                             <th>SOCIETE</th>
                             <th>Désigation</th>
@@ -46,6 +47,7 @@
                         @foreach($proforma_invoices as $proforma_invoice)
                         <tr>
                             <td>{{ $count }}</td>
+                             <td>{{ $proforma_invoice->invoice_number }}</td>
                             <td>{{ $proforma_invoice->client->name }}</td>
                             <td>{{ $proforma_invoice->entreprise->name ?? ''}}</td>
                             <td>{{ $proforma_invoice->designation?? ''}}</td>
