@@ -25,11 +25,11 @@
                               <dt class="col-sm-3">Unite de mesure</dt>
                               <dd class="col-sm-9">{{ $proforma_invoice->unit }}</dd>
                               <dt class="col-sm-3">Prix total HTVA </dt>
-                             <dd class="col-sm-9">{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 0) }} Fbu</dd>
+                             <dd class="col-sm-9">{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }} Fbu</dd>
                              <dt class="col-sm-3">TVA </dt>
-                             <dd class="col-sm-9">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 0):'0' }} Fbu</dd>
+                             <dd class="col-sm-9">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'0' }} Fbu</dd>
                              <dt class="col-sm-3">Prix total TVAC </dt>
-                             <dd class="col-sm-9">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 0):'0' }} Fbu</dd>
+                             <dd class="col-sm-9">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'0' }} Fbu</dd>
                              <dt class="col-sm-3">Prix en Lettre</dt>
                              <dd class="col-sm-9">Nous disons {{ $proforma_invoice->price_letter}}</dd>
                              <dt class="col-sm-3">Créé par</dt>
@@ -43,9 +43,9 @@
                     </div>
                </div>
                      </div>
-</div>
 
-<div class="container">
+ <div class="card shadow mb-4">
+        <div class="card-body">
 
     <h6 class="m-0 font-weight-bold text-primary">Autres détails de la commande </h6>
      <div class="row">
@@ -75,10 +75,10 @@
                 <td>{{ $detail->product_name }}</td>
                  <td>{{ $detail->unit }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 0) }}</td>
-                <td>{{ number_format($detail->total_price, 0) }}</td>
+                <td>{{ number_format($detail->unit_price, 2) }}</td>
+                <td>{{ number_format($detail->total_price, 2) }}</td>
                 <td>{{ $detail->total_price * $proforma_invoice->tva / 100 }}</td>
-                <td>{{ number_format( ($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100)), 0) }}</td>
+                <td>{{ number_format( ($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100)), 2) }}</td>
                 <td>
                     <a href="{{ route('proforma_invoices.proforma_invoice_lists.edit', [$proforma_invoice, $detail]) }}" class="btn btn-sm btn-info"> <i class="bi bi-pencil"></i></a>
                     <form action="{{ route('proforma_invoices.proforma_invoice_lists.destroy', [$proforma_invoice, $detail]) }}" method="POST" class="d-inline">
@@ -93,17 +93,66 @@
             @endphp
             @endforeach
         </tbody>
-        {{-- <tfoot>
+         <tfoot>
             <tr>
-                <th colspan="4">Total</th>
-                <th>{{ number_format($proforma_invoice->amount, 2) }} FBu</th>
+                <th colspan="8">Total</th>
+                <th>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }} Fbu</th>
                 <th></th>
             </tr>
-        </tfoot> --}}
+               <tr>
+                <th colspan="8">TVA</th>
+                <th>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'0' }} Fbu</th>
+                <th></th>
+            </tr>
+               <tr>
+                <th colspan="8">Prix total TVAC</th>
+                <th>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'0' }} Fbu</th>
+                <th></th>
+            </tr>
+        </tfoot> 
     </table>
+    </div>
+    </div>
+    <div>
+    <p></p>
+    </div>
+    <div class="card shadow mb-4 ">
+        <div class="card-body">
+                <div class="card-body">
+    <h6 class="m-0 font-weight-bold text-primary">Ecrivez le prix en Lettre </h6>
      <div class="row">
+        <p></p>
+     </div>
+      <form action="{{ route('addPriceLetter', $proforma_invoice->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+      <div class="row">
+                   <div class="form-group mb-3  col-8">
+             <input type="text" class="form-control @error('price_letter') is-invalid @enderror" id="price_letter" name="price_letter" value="{{ old('price_letter', $proforma_invoice->price_letter ?? '') }}" required>
+            @error('price_letter')
+         <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+           </div>
+            <div class="form-group mb-3  col-4">
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-lg"></i> Ajouter à la facture proforma
+                    </button>
+                    <a href="{{ route('proforma_invoices.index') }}" class="btn btn-secondary">
+                        <i class="bi bi-x-lg"></i> Annuler
+                    </a>
+                </div>
+        </div>
+        </form>
+    </div>
+    </div>
+      </div>
+
+          <div class="card shadow mb-4">
+        <div class="card-body">
+    <div class="row">
                         <div class="col-12">
-                            <div class="mt-4">
+                            <div class="mt-8">
                                 <a href="{{ route('proforma_invoices.index') }}" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left"></i> Retour à la liste proforma
                                 </a>
@@ -125,6 +174,7 @@
                             </div>
                         </div>
                         <p><br></p>
-    </div>
+                        </div></div>
+  
 </div>
 @endsection

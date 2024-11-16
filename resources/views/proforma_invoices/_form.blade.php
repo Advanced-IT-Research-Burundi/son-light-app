@@ -1,4 +1,15 @@
 <!-- resources/views/orders/_form.blade.php -->
+  <div class="row">
+    <div class="form-group mb-3  col-12">
+    <label for="invoice_number" class="form-label">
+        <i class="bi bi-calendar"></i> Numéro de la facture
+    </label>
+    <input type="text" class="form-control @error('invoice_number') is-invalid @enderror" id="invoice_number" name="invoice_number" value="{{ old('invoice_number', $proforma_invoice->invoice_number ?? '') }}" >
+    @error('invoice_number')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+</div>
 <div class="row">
 <div class="form-group mb-3 col-6">
     <label for="client_id" class="form-label">
@@ -111,17 +122,6 @@
         <input type="text"  class="form-control" id="amount_tvac" name="amount_tvac" readonly>
     </div>
     </div>
-    <div class="row">
-    <div class="form-group mb-3  col-">
-    <label for="order_date" class="form-label">
-        <i class="bi bi-calendar"></i> Prix en lettre
-    </label>
-    <input type="text" class="form-control @error('price_letter') is-invalid @enderror" id="price_letter" name="price_letter" value="{{ old('price_letter', $proforma_invoice->price_letter ?? '') }}" required>
-    @error('price_letter')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-</div>
 </div>
 @section('scripts')
 <script>

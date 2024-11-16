@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('orders/{order}/generate-pdf', [OrderController::class, 'generatePDF'])->name('orders.generatePDF');
     Route::post('addselect',[DetailOrderController::class,'addselect'])->name('addselect');
     Route::get('order_alllist',[OrderController::class,'order_alllist'])->name('order_alllist');
+    Route::put('addPriceLetter/{proforma_invoice}',[ProformaInvoiceController::class,'addPriceLetter'])->name('addPriceLetter');
 
 });
 require_once __DIR__.'/auth.php';

@@ -79,6 +79,16 @@ class ProformaInvoiceController extends Controller
         return redirect()->route('proforma_invoices.index')
             ->with('success', 'l\'article ou le service a été mise à jour avec succès.');
     }
+    public function addPriceLetter(Request $request, ProformaInvoice $proforma_invoice)
+    {
+        $request->validate([
+            'price_letter' => ['nullable', 'string'],
+        ]);
+        $proforma_invoice->price_letter = $request->input('price_letter');
+        $proforma_invoice->save();
+        return redirect()->route('proforma_invoices.show', $proforma_invoice->id)
+                         ->with('success', 'Le prix en lettre a été ajouté avec succès.');
+    }
 
     public function destroy(ProformaInvoice $proforma_invoice)
     {
