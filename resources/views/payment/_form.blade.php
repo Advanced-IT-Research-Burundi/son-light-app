@@ -1,7 +1,7 @@
 <!-- resources/views/orders/_form.blade.php -->
 @csrf
 <div class="row">
-<div class="form-group mb-3 col-3">
+<div class="form-group mb-3 col-6">
     <label for="invoice_id" class="form-label">
         <i class="bi bi-person"></i> Facture
     </label>
@@ -17,7 +17,7 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3 col-3">
+<div class="form-group mb-3 col-6">
     <label for="amount" class="form-label">
         <i class="bi bi-cash-coin"></i> Montant
     </label>
@@ -26,7 +26,9 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3 col-3">
+</div>
+<div class="row">
+ <div class="form-group mb-3 col-6">
     <label for="payment_date" class="form-label">
         <i class="bi bi-calendar"></i> Date de payement
     </label>
@@ -35,7 +37,7 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group mb-3 col-3">
+<div class="form-group mb-3 col-6">
     <label for="payment_method" class="form-label">
         <i class="bi bi-calendar"></i> Mode de payement
     </label>

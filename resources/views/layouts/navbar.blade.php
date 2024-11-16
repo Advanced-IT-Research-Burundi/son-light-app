@@ -56,7 +56,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::routeIs('payments.*') ? 'active' : '' }}" href="{{ route('payments.index') }}">
-                        <i class="bi bi-cash-coin"></i> Payement
+                        <i class="bi bi-cash-coin"></i> Paiement
                     </a>
                 </li>
 

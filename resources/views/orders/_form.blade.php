@@ -28,14 +28,14 @@
 </div>
     </div>
     <div class="row">
-      <div class="form-group mb-3 col-4">
+      <div class="form-group mb-3 col-6">
     <label for="amount" class="form-label"><i class="bi bi-cash-coin"></i> P.U</label>
         <input type="number" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount',  $order?->amount?$order?->amount: $proforma_invoice->amount??'') }}" required data-calc="price">
         @error('quantity')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="form-group mb-3 col-4">
+    <div class="form-group mb-3 col-6">
         <label for="quantity" class="form-label">
             Quantité
         </label>
@@ -44,7 +44,12 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="form-group mb-3 col-4">
+
+
+    </div>
+
+    <div class="row">
+       <div class="form-group mb-3 col-4">
         <label for="tva" class="form-label">
             TVA
         </label>
@@ -60,16 +65,13 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    </div>
-
-    <div class="row">
-      <div class="form-group mb-3 col-6">
+      <div class="form-group mb-3 col-4">
         <label for="amount_ht" class="form-label">
             Montant HT
         </label>
         <input type="text"  class="form-control" id="amount_ht" name="amount_ht" readonly>
     </div>
-    <div class="form-group mb-3 col-6">
+    <div class="form-group mb-3 col-4">
         <label for="amount_tvac" class="form-label">
             Montant TTC
         </label>
