@@ -110,11 +110,11 @@
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->total_price * $order->tva / 100 }} Fr Bu</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format( ($detail->total_price + ($detail->total_price * $order->tva / 100)), 2) }} FBu</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
-                    <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info">Modifier</a>
+                    <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('orders.detail-orders.destroy', [$order, $detail]) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">Supprimer</button>
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')"><i class="bi bi-trash"></i></button>
                     </form>
                 </td>
             </tr>
