@@ -44,6 +44,7 @@ class Client extends Model
 
     public function proformaInvoice(): HasMany
     {
+        
         return $this->hasMany(ProformaInvoice::class);
     }
 

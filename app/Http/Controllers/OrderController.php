@@ -6,6 +6,7 @@ use App\Http\Requests\OrderStoreRequest;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\Order;
+use App\Models\OtherOrder;
 use PDF;
 use App\Models\ProformaInvoice;
 use Illuminate\Http\Request;
@@ -14,11 +15,6 @@ use PhpParser\Node\Expr\Cast;
 
 class OrderController extends Controller
 {
-    /*public function index()
-    {
-        $orders = Order::with('client')->latest()->get();
-        return view('orders.index', compact('orders'));
-    }*/
     public function index(Request $request)
     {
         $proforma_invoice_id = $request->proforma_invoice_id;
@@ -42,13 +38,8 @@ class OrderController extends Controller
     public function store(OrderStoreRequest $request)
     {
         $validatedData = $request->all();
-
-        // dd($validatedData);
         $validatedData['user_id'] = Auth::user()->id;
-        $validatedData['order_date'] = now();
         $order = Order::create($validatedData);
-
-            // dd(($request->amount * $request->quantity));
 
         $detailOrder = $order->detailOrders()->create([
             'product_name' => $request->designation,
@@ -81,7 +72,7 @@ class OrderController extends Controller
             'unit' => ['nullable','string'],
             'price_letter' => ['nullable','string'],
             'status_livraison'=>['required','integer'],
-            // 'order_date' => ['required', 'date'],
+            'order_date' => ['required', 'date'],
             'delivery_date' => ['required', 'date'],
             'designation' => ['required', 'string'],
             'status' => ['required', 'string'],
@@ -100,57 +91,28 @@ class OrderController extends Controller
         return redirect()->route('proforma_invoices.orders.index', $proforma_invoice->id)
             ->with('success', 'Commande supprimée avec succès.');
     }
-            /*
-            public function destroy(Order $order)
-            {
-             $proforma_invoice = $order->proforma_invoice;
-             $order->delete();
-            return redirect()->route('proforma_invoices.orders.index', $proforma_invoice->id)
-            ->with('success', 'Commande supprimée avec succès.');
-           }*/
     public function order_alllist(){
         $orders = Order::with('client')->latest()->get();
         return view('orders.index', compact('orders'));
     }
-
-    public function generatePDF(Order $order)
+    public function create1()
     {
-         $order->load('detailOrders', 'client', 'entreprise');
-        $companies = [
-            ['name' => 'Son light IMPRIMERIE'],
-            ['name' => 'DEALER GROUP'],
-            ['name' => 'BUFI TECHNOLOGIE'],
-            ['name' => 'NOVA TECH'],
-            ['name' => 'AFRO BUSINESS GROUP'],
-            ['name' => 'SOCIETE ANONYME'],
-        ];
-
-        // CREATION DES PROFORMA A PARTIR DES COMPANY_KEY EN UTILISANT SWICH EN GENERA PDF POUR CHAQUE COMPANY
-        switch ($order->entreprise->id) {
-            case 1:
-                $pdf = PDF::loadView('orders.pdf', compact('order'));
-                break;
-            case 2:
-                $pdf = PDF::loadView('orders.pdf_Dealer_Group', compact('order'));
-                break;
-            case 3:
-                $pdf = PDF::loadView('orders.pdf_bufi', compact('order'));
-                break;
-            case 4:
-                $pdf = PDF::loadView('orders.pdf_nova', compact('order'));
-                break;
-            case 5:
-                $pdf = PDF::loadView('orders.pdf_afro', compact('order'));
-                break;
-            default:
-                $pdf = PDF::loadView('orders.pdf', compact('order'));
-        }
-
-
-
-        return $pdf->download('order' . '.pdf');
-        $order->load('order', 'order.client', 'order.entreprise');
-        $pdf = PDF::loadView('orders.pdf', compact('order'));
-        return $pdf->download('commande_' . $order->id . '.pdf');
+        $clients = Client::all();
+        $companies = Company::all();
+        $order=null;
+        $proforma_invoices=ProformaInvoice::all();
+        return view('orders.create1', compact('clients', 'companies','proforma_invoices','order'));
+    }
+    public function addPriceLetterOrder(Request $request, Order $order)
+    {
+        $request->validate([
+            'price_letter' => ['nullable', 'string'],
+        ]);
+    
+        $order->price_letter = $request->input('price_letter');
+        $order->save();
+    
+        return redirect()->route('orders.show', $order->id)
+                         ->with('success', 'Le prix en lettre a été ajouté avec succès.');
     }
 }

@@ -37,6 +37,15 @@
                 <dd class="col-sm-9">{{ number_format($order->amount_tvac, 2, ',', ' ') }} BIF</dd>
 
                   --}}
+                   <dt class="col-sm-3">Prix total HTVA </dt>
+                             <dd class="col-sm-9">{{ number_format($order->detailOrders->sum('total_price'), 2) }} Fbu</dd>
+                             <dt class="col-sm-3">TVA </dt>
+                             <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0):'' }} Fbu</dd>
+                             <dt class="col-sm-3">Prix total TVAC </dt>
+                             <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }} Fbu</dd>
+                             <dt class="col-sm-3">Prix en Lettre</dt>
+                             <dd class="col-sm-9">Nous disons {{ $order->price_letter}}</dd>
+                             
                 <dt class="col-sm-3">Date de commande</dt>
                 <dd class="col-sm-9">{{ $order->order_date->format('d/m/Y') }}</dd>
 
@@ -73,6 +82,8 @@
     @php
         $count = 1;
     @endphp
+      <div class="card shadow mb-4 ">
+        <div class="card-body">
     <table class="table">
         <thead>
             <tr>
@@ -120,7 +131,48 @@
             </tr>
         </tfoot> --}}
     </table>
+       </div>
+          </div>
     <div class="row">
+      
+    </div>
+    <div class="card shadow mb-4 ">
+        <div class="card-body">
+                <div class="card-body">
+    <h6 class="m-0 font-weight-bold text-primary">Ecrivez le prix en Lettre </h6>
+     <div class="row">
+        <p></p>
+     </div>
+     <form action="{{ route('addPriceLetterOrder', $order->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+      <div class="row">
+                   <div class="form-group mb-3  col-8">
+             <input type="text" class="form-control @error('price_letter') is-invalid @enderror" id="price_letter" name="price_letter" value="{{ old('price_letter', $proforma_invoice->price_letter ?? '') }}" required>
+            @error('price_letter')
+         <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+           </div>
+            <div class="form-group mb-3  col-4">
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-lg"></i> Ajouter à la commande
+                    </button>
+                    <a href="{{ route('order_alllist')}}"  class="btn btn-secondary">
+                        <i class="bi bi-x-lg"></i> Annuler
+                    </a>
+                </div>
+        </div>
+        </form>
+    </div>
+    </div>
+      </div>
+    </div>
+    <div class="container">
+     <div class="card shadow mb-4 ">
+        <div class="card-body">
+    <div class="row">
+     
        <div class="mt-4">
     <a href="{{  route('order_alllist') }}" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i> Retour à la liste des commandes
@@ -141,5 +193,8 @@
         </a>
     </div>
     </div>
+      </div>
+        </div>
+         </div>
 </div>
 @endsection

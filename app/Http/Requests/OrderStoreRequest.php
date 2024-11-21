@@ -25,10 +25,11 @@ class OrderStoreRequest extends FormRequest
             'amount' => ['required','numeric'],
             'quantity' => ['required','numeric'],
             'status_livraison'=>['required','integer'],
-            // 'order_date' => ['required', 'date'],
+            'order_date' => ['required', 'date'],
             'delivery_date' => ['required', 'date'],
             'designation' => ['required', 'string'],
             'status' => ['required', 'string'],
+            'price_letter'=>['nullable','string'],
             'description' => ['nullable', 'string'],
             'company_id' => 'required|exists:companies,id',
         ];
