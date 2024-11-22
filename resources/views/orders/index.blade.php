@@ -63,13 +63,17 @@
                                 <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-sm btn-primary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="{{ route('orders.destroy', $order->id) }}" method="POST" class="d-inline">
+
+                                <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display: inline-block;" class="delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette commande ?')">
+
+                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
+                                        onclick="showDeleteModal('{{  $order->id }}', 'Êtes-vous sûr de vouloir supprimer cette commande ?')">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </form>
+
                             </td>
                         </tr>
                         @php
@@ -87,6 +91,12 @@
             </div>
         </div>
     </div>
+      <!-- Composant modal -->
+      @include('components.delete-confirmation-modal', [
+        'title' => 'Confirmation de suppression',
+        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
+        'confirmText' => 'Supprimer'
+    ])
 </div>
 @endsection
 

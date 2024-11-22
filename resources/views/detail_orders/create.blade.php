@@ -13,13 +13,13 @@
         <button type="submit" class="btn btn-primary">Ajouter l'article ou le service</button>
         <a href="{{ route('orders.show', $order) }}" class="btn btn-secondary">Annuler</a>
     </form>
-    
+
     <br>
     <h3>Liste des articles ou service du commande</h3>
     @php
         $count = 1;
     @endphp
-    
+
     <table class="table">
         <thead>
             <tr>
@@ -35,7 +35,7 @@
             </tr>
         </thead>
         <tbody>
-            
+
             @foreach($order->detailOrders as $detail)
             <tr>
                 <td>{{ $count}}</td>
@@ -46,15 +46,18 @@
                 <td>{{ number_format($detail->total_price, 2) }} </td>
                 <td>{{ $detail->total_price * $order->tva / 100 }}</td>
                 <td>{{ number_format( ($detail->total_price + ($detail->total_price * $order->tva / 100)), 2) }}</td>
-                
+
                 <td>
                                 <a href="" class="btn btn-sm btn-primary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="{{route('detail-orders.destroy',$detail->id)}}" method="POST" class="d-inline">
+
+                                <form action="{{route('detail-orders.destroy',$detail->id)}}"  method="POST" style="display: inline-block;" class="delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?')">
+
+                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
+                                        onclick="showDeleteModal('{{  $detail->id }}', 'Êtes-vous sûr de vouloir supprimer ce produit ?')">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </form>
@@ -75,13 +78,19 @@
             </tr>
         </tfoot> --}}
     </table>
+    <!-- Composant modal -->
+    @include('components.delete-confirmation-modal', [
+        'title' => 'Confirmation de suppression',
+        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
+        'confirmText' => 'Supprimer'
+    ])
     <h3>Liste des articles ou service du de la facture proforma</h3>
     @php
         $count = 1;
     @endphp
     <form action=" {{ route('addselect')}}" method="post">
              @csrf
-             
+
     <input type="hidden" name="order_id" value="{{ $order->id}}">
     <table class="table">
         <thead>
@@ -104,13 +113,13 @@
                 <td>{{ $detail->product_name }}</td>
                   <td>{{ $detail->unit}}</td>
                 <td>{{ $detail->quantity }}</td>
-                   
+
                 <td>{{ number_format($detail->unit_price, 2) }}</td>
                 <td>{{ number_format($detail->total_price, 2) }} </td>
                 <td>{{ $detail->total_price * $order->tva / 100 }}</td>
                 <td>{{ number_format( ($detail->total_price + ($detail->total_price * $order->tva / 100)), 2) }}</td>
                 <td class="text-center">
-                    <input type="checkbox" name="select[]" id="" value=" {{ $detail }}">                   
+                    <input type="checkbox" name="select[]" id="" value=" {{ $detail }}">
                 </td>
 
             </tr>
@@ -128,6 +137,6 @@
         </tfoot> --}}
     </table>
     </form>
-   
+
 </div>
 @endsection

@@ -45,7 +45,7 @@
                              <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }} Fbu</dd>
                              <dt class="col-sm-3">Prix en Lettre</dt>
                              <dd class="col-sm-9">Nous disons {{ $order->price_letter}}</dd>
-                             
+
                 <dt class="col-sm-3">Date de commande</dt>
                 <dd class="col-sm-9">{{ $order->order_date->format('d/m/Y') }}</dd>
 
@@ -111,11 +111,17 @@
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format( ($detail->total_price + ($detail->total_price * $order->tva / 100)), 2) }} FBu</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
                     <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info"><i class="bi bi-pencil"></i></a>
-                    <form action="{{ route('orders.detail-orders.destroy', [$order, $detail]) }}" method="POST" class="d-inline">
+
+                    <form action="{{ route('orders.detail-orders.destroy', [$order, $detail]) }}"  method="POST" style="display: inline-block;" class="delete-form">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')"><i class="bi bi-trash"></i></button>
+
+                        <button type="button" type="submit" class="btn btn-sm btn-danger"
+                            onclick="showDeleteModal('{{  $detail->id }}', 'Êtes-vous sûr de vouloir supprimer ce produit ?')">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </form>
+
                 </td>
             </tr>
             @php
@@ -131,10 +137,17 @@
             </tr>
         </tfoot> --}}
     </table>
+
+    <!-- Composant modal -->
+    @include('components.delete-confirmation-modal', [
+        'title' => 'Confirmation de suppression',
+        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
+        'confirmText' => 'Supprimer'
+    ])
        </div>
           </div>
     <div class="row">
-      
+
     </div>
     <div class="card shadow mb-4 ">
         <div class="card-body">
@@ -172,24 +185,24 @@
      <div class="card shadow mb-4 ">
         <div class="card-body">
     <div class="row">
-     
+
        <div class="mt-4">
     <a href="{{  route('order_alllist') }}" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i> Retour à la liste des commandes
         </a>
-     
+
         <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary">
-          <i class="bi bi-plus-circle"></i> 
+          <i class="bi bi-plus-circle"></i>
         Ajouter un article ou service</a>
         <a href="{{ route('order_alllist')}}" class="btn btn-primary">
         <i class="bi bi-eye"></i> Visualiser des commandes </a>
          <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
-             <i class="bi bi-plus-circle"></i> 
+             <i class="bi bi-plus-circle"></i>
             Ajouter la facture
         </a>
               <a href="{{ route('invoices.index', $order) }}" class="btn btn-primary">
-              <i class="bi bi-eye"></i>  
-            Visualiser les factures 
+              <i class="bi bi-eye"></i>
+            Visualiser les factures
         </a>
     </div>
     </div>

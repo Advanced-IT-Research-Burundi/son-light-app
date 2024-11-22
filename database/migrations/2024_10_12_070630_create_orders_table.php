@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
 
-     
+
 
     public function up(): void
     {
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->double(column: 'amount_tvac')->default(0);
             $table->date('order_date');
             $table->date('delivery_date');
-            $table->string('price_letter')->default('null');
+            $table->string('price_letter')->default('null'); //new
             $table->string('unit')->nullable();
             $table->string('status');
             $table->integer('status_livraison');
@@ -45,9 +45,9 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    
+
     public function down(): void
     {
         Schema::dropIfExists('orders');
-} 
+}
 };

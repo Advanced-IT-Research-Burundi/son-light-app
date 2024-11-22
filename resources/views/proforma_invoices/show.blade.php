@@ -85,10 +85,16 @@
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format( ($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100)), 2) }}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
                     <a href="{{ route('proforma_invoices.proforma_invoice_lists.edit', [$proforma_invoice, $detail]) }}" class="btn btn-sm btn-info"> <i class="bi bi-pencil"></i></a>
-                    <form action="{{ route('proforma_invoices.proforma_invoice_lists.destroy', [$proforma_invoice, $detail]) }}" method="POST" class="d-inline">
+
+                    <form action="{{ route('proforma_invoices.proforma_invoice_lists.destroy', [$proforma_invoice, $detail]) }}" method="POST" style="display: inline-block;" class="delete-form">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ou service ?')">   <i class="bi bi-trash"></i></button>
+
+                        <button type="button" type="submit" class="btn btn-sm btn-danger"
+                            onclick="showDeleteModal('{{ $detail->id }}', 'Êtes-vous sûr de vouloir supprimer cet article ou service ?')">
+                            <i class="bi bi-trash"></i>
+
+                        </button>
                     </form>
                 </td>
             </tr>
@@ -113,11 +119,18 @@
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'0' }} </th>
                 <th></th>
             </tr>
-        </tfoot> 
+        </tfoot>
     </table>
+         <!-- Composant modal -->
+    @include('components.delete-confirmation-modal', [
+        'title' => 'Confirmation de suppression',
+        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
+        'confirmText' => 'Supprimer'
+    ])
     </div>
     </div>
     <div>
+
     <p></p>
     </div>
     <div class="card shadow mb-4 ">
@@ -179,6 +192,6 @@
                         </div>
                         <p><br></p>
                         </div></div>
-  
+
 </div>
 @endsection

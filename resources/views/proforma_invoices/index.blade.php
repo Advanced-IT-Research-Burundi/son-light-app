@@ -18,7 +18,7 @@
                    <i class="bi bi-arrow-right"></i> Aller à la liste des commandes</a>
         </div>
      </div>
-   
+
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -64,13 +64,18 @@
                                 <a href="{{ route('proforma_invoices.edit', $proforma_invoice->id) }}" class="btn btn-sm btn-primary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="{{ route('proforma_invoices.destroy', $proforma_invoice->id) }}" method="POST" class="d-inline">
+
+                                <form action="{{ route('proforma_invoices.destroy', $proforma_invoice->id) }}" method="POST" style="display: inline-block;" class="delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet element de facture proforma ?')">
+
+                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
+                                        onclick="showDeleteModal('{{ $proforma_invoice->id }}', 'Êtes-vous sûr de vouloir supprimer cet element de facture proforma ?')">
                                         <i class="bi bi-trash"></i>
+
                                     </button>
                                 </form>
+
                             </td>
                         </tr>
                         @php
@@ -82,6 +87,12 @@
             </div>
         </div>
     </div>
+    <!-- Composant modal -->
+    @include('components.delete-confirmation-modal', [
+        'title' => 'Confirmation de suppression',
+        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
+        'confirmText' => 'Supprimer'
+    ])
 </div>
 @endsection
 

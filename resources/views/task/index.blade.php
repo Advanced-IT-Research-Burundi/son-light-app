@@ -37,12 +37,12 @@
                         @foreach($tasks as $task)
                         <tr>
                             <td>{{ $task->id }}</td>
-                            <td>#{{ $task->order->id }}  : {{ $task->order->designation }} </td>
-                            <td>{{ $task->creator->name }}</td>
-                            <td>{{ $task->user->name }}</td>
-                            <td>{{ $task->status }}</td>
-                            <td>{{ $task->start_date->format('d/m/Y') }}</td>
-                            <td>{{ $task->end_date->format('d/m/Y') }}</td>
+                            <td>#{{ $task->order->id ?? '' }}  : {{ $task->order->designation ?? '' }} </td>
+                            <td>{{ $task->creator->name ?? '' }}</td>
+                            <td>{{ $task->user->name ?? ''}}</td>
+                            <td>{{ $task->status ?? '' }}</td>
+                            <td>{{ $task->start_date->format('d/m/Y') ?? '' }}</td>
+                            <td>{{ $task->end_date->format('d/m/Y') ?? '' }}</td>
                             <td>
                                 <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i>
@@ -50,11 +50,15 @@
                                 <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-primary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline">
+
+                                <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display: inline-block;" class="delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?')">
+
+                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
+                                        onclick="showDeleteModal('{{ $task->id }}', 'Êtes-vous sûr de vouloir supprimer cette tâche ?')">
                                         <i class="bi bi-trash"></i>
+
                                     </button>
                                 </form>
                             </td>
@@ -65,6 +69,12 @@
             </div>
         </div>
     </div>
+      <!-- Composant modal -->
+      @include('components.delete-confirmation-modal', [
+        'title' => 'Confirmation de suppression',
+        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
+        'confirmText' => 'Supprimer'
+    ])
 </div>
 @endsection
 
