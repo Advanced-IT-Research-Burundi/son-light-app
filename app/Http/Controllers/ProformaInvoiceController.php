@@ -19,6 +19,7 @@ class ProformaInvoiceController extends Controller
         return view('proforma_invoices.index', compact('proforma_invoices'));
     }
 
+
     public function create()
     {
         $clients = Client::all();
@@ -27,7 +28,7 @@ class ProformaInvoiceController extends Controller
     }
 
     public function show(ProformaInvoice $proforma_invoice)
-    {  
+    {
         $order=Order::all();
         return view('proforma_invoices.show', compact('proforma_invoice','order'));
     }
@@ -40,7 +41,7 @@ class ProformaInvoiceController extends Controller
         $validatedData['user_id'] = Auth::user()->id;
         $proforma_invoice = ProformaInvoice::create($validatedData);
 
-       
+
         $proformaInvoiceList = $proforma_invoice->proformaInvoiceList()->create([
             'product_name' => $request->designation,
             'quantity' => $request->quantity,
@@ -51,7 +52,7 @@ class ProformaInvoiceController extends Controller
             'unit'=>$request->unit,
             'total_price' => ($request->amount * $request->quantity),
         ]);
-         
+
         return redirect()->route('proforma_invoices.index')
             ->with('success', 'la facture proforma a été créée avec succès.');
     }
@@ -99,7 +100,7 @@ class ProformaInvoiceController extends Controller
             ->with('success', 'l\'article ou le service a été supprimée avec succès.');
     }
     public function generatePDF(ProformaInvoice $proforma_invoice)
-    {    
+    {
         // $proforma_invoice->load('proforma_invoice.proformaInvoiceList', ' proforma_invoice.client', ' proforma_invoice.entreprise');
         $proforma_invoice->load('proformaInvoiceList', 'client', 'entreprise');
         $companies = [
@@ -115,9 +116,9 @@ class ProformaInvoiceController extends Controller
         switch ($proforma_invoice->entreprise->id) {
             case 1:
                 // return view('proforma_invoices.pdf', compact('proforma_invoice'));
-                
+
                 $pdf = PDF::loadView('proforma_invoices.pdf', compact('proforma_invoice'));
-              
+
                 break;
             case 2:
                 $pdf = PDF::loadView('proforma_invoices.pdf_Dealer_Group', compact('proforma_invoice'));

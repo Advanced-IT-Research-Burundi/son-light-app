@@ -27,8 +27,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('dashboard', [DashboardController::class , 'dashboard'])->name('dashboard');
     Route::view('profile', 'profile');
     Route::resource('users', UserController::class);
-    Route::resource('orders', controller: OrderController::class);
-    Route::resource('proforma_invoices', controller: ProformaInvoiceController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('proforma_invoices', ProformaInvoiceController::class);
     Route::resource('clients', ClientController::class);
     Route::get('/alerts', [AlertController::class, 'index'])->name('alerts.index');
     Route::resource('stocks', StockController::class);

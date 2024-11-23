@@ -86,10 +86,13 @@ class OrderController extends Controller
     }
 
     public function destroy(Order $order)
-    {   $proforma_invoice = $order->proformaInvoice;
+    {
+        // $proforma_invoice = $order->proformaInvoice;
         $order->delete();
-        return redirect()->route('proforma_invoices.orders.index', $proforma_invoice->id)
-            ->with('success', 'Commande supprimée avec succès.');
+
+        return redirect()->route('order_alllist');
+        // return redirect()->route('proforma_invoices.orders.index', $proforma_invoice->id)
+        //     ->with('success', 'Commande supprimée avec succès.');
     }
     public function order_alllist(){
         $orders = Order::with('client')->latest()->get();
@@ -108,10 +111,10 @@ class OrderController extends Controller
         $request->validate([
             'price_letter' => ['nullable', 'string'],
         ]);
-    
+
         $order->price_letter = $request->input('price_letter');
         $order->save();
-    
+
         return redirect()->route('orders.show', $order->id)
                          ->with('success', 'Le prix en lettre a été ajouté avec succès.');
     }
