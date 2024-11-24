@@ -60,12 +60,6 @@
         </div>
     </div>
 
-    <!-- Composant modal -->
-    @include('components.delete-confirmation-modal', [
-        'title' => 'Confirmation de suppression',
-        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
-        'confirmText' => 'Supprimer'
-    ])
 </div>
 @endsection
 

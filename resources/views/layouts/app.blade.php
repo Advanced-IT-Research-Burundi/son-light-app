@@ -40,7 +40,6 @@
 
     <!-- Pour la traduction en français -->
     <script src="https://cdn.datatables.net/plug-ins/1.10.25/i18n/French.json"></script>
-    <script src="{{ asset('js/delete_model.js')}}"></script>
     @yield('scripts')
 </body>
 </html>

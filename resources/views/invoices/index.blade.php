@@ -49,15 +49,18 @@
                                     <i class="bi bi-pencil"></i>
                                 </a>
 
-                                <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display: inline-block;" class="delete-form">
-                                    @csrf
-                                    @method('DELETE')
 
-                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
-                                        onclick="showDeleteModal('{{  $invoice->id }}', 'Êtes-vous sûr de vouloir supprimer cette commande ?')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $invoice->id }}">
+                                    <i class="bi bi-trash"></i>
+                                  </button>
+                                      <!-- Composant modal -->
+                                    @include('components.delete-confirmation-modal', [
+                                        'id'=>  $invoice->id,
+                                        'route'=> 'invoices.destroy',
+                                        'title' => 'Confirmation de suppression',
+                                        'message' => 'Êtes-vous sûr de vouloir supprimer cette commande ?',
+                                        'confirmText' => 'Supprimer'
+                                    ])
 
                             </td>
                         </tr>
@@ -74,18 +77,13 @@
                 </div>
         </div>
     </div>
-      <!-- Composant modal -->
-      @include('components.delete-confirmation-modal', [
-        'title' => 'Confirmation de suppression',
-        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
-        'confirmText' => 'Supprimer'
-    ])
+
 </div>
 @endsection
 
 @section('scripts')
 <script>
-    
+
 $(document).ready(function() {
     $('#ordersTable').DataTable({
         "language": {

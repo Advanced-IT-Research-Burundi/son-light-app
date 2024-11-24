@@ -86,16 +86,44 @@
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
                     <a href="{{ route('proforma_invoices.proforma_invoice_lists.edit', [$proforma_invoice, $detail]) }}" class="btn btn-sm btn-info"> <i class="bi bi-pencil"></i></a>
 
-                    <form action="{{ route('proforma_invoices.proforma_invoice_lists.destroy', [$proforma_invoice, $detail]) }}" method="POST" style="display: inline-block;" class="delete-form">
-                        @csrf
-                        @method('DELETE')
 
-                        <button type="button" type="submit" class="btn btn-sm btn-danger"
-                            onclick="showDeleteModal('{{ $detail->id }}', 'Êtes-vous sûr de vouloir supprimer cet article ou service ?')">
-                            <i class="bi bi-trash"></i>
 
-                        </button>
-                    </form>
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $detail->id }}">
+                <i class="bi bi-trash"></i>
+            </button>
+            <div class="modal fade" id="deleteConfirmationModal{{ $detail->id  }}" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel{{ $detail->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="deleteConfirmationModalLabel{{ $detail->id }}">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                Confirmation de suppression
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                        </div>
+                        <div class="modal-body">
+                            <p>Êtes-vous sûr de vouloir supprimer cet article ou service ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle me-2"></i> Annuler
+                            </button>
+                            <form action="{{ route( 'proforma_invoices.proforma_invoice_lists.destroy', [$proforma_invoice, $detail]) }}" method="POST" style="display: inline-block;" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-danger" >
+                                    <i class="bi bi-trash me-2"></i> Supprimer
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
                 </td>
             </tr>
             @php
@@ -121,12 +149,7 @@
             </tr>
         </tfoot>
     </table>
-         <!-- Composant modal -->
-    @include('components.delete-confirmation-modal', [
-        'title' => 'Confirmation de suppression',
-        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
-        'confirmText' => 'Supprimer'
-    ])
+
     </div>
     </div>
     <div>

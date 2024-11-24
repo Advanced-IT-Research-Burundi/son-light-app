@@ -65,16 +65,18 @@
                                     <i class="bi bi-pencil"></i>
                                 </a>
 
-                                <form action="{{ route('proforma_invoices.destroy', $proforma_invoice->id) }}" method="POST" style="display: inline-block;" class="delete-form">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
-                                        onclick="showDeleteModal('{{ $proforma_invoice->id }}', 'Êtes-vous sûr de vouloir supprimer cet element de facture proforma ?')">
-                                        <i class="bi bi-trash"></i>
-
-                                    </button>
-                                </form>
+                                {{-- @dump($proforma_invoice->id) --}}
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $proforma_invoice->id }}">
+                                    <i class="bi bi-trash"></i>
+                                  </button>
+                                      <!-- Composant modal -->
+                                    @include('components.delete-confirmation-modal', [
+                                        'id'=>  $proforma_invoice->id,
+                                        'route'=> 'proforma_invoices.destroy',
+                                        'title' => 'Confirmation de suppression',
+                                        'message' => 'Êtes-vous sûr de vouloir supprimer cet element de facture proforma ?',
+                                        'confirmText' => 'Supprimer'
+                                    ])
 
                             </td>
                         </tr>
@@ -87,12 +89,7 @@
             </div>
         </div>
     </div>
-    <!-- Composant modal -->
-    @include('components.delete-confirmation-modal', [
-        'title' => 'Confirmation de suppression',
-        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
-        'confirmText' => 'Supprimer'
-    ])
+
 </div>
 @endsection
 

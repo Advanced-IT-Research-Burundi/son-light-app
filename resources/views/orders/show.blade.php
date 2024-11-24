@@ -16,7 +16,7 @@
                 <dd class="col-sm-9">{{ $order->id }}</dd>
 
                 <dt class="col-sm-3">Client</dt>
-                <dd class="col-sm-9">{{ $order->client->name }}</dd>
+                <dd class="col-sm-9">{{ $order->client->name ?? ''}}</dd>
 
                 <dt class="col-sm-3">Entreprise</dt>
                 <dd class="col-sm-9">{{ $order->entreprise->name ?? 'Non spécifié' }}</dd>
@@ -65,7 +65,7 @@
                 </dd>
 
                 <dt class="col-sm-3">Créé par</dt>
-                <dd class="col-sm-9">{{ $order->user->name }}</dd>
+                <dd class="col-sm-9">{{ $order->user->name ?? 'z' }}</dd>
 
                 <dt class="col-sm-3">Description</dt>
                 <dd class="col-sm-9">{{ $order->description ?? 'Aucune description' }}</dd>
@@ -102,25 +102,53 @@
             @foreach($order->detailOrders as $detail)
             <tr>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count}}</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->product_name }}</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->unit}}</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->quantity }}</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->unit_price, 2) }} Fr Bu</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->total_price, 2) }} Fr Bu</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->product_name ?? '' }}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->unit ?? ''}}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->quantity ??''}}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->unit_price, 2) ??'' }} Fr Bu</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->total_price, 2) ?? '' }} Fr Bu</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->total_price * $order->tva / 100 }} Fr Bu</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format( ($detail->total_price + ($detail->total_price * $order->tva / 100)), 2) }} FBu</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
                     <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info"><i class="bi bi-pencil"></i></a>
 
-                    <form action="{{ route('orders.detail-orders.destroy', [$order, $detail]) }}"  method="POST" style="display: inline-block;" class="delete-form">
-                        @csrf
-                        @method('DELETE')
 
-                        <button type="button" type="submit" class="btn btn-sm btn-danger"
-                            onclick="showDeleteModal('{{  $detail->id }}', 'Êtes-vous sûr de vouloir supprimer ce produit ?')">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </form>
+
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $detail->id }}">
+                <i class="bi bi-trash"></i>
+            </button>
+            <div class="modal fade" id="deleteConfirmationModal{{ $detail->id }}" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel{{ $detail->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="deleteConfirmationModalLabel{{ $detail->id }}">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                Confirmation de suppression
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                        </div>
+                        <div class="modal-body">
+                            <p>Êtes-vous sûr de vouloir supprimer ce produit ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle me-2"></i> Annuler
+                            </button>
+                            <form action="{{ route( 'orders.detail-orders.destroy', [$order, $detail]) }}" method="POST" style="display: inline-block;" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-danger" >
+                                    <i class="bi bi-trash me-2"></i> Supprimer
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
                 </td>
             </tr>
@@ -138,12 +166,7 @@
         </tfoot> --}}
     </table>
 
-    <!-- Composant modal -->
-    @include('components.delete-confirmation-modal', [
-        'title' => 'Confirmation de suppression',
-        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
-        'confirmText' => 'Supprimer'
-    ])
+
        </div>
           </div>
     <div class="row">

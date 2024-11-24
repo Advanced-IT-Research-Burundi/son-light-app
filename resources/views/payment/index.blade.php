@@ -61,15 +61,19 @@ payment.index template
                                 <a href="{{ route('payments.edit', $payment->id) }}" class="btn btn-sm btn-primary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" style="display: inline-block;" class="delete-form">
-                                    @csrf
-                                    @method('DELETE')
 
-                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
-                                        onclick="showDeleteModal('{{  $payment->id }}', 'Êtes-vous sûr de vouloir supprimer ce Payement ?')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
+
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $payment->id }}">
+                                    <i class="bi bi-trash"></i>
+                                  </button>
+                                      <!-- Composant modal -->
+                                    @include('components.delete-confirmation-modal', [
+                                        'id'=>  $payment->id,
+                                        'route'=> 'payments.destroy',
+                                        'title' => 'Confirmation de suppression',
+                                        'message' => 'Êtes-vous sûr de vouloir supprimer ce Payement ?',
+                                        'confirmText' => 'Supprimer'
+                                    ])
 
                             </td>
                            <!-- <td>{{ $payment->designation?? ''}}</td>-->
@@ -83,12 +87,7 @@ payment.index template
             </div>
         </div>
     </div>
-     <!-- Composant modal -->
-     @include('components.delete-confirmation-modal', [
-        'title' => 'Confirmation de suppression',
-        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
-        'confirmText' => 'Supprimer'
-    ])
+
 </div>
 @endsection
 

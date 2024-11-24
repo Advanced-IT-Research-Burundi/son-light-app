@@ -51,16 +51,18 @@
                                     <i class="bi bi-pencil"></i>
                                 </a>
 
-                                <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display: inline-block;" class="delete-form">
-                                    @csrf
-                                    @method('DELETE')
 
-                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
-                                        onclick="showDeleteModal('{{ $task->id }}', 'Êtes-vous sûr de vouloir supprimer cette tâche ?')">
-                                        <i class="bi bi-trash"></i>
-
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{$task->id}}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                    <!-- Composant modal -->
+                                    @include('components.delete-confirmation-modal', [
+                                        'id'=>  $task->id,
+                                        'route'=> 'tasks.destroy',
+                                        'title' => 'Confirmation de suppression',
+                                        'message' => 'Êtes-vous sûr de vouloir supprimer cette tâche ',
+                                        'confirmText' => 'Supprimer'
+                                    ])
                             </td>
                         </tr>
                         @endforeach
@@ -69,12 +71,7 @@
             </div>
         </div>
     </div>
-      <!-- Composant modal -->
-      @include('components.delete-confirmation-modal', [
-        'title' => 'Confirmation de suppression',
-        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
-        'confirmText' => 'Supprimer'
-    ])
+
 </div>
 @endsection
 

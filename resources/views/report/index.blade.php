@@ -59,16 +59,19 @@ report.index template
                                     <i class="bi bi-pencil"></i>
                                 </a>
 
-                                <form action="{{ route('reports.destroy', $raport->id) }}" method="POST" style="display: inline-block;" class="delete-form">
-                                    @csrf
-                                    @method('DELETE')
 
-                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
-                                        onclick="showDeleteModal('{{ $raport->id }}', 'Êtes-vous sûr de vouloir supprimer ce rapport ?')">
-                                        <i class="bi bi-trash"></i>
 
-                                    </button>
-                                </form>
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $raport->id}}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                            <!-- Composant modal -->
+                            @include('components.delete-confirmation-modal', [
+                                'id'=>  $raport->id,
+                                'route'=> 'reports.destroy',
+                                'title' => 'Confirmation de suppression',
+                                'message' => 'Êtes-vous sûr de vouloir supprimer ce rapport ?',
+                                'confirmText' => 'Supprimer'
+                            ])
                             </td>
                         </tr>
                         @php
@@ -80,12 +83,7 @@ report.index template
             </div>
         </div>
     </div>
-     <!-- Composant modal -->
-     @include('components.delete-confirmation-modal', [
-        'title' => 'Confirmation de suppression',
-        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
-        'confirmText' => 'Supprimer'
-    ])
+
 </div>
 @endsection
 

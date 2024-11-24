@@ -24,7 +24,7 @@
             <input type="date" class="form-control" id="due_date" name="due_date" value="{{ date('Y-m-d', strtotime('+30 days')) }}" required>
         </div>
     </div>
-   
+
 </div>
         <button type="submit" class="btn btn-primary">  <i class="bi bi-check-lg"></i> Créer la facture</button>
         <a href="{{ route('orders.show', $order) }}" class="btn btn-secondary"> <i class="bi bi-x-lg"></i>Annuler</a>
@@ -59,11 +59,43 @@
                 <td>{{ $order->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $order->tva / 100), 0):'' }}</td>
                 <td>
                     <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info">Modifier</a>
-                    <form action="{{ route('orders.detail-orders.destroy', [$order, $detail]) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">Supprimer</button>
-                    </form>
+
+
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $detail->id }}">
+                        Supprimer
+                    </button>
+                    <div class="modal fade" id="deleteConfirmationModal{{ $detail->id }}" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel{{ $detail->id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title" id="deleteConfirmationModalLabel{{ $detail->id }}">
+                                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                        Confirmation de suppression
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                                </div>
+                                <div class="modal-body">
+                                    <p>Êtes-vous sûr de vouloir supprimer ce produit ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        <i class="bi bi-x-circle me-2"></i> Annuler
+                                    </button>
+                                    <form action="{{ route( 'orders.detail-orders.destroy', [$order, $detail]) }}" method="POST" style="display: inline-block;" class="delete-form">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-danger" >
+                                            <i class="bi bi-trash me-2"></i> Supprimer
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </td>
             </tr>
             @php

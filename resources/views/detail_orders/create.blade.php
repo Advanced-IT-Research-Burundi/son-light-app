@@ -52,15 +52,18 @@
                                     <i class="bi bi-pencil"></i>
                                 </a>
 
-                                <form action="{{route('detail-orders.destroy',$detail->id)}}"  method="POST" style="display: inline-block;" class="delete-form">
-                                    @csrf
-                                    @method('DELETE')
 
-                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
-                                        onclick="showDeleteModal('{{  $detail->id }}', 'Êtes-vous sûr de vouloir supprimer ce produit ?')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $detail->id }}">
+                                    <i class="bi bi-trash"></i>
+                                  </button>
+                                      <!-- Composant modal -->
+                                    @include('components.delete-confirmation-modal', [
+                                        'id'=>  $detail->id,
+                                        'route'=> 'detail-orders.destroy',
+                                        'title' => 'Confirmation de suppression',
+                                        'message' => 'Êtes-vous sûr de vouloir supprimer ce produit ',
+                                        'confirmText' => 'Supprimer'
+                                    ])
                             </td>
                 </td>
 
@@ -78,12 +81,7 @@
             </tr>
         </tfoot> --}}
     </table>
-    <!-- Composant modal -->
-    @include('components.delete-confirmation-modal', [
-        'title' => 'Confirmation de suppression',
-        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
-        'confirmText' => 'Supprimer'
-    ])
+
     <h3>Liste des articles ou service du de la facture proforma</h3>
     @php
         $count = 1;

@@ -47,9 +47,9 @@
                             <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->amount ?? ''}}</th>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->quantity ?? ''}}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($order->amount * $order->quantity, 2, ',', ' ')??'' }} Fr Bu</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->client->name }}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->order_date->format('d/m/Y') }}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; "> {{ $order->status }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->client->name ?? '' }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->order_date->format('d/m/Y')?? '' }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; "> {{ $order->status ?? '' }}</td>
                             {{-- <td>{{ number_format($order->amount, 2, ',', ' ') }} Fr Bu</td> --}}
                             {{-- <td>
                                 <span class="badge bg-{{ $order->status_color }}">
@@ -64,16 +64,18 @@
                                     <i class="bi bi-pencil"></i>
                                 </a>
 
-                                <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display: inline-block;" class="delete-form">
-                                    @csrf
-                                    @method('DELETE')
 
-                                    <button type="button" type="submit" class="btn btn-sm btn-danger"
-                                        onclick="showDeleteModal('{{  $order->id }}', 'Êtes-vous sûr de vouloir supprimer cette commande ?')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
-
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $order->id }}">
+                                    <i class="bi bi-trash"></i>
+                                  </button>
+                                      <!-- Composant modal -->
+                                    @include('components.delete-confirmation-modal', [
+                                        'id'=>  $order->id,
+                                        'route'=> 'orders.destroy',
+                                        'title' => 'Confirmation de suppression',
+                                        'message' => 'Êtes-vous sûr de vouloir supprimer cette commande ?',
+                                        'confirmText' => 'Supprimer'
+                                    ])
                             </td>
                         </tr>
                         @php
@@ -91,12 +93,7 @@
             </div>
         </div>
     </div>
-      <!-- Composant modal -->
-      @include('components.delete-confirmation-modal', [
-        'title' => 'Confirmation de suppression',
-        'message' => 'Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.',
-        'confirmText' => 'Supprimer'
-    ])
+
 </div>
 @endsection
 
