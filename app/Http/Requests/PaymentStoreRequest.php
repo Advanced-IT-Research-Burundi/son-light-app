@@ -23,7 +23,7 @@ class PaymentStoreRequest extends FormRequest
             'invoice_id' => ['required', 'integer', 'exists:orders,id'],
             // 'order_id' => ['required', 'integer', 'exists:orders,id'],
             // 'user_id' => ['required', 'integer', 'exists:users,id'],
-            'amount' => ['required', 'numeric'],
+            'amount' => 'required|regex:/^\d+(\.\d{1,2})?$/|max:1000000000000',
             'payment_date' => ['required', 'date'],
             'payment_method' => ['required', 'string'],
             'description' => ['nullable', 'string'],

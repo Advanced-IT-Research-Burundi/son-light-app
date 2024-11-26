@@ -66,8 +66,6 @@
                 <th>Quantité</th>
                 <th>Prix unitaire </th>
                 <th>Prix total HT </th>
-                <th>TVA </th>
-                <th>Prix total TVAC </th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -81,8 +79,6 @@
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->quantity }}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->unit_price, 2) }}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->total_price, 2) }}</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->total_price * $proforma_invoice->tva / 100 }}</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format( ($detail->total_price + ($detail->total_price * $proforma_invoice->tva / 100)), 2) }}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
                     <a href="{{ route('proforma_invoices.proforma_invoice_lists.edit', [$proforma_invoice, $detail]) }}" class="btn btn-sm btn-info"> <i class="bi bi-pencil"></i></a>
 
@@ -133,17 +129,17 @@
         </tbody>
          <tfoot>
             <tr>
-                <th colspan="8">Total</th>
+                <th colspan="6">Total</th>
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }} </th>
                 <th></th>
             </tr>
                <tr>
-                <th colspan="8">TVA</th>
+                <th colspan="6">TVA</th>
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'0' }} </th>
                 <th></th>
             </tr>
                <tr>
-                <th colspan="8">Prix total TVAC</th>
+                <th colspan="6">Prix total TVAC</th>
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'0' }} </th>
                 <th></th>
             </tr>

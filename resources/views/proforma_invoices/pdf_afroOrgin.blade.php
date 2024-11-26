@@ -199,7 +199,7 @@
             <div class="bar yellow"></div>
             <div class="bar blue"></div>
               <p>Adresse: Bujumbura-Burundi, Rohero 1, Avenue de Luxembourg, Tél: +257 79 881 769 (WhatsApp) | +257 69 723 126 | +257 79 732 102
-            {{-- <span style="color:blue;"> Compte BCB N<sup>o</sup>  21633140002 <span>--}}
+               <span style="color:blue;"> Compte BCB N<sup>o</sup>  21729480005 <span>
             </p>
         </div>
 
