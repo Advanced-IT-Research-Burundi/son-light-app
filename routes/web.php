@@ -56,6 +56,11 @@ Route::middleware(['auth'])->group(function(){
     Route::put('addPriceLetter/{proforma_invoice}',[ProformaInvoiceController::class,'addPriceLetter'])->name('addPriceLetter');
     Route::put('addPriceLetterOrder/{order}', [OrderController::class, 'addPriceLetterOrder'])->name('addPriceLetterOrder');
 
+    Route::get('/stocks/entry/create', [StockController::class, 'createEntry'])->name('stocks.createEntry');
+    Route::post('/stocks/entry', [StockController::class, 'storeEntry'])->name('stocks.storeEntry');
+    Route::get('/stocks/exit/create', [StockController::class, 'createExit'])->name('stocks.createExit');
+    Route::post('/stocks/exit', [StockController::class, 'storeExit'])->name('stocks.storeExit');
+
 });
 require_once __DIR__.'/auth.php';
 

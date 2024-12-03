@@ -24,18 +24,92 @@ class StockController extends Controller
     {
         $validatedData = $request->validate([
             'product_name' => 'required|string|max:255',
-            'code' => 'required|string|unique:stocks,code|max:50',
-            'quantity' => 'required|integer|min:0',
-            'unit' => 'required|string|max:50',
-            'min_quantity' => 'required|integer|min:0',
-            'description' => 'nullable|string',
+            'code' => 'required|string|unique:stocks,code',
+            'quantity' => 'required|numeric|min:0',
+            'unit' => 'required|string',
+            'min_quantity' => 'required|numeric|min:0',
+            'description' => 'nullable|string'
         ]);
 
-        $stock = Stock::create($validatedData);
+        $validatedData['last_restock_date'] = now();
+        Stock::create($validatedData);
 
-        return redirect()->route('stocks.index')
-            ->with('success', 'Produit ajouté au stock avec succès.');
+        return redirect()->route('stocks.index')->with('success', 'Produit ajouté au stock avec succès');
     }
+
+    public function createEntry()
+    {
+        $products = Stock::all();
+        return view('stocks.create-entry', compact('products'));
+    }
+
+    public function storeEntry(Request $request)
+    {
+        $validatedData = $request->validate([
+            'product_id' => 'required|exists:stocks,id',
+            'quantity_entered' => 'required|numeric|min:1',
+            'entry_date' => 'required|date',
+            'supplier' => 'nullable|string',
+            'entry_notes' => 'nullable|string'
+        ]);
+
+        DB::transaction(function () use ($validatedData) {
+            $stock = Stock::findOrFail($validatedData['product_id']);
+            $stock->increment('quantity', $validatedData['quantity_entered']);
+            $stock->last_restock_date = $validatedData['entry_date'];
+            $stock->save();
+
+            // Optionally, you can create a StockEntry model to track detailed entries
+        });
+
+        return redirect()->route('stocks.index')->with('success', 'Entrée de stock enregistrée');
+    }
+
+    public function createExit()
+    {
+        $products = Stock::where('quantity', '>', 0)->get();
+        return view('stocks.create-exit', compact('products'));
+    }
+
+    public function storeExit(Request $request)
+    {
+        $validatedData = $request->validate([
+            'product_id' => 'required|exists:stocks,id',
+            'quantity_exited' => 'required|numeric|min:1',
+            'exit_date' => 'required|date',
+            'destination' => 'nullable|string',
+            'exit_notes' => 'nullable|string'
+        ]);
+
+        DB::transaction(function () use ($validatedData) {
+            $stock = Stock::findOrFail($validatedData['product_id']);
+
+            if ($validatedData['quantity_exited'] > $stock->quantity) {
+                throw new \Exception('Quantité de sortie supérieure au stock disponible');
+            }
+
+            $stock->decrement('quantity', $validatedData['quantity_exited']);
+
+        });
+
+        return redirect()->route('stocks.index')->with('success', 'Sortie de stock enregistrée');
+    }
+    // public function store(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'product_name' => 'required|string|max:255',
+    //         'code' => 'required|string|unique:stocks,code|max:50',
+    //         'quantity' => 'required|integer|min:0',
+    //         'unit' => 'required|string|max:50',
+    //         'min_quantity' => 'required|integer|min:0',
+    //         'description' => 'nullable|string',
+    //     ]);
+
+    //     $stock = Stock::create($validatedData);
+
+    //     return redirect()->route('stocks.index')
+    //         ->with('success', 'Produit ajouté au stock avec succès.');
+    // }
 
     public function show(Stock $stock)
     {
