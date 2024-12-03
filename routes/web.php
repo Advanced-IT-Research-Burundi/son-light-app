@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/stocks/entry', [StockController::class, 'storeEntry'])->name('stocks.storeEntry');
     Route::get('/stocks/exit/create', [StockController::class, 'createExit'])->name('stocks.createExit');
     Route::post('/stocks/exit', [StockController::class, 'storeExit'])->name('stocks.storeExit');
+    Route::get('/stocks/{stock}/history', [StockController::class, 'showHistory'])->name('stocks.history');
 
 });
 require_once __DIR__.'/auth.php';

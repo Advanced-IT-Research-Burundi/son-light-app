@@ -59,6 +59,9 @@
                                         <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-pencil"></i>
                                         </a>
+                                        <a href="{{ route('stocks.history', $stock->id) }}" class="btn btn-sm btn-outline-info">
+                                            <i class="bi bi-clock-history"></i>
+                                        </a>
                                         <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $stock->id }}">
                                             <i class="bi bi-trash"></i>
                                         </button>

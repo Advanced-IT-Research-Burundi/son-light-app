@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stock;
+use App\Models\StockEntry;
+use App\Models\StockExit;
 use App\Models\StockMovement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,27 +45,7 @@ class StockController extends Controller
         return view('stocks.create-entry', compact('products'));
     }
 
-    public function storeEntry(Request $request)
-    {
-        $validatedData = $request->validate([
-            'product_id' => 'required|exists:stocks,id',
-            'quantity_entered' => 'required|numeric|min:1',
-            'entry_date' => 'required|date',
-            'supplier' => 'nullable|string',
-            'entry_notes' => 'nullable|string'
-        ]);
 
-        DB::transaction(function () use ($validatedData) {
-            $stock = Stock::findOrFail($validatedData['product_id']);
-            $stock->increment('quantity', $validatedData['quantity_entered']);
-            $stock->last_restock_date = $validatedData['entry_date'];
-            $stock->save();
-
-            // Optionally, you can create a StockEntry model to track detailed entries
-        });
-
-        return redirect()->route('stocks.index')->with('success', 'Entrée de stock enregistrée');
-    }
 
     public function createExit()
     {
@@ -71,29 +53,7 @@ class StockController extends Controller
         return view('stocks.create-exit', compact('products'));
     }
 
-    public function storeExit(Request $request)
-    {
-        $validatedData = $request->validate([
-            'product_id' => 'required|exists:stocks,id',
-            'quantity_exited' => 'required|numeric|min:1',
-            'exit_date' => 'required|date',
-            'destination' => 'nullable|string',
-            'exit_notes' => 'nullable|string'
-        ]);
 
-        DB::transaction(function () use ($validatedData) {
-            $stock = Stock::findOrFail($validatedData['product_id']);
-
-            if ($validatedData['quantity_exited'] > $stock->quantity) {
-                throw new \Exception('Quantité de sortie supérieure au stock disponible');
-            }
-
-            $stock->decrement('quantity', $validatedData['quantity_exited']);
-
-        });
-
-        return redirect()->route('stocks.index')->with('success', 'Sortie de stock enregistrée');
-    }
     // public function store(Request $request)
     // {
     //     $validatedData = $request->validate([
@@ -146,6 +106,75 @@ class StockController extends Controller
         return redirect()->route('stocks.index')
             ->with('success', 'Produit supprimé du stock avec succès.');
     }
+    public function storeEntry(Request $request)
+    {
+        $validatedData = $request->validate([
+            'product_id' => 'required|exists:stocks,id',
+            'quantity_entered' => 'required|numeric|min:1',
+            'entry_date' => 'required|date',
+            'supplier' => 'nullable|string',
+            'entry_notes' => 'nullable|string'
+        ]);
+
+        DB::transaction(function () use ($validatedData) {
+            $stock = Stock::findOrFail($validatedData['product_id']);
+            $stock->increment('quantity', $validatedData['quantity_entered']);
+            $stock->last_restock_date = $validatedData['entry_date'];
+            $stock->save();
+
+            StockEntry::create([
+                'stock_id' => $stock->id,
+                'quantity_entered' => $validatedData['quantity_entered'],
+                'entry_date' => $validatedData['entry_date'],
+                'supplier' => $validatedData['supplier'] ?? null,
+                'entry_notes' => $validatedData['entry_notes'] ?? null
+            ]);
+        });
+
+        return redirect()->route('stocks.index')->with('success', 'Entrée de stock enregistrée');
+    }
+
+    public function storeExit(Request $request)
+    {
+        $validatedData = $request->validate([
+            'product_id' => 'required|exists:stocks,id',
+            'quantity_exited' => 'required|numeric|min:1',
+            'exit_date' => 'required|date',
+            'destination' => 'nullable|string',
+            'exit_notes' => 'nullable|string'
+        ]);
+
+        DB::transaction(function () use ($validatedData) {
+            $stock = Stock::findOrFail($validatedData['product_id']);
+
+            if ($validatedData['quantity_exited'] > $stock->quantity) {
+                throw new \Exception('Quantité de sortie supérieure au stock disponible');
+            }
+
+            $stock->decrement('quantity', $validatedData['quantity_exited']);
+
+
+            StockExit::create([
+                'stock_id' => $stock->id,
+                'quantity_exited' => $validatedData['quantity_exited'],
+                'exit_date' => $validatedData['exit_date'],
+                'destination' => $validatedData['destination'] ?? null,
+                'exit_notes' => $validatedData['exit_notes'] ?? null
+            ]);
+        });
+
+        return redirect()->route('stocks.index')->with('success', 'Sortie de stock enregistrée');
+    }
+
+    public function showHistory(Stock $stock) {
+    {
+        // $stock = Stock::findOrFail($id);
+        $entries = $stock->entries()->orderBy('entry_date', 'desc')->get();
+        $exits = $stock->exits()->orderBy('exit_date', 'desc')->get();
+
+        return view('stocks.history', compact('stock', 'entries', 'exits'));
+    }
+}
 }
 
 class StockMovementController extends Controller
@@ -187,4 +216,7 @@ class StockMovementController extends Controller
         return redirect()->route('stocks.index')
             ->with('success', 'Mouvement de stock enregistré avec succès.');
     }
+
+
+
 }

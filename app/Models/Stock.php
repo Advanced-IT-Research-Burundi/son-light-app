@@ -39,4 +39,14 @@ class Stock extends Model
     {
         return $this->hasMany(StockMovement::class);
     }
+
+    public function entries()
+    {
+        return $this->hasMany(StockEntry::class);
+    }
+
+    public function exits()
+    {
+        return $this->hasMany(StockExit::class);
+    }
 }
