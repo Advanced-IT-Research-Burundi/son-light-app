@@ -12,7 +12,7 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        $invoices = Invoice::with('order')->get();
+        $invoices = Invoice::with('order')->latest()->get();
         return view('invoices.index', compact('invoices'));
     }
 
@@ -60,7 +60,7 @@ class InvoiceController extends Controller
     }
     public function update(Request $request, Invoice $invoice)
     {
-        $request->validate([    
+        $request->validate([
             'number' => 'required',
             'date' => 'required|date',
             'due_date' => 'required|date|after:date',
@@ -71,7 +71,7 @@ class InvoiceController extends Controller
             ->with('success', 'La facture a ete mise à jour avec succès.');
     }
     public function generatePDF(Invoice $invoice)
-    {    
+    {
         $invoice->load('order.detailOrders', 'order.client', 'order.entreprise');
         $companies = [
             ['name' => 'Son light IMPRIMERIE'],

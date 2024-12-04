@@ -1,4 +1,3 @@
-<!-- resources/views/invoices/show.blade.php -->
 @extends('layouts.app')
 
 @section('content')
@@ -9,7 +8,6 @@
         <div class="card-body">
             <h5 class="card-title">Détails de la facture</h5>
             <p><strong>Date:</strong> {{ $invoice->created_at->format('d/m/Y') }}</p>
-            <p><strong>Date d'échéance:</strong> {{ $invoice->created_at->format('d/m/Y') }}</p>
         </div>
     </div>
 
@@ -24,20 +22,30 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($invoice->order->detailOrders as $detail)
+            @forelse($invoice->order->detailOrders as $detail)
             <tr>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
                 <td>{{ number_format($detail->unit_price, 0) }} </td>
                 <td>{{ number_format($detail->total_price, 0) }} </td>
             </tr>
-            @endforeach
+            @empty
+            <tr>
+                <td colspan="4" class="text-center">Aucun détail de commande disponible.</td>
+            </tr>
+            @endforelse
         </tbody>
-          <tfoot>
+        <tfoot>
+            @if($invoice->order->detailOrders->isNotEmpty())
             <tr>
                 <td colspan="3" style="text-align: left;"><strong>Total</strong></td>
-                <td><strong>{{ number_format($detail->sum('total_price'), 0) }}</strong></td>
+                <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</strong></td>
             </tr>
+            @else
+            <tr>
+                <td colspan="4" class="text-center">Aucun total disponible.</td>
+            </tr>
+            @endif
         </tfoot>
     </table>
 
