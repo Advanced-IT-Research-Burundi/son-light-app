@@ -36,7 +36,9 @@ report.index template
                             <th>Contenu</th>
                             <th>Description</th>
                             <td>Utilisateur</td>
+                            @if (auth()->user()->isAdmin())
                             <th>Actions</th>
+                            @endif
                         </tr>
                     </thead>
                     @php
@@ -51,28 +53,29 @@ report.index template
                             <td>{{ $raport->content?? ''}}</td>
                             <th>{{ $raport->description ?? ''}}</th>
                             <th> {{ $raport->user->name }}</th>
+                            @if (auth()->user()->isAdmin())
                             <td>
                                 {{-- <a href="{{ route('reports.show', $raport->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i>
                                 </a> --}}
-                                <a href="{{ route('reports.edit', $raport->id) }}" class="btn btn-sm btn-primary">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
 
+                                    <a href="{{ route('reports.edit', $raport->id) }}" class="btn btn-sm btn-primary">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $raport->id}}">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <!-- Composant modal -->
+                                    @include('components.delete-confirmation-modal', [
+                                        'id'=>  $raport->id,
+                                        'route'=> 'reports.destroy',
+                                        'title' => 'Confirmation de suppression',
+                                        'message' => 'Êtes-vous sûr de vouloir supprimer ce rapport ?',
+                                        'confirmText' => 'Supprimer'
+                                    ])
 
-
-                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $raport->id}}">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                            <!-- Composant modal -->
-                            @include('components.delete-confirmation-modal', [
-                                'id'=>  $raport->id,
-                                'route'=> 'reports.destroy',
-                                'title' => 'Confirmation de suppression',
-                                'message' => 'Êtes-vous sûr de vouloir supprimer ce rapport ?',
-                                'confirmText' => 'Supprimer'
-                            ])
-                            </td>
+                                </td>
+                            @endif
                         </tr>
                         @php
                             $count++;

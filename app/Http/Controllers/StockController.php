@@ -174,7 +174,7 @@ class StockController extends Controller
 
         return view('stocks.history', compact('stock', 'entries', 'exits'));
     }
-}
+  }
 }
 
 class StockMovementController extends Controller
