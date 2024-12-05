@@ -29,6 +29,7 @@
                                 <th>Quantité</th>
                                 <th>Fournisseur</th>
                                 <th>Notes</th>
+                                <th>Utilisateur</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,10 +39,11 @@
                                     <td>{{ $entry->quantity_entered }}</td>
                                     <td>{{ $entry->supplier ?? 'N/A' }}</td>
                                     <td>{{ $entry->entry_notes ?? '-' }}</td>
+                                    <td>{{ $entry->user->name ?? 'N/A'}}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center">Aucune entrée</td>
+                                    <td colspan="5" class="text-center">Aucune entrée</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -63,6 +65,7 @@
                                 <th>Quantité</th>
                                 <th>Destination</th>
                                 <th>Notes</th>
+                                <th>Utilisateur</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,10 +75,11 @@
                                     <td>{{ $exit->quantity_exited }}</td>
                                     <td>{{ $exit->destination ?? 'N/A' }}</td>
                                     <td>{{ $exit->exit_notes ?? '-' }}</td>
+                                    <td>{{ $entry->user->name ?? 'N/A'}}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center">Aucune sortie</td>
+                                    <td colspan="5" class="text-center">Aucune sortie</td>
                                 </tr>
                             @endforelse
                         </tbody>

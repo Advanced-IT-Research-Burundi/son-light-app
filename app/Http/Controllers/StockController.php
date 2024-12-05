@@ -7,6 +7,7 @@ use App\Models\StockEntry;
 use App\Models\StockExit;
 use App\Models\StockMovement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
@@ -123,6 +124,7 @@ class StockController extends Controller
             $stock->save();
 
             StockEntry::create([
+                'user_id' => Auth::user()->id,
                 'stock_id' => $stock->id,
                 'quantity_entered' => $validatedData['quantity_entered'],
                 'entry_date' => $validatedData['entry_date'],
@@ -155,6 +157,7 @@ class StockController extends Controller
 
 
             StockExit::create([
+                'user_id' => Auth::user()->id,
                 'stock_id' => $stock->id,
                 'quantity_exited' => $validatedData['quantity_exited'],
                 'exit_date' => $validatedData['exit_date'],

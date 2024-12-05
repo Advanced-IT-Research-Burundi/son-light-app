@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('stock_entries', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable();
             $table->unsignedBigInteger('stock_id');
             $table->decimal('quantity_entered', 10, 2);
             $table->date('entry_date');

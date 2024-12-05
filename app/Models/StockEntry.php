@@ -10,6 +10,7 @@ class StockEntry extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'stock_id',
         'quantity_entered',
         'entry_date',
@@ -22,5 +23,10 @@ class StockEntry extends Model
     public function stock()
     {
         return $this->belongsTo(Stock::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
