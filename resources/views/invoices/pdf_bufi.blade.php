@@ -13,9 +13,9 @@
         }
 
         header {
-            background-color: #f9e79f; 
+            background-color: #f9e79f;
             border: 1px solid black;
-            border-radius: 15px; 
+            border-radius: 15px;
             margin-bottom: 5px;
             text-align: center;
             padding-left: 10px;
@@ -35,7 +35,7 @@
             font-size: 3rem;
             font-weight: 400;
             margin: 0;
-            text-decoration: underline; 
+            text-decoration: underline;
         }
 
         .header_info {
@@ -47,19 +47,19 @@
 
         .header_info div {
             flex: 1;
-            text-align: left; 
+            text-align: left;
         }
 
         .header_info h5 {
             margin: 5px 0;
             font-size: 1em;
-            text-align: left; 
+            text-align: left;
         }
 
         .header_right {
             font-weight: 300;
             font-size: large;
-            text-align: left; 
+            text-align: left;
             float: right;
             margin-right: 40px;
         }
@@ -83,7 +83,7 @@
         }
 
         .border-text {
-            text-align: left; 
+            text-align: left;
         }
 
         table {
@@ -95,7 +95,7 @@
         th, td {
             border: 1px solid black;
             padding: 3px;
-            text-align: left; 
+            text-align: left;
         }
 
         @media print {
@@ -112,7 +112,7 @@
             }
 
             .header_info div {
-                text-align: left; 
+                text-align: left;
                 margin: 10px 0;
             }
         }
@@ -124,7 +124,7 @@
             }
 
             .header_info div {
-                text-align: left; 
+                text-align: left;
                 margin: 10px 0;
             }
 
@@ -185,7 +185,7 @@
             <tr>
                 <th>ORDRE</th>
                 <th>Nature de l'article ou service</th>
-                   <td>{{ $detail->quantity }} {{ $detail->unit }}</td>
+                <th>Qté</th>
                 <th>P.U en FBU</th>
                 <th>PVHTVA en FBU</th>
             </tr>
@@ -193,7 +193,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                <td>{{ $detail->quantity }}</td>
+                <td>{{ $detail->quantity }} {{ $detail->unit }}</td>
                 <td>{{ number_format($detail->unit_price, 0) }}</td>
                 <td>{{ number_format($detail->total_price, 0) }}</td>
             </tr>
