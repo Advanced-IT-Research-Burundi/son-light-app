@@ -15,6 +15,7 @@
         {{-- Contenu de la navbar qui sera collapsé sur mobile --}}
         <div class="collapse navbar-collapse" id="navbarContent">
             {{-- Menu principal --}}
+            @if (auth()->user()->isAdmin())
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link {{ Request::routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
@@ -22,7 +23,7 @@
                     </a>
                 </li>
 
-                @if (auth()->user()->isAdmin())
+
                 <li class="nav-item">
                     <a class="nav-link {{ Request::routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                         <i class="bi bi-people"></i> Utilisateurs
