@@ -14,7 +14,7 @@ class StockController extends Controller
 {
     public function index()
     {
-        $stocks = Stock::all();
+        $stocks = Stock::latest()->get();
         return view('stocks.index', compact('stocks'));
     }
 
@@ -42,7 +42,7 @@ class StockController extends Controller
 
     public function createEntry()
     {
-        $products = Stock::all();
+        $products = Stock::latest()->get();
         return view('stocks.create-entry', compact('products'));
     }
 
@@ -145,17 +145,18 @@ class StockController extends Controller
             'destination' => 'nullable|string',
             'exit_notes' => 'nullable|string'
         ]);
+        $stock = Stock::findOrFail($validatedData['product_id']);
+
+
+        if ($validatedData['quantity_exited'] > $stock->quantity) {
+            return redirect()->route('stocks.index')->with('error', 'Quantité de sortie supérieure au stock disponible');
+            // throw new \Exception('');
+
+        }
 
         DB::transaction(function () use ($validatedData) {
             $stock = Stock::findOrFail($validatedData['product_id']);
-
-            if ($validatedData['quantity_exited'] > $stock->quantity) {
-                throw new \Exception('Quantité de sortie supérieure au stock disponible');
-            }
-
             $stock->decrement('quantity', $validatedData['quantity_exited']);
-
-
             StockExit::create([
                 'user_id' => Auth::user()->id,
                 'stock_id' => $stock->id,

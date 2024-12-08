@@ -23,6 +23,8 @@ class Report extends Model
         'content',
         'report_date',
         'description',
+        'annulle',
+        'motif'
     ];
 
     /**
@@ -41,5 +43,5 @@ class Report extends Model
         return $this->belongsTo(User::class);
     }
 
-    
+
 }

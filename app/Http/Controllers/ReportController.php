@@ -16,11 +16,11 @@ class ReportController extends Controller
     public function index(Request $request): View
     {
         if (Auth::user()->isAdmin()) {
-            $raports = Report::all();
+            $raports = Report::latest()->get();
 
             return view('report.index', compact('raports'));
         } else {
-            $raports = Report::where('user_id', Auth::user()->id)->get();
+            $raports = Report::where('user_id', Auth::user()->id)->where('annulle',0)->latest()->get();
             return view('report.index', compact('raports'));
         }
 
@@ -78,5 +78,14 @@ class ReportController extends Controller
         $rapports = MaterialUsage::latest()->get();
 
         return view('report.index', compact('raports'));
+    }
+
+    public function annulle(Request $request, Report $report){
+
+        $report->annulle = true;
+        $report->motif = $request->motif;
+        $report->save();
+        return redirect()->route('reports.index');
+
     }
 }

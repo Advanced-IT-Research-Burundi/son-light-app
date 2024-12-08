@@ -20,6 +20,8 @@ return new class extends Migration
             $table->longText('content');
             $table->date('report_date');
             $table->text('description')->nullable();
+            $table->boolean('annulle')->default(0)->nullable();
+            $table->string('motif')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -35,10 +35,13 @@ report.index template
                             <th>Titre</th>
                             <th>Contenu</th>
                             <th>Description</th>
-                            <td>Utilisateur</td>
                             @if (auth()->user()->isAdmin())
-                            <th>Actions</th>
+                                <th>Motif</th>
                             @endif
+                            <td>Utilisateur</td>
+
+                            <th>Actions</th>
+
                         </tr>
                     </thead>
                     @php
@@ -46,12 +49,18 @@ report.index template
                     @endphp
                     <tbody>
                         @foreach($raports as $raport)
-                        <tr>
+                        <tr class="@if ($raport->annulle == 1)
+                            {{ 'bg-warning' }}
+
+                        @endif">
                             <td>{{ $count }}</td>
                             <td>{{ $raport->report_date->format('d/m/Y') }}</td>
                             <td>{{ $raport->type ?? ''}}</td>
                             <td>{{ $raport->content?? ''}}</td>
-                            <th>{{ $raport->description ?? ''}}</th>
+                            <td>{{ $raport->description ?? ''}}</td>
+                            @if (auth()->user()->isAdmin())
+                               <td>{{ $raport->motif ?? 'N/A'}}</td>
+                            @endif
                             <th> {{ $raport->user->name }}</th>
                             @if (auth()->user()->isAdmin())
                             <td>
@@ -75,7 +84,24 @@ report.index template
                                     ])
 
                                 </td>
+                            @else
+
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#annuleConfirmationModal{{ $raport->id}}">
+                                        <i class="bi bi-x-square"></i>
+                                    </button>
+                                    <!-- Composant modal -->
+                                    @include('components.annulle-rapport', [
+                                        'id'=>  $raport->id,
+                                        'route'=> 'reports.annulle',
+                                        'title' => 'Annuler le rapport',
+                                        'message' => 'Êtes-vous annuler le rapport ?',
+                                        'confirmText' => 'Comfirmer'
+                                    ])
+
+                                </td>
                             @endif
+
                         </tr>
                         @php
                             $count++;

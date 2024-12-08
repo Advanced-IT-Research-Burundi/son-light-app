@@ -12,7 +12,7 @@
         </h3>
         <div>
             <a href="{{ route('stocks.create') }}" class="btn btn-primary me-2">
-                <i class="bi bi-plus-circle"></i> Nouveau produit
+                <i class="bi bi-plus-circle"></i> stock initial
             </a>
             <a href="{{ route('stocks.createEntry') }}" class="btn btn-success me-2">
                 <i class="bi bi-box-arrow-in-down"></i> Entrée stock
@@ -22,13 +22,19 @@
             </a>
         </div>
     </div>
-{{--
-    @if(session('success'))
+
+    @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    @endif --}}
+    @elseif (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
 
     <div class="card shadow">
         <div class="card-body">
@@ -117,14 +123,23 @@
     </div>
 @endforeach
 @endsection
-@push('scripts')
+
+
+@section('scripts')
 <script>
-    $(document).ready(function() {
-    $('#StockTable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/French.json"
-        }
+    $(document).ready(function(){
+
+            $('#StockTable').DataTable({
+                    "language": {
+                            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/French.json"
+                        },
+                    dom: 'lBfrtip',
+                    buttons: [
+                    'excel', 'csv', 'pdf', 'copy'
+                    ],
+                    "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+                    });
     });
-});
+
 </script>
-@endpush
+@endsection
