@@ -129,10 +129,10 @@
                     <tbody>
                         @foreach ($last_commands as $item )
                         <tr>
-                           <td>{{ $item->id }}</td>
-                           <td>{{ $item->client->name }}</td>
-                           <td>{{ $item->created_at }}</td>
-                           <td>{{ $item->amount  }}</td>
+                           <td>{{ $item?->id }}</td>
+                           <td>{{ $item?->client?->name }}</td>
+                           <td>{{ $item?->created_at }}</td>
+                           <td>{{ $item?->amount  }}</td>
                            <td>
                               {{ $item->status }}
                             </td>
