@@ -48,7 +48,7 @@
                         <tr>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
                              <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->invoice_number }}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->client->name }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice?->client?->name?? '' }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->name ?? ''}}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->designation?? ''}}</td>
                             <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->amount ?? ''}}</th>
