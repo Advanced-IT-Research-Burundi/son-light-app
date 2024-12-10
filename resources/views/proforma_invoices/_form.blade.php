@@ -28,7 +28,7 @@
         <option value="">Sélectionnez un client</option>
         @foreach($clients as $client)
             <option value="{{ $client->id }}" {{ old('client_id', $proforma_invoice->client_id ?? '') == $client->id ? 'selected' : '' }}>
-                {{ $client->name }}
+                {{ $client?->name }}
             </option>
         @endforeach
     </select>
@@ -40,7 +40,7 @@
 
 <div class="form-group mb-3  col-6">
     <label for="company_id" class="form-label">
-    <i class="bi bi-people-fill"></i> 
+    <i class="bi bi-people-fill"></i>
         Entreprise</label>
     <select class="form-select @error('company_id') is-invalid @enderror" id="company_id" name="company_id" required>
         <option value="">Sélectionnez une entreprise</option>

@@ -40,7 +40,7 @@
                         @foreach($clients as $client)
                         <tr>
                             <td>{{ $client->id }}</td>
-                            <td>{{ $client->name }}</td>
+                            <td>{{ $client?->name }}</td>
                             <td>{{ $client->company ?? 'N/A' }}</td>
                             <td>{{ $client->nif }}</td>
                             <td>{{ $client->email }}</td>

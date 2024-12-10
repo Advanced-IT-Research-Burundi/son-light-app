@@ -48,9 +48,9 @@
                             @foreach($orderAlerts as $order)
                              @if($order->status_livraison==2)
                                 <li class="list-group-item">
-                                    <h6>Commande #{{ $order->id }} - {{ $order->client->name }}</h6>
+                                    <h6>Commande #{{ $order->id }} - {{ $order->client?->name }}</h6>
                                     <p class="mb-0">
-                                        Date de livraison : 
+                                        Date de livraison :
                                         <strong class="{{ $order->delivery_date->isPast() ? 'text-danger' : 'text-warning' }}">
                                             {{ $order->delivery_date->format('d/m/Y') }}
                                         </strong>

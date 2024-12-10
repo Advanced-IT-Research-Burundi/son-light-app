@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <h3 class="my-4">
-        <i class="bi bi-person"></i> Détails du client : {{ $client->name }}
+        <i class="bi bi-person"></i> Détails du client : {{ $client?->name }}
     </h3>
 
     <div class="card shadow mb-4">
@@ -17,7 +17,7 @@
         <div class="card-body">
             <dl class="row">
                 <dt class="col-sm-3">Nom</dt>
-                <dd class="col-sm-9">{{ $client->name }}</dd>
+                <dd class="col-sm-9">{{ $client?->name }}</dd>
 
                 <dt class="col-sm-3">Email</dt>
                 <dd class="col-sm-9">{{ $client->email }}</dd>
@@ -92,7 +92,7 @@
                             <th>{{ $order->amount ?? ''}}</th>
                             <td>{{ $order->quantity ?? ''}}</td>
                             <td>{{ number_format($order->amount * $order->quantity, 2, ',', ' ')??'' }} Fr Bu</td>
-                            <td>{{ $order->client->name }}</td>
+                            <td>{{ $order->client?->name }}</td>
                             <td>{{ $order->order_date->format('d/m/Y') }}</td>
                             <td> {{ $order->status }}</td>
 

@@ -35,7 +35,7 @@
                             <td>{{ $count }}</td>
                             <td>{{ $invoice->number ?? ''}}</td>
                             <td>{{ $invoice->order_id}}</td>
-                            <td>{{ $invoice->order->client->name}}</td>
+                            <td>{{ $invoice->order->client?->name}}</td>
                             <td>{{ $invoice->order->entreprise->name}}</td>
                             <td>{{ $invoice->created_at}}</td>
                             <td>{{ $invoice->due_date}}</td>

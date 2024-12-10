@@ -53,7 +53,7 @@
 
         .yellow {
             background-color: green;
-            
+
         }
 
         .blue {
@@ -111,7 +111,7 @@
 
             <p style="margin: 0; padding: 0"><strong>Forme Juridique</strong> : SURL</p>
         </div>
-     </div> 
+     </div>
     </div>
     <br><br><br><br><br><br> <br>
     <div class="boder">
@@ -133,7 +133,7 @@
             </p>
         <h3  style=" padding:0; margin:0;">B. Le Client</h3>
         <p style=" padding:0; margin:0;">
-            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client->name }}<br>
+            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client?->name }}<br>
             <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
             <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
             <strong>Assujetti à la TVA :</strong> Oui [ {{ $invoice->order->client->assujeti?'X':' ' }}] Non [{{ $invoice->order->client->assujeti?' ':'X' }}] <br>

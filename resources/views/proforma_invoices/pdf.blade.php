@@ -51,10 +51,10 @@
             padding: 3px;
             text-align: left;
         }
-        .table2 td,th{    
-           vertical-align: top;   
+        .table2 td,th{
+           vertical-align: top;
         }
-        .table2 td{ 
+        .table2 td{
             max-width: 150px;
             word-wrap: break-word;
          }
@@ -67,7 +67,7 @@
         }
           .bar {
             width: 100%;
-            height: 4px; 
+            height: 4px;
         }
         .red {
             background-color: #c1107a;
@@ -85,11 +85,11 @@
 
     <div class="info-box">
         <table style="border: none; color:white;padding-left: 40px;">
-        <tr style="text-align: center">    
+        <tr style="text-align: center">
                 </tr>
             <tr>
                 <td style="border: none; width: 30%;font-size: 16px;">
-                
+
                     <p><strong>NIF : 4000652612 </strong> </p>
                     <p><strong>  RC : 06190 </strong></p>
                 </td>
@@ -118,7 +118,7 @@
 
         <h3 style="padding:0; margin:0;">B. Le Client</h3>
         <p style="padding:0; margin:0;">
-            <strong>Nom et prénom ou raison sociale :</strong> {{ $proforma_invoice->client->name }}<br>
+            <strong>Nom et prénom ou raison sociale :</strong> {{ $proforma_invoice->client?->name }}<br>
             <strong>NIF :</strong> {{ $proforma_invoice->client->nif ?? '_________' }}<br>
             <strong>Résidence à :</strong> {{ $proforma_invoice->client->address ?? 'BUJA' }}<br>
             <strong>Assujetti à la TVA :</strong> Oui [  ] Non [  ]

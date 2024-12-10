@@ -13,9 +13,9 @@
         }
 
         header {
-            background-color: #f9e79f; 
+            background-color: #f9e79f;
             border: 1px solid black;
-            border-radius: 15px; 
+            border-radius: 15px;
             margin-bottom: 5px;
             text-align: center;
             padding-left: 10px;
@@ -35,7 +35,7 @@
             font-size: 3rem;
             font-weight: 400;
             margin: 0;
-            text-decoration: underline; 
+            text-decoration: underline;
         }
 
         .header_info {
@@ -47,19 +47,19 @@
 
         .header_info div {
             flex: 1;
-            text-align: left; 
+            text-align: left;
         }
 
         .header_info h5 {
             margin: 5px 0;
             font-size: 1em;
-            text-align: left; 
+            text-align: left;
         }
 
         .header_right {
             font-weight: 300;
             font-size: large;
-            text-align: left; 
+            text-align: left;
             float: right;
             margin-right: 40px;
         }
@@ -84,7 +84,7 @@
 
         .border-text {
             padding: 10px;
-            text-align: left; 
+            text-align: left;
         }
 
         table {
@@ -96,11 +96,11 @@
         th, td {
             border: 1px solid black;
             padding: 3px;
-            text-align: left; 
+            text-align: left;
             vertical-align: top;
-            
+
         }
-        td{ 
+        td{
             max-width: 150px;
             word-wrap: break-word;
          }
@@ -119,7 +119,7 @@
             }
 
             .header_info div {
-                text-align: left; 
+                text-align: left;
                 margin: 10px 0;
             }
         }
@@ -131,7 +131,7 @@
             }
 
             .header_info div {
-                text-align: left; 
+                text-align: left;
                 margin: 10px 0;
             }
 
@@ -159,7 +159,7 @@
             </div>
             <div class="header_right">
                 <ul>
-                   
+
                     <li>Services Informatiques</li>
                     <li>Imprimerie - Sérigraphie</li>
                     <li>Location des matériels pour les Evénements</li>
@@ -168,10 +168,10 @@
         </div>
     </header>
 
-   
+
         <h5 class="border_header">FACTURE PROFORMA du {{ $proforma_invoice->proforma_invoice_date->format('d/m/Y') }}</h5>
     <div class="border-text">
-        <h5 "><span style="text-decoration: underline;">CLIENT :</span> {{ $proforma_invoice->client->name }}</h5>
+        <h5 "><span style="text-decoration: underline;">CLIENT :</span> {{ $proforma_invoice->client?->name }}</h5>
         <table>
             <tr>
                 <th>ORDRE</th>

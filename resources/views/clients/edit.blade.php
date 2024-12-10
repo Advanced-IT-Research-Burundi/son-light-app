@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <h3 class="my-4">
-        <i class="bi bi-pencil"></i> Modifier le client : {{ $client->name }}
+        <i class="bi bi-pencil"></i> Modifier le client : {{ $client?->name }}
     </h3>
 
     <div class="card shadow">

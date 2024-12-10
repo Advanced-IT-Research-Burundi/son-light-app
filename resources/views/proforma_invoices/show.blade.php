@@ -19,7 +19,7 @@
                               <dt class="col-sm-3">Numéro de la facture proforma</dt>
                               <dd class="col-sm-9">{{ $proforma_invoice->invoice_number }}</dd>
                               <dt class="col-sm-3">Client</dt>
-                              <dd class="col-sm-9">{{ $proforma_invoice->client->name }}</dd>
+                              <dd class="col-sm-9">{{ $proforma_invoice->client?->name }}</dd>
                               <dt class="col-sm-3">Entreprise</dt>
                               <dd class="col-sm-9">{{ $proforma_invoice->entreprise->name ?? 'Non spécifié' }}</dd>
                               <dt class="col-sm-3">Désignation</dt>

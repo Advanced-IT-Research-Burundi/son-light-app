@@ -12,13 +12,13 @@
             padding-top: 80px;
         }
         .header {
-            position: fixed; 
-            top: -70px; 
-            left: 0; 
+            position: fixed;
+            top: -70px;
+            left: 0;
             width: 100%;
-            z-index: 2; 
-            margin-bottom: 0; 
-            padding: 10px 0; 
+            z-index: 2;
+            margin-bottom: 0;
+            padding: 10px 0;
         }
           li{
             list-style: none;
@@ -48,12 +48,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 10px; 
+            margin-top: 10px;
         }
 
         .bar {
             width: 100%;
-            height: 4px; 
+            height: 4px;
         }
 
         .yellow {
@@ -82,30 +82,30 @@
         th, td {
             border: 1px solid black;
             padding: 4px;
-            text-align: left; 
+            text-align: left;
         }
 
         th {
-            font-weight: bold; 
+            font-weight: bold;
         }
 
         .footer {
             position: absolute;
             bottom: 0;
-            font-weight: bold; 
+            font-weight: bold;
             font-size: 15px;
             width: 100%;
             text-align: center;
         }
 
         .border_header {
-            text-align: center; 
-            font-size: 1.5em; 
+            text-align: center;
+            font-size: 1.5em;
             font-weight: bold;
-            background-color: blue; 
+            background-color: blue;
             color: red;
-            border-radius: 10px; 
-            padding: 4px; 
+            border-radius: 10px;
+            padding: 4px;
             width: 40%;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             float: left;
@@ -116,8 +116,8 @@
         }
 
         .border-text {
-            text-align: left; 
-            margin-top: 5px; 
+            text-align: left;
+            margin-top: 5px;
         }
 
         .client-title {
@@ -126,11 +126,11 @@
 
         @media (max-width: 600px) {
             .header_right {
-                padding-left: 10px; 
+                padding-left: 10px;
             }
 
             table {
-                font-size: 0.9em; 
+                font-size: 0.9em;
             }
         }
           .vertical-barr{
@@ -146,7 +146,7 @@
             float: right;
             margin-left: 0px;
         }
-    
+
     </style>
 </head>
 <body>
@@ -156,7 +156,7 @@
             <span class="dealer" style="font-size: 4.5rem;">D</span>EALER <span class="group" style="font-size: 4.5rem;">G</span>ROUP <br>
            <span style="color:blue"> NIF : 4001564154 <br> RC: 27895/20</span>
             </strong></p>
-        </div> 
+        </div>
         <div class="header_right">
        <div class="vertical-barr"></div>
             <div class="liste">
@@ -165,9 +165,9 @@
                 <p style="padding:0;margin:0;"> &nbsp;&nbsp;&nbsp;<strong><span style="color: blue;">=></span>Agro Business</strong></p>
                 <p  style="padding:0;margin:0;"> &nbsp;&nbsp;<strong><span style="color: blue;">=></span>Location Véhicule</strong></p>
                 <p  style="padding:0;margin:0;"><strong><span style="color: blue;">=></span> Commerce Général</strong></p>
-            
-         </div>  
-        </div>  
+
+         </div>
+        </div>
     </div>
 
     <div class="colored-bars">
@@ -191,7 +191,7 @@
             </p>
         <h3  style=" padding:0; margin:0;">B. Le Client</h3>
         <p style=" padding:0; margin:0;">
-            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client->name }}<br>
+            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client?->name }}<br>
             <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
             <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
             <strong>Assujetti à la TVA :</strong> [ {{ $invoice->order->client->assujeti?'X':' ' }}]Oui   [{{ $invoice->order->client->assujeti?' ':'X' }}]Non <br>
@@ -243,7 +243,7 @@
     </div>
 
     <div class="footer">
-        
+
     <div class="colored-bars">
         <div class="bar blue"></div>
         <p>Rohero 2, Av de la Mission N<sup>o</sup> 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>

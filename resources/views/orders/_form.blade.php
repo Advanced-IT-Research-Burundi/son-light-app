@@ -8,7 +8,7 @@
     <div class="row">
         <div class="mb-3 col-6">
             <label for="client_name" class="form-label"><i class="bi bi-person"></i> Client</label>
-            <input type="text" class="form-control" id="client_name" name="" value="{{ $proforma_invoice->client->name }}" readonly>
+            <input type="text" class="form-control" id="client_name" name="" value="{{ $proforma_invoice->client?->name }}" readonly>
         </div>
         <div class="mb-3 col-6">
             <label for="company_name"><i class="bi bi-people-fill"></i> Entreprise</label>

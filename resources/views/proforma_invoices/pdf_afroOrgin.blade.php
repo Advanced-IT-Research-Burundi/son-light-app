@@ -42,9 +42,9 @@
             padding: 4px;
             text-align: center;
             vertical-align: top;
-            
+
         }
-        td{ 
+        td{
             max-width: 150px;
             word-wrap: break-word;
          }
@@ -78,7 +78,7 @@
 
         .yellow {
             background-color: green;
-            
+
         }
 
         .blue {
@@ -137,7 +137,7 @@
 
             <p style="margin: 0; padding: 0"><strong>Forme Juridique</strong> SURL</p>
         </div>
-     </div> 
+     </div>
     </div>
     <br><br><br><br><br><br> <br>
     <div class="boder">
@@ -153,7 +153,7 @@
         </div>
 
         <div class="border-text">
-            <h5 style="padding-top: 15px">CLIENT :  {{ $proforma_invoice->client->name }}</h5>
+            <h5 style="padding-top: 15px">CLIENT :  {{ $proforma_invoice->client?->name }}</h5>
             <table>
                 <tr>
                     <th>ORDRE</th>

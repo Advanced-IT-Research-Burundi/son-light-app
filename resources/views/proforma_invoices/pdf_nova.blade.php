@@ -43,9 +43,9 @@
             padding: 4px;
             text-align: center;
              vertical-align: top;
-            
+
         }
-        td{ 
+        td{
             max-width: 150px;
             word-wrap: break-word;
          }
@@ -127,7 +127,7 @@
         </div>
 
         <div class="border-text">
-            <h5 style="padding-top: 15px">CLIENT :  {{ $proforma_invoice->client->name }}</h5>
+            <h5 style="padding-top: 15px">CLIENT :  {{ $proforma_invoice->client?->name }}</h5>
             <table>
                 <tr>
                     <th>N<sup>o</sup></th>
@@ -172,7 +172,7 @@
        <div class="colored-bars">
             <div class="bar yellow"></div>
             <div class="bar blue"></div>
-              <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com 
+              <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com
              <span style="color:blue;"> Compte BCB N<sup>o</sup>  21633140002 <span>
             </p>
         </div>

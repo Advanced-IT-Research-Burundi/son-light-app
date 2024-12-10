@@ -16,7 +16,7 @@
                 <dd class="col-sm-9">{{ $order->id }}</dd>
 
                 <dt class="col-sm-3">Client</dt>
-                <dd class="col-sm-9">{{ $order->client->name ?? ''}}</dd>
+                <dd class="col-sm-9">{{ $order->client?->name ?? ''}}</dd>
 
                 <dt class="col-sm-3">Entreprise</dt>
                 <dd class="col-sm-9">{{ $order->entreprise->name ?? 'Non spécifié' }}</dd>

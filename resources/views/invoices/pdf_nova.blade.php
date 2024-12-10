@@ -17,7 +17,7 @@
         }
         header {
             margin-bottom: 10px;
-            
+
         }
         .header_left {
             font-size: 16px;
@@ -108,7 +108,7 @@
             </p>
         <h3  style=" padding:0; margin:0;">B. Le Client</h3>
         <p style=" padding:0; margin:0;">
-            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client->name }}<br>
+            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client?->name }}<br>
             <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
             <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
             <strong>Assujetti à la TVA :</strong> Oui [ {{ $invoice->order->client->assujeti?'X':' ' }}] Non [{{ $invoice->order->client->assujeti?' ':'X' }}] <br>
@@ -161,7 +161,7 @@
        <div class="colored-bars">
              <div class="bar yellow"></div>
             <div class="bar blue"></div>
-            <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com 
+            <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com
              <span style="color:blue;"> Compte BCB N<sup>o</sup>  21633140002 <span>
             </p>
         </div>

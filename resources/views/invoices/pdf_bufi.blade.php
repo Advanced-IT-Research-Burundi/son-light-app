@@ -173,7 +173,7 @@
             </p>
         <h3  style=" padding:0; margin:0;">B. Le Client</h3>
         <p style=" padding:0; margin:0;">
-            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client->name }}<br>
+            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client?->name }}<br>
             <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
             <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
             <strong>Assujetti à la TVA :</strong> [ {{ $invoice->order->client->assujeti?'X':' ' }}]Oui   [{{ $invoice->order->client->assujeti?' ':'X' }}]Non <br>

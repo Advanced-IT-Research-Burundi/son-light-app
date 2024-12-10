@@ -60,7 +60,7 @@
         }
           .bar {
             width: 100%;
-            height: 4px; 
+            height: 4px;
         }
         .red {
             background-color: #c1107a;
@@ -78,11 +78,11 @@
 
     <div class="info-box">
         <table style="border: none; color:white;padding-left: 40px;">
-        <tr style="text-align: center">    
+        <tr style="text-align: center">
                 </tr>
             <tr>
                 <td style="border: none; width: 30%;font-size: 16px;">
-                
+
                     <p><strong>NIF : 4000652612 </strong> </p>
                     <p><strong>  RC : 06190 </strong></p>
                 </td>
@@ -97,7 +97,7 @@
     <h4>Facture no {{ $invoice->number }}, Date: <strong>{{ $invoice->created_at->format('d/m/Y') }}</h4>
     <div style=" font-size: 13px;margin-top:-15px;" >
     <table>
-    <tr> 
+    <tr>
          <td>
             <h3  style="padding:0; margin:0;">A. Identification du vendeur</h3>
           <p  style="padding:0; margin:0;">
@@ -116,13 +116,13 @@
             Assujetti a la TVA:|X|OUI | |NON <br>
             Assujetti a la TC:| |OUI |X|NON <br>
             Assujetti au PF:| |OUI |X|NON <br>
-            Doit pour ce qui suit: 
+            Doit pour ce qui suit:
           </p>
-         </td> 
+         </td>
          <td  style="padding-bottom:190px;">
         <h3  style="padding:0; margin:0;">B. Client</h3>
         <p  style="padding:0; margin:0;">
-            Nom et prénom ou raison sociale : {{ $invoice->order->client->name }}<br>
+            Nom et prénom ou raison sociale : {{ $invoice->order->client?->name }}<br>
             NIF : {{ $invoice->order->client->nif ?? '_________' }}<br>
             Résidence à : {{ $invoice->order->client->address ?? 'BUJA' }}<br>
             Assujetti à la TVA : Oui [ {{ $invoice->order->client->assujeti?'X':' ' }}] Non [{{ $invoice->order->client->assujeti?' ':'X' }}]

@@ -1,11 +1,11 @@
 <!-- resources/views/clients/_form.blade.php -->
 <div class="row">
-    
+
 <div class="form-group mb-3 col-4">
     <label for="name" class="form-label">
         <i class="bi bi-person"></i> Nom & Prénom
     </label>
-    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $client->name ?? '') }}" required>
+    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $client?->name ?? '') }}" required>
     @error('name')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
