@@ -69,7 +69,7 @@
     <label for="order_date" class="form-label">
         <i class="bi bi-unit"></i> Unite de Mesure
     </label>
-    <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit', $proforma_invoice->unit ?? '') }}" required>
+    <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit', $proforma_invoice->unit ?? '') }}" >
     @error('unit')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror

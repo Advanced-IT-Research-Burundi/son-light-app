@@ -56,9 +56,9 @@
                                 </a>
 
 
-                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $client->id }}">
+                                {{-- <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $client->id }}">
                                     <i class="bi bi-trash"></i>
-                                  </button>
+                                  </button> --}}
                                       <!-- Composant modal -->
                                     @include('components.delete-confirmation-modal', [
                                         'id'=>  $client->id,
