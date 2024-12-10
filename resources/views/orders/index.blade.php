@@ -47,7 +47,7 @@
                             <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->amount ?? ''}}</th>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->quantity ?? ''}}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($order->amount * $order->quantity, 2, ',', ' ')??'' }} Fr Bu</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->client->name ?? '' }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->client?->name ?? '' }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->order_date->format('d/m/Y')?? '' }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; "> {{ $order->status ?? '' }}</td>
                             {{-- <td>{{ number_format($order->amount, 2, ',', ' ') }} Fr Bu</td> --}}
