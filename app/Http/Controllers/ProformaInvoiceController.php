@@ -71,7 +71,7 @@ class ProformaInvoiceController extends Controller
             'amount' => ['required', 'numeric'],
             'unit'=>['nullable','string'],
             'proforma_invoice_date'=>['nullable','date'],
-            'invoice_number'=>['nullable','string'],
+            'invoice_number'=>['nullable','string','unique:proforma_invoices,invoice_number,'.$proforma_invoice->id],
             'price_letter'=>['nullable','string'],
             'company_id' => 'required|exists:companies,id',
         ]);

@@ -40,9 +40,9 @@
                    <dt class="col-sm-3">Prix total HTVA </dt>
                              <dd class="col-sm-9">{{ number_format($order->detailOrders->sum('total_price'), 2) }} Fbu</dd>
                              <dt class="col-sm-3">TVA </dt>
-                             <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0):'' }} Fbu</dd>
+                             <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * $order->tva / 100, 0):'' }} Fbu</dd>
                              <dt class="col-sm-3">Prix total TVAC </dt>
-                             <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }} Fbu</dd>
+                             <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * (1 + $order->tva / 100), 0):'' }} Fbu</dd>
                              <dt class="col-sm-3">Prix en Lettre</dt>
                              <dd class="col-sm-9">Nous disons {{ $order->price_letter}}</dd>
 
