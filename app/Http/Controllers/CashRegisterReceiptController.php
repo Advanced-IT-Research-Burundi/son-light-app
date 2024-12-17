@@ -3,64 +3,79 @@
 namespace App\Http\Controllers;
 
 use App\Models\cashRegisterReceipt;
-use App\Http\Requests\StorecashRegisterReceiptRequest;
-use App\Http\Requests\UpdatecashRegisterReceiptRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
+
 
 class CashRegisterReceiptController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $receipts = CashRegisterReceipt::with(['requerant', 'user', 'approbation'])->get();
+        return view('cash_register_receipts.index', compact('receipts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('cash_register_receipts.create', compact('users'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorecashRegisterReceiptRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'requerant_id' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
+            'approbation_id' => 'required|exists:users,id',
+            'amount' => 'required|numeric',
+            'motif' => 'required|string',
+            'note_validation' => 'nullable|string',
+            'cash_register_receipts_date' => 'required|date',
+            'cash_register_receipts_approbation_date' => 'nullable|date',
+        ]);
+
+        CashRegisterReceipt::create($validated);
+
+        return redirect()->route('cash_register_receipts.index')->with('success', 'Reçu enregistré avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(cashRegisterReceipt $cashRegisterReceipt)
+    public function show($id)
     {
-        //
+        $receipt = CashRegisterReceipt::with(['requerant', 'user', 'approbation'])->findOrFail($id);
+        return view('cash_register_receipts.show', compact('receipt'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(cashRegisterReceipt $cashRegisterReceipt)
+    public function edit($id)
     {
-        //
+        $receipt = CashRegisterReceipt::findOrFail($id);
+        $users = User::all();
+        return view('cash_register_receipts.edit', compact('receipt', 'users'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatecashRegisterReceiptRequest $request, cashRegisterReceipt $cashRegisterReceipt)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'requerant_id' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
+            'approbation_id' => 'required|exists:users,id',
+            'amount' => 'required|numeric',
+            'motif' => 'required|string',
+            'note_validation' => 'nullable|string',
+            'cash_register_receipts_date' => 'required|date',
+            'cash_register_receipts_approbation_date' => 'nullable|date',
+        ]);
+
+        $receipt = CashRegisterReceipt::findOrFail($id);
+        $receipt->update($validated);
+
+        return redirect()->route('cash_register_receipts.index')->with('success', 'Reçu mis à jour avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(cashRegisterReceipt $cashRegisterReceipt)
+    public function destroy($id)
     {
-        //
+        $receipt = CashRegisterReceipt::findOrFail($id);
+        $receipt->delete();
+
+        return redirect()->route('cash_register_receipts.index')->with('success', 'Reçu supprimé avec succès.');
     }
 }

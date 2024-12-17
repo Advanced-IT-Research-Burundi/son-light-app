@@ -71,6 +71,11 @@
                         <i class="bi bi-box"></i> Stock
                     </a>
                 </li>
+                   <li class="nav-item">
+                    <a class="nav-link {{ Request::routeIs('cash_register_receipts.*') ? 'active' : '' }}" href="{{ route('cash_register_receipts.index') }}">
+                        <i class="bi bi-box"></i> BSC
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::routeIs('material-usages.*') ? 'active' : '' }}" href="{{ route('material-usages.index') }}">

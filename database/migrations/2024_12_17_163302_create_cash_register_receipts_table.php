@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('cash_register_receipts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('requerant_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users'); // Caissier
+            $table->foreignId('approbation_id')->constrained('users'); // DAF
+            $table->decimal('amount', 10, 2);
+            $table->string('motif');
+            $table->text('note_validation')->nullable();
+            $table->dateTime('cash_register_receipts_date');
+            $table->dateTime('cash_register_receipts_approbation_date')->nullable();
+            $table->softDeletes(); 
             $table->timestamps();
         });
     }

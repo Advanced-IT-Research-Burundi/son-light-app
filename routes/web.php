@@ -8,7 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\OtherInvoiceController;
+use App\Http\Controllers\CashRegisterReceiptController;
 use App\Http\Controllers\OtherOrderController;
 use App\Http\Controllers\ProformaInvoiceController;
 use App\Http\Controllers\ProformaInvoiceListController;
@@ -62,6 +62,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/stocks/exit', [StockController::class, 'storeExit'])->name('stocks.storeExit');
     Route::get('/stocks/{stock}/history', [StockController::class, 'showHistory'])->name('stocks.history');
     Route::post('/reports/annulle/{report}', [ReportController::class, 'annulle'])->name('reports.annulle');
+    Route::resource('cash_register_receipts', CashRegisterReceiptController::class);
 
 });
 require_once __DIR__.'/auth.php';
