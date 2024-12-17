@@ -194,7 +194,7 @@
                                 </a>
                                     <a href="{{ route('proforma_invoices.generatePDF', $proforma_invoice) }}" class="btn btn-success">
                                      <i class="bi bi-filetype-pdf"></i>
-                                        Générer le PDF
+                                        Générer PDF
                                  </a>
                                   <a href="{{ route('proforma_invoices.proforma_invoice_lists.create', $proforma_invoice) }}" class="btn btn-primary">
                                                <i class="bi bi-plus-circle"></i> Article ou Service
