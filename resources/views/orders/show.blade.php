@@ -89,11 +89,11 @@
             <tr>
                 <th>Ordre</th>
                 <th>Article</th>
-                   <th>Unité</th>
-                <th>Quantité</th>
-                <th>Prix unitaire</th>
-                <th>Prix total HT</th>
-                <th>TVA</th>
+                <th>Unité</th>
+                <th>Qté</th>
+                <th>P.U</th>
+                <th>PTHT</th>
+              {{--  <th>TVA</th> --}}
                 <th>Actions</th>
             </tr>
         </thead>
@@ -106,7 +106,7 @@
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->quantity ??''}}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->unit_price, 2) ??'' }}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->total_price, 2) ?? '' }}</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->total_price * $order->tva / 100 }}</td>
+                {{--<td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->total_price * $order->tva / 100 }}</td>--}}
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
                     <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info"><i class="bi bi-pencil"></i></a>
 
@@ -164,17 +164,17 @@
         </tfoot> --}}
              <tfoot>
             <tr>
-                <th colspan="6">Total</th>
+                <th colspan="5">Total</th>
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($order->detailOrders->sum('total_price'), 2) }} </th>
                 <th></th>
             </tr>
                <tr>
-                <th colspan="6">TVA</th>
+                <th colspan="5">TVA</th>
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * $order->tva / 100, 2):'' }}</th>
                 <th></th>
             </tr>
                <tr>
-                <th colspan="6">Prix total TVAC</th>
+                <th colspan="5">Prix total TVAC</th>
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * (1 + $order->tva / 100), 2):'' }}</th>
                 <th></th>
             </tr>
@@ -207,7 +207,7 @@
             <div class="form-group mb-3  col-4">
 
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-check-lg"></i> Ajouter à la commande
+                        <i class="bi bi-check-lg"></i> Valider
                     </button>
                     <a href="{{ route('order_alllist')}}"  class="btn btn-secondary">
                         <i class="bi bi-x-lg"></i> Annuler
@@ -231,16 +231,16 @@
 
         <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary">
           <i class="bi bi-plus-circle"></i>
-        Ajouter un article ou service</a>
+        Article ou service</a>
         <a href="{{ route('order_alllist')}}" class="btn btn-primary">
-        <i class="bi bi-eye"></i> Visualiser des commandes </a>
+        <i class="bi bi-eye"></i> Commandes </a>
          <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
              <i class="bi bi-plus-circle"></i>
-            Ajouter la facture
+            Facture
         </a>
               <a href="{{ route('invoices.index', $order) }}" class="btn btn-primary">
               <i class="bi bi-eye"></i>
-            Visualiser les factures
+            Factures
         </a>
     </div>
     </div>

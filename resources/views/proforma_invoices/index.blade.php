@@ -30,13 +30,13 @@
                     <thead>
                         <tr>
                         <th>Ordre</th>
-                            <th>Num. Fac.</th>
+                           {{-- <th>Num. Fac.</th> --}}
                             <th>Client</th>
                             <th>SOCIETE</th>
                             <th>Désigation</th>
-                            <th>P.U en FBu</th>
+                            <th>P.U</th>
                             <th>Qté</th>
-                            <th>PVHTVA en FBu</th>
+                            <th>PVHTVA</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -47,7 +47,7 @@
                         @foreach($proforma_invoices as $proforma_invoice)
                         <tr>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
-                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->invoice_number }}</td>
+                            {{-- <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->invoice_number }}</td> --}}
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->client->name }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->name ?? ''}}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->designation?? ''}}</td>

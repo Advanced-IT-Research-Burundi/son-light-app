@@ -60,12 +60,12 @@
         <thead>
             <tr>
                 <th>Ordre</th>
-                <th>Numéro de la Fact </th>
+                {{--<th>Numéro de la Fact </th>--}}
                 <th>Article</th>
                 <th>Unite</th>
-                <th>Quantité</th>
-                <th>Prix unitaire </th>
-                <th>Prix total HT </th>
+                <th>Qté</th>
+                <th>P.U </th>
+                <th>PTHTA </th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -73,7 +73,7 @@
             @foreach($proforma_invoice->proformaInvoiceList as $detail)
             <tr>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count}}</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{$detail->proformaInvoice->invoice_number}}</td>
+               {{-- <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{$detail->proformaInvoice->invoice_number}}</td>--}}
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->product_name }}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->unit }}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->quantity }}</td>
@@ -129,17 +129,17 @@
         </tbody>
          <tfoot>
             <tr>
-                <th colspan="6">Total</th>
+                <th colspan="5">Total</th>
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2) }} </th>
                 <th></th>
             </tr>
                <tr>
-                <th colspan="6">TVA</th>
+                <th colspan="5">TVA</th>
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'0' }} </th>
                 <th></th>
             </tr>
                <tr>
-                <th colspan="6">Prix total TVAC</th>
+                <th colspan="5">PTVAC</th>
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2):'0' }} </th>
                 <th></th>
             </tr>
@@ -172,7 +172,7 @@
             <div class="form-group mb-3  col-4">
 
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-check-lg"></i> Ajouter à la facture proforma
+                        <i class="bi bi-check-lg"></i> Valider
                     </button>
                     <a href="{{ route('proforma_invoices.index') }}" class="btn btn-secondary">
                         <i class="bi bi-x-lg"></i> Annuler
@@ -194,18 +194,18 @@
                                 </a>
                                     <a href="{{ route('proforma_invoices.generatePDF', $proforma_invoice) }}" class="btn btn-success">
                                      <i class="bi bi-filetype-pdf"></i>
-                                        Générer le PDF #{{ $proforma_invoice->id }}
+                                        Générer le PDF
                                  </a>
                                   <a href="{{ route('proforma_invoices.proforma_invoice_lists.create', $proforma_invoice) }}" class="btn btn-primary">
-                                               <i class="bi bi-plus-circle"></i> Ajouter Article ou Service
+                                               <i class="bi bi-plus-circle"></i> Article ou Service
                                  </a>
                                        <a href="{{ route('proforma_invoices.orders.create', $proforma_invoice) }}" class="btn btn-primary">
                                               <i class="bi bi-plus-circle"></i>
-                                                   Ajouter Commande
+                                                   Commande
                                         </a>
                                            <a href="{{ route('order_alllist')}}" class="btn btn-primary">
                                             <i class="bi bi-eye"></i>
-                                                 Visualiser Commandes
+                                                Commandes
                                             </a>
                             </div>
                         </div>
