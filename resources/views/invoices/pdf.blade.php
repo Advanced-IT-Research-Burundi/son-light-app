@@ -161,8 +161,8 @@
             <tr>
                 <td colspan="4" style="text-align: left;"><strong>Total</strong></td>
                 <td>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2) }}</td>
-                <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0):'' }}</td>
-                <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }}</td>
+                <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2):'' }}</td>
+                <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 2):'' }}</td>
             </tr>
         </tfoot>
     </table>

@@ -40,9 +40,9 @@
                    <dt class="col-sm-3">Prix total HTVA </dt>
                              <dd class="col-sm-9">{{ number_format($order->detailOrders->sum('total_price'), 2) }} Fbu</dd>
                              <dt class="col-sm-3">TVA </dt>
-                             <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0):'' }} Fbu</dd>
+                             <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * $order->tva / 100, 0):'' }} Fbu</dd>
                              <dt class="col-sm-3">Prix total TVAC </dt>
-                             <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }} Fbu</dd>
+                             <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * (1 + $order->tva / 100), 0):'' }} Fbu</dd>
                              <dt class="col-sm-3">Prix en Lettre</dt>
                              <dd class="col-sm-9">Nous disons {{ $order->price_letter}}</dd>
 
@@ -94,7 +94,6 @@
                 <th>Prix unitaire</th>
                 <th>Prix total HT</th>
                 <th>TVA</th>
-                <th>Prix total TVAC</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -105,10 +104,9 @@
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->product_name ?? '' }}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->unit ?? ''}}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->quantity ??''}}</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->unit_price, 2) ??'' }} Fr Bu</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->total_price, 2) ?? '' }} Fr Bu</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->total_price * $order->tva / 100 }} Fr Bu</td>
-                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format( ($detail->total_price + ($detail->total_price * $order->tva / 100)), 2) }} FBu</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->unit_price, 2) ??'' }}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($detail->total_price, 2) ?? '' }}</td>
+                <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $detail->total_price * $order->tva / 100 }}</td>
                 <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
                     <a href="{{ route('orders.detail-orders.edit', [$order, $detail]) }}" class="btn btn-sm btn-info"><i class="bi bi-pencil"></i></a>
 
@@ -164,6 +162,23 @@
                 <th></th>
             </tr>
         </tfoot> --}}
+             <tfoot>
+            <tr>
+                <th colspan="6">Total</th>
+                <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($order->detailOrders->sum('total_price'), 2) }} </th>
+                <th></th>
+            </tr>
+               <tr>
+                <th colspan="6">TVA</th>
+                <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * $order->tva / 100, 2):'' }}</th>
+                <th></th>
+            </tr>
+               <tr>
+                <th colspan="6">Prix total TVAC</th>
+                <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * (1 + $order->tva / 100), 2):'' }}</th>
+                <th></th>
+            </tr>
+        </tfoot>
     </table>
 
 
@@ -184,7 +199,7 @@
                 @method('PUT')
       <div class="row">
                    <div class="form-group mb-3  col-8">
-             <input type="text" class="form-control @error('price_letter') is-invalid @enderror" id="price_letter" name="price_letter" value="{{ old('price_letter', $proforma_invoice->price_letter ?? '') }}" required>
+             <input type="text" class="form-control @error('price_letter') is-invalid @enderror" id="price_letter" name="price_letter" value="{{ old('price_letter', $order->price_letter ?? '') }}" required>
             @error('price_letter')
          <div class="invalid-feedback">{{ $message }}</div>
           @enderror
