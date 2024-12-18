@@ -39,13 +39,14 @@
             <input type="number" name="amount" class="form-control" required>
         </div>
       </div>
+      
+{{--
       <div class="row">
            <div class="form-group col-6">
             <label for="cash_register_receipts_approbation_date">Date d'approbation</label>
             <input type="datetime-local" name="cash_register_receipts_approbation_date" class="form-control">
         </div>
 
-{{--
         <div class="form-group">
             <label for="note_validation">Note de validation</label>
             <textarea name="note_validation" class="form-control"></textarea>

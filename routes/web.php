@@ -63,6 +63,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/stocks/{stock}/history', [StockController::class, 'showHistory'])->name('stocks.history');
     Route::post('/reports/annulle/{report}', [ReportController::class, 'annulle'])->name('reports.annulle');
     Route::resource('cash_register_receipts', CashRegisterReceiptController::class);
+    Route::put('addNoteValidation/{receipt}', [CashRegisterReceiptController::class, 'addNoteValidation'])
+    ->name('addNoteValidation');
 
 });
 require_once __DIR__.'/auth.php';

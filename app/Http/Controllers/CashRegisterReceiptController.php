@@ -29,9 +29,7 @@ class CashRegisterReceiptController extends Controller
             'approbation_id' => 'required|exists:users,id',
             'amount' => 'required|numeric',
             'motif' => 'required|string',
-            'note_validation' => 'nullable|string',
             'cash_register_receipts_date' => 'required|date',
-            'cash_register_receipts_approbation_date' => 'nullable|date',
         ]);
 
         CashRegisterReceipt::create($validated);
@@ -60,9 +58,7 @@ class CashRegisterReceiptController extends Controller
             'approbation_id' => 'required|exists:users,id',
             'amount' => 'required|numeric',
             'motif' => 'required|string',
-            'note_validation' => 'nullable|string',
             'cash_register_receipts_date' => 'required|date',
-            'cash_register_receipts_approbation_date' => 'nullable|date',
         ]);
 
         $receipt = CashRegisterReceipt::findOrFail($id);
@@ -78,4 +74,17 @@ class CashRegisterReceiptController extends Controller
 
         return redirect()->route('cash_register_receipts.index')->with('success', 'Reçu supprimé avec succès.');
     }
+   
+    public function addNoteValidation(Request $request, CashRegisterReceipt $receipt)
+{
+    $request->validate([
+        'cash_register_receipts_approbation_date' => 'nullable|date',
+        'note_validation' => ['nullable', 'string'],
+    ]);
+    $receipt->note_validation = $request->input('note_validation');
+    $receipt->save();
+
+    return redirect()->route('cash_register_receipts.show', $receipt->id)
+                     ->with('success', 'La note de validation a été ajoutée avec succès.');
+} 
 }

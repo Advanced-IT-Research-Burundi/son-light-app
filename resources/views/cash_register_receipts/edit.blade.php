@@ -53,12 +53,6 @@
             <input type="datetime-local" name="cash_register_receipts_date" class="form-control" 
                 value="{{ \Carbon\Carbon::parse($receipt->cash_register_receipts_date)->format('Y-m-d\TH:i') }}" required>
         </div>
-
-        <div class="form-group col-6">
-            <label for="cash_register_receipts_approbation_date">Date d'approbation</label>
-            <input type="datetime-local" name="cash_register_receipts_approbation_date" class="form-control" 
-                value="{{ $receipt->cash_register_receipts_approbation_date ? \Carbon\Carbon::parse($receipt->cash_register_receipts_approbation_date)->format('Y-m-d\TH:i') : '' }}">
-        </div>
         </div>
         <div class="form-group">
             <label for="motif">Motif</label>
