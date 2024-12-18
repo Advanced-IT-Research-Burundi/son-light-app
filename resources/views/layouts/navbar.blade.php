@@ -79,7 +79,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::routeIs('material-usages.*') ? 'active' : '' }}" href="{{ route('material-usages.index') }}">
-                        <i class="bi bi-text-indent-left"></i> Utilisation Materielle
+                        <i class="bi bi-text-indent-left"></i> Util Mat
                     </a>
                 </li>
 
