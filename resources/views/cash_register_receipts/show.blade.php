@@ -15,6 +15,39 @@
         <strong>Date de création:</strong> {{ $receipt->cash_register_receipts_date }}<br>
         <strong>Date d'approbation:</strong> {{ $receipt->cash_register_receipts_approbation_date }}<br>
     </div>
+    <p></p>
+    
+    <div class="card shadow mb-4 ">
+        <div class="card-body">
+                <div class="card-body">
+    <h6 class="m-0 font-weight-bold text-primary">Approuve cette demande </h6>
+     <div class="row">
+        <p></p>
+     </div>
+      <form action="{{ route('cash_register_receipts.update', $receipt->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+      <div class="row">
+                    <div class="form-group col-12">
+            <label for="note_validation">Note de validation</label>
+            <textarea name="note_validation" class="form-control">{{ $receipt->note_validation }}</textarea>
+        </div>
+            <div class="form-group mb-3  col-4">
+            <p></p>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-lg"></i> Valider
+                    </button>
+                    <a href="{{ route('cash_register_receipts.index') }}" class="btn btn-secondary">
+                        <i class="bi bi-x-lg"></i> Annuler
+                    </a>
+                </div>
+        </div>
+        </form>
+    </div>
+    </div>
+      </div>
+
 
     <a href="{{ route('cash_register_receipts.index') }}" class="btn btn-secondary">Retour à la liste</a>
 </div>
