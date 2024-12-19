@@ -122,7 +122,9 @@
         <div class="border_header">
             <br>
             <h4 class="fact">FACTURE PROFORMA </h4>
-            <h4 class="date">Date: Le {{ $proforma_invoice->proforma_invoice_date->format('d/m/Y') }}</h4>
+            <h4 class="date">
+            Date: Le  {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}
+            </h4>
 
         </div>
 
@@ -143,8 +145,8 @@
                 <td>{{ $detail->product_name }}</td>
                 <td>{{$detail->unit}}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 0) }}</td>
-                <td>{{ number_format($detail->total_price, 0) }}</td>
+                <td>{{ number_format($detail->unit_price, 2) }}</td>
+                <td>{{ number_format($detail->total_price, 2) }}</td>
             </tr>
              @endforeach
                 <tr>
@@ -153,7 +155,7 @@
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>TVA(18%)</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 0):'' }}</strong></td>
+                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>PT TVAC en Fbu</strong></td>

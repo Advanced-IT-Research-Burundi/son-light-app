@@ -116,7 +116,7 @@
     <label for="'proforma_invoice_date" class="form-label">
         <i class="bi bi-calendar"></i> Date de facturation
     </label>
-    <input type="date" class="form-control @error('proforma_invoice_date') is-invalid @enderror" id="proforma_invoice_date" name="proforma_invoice_date" value="{{ old('proforma_invoice_date', $proforma_invoice->proforma_invoice_date ?? '') }}" required>
+    <input type="date" class="form-control @error('proforma_invoice_date') is-invalid @enderror" id="proforma_invoice_date" name="proforma_invoice_date" value="{{ old('proforma_invoice_date', $proforma_invoice->proforma_invoice_date ?? '') }}">
     @error('proforma_invoice_date')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
