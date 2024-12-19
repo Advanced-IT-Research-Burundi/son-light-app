@@ -25,7 +25,7 @@
                 @if (auth()->user()->isAdmin())
                 <li class="nav-item">
                     <a class="nav-link {{ Request::routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                        <i class="bi bi-people"></i> Utilisateurs
+                        <i class="bi bi-people"></i> Users
                     </a>
                 </li>
                 @endif
@@ -45,6 +45,11 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Request::routeIs('order_alllist') ? 'active' : '' }}" href="{{ route('order_alllist') }}">
                         <i class="bi bi-cart"></i> Commandes
+                    </a>
+                </li>
+                   <li class="nav-item">
+                    <a class="nav-link {{ Request::routeIs('invoices.*') ? 'active' : '' }}" href="{{ route('order_alllist') }}">
+                        <i class="bi bi-cart"></i> Factures
                     </a>
                 </li>
 

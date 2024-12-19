@@ -5,11 +5,11 @@
 @section('content')
 <div class="container-fluid">
     <h3 class="my-4">
-        <i class="bi bi-cart3"></i> Gestion des factures
+        <i class="bi bi-cart3"></i> Gestion des factures clients
     </h3>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Liste des factures</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Liste des factures client</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">

@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container">
-    <h3>   <i class="bi bi-plus-circle"></i> Créer une facture pour la facture la commande #{{ $order->id }}</h3>
+    <h3>   <i class="bi bi-plus-circle"></i> Créer une facture client pour la facture la commande #{{ $order->id }}</h3>
 
     {{-- @dump( $order->id) --}}
      <form action="{{ route('invoices.store', ['order_id'=>$order->id]) }}" method="POST">
