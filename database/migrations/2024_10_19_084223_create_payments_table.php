@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('invoice_id')->constrained();
             // $table->foreignId('order_id')->nullable()->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->decimal('amount');
+            $table->decimal('amount', 20, 2);
             $table->date('payment_date');
             $table->string('payment_method');
             $table->text('description')->nullable();

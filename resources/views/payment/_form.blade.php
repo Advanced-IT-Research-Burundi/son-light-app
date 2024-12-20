@@ -9,7 +9,7 @@
         <option value="">Sélectionnez une facture</option>
         @foreach($orders as $order)
             <option value="{{ $order->id }}" {{ old('order_id', $order->id ?? '') == $order->id ? 'selected' : '' }}>
-                # {{ $order->id }}   {{$order->number}}
+                #{{$order->number}} 
             </option>
         @endforeach
     </select>

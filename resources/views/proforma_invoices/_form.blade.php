@@ -4,7 +4,8 @@
     <label for="invoice_number" class="form-label">
         <i class="bi bi-calendar"></i> Numéro de la facture
     </label>
-    <input type="text" class="form-control @error('invoice_number') is-invalid @enderror" id="invoice_number" name="invoice_number" value="{{ old('invoice_number', $proforma_invoice->invoice_number ?? '') }}" >
+    <input type="text" class="form-control @error('invoice_number') is-invalid @enderror" id="invoice_number" name="invoice_number" value="{{ old('invoice_number', $proforma_invoice->invoice_number ?? $number) }}" disabled>
+    <input type="hidden" name="invoice_number" value="{{ old('invoice_number', $number) }}">
     @error('invoice_number')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror

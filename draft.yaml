@@ -1,5 +1,5 @@
 models:
-  Report:
+  Caise:
     user_id: id foreign
     type: string
     content: longtext

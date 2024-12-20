@@ -24,7 +24,10 @@ class ProformaInvoiceController extends Controller
     {
         $clients = Client::all();
         $companies = Company::all();
-        return view('proforma_invoices.create', compact('clients', 'companies'));
+        $lastInvoiceId = ProformaInvoice::latest('id')->first()->id;
+
+        $number = str_pad($lastInvoiceId+1, 4, '0', STR_PAD_LEFT);
+        return view('proforma_invoices.create', compact('clients', 'companies','number'));
     }
 
     public function show(ProformaInvoice $proforma_invoice)

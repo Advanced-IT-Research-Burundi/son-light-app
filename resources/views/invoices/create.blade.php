@@ -11,7 +11,10 @@
     <div class="row">
         <div class="form-group mb-3 col-4">
             <label for="number" class="form-label">Numéro de facture</label>
-            <input type="text" class="form-control" id="number" name="number" value="{{ $number }}" required>
+            <input type="text" class="form-control" id="number" name="number" value="{{ old('number', $number) }}" disabled>
+
+            <input type="hidden" name="number" value="{{ old('number', $number) }}">
+
         </div>
 
         <div class="form-group mb-3 col-4">

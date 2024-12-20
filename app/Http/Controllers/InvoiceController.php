@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\Order;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use PDF;
@@ -19,28 +20,38 @@ class InvoiceController extends Controller
     public function create(Order $order)
     {
 
-        $number = 'INV-' . date("Y-m-d h:i:sa") . '';
+        $lastInvoiceId = Invoice::latest('id')->first()->id;
+
+        $number = 'INV-'.str_pad($lastInvoiceId+1, 4, '0', STR_PAD_LEFT);
         return view('invoices.create', compact('order', 'number'));
     }
 
     public function store(Request $request)
     {
-        $order = Order::find($request->order_id);
-        $validatedData = $request->validate([
-            'number' => 'required|unique:invoices',
-            'date' => 'required|date',
-            'due_date' => 'required|date|after:date',
-        ]);
+        try{
+            $order = Order::find($request->order_id);
+            $validatedData = $request->validate([
+                'number' => 'required|unique:invoices',
+                'date' => 'required|date',
+                'due_date' => 'required|date|after:date',
+            ]);
 
-        $invoice = new Invoice($validatedData);
-        $invoice->order_id = $order->id;
-        $invoice->status = 'unpaid';
-        $invoice->save();
+            $invoice = new Invoice($validatedData);
+            $invoice->order_id = $order->id;
+            $invoice->status = 'unpaid';
+            $invoice->save();
 
-        $order->status = 'invoiced';
-        $order->save();
+            $order->status = 'invoiced';
+            $order->save();
 
-        return redirect()->route('invoices.show', $invoice)->with('success', 'Facture créée avec succès.');
+            return redirect()->route('invoices.show', $invoice)->with('success', 'Facture créée avec succès.');
+
+        }catch (Exception $e){
+            dd($e);
+            // return back()->with('error', 'Une erreur s\'est produite lors de la création de la facture : '.$e->getMessage());
+        }
+
+
     }
     public function destroy(Invoice $invoice)
     {
