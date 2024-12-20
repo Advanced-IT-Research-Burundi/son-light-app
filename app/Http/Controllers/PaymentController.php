@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use PhpParser\Node\Expr\New_;
 
 class PaymentController extends Controller
 {
@@ -25,7 +26,8 @@ class PaymentController extends Controller
     {
         // $invoices = Invoice::latest()->get();
         $invoices = Invoice::latest()->get();
-        return view('payment.create', compact('invoices'));
+        $payment = New Payment;
+        return view('payment.create', compact('invoices','payment'));
     }
 
     public function store(PaymentStoreRequest $request): RedirectResponse
@@ -46,8 +48,8 @@ class PaymentController extends Controller
     public function edit(Request $request, Payment $payment): View
     {
         // $invoices = Invoice::latest()->get();
-        $orders = Invoice::latest()->get();
-        return view('payment.edit', compact(['payment','orders']));
+        $invoices = Invoice::latest()->get();
+        return view('payment.edit', compact(['payment','invoices']));
     }
 
     public function update(PaymentUpdateRequest $request, Payment $payment): RedirectResponse
