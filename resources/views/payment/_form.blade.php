@@ -1,16 +1,16 @@
-<!-- resources/views/orders/_form.blade.php -->
+<!-- resources/views/invoices/_form.blade.php -->
 @csrf
 <div class="row">
 <div class="form-group mb-3 col-6">
     <label for="invoice_id" class="form-label">
         <i class="bi bi-person"></i> Facture
     </label>
-    <select class="form-select @error('order_id') is-invalid @enderror" id="order_id" name="invoice_id" required>
+    <select class="form-select @error('invoice_id') is-invalid @enderror" id="invoice_id" name="invoice_id" required>
         <option value="">Sélectionnez une facture</option>
-        @foreach($orders as $order)
-            <option value="{{ $order->id }}" {{ old('order_id', $order->id ?? '') == $order->id ? 'selected' : '' }}>
-                #{{$order->number}} 
-            </option>
+        @foreach($invoices as $invoice)
+
+            <option value="{{ $invoice->id }}" {{ old('invoice_id', $invoice->id ?? '') == $invoice->id ? 'selected' : '' }}>
+                #{{$invoice->number}} | {{$invoice->order->designation}} | {{ $invoice?->order?->client?->name??'' }} | {{ $invoice?->order?->entreprise?->name ?? '' }}
         @endforeach
     </select>
     @error('invoice_id')
@@ -21,7 +21,7 @@
     <label for="amount" class="form-label">
         <i class="bi bi-cash-coin"></i> Montant
     </label>
-    <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $invoice->order->amount ?? '') }}" required>
+    <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $invoice->invoice->amount ?? '') }}" required>
     @error('amount')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
@@ -57,7 +57,7 @@
     <label for="description" class="form-label">
         <i class="bi bi-text-paragraph"></i> Description
     </label>
-    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description', $order->description ?? '') }}</textarea>
+    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description', $invoice->description ?? '') }}</textarea>
     @error('description')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror

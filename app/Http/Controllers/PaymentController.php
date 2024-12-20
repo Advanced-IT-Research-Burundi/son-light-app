@@ -24,8 +24,8 @@ class PaymentController extends Controller
     public function create(Request $request): View
     {
         // $invoices = Invoice::latest()->get();
-        $orders = Invoice::latest()->get();
-        return view('payment.create', compact('orders'));
+        $invoices = Invoice::latest()->get();
+        return view('payment.create', compact('invoices'));
     }
 
     public function store(PaymentStoreRequest $request): RedirectResponse
