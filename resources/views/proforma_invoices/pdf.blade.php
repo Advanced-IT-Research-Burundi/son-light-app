@@ -101,7 +101,10 @@
 
     </div>
 
-    <h4 style="color:red;">FACTURE PROFORMA du {{ $proforma_invoice->proforma_invoice_date->format('d/m/Y') }}</h4>
+<h4 style="color:black;">
+    FACTURE PROFORMA du 
+    {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}
+</h4>
 
     <div style=" font-size: 14px;" >
         <h3 style="padding:0; margin:0;">A. Identification du vendeur</h3>
@@ -131,6 +134,7 @@
             <tr>
                 <th>Ordre</th>
                 <th>Nature de l'article ou service</th>
+                 <th>Unité</th>
                 <th>Qté</th>
                 <th>PU en FBU</th>
                 <th>PVHTVA en FBU</th>
@@ -141,21 +145,22 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                <td>{{ $detail->quantity }} {{$detail->unit}}</td>
-                <td>{{ number_format($detail->unit_price, 0) }}</td>
-                <td>{{ number_format($detail->total_price, 0) }}</td>
+                <td>{{$detail->unit}}</td>
+                <td>{{ $detail->quantity }}</td>
+                <td>{{ number_format($detail->unit_price, 2) }}</td>
+                <td>{{ number_format($detail->total_price, 2) }}</td>
             </tr>
             @endforeach
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>TOTAL</strong></td>
+                    <td colspan="5" style="text-align: left;"><strong>TOTAL</strong></td>
                     <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 0) }}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>TVA*</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 0):'' }}</strong></td>
+                    <td colspan="5" style="text-align: left;"><strong>TVA*</strong></td>
+                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>TV-TVAC*</strong></td>
+                    <td colspan="5" style="text-align: left;"><strong>TV-TVAC*</strong></td>
                     <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 0):'' }}</strong></td>
                 </tr>
         </tbody>

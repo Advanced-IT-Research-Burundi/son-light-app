@@ -4,7 +4,7 @@
 @section('title', 'Modification de la facture')
 @section('content')
 <div class="container">
-    <h3> <i class="bi bi-pencil">Modifier une facture #{{ $invoice->id }}</h3>
+    <h3> <i class="bi bi-pencil">Modifier une facture client #{{ $invoice->id }}</h3>
      <form action="{{ route('invoices.update',$invoice->id)}}" method="POST">
           @csrf
           @method('PUT')

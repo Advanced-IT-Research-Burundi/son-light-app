@@ -9,14 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    
+
     public function up(): void
-    {  
+    {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->nullable();
-            $table->string('number')->unique();
+            $table->string('number');
             $table->date('date');
             $table->date('due_date');
             $table->string('status')->default('unpaid');
@@ -28,9 +28,9 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    
+
     public function down(): void
     {
         Schema::dropIfExists('invoices');
-    } 
+    }
 };

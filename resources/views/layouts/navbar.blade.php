@@ -26,7 +26,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                        <i class="bi bi-people"></i> Utilisateurs
+                        <i class="bi bi-people"></i> Users
                     </a>
                 </li>
                 @endif
@@ -46,6 +46,11 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Request::routeIs('order_alllist') ? 'active' : '' }}" href="{{ route('order_alllist') }}">
                         <i class="bi bi-cart"></i> Commandes
+                    </a>
+                </li>
+                   <li class="nav-item">
+                    <a class="nav-link {{ Request::routeIs('invoices.*') ? 'active' : '' }}" href="{{ route('invoices.index') }}">
+                        <i class="bi bi-cart"></i> Factures
                     </a>
                 </li>
 
@@ -72,10 +77,15 @@
                         <i class="bi bi-box"></i> Stock
                     </a>
                 </li>
+                   <li class="nav-item">
+                    <a class="nav-link {{ Request::routeIs('cash_register_receipts.*') ? 'active' : '' }}" href="{{ route('cash_register_receipts.index') }}">
+                        <i class="bi bi-box"></i> BSC
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::routeIs('material-usages.*') ? 'active' : '' }}" href="{{ route('material-usages.index') }}">
-                        <i class="bi bi-text-indent-left"></i> Utilisation Materielle
+                        <i class="bi bi-text-indent-left"></i> Util Mat
                     </a>
                 </li>
 

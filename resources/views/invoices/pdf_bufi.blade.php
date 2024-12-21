@@ -185,7 +185,8 @@
             <tr>
                 <th>ORDRE</th>
                 <th>Nature de l'article ou service</th>
-                <th>Qté</th>
+                  <th>Unité</th>
+                     <th>Qté</th>
                 <th>P.U en FBU</th>
                 <th>PVHTVA en FBU</th>
             </tr>
@@ -193,21 +194,22 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                <td>{{ $detail->quantity }} {{ $detail->unit }}</td>
-                <td>{{ number_format($detail->unit_price, 0) }}</td>
-                <td>{{ number_format($detail->total_price, 0) }}</td>
+                <td>{{ $detail->unit }}</td>
+                <td>{{ $detail->quantity }}</td>
+                <td>{{ number_format($detail->unit_price, 2) }}</td>
+                <td>{{ number_format($detail->total_price, 2) }}</td>
             </tr>
              @endforeach
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
+                    <td colspan="5" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
                     <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>TVA</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0):'' }}</strong></td>
+                    <td colspan="5" style="text-align: left;"><strong>TVA</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2):'' }}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="text-align: left;"><strong>PT TVAC</strong></td>
+                    <td colspan="5" style="text-align: left;"><strong>PT TVAC</strong></td>
                     <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }}</strong></td>
                 </tr>
         </table>

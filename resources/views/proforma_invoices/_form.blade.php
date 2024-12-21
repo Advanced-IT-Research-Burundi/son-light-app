@@ -132,6 +132,17 @@
         <input type="text"  class="form-control" id="amount_tvac" name="amount_tvac" readonly>
     </div>
     </div>
+      <div class="row">
+   <div class="form-group mb-3  col-12">
+    <label for="'proforma_invoice_date" class="form-label">
+        <i class="bi bi-calendar"></i> Date de facturation
+    </label>
+    <input type="date" class="form-control @error('proforma_invoice_date') is-invalid @enderror" id="proforma_invoice_date" name="proforma_invoice_date" value="{{ old('proforma_invoice_date', $proforma_invoice->proforma_invoice_date ?? '') }}">
+    @error('proforma_invoice_date')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+</div>
 </div>
 @section('scripts')
 <script>

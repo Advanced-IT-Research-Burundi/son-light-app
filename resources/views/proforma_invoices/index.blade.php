@@ -30,13 +30,13 @@
                     <thead>
                         <tr>
                         <th>Ordre</th>
-                            <th>Num. Fac.</th>
+                           {{-- <th>Num. Fac.</th> --}}
                             <th>Client</th>
                             <th>SOCIETE</th>
                             <th>Désigation</th>
-                            <th>P.U en FBu</th>
+                            <th>P.U</th>
                             <th>Qté</th>
-                            <th>PVHTVA en FBu</th>
+                            <th>PVHTVA</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

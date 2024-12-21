@@ -137,6 +137,7 @@
             <tr>
                 <th>Ordre</th>
                 <th>Nature de l'article ou service</th>
+                <th>Unité</th>
                 <th>Qté</th>
                 <th>PU en FBU</th>
                 <th>PVHTVA en FBU</th>
@@ -149,19 +150,20 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                  <td>{{ $detail->quantity }} {{ $detail->unit }}</td>
-                <td>{{ number_format($detail->unit_price, 0) }}</td>
-                <td>{{ number_format($detail->total_price, 0) }}</td>
-                <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price * $invoice->order->tva / 100, 0):'' }}</td>
+                <td>{{ $detail->unit }}</td>
+                  <td>{{ $detail->quantity }} </td>
+                <td>{{ number_format($detail->unit_price, 2) }}</td>
+                <td>{{ number_format($detail->total_price, 2) }}</td>
+                <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price * $invoice->order->tva / 100, 2):'' }}</td>
                 <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $invoice->order->tva / 100), 0):'' }}</td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="4" style="text-align: left;"><strong>Total</strong></td>
-                <td>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2) }}</td>
-                <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0):'' }}</td>
+                <td colspan="5" style="text-align: left;"><strong>Total</strong></td>
+                <td>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</td>
+                <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2):'' }}</td>
                 <td>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }}</td>
             </tr>
         </tfoot>
@@ -171,6 +173,7 @@
           <strong>Mention obligatoire</strong><br>
         <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
          <strong>Nous disons {{ $invoice->order->price_letter}} </strong>
+         {{-- <strong>Nous disons {{ getNumberToWord($invoice->order->)}} </strong> --}}
          </p>
     </div>
 

@@ -24,14 +24,17 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Client</th>
                             <th>SOCIETE</th>
                             <th>Désigation</th>
-                            <th>Prix Unitaire</th>
-                            <th>Quantite</th>
-                            <th>Total</th>
-                            <th>Client</th>
+                            <th>P.U</th>
+                            <th>Qte</th>
+                            <th>PTHVA</th>
+
+                            {{--
                             <th>Date de livraison</th>
                             <th>Statut</th>
+                            --}}
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -42,15 +45,16 @@
                         @foreach($orders as $order)
                         <tr>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->client->name ?? '' }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->name ?? ''}}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->designation?? ''}}</td>
                             <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->amount ?? ''}}</th>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->quantity ?? ''}}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($order->amount * $order->quantity, 2, ',', ' ')??'' }} Fr Bu</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->client?->name ?? '' }}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->order_date->format('d/m/Y')?? '' }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($order->amount * $order->quantity, 2, ',', ' ')??'' }}</td>
+
+                            {{-- <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->order_date->format('d/m/Y')?? '' }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; "> {{ $order->status ?? '' }}</td>
-                            {{-- <td>{{ number_format($order->amount, 2, ',', ' ') }} Fr Bu</td> --}}
+                            <td>{{ number_format($order->amount, 2, ',', ' ') }} Fr Bu</td> --}}
                             {{-- <td>
                                 <span class="badge bg-{{ $order->status_color }}">
                                     {{ $order->status_label }}
