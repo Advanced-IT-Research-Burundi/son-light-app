@@ -29,3 +29,10 @@ define('TVA_RANGE',value: [0, 4, 10, 18, 22]);
 
 
 
+// function getNumberToWord($number , $language='fr'){
+//     // create the number to words "manager" class
+//     $numberToWords = new NumberToWords();
+//     // build a new number transformer using the RFC 3066 language identifier
+//     $numberTransformer = $numberToWords->getNumberTransformer($language);
+//     return  $numberTransformer->toWords($number);
+// }
