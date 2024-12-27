@@ -97,7 +97,7 @@
            </div>
          <div style=" padding:0; margin:0;" >
             <p></p>
-            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->id }} du {{ $invoice->created_at->format('d/m/Y') }}<br>
+            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->number }} du {{ $invoice->created_at->format('d/m/Y') }}<br>
             <strong style="font-size: 14px;">A. Identification du vendeur</strong></h2>
             <p  style="padding:0; margin:0;">
             <strong>Raison sociale : </strong> NOVA TECH BUSINESS<br>

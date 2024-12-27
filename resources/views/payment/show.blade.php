@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Détails du payement')
+@section('title', 'Détails du paiement')
 
 @section('content')
 <div class="container-fluid">
     <h3 class="my-4">
-        <i class="bi bi-eye"></i> Détails du patement #{{ $payment->id }}
+        <i class="bi bi-eye"></i> Détails du paiement #{{ $payment->id }}
     </h3>
 
     <div class="card shadow mb-4">
