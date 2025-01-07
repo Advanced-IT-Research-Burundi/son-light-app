@@ -17,12 +17,10 @@ class InvoiceController extends Controller
         return view('invoices.index', compact('invoices'));
     }
 
-    public function create(Order $order)
-    {
-
+    public function create(Order $order) {
         $lastInvoiceId = Invoice::latest('id')->first()->id;
 
-        $number = 'INV-'.str_pad($lastInvoiceId+1, 4, '0', STR_PAD_LEFT);
+        $number = 'INV-'.str_pad($lastInvoiceId + 1, 4, '0', STR_PAD_LEFT);
         return view('invoices.create', compact('order', 'number'));
     }
 
@@ -32,8 +30,8 @@ class InvoiceController extends Controller
             $order = Order::find($request->order_id);
             $validatedData = $request->validate([
                 'number' => 'required|unique:invoices',
-                'date' => 'required|date',
-                'due_date' => 'required|date|after:date',
+                'date' => 'nullable|date',
+                'due_date' => 'nullable|date|after:date',
             ]);
 
             $invoice = new Invoice($validatedData);
@@ -73,8 +71,8 @@ class InvoiceController extends Controller
     {
         $request->validate([
             'number' => 'required',
-            'date' => 'required|date',
-            'due_date' => 'required|date|after:date',
+            'date' => 'nullable|date',
+            'due_date' => 'nullable|date|after:date',
         ]);
         $invoice->update($request->all());
 

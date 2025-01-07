@@ -178,7 +178,7 @@
 
       <div style=" padding:0; margin:0; font-size: 12px;" >
             <p></p>
-            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->number }} du {{ $invoice->created_at->format('d/m/Y') }}<br>
+            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->number }} du {{ $invoice->date ? \Carbon\Carbon::parse($invoice->date)->format('d/m/Y') : '____/____/202__' }}<br>
             <strong style="font-size: 14px;">A. Identification du vendeur</strong></h2>
             <p  style="padding:0; margin:0;">
             <strong>Raison sociale : </strong> DEALER GROUP<br>
@@ -249,7 +249,7 @@
     <div class="colored-bars">
         <div class="bar blue"></div>
         <p>Rohero 2, Av de la Mission N<sup>o</sup> 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>
-          <span style="color:red;"> Compte BANCOBU N<sup>o</sup> 12721620101 <span> </p>
+          <span style="color:red;"> Compte BCB N<sup>o</sup> 21633100009 <span> </p>
     </div>
     </div>
 </body>

@@ -94,7 +94,7 @@
 
     </div>
 
-    <h4>Facture no {{ $invoice->number }}, Date: <strong>{{ $invoice->created_at->format('d/m/Y') }}</h4>
+    <h4>Facture no {{ $invoice->number }}, Date: <strong>{{ $invoice->date ? \Carbon\Carbon::parse($invoice->date)->format('d/m/Y') : '____/____/202__' }}</h4>
     <div style=" font-size: 13px;margin-top:-15px;" >
     <table>
     <tr>

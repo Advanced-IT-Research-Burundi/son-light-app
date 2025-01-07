@@ -238,7 +238,7 @@
         <div class="bar blue"></div>
         <p>
           Rohero 2, Av de la Mission n0 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>
-          <span style="color:red;"> Compte BANCOBU N<sup>o</sup> 12721620101 <span>
+          <span style="color:red;"> Compte BCB N<sup>o</sup> 21633100009 <span>
         </p>
     </div>
     </div>

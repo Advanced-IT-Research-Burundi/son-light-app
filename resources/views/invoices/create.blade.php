@@ -19,7 +19,7 @@
 
         <div class="form-group mb-3 col-4">
             <label for="date" class="form-label">Date de la facture</label>
-            <input type="date" class="form-control" id="date" name="date" value="{{ date('Y-m-d') }}" required>
+            <input type="date" class="form-control" id="date" name="date" value="{{ date('Y-m-d') }}">
         </div>
 
         <div class="form-group mb-3 col-4">

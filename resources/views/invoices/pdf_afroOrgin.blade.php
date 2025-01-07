@@ -26,7 +26,7 @@
         .header_right {
             font-size: 14px;
             float: right;
-             margin-right: 30px;
+            margin-right: 30px;
         }
         table {
             width: 100%;
@@ -53,34 +53,36 @@
 
         .yellow {
             background-color: green;
-
         }
 
         .blue {
             background-color: red;
-            margin-top:2px;
+            margin-top: 2px;
         }
-        .header_left ,.
+
+        .header_left,
         @media (max-width: 400px) {
             header {
                 flex-direction: column;
             }
-
         }
-           .vertical-barr{
+
+        .vertical-barr {
             height: 110px;
             transform: rotate(15deg);
             border: 4px solid green;
             float: left;
             margin-right: 5px;
-            margin-top:-5px;
-            margin-right:70px;
+            margin-top: -5px;
+            margin-right: 70px;
         }
-        .liste{
+
+        .liste {
             float: right;
             padding-left: 40px;
         }
-         th {
+
+        th {
             background-color: #2E7D32 !important;
             color: white;
             padding: 4px;
@@ -97,101 +99,99 @@
             <h5 style="margin: 0;padding: 0">NIF: 4002771212<br>RC: 0060277/24</h5>
         </div>
         <div class="header_right">
-        <div class="vertical-barr"></div>
-        <div class="liste">
-            <p style="margin: 0; padding: 0"><strong>Activités:</strong></p>
-            <div style="padding-left: 40px">
-                <ul style="margin: 0; padding: 0">
-                    <li style="margin: 0; padding: 0">Fourniture de Bureau</li>
-                    <li style="margin: 0; padding: 0">Fourniture des Imprimés</li>
-                    <li style="margin: 0; padding: 0">Location des Matériels</li>
-                    <li style="margin: 0; padding: 0">Commerce Général</li>
-                </ul>
+            <div class="vertical-barr"></div>
+            <div class="liste">
+                <p style="margin: 0; padding: 0"><strong>Activités:</strong></p>
+                <div style="padding-left: 40px">
+                    <ul style="margin: 0; padding: 0">
+                        <li style="margin: 0; padding: 0">Fourniture de Bureau</li>
+                        <li style="margin: 0; padding: 0">Fourniture des Imprimés</li>
+                        <li style="margin: 0; padding: 0">Location des Matériels</li>
+                        <li style="margin: 0; padding: 0">Commerce Général</li>
+                    </ul>
+                </div>
+                <p style="margin: 0; padding: 0"><strong>Forme Juridique</strong> : SURL</p>
             </div>
-
-            <p style="margin: 0; padding: 0"><strong>Forme Juridique</strong> : SURL</p>
         </div>
-     </div>
     </div>
     <br><br><br><br><br><br> <br>
     <div class="boder">
-           <div class="colored-bars">
-               <div class="bar yellow"></div>
-               <div class="bar blue"></div>
-           </div>
-        <div style=" padding:0; margin:0;" >
+        <div class="colored-bars">
+            <div class="bar yellow"></div>
+            <div class="bar blue"></div>
+        </div>
+        <div style=" padding:0; margin:0;">
             <p></p>
-            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->number}} du {{ $invoice->created_at->format('d/m/Y') }}<br>
+            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->number }} du {{ $invoice->date ? \Carbon\Carbon::parse($invoice->date)->format('d/m/Y') : '____/____/202__' }}<br>
             <strong style="font-size: 14px;">A. Identification du vendeur</strong></h2>
-            <p  style="padding:0; margin:0;">
-            <strong>Raison sociale : </strong> AFRO BUSINESS GROUP<br>
-            <strong>NIF :</strong> 4002771212<br>
-            <strong>RC :</strong> 0060277/24 <br>
-            <strong>Commune :</strong> Mukaza, Rohero 1 <br>
-            <strong>Avenue :</strong> Avenue de Luxembourg <br>
-            <strong>Assujetti à la TVA :</strong> Oui[  ]  Non[ X ]
+            <p style="padding:0; margin:0;">
+                <strong>Raison sociale : </strong> AFRO BUSINESS GROUP<br>
+                <strong>NIF :</strong> 4002771212<br>
+                <strong>RC :</strong> 0060277/24 <br>
+                <strong>Commune :</strong> Mukaza, Rohero 1 <br>
+                <strong>Avenue :</strong> Avenue de Luxembourg <br>
+                <strong>Assujetti à la TVA :</strong> Oui[  ]  Non[ X ]
             </p>
-        <h3  style=" padding:0; margin:0;">B. Le Client</h3>
-        <p style=" padding:0; margin:0;">
-            <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client?->name }}<br>
-            <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
-            <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
-            <strong>Assujetti à la TVA :</strong> Oui [ {{ $invoice->order->client->assujeti?'X':' ' }}] Non [{{ $invoice->order->client->assujeti?' ':'X' }}] <br>
-            <strong>Doit ce qui suit: </strong>
-        </p>
-    </div>
+            <h3 style=" padding:0; margin:0;">B. Le Client</h3>
+            <p style=" padding:0; margin:0;">
+                <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client?->name }}<br>
+                <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
+                <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
+                <strong>Assujetti à la TVA :</strong> Oui [ {{ $invoice->order->client->assujeti ? 'X' : ' ' }}] Non [{{ $invoice->order->client->assujeti ? ' ' : 'X' }}] <br>
+                <strong>Doit ce qui suit: </strong>
+            </p>
+        </div>
         <div class="border-text">
-            <table  style=" padding:0; margin:0;">
+            <table style=" padding:0; margin:0;">
                 <tr>
                     <th>N<sup>o</sup></th>
                     <th>DESIGNATION</th>
-                     <th>Unité</th>
+                    <th>Unité</th>
                     <th>QTE</th>
                     <th>P.U</th>
                     <th>P.T</th>
                 </tr>
                 @foreach($invoice->order->detailOrders as $detail)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $detail->product_name }}</td>
-                 <td>{{ $detail->unit }}</td>
-                   <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
-            </tr>
-             @endforeach
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $detail->product_name }}</td>
+                    <td>{{ $detail->unit }}</td>
+                    <td>{{ $detail->quantity }}</td>
+                    <td>{{ number_format($detail->unit_price, 2) }}</td>
+                    <td>{{ number_format($detail->total_price, 2) }}</td>
+                </tr>
+                @endforeach
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
                     <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>TVA</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->detailOrders->sum('total_price') * $invoice->tva / 100, 2):'' }}</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->detailOrders->sum('total_price') * $invoice->tva / 100, 2) : '' }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>PT TVAC</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 0):'' }}</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 0) : '' }}</strong></td>
                 </tr>
             </table>
-               <div>
-      <p>
-          <strong>Mention obligatoire</strong><br>
-        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
-         <strong>Nous disons {{ $invoice->order->price_letter}} </strong>
-         </p>
-    </div>
+            <div>
+                <p>
+                    <strong>Mention obligatoire</strong><br>
+                    <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
+                    <strong>Nous disons {{ $invoice->order->price_letter }} </strong>
+                </p>
+            </div>
         </div>
     </div>
 
     <div class="footer">
-       <div class="colored-bars">
+        <div class="colored-bars">
             <div class="bar yellow"></div>
             <div class="bar blue"></div>
-              <p>Adresse: Bujumbura-Burundi, Rohero 1, Avenue de Luxembourg, Tél: +257 79 881 769 (WhatsApp) | +257 69 723 126 | +257 79 732 102
+            <p>Adresse: Bujumbura-Burundi, Rohero 1, Avenue de Luxembourg, Tél: +257 79 881 769 (WhatsApp) | +257 69 723 126 | +257 79 732 102
              <span style="color:blue;"> Compte BCB N<sup>o</sup>  21729480005 <span>
             </p>
         </div>
-
     </div>
 </body>
 </html>
