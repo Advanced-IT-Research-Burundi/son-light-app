@@ -15,6 +15,10 @@ use App\Http\Controllers\ProformaInvoiceListController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockMovementController;
+use App\Http\Controllers\CashRegisterController;
+use App\Http\Controllers\CashRegisterDenominationController;
+use App\Http\Controllers\DailyStockController;
+
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
@@ -62,9 +66,14 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/stocks/exit', [StockController::class, 'storeExit'])->name('stocks.storeExit');
     Route::get('/stocks/{stock}/history', [StockController::class, 'showHistory'])->name('stocks.history');
     Route::post('/reports/annulle/{report}', [ReportController::class, 'annulle'])->name('reports.annulle');
-    Route::resource('cash_register_receipts', CashRegisterReceiptController::class);
-    Route::put('addNoteValidation/{receipt}', [CashRegisterReceiptController::class, 'addNoteValidation'])
-    ->name('addNoteValidation');
+    //Route::resource('cash_register_receipts', CashRegisterReceiptController::class);
+    //Route::put('addNoteValidation/{receipt}', [CashRegisterReceiptController::class, 'addNoteValidation'])
+    //->name('addNoteValidation');
+    Route::resource('receipts', CashRegisterReceiptController::class);
+    Route::resource('cash_registers', CashRegisterController::class);
+    Route::resource('denominations',CashRegisterDenominationController::class);
+    Route::post('/receipts/{receipt}/approve', [ CashRegisterReceiptController::class, 'approve'])->name('receipts.approve');
+   // Route::resource('reports',DailyStockController::class);
 
 });
 require_once __DIR__.'/auth.php';

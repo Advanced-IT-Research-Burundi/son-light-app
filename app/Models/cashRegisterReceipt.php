@@ -6,33 +6,46 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class cashRegisterReceipt extends Model
+class CashRegisterReceipt extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     protected $fillable = [
-        'requerant_id',
-        'user_id',
-        'approbation_id',
+        'cash_register_id',
+        'requester_id',
+        'created_by',
+        'updated_by',
+        'approver_id',
         'amount',
+        'type',
+        'justification',
         'motif',
-        'note_validation',
-        'cash_register_receipts_date',
-        'cash_register_receipts_approbation_date',
+        'validation_note',
+        'receipt_date',
+        'approval_date',
     ];
 
-    public function requerant()
+    public function cashRegister()
     {
-        return $this->belongsTo(User::class, 'requerant_id');
+        return $this->belongsTo(CashRegister::class);
     }
 
-    public function user()
+    public function requester()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'requester_id');
+    }
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function approbation()
+    public function updater()
     {
-        return $this->belongsTo(User::class, 'approbation_id');
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approver_id');
     }
 }

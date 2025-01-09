@@ -12,6 +12,7 @@
             margin: 10px;
             color: #333;
             margin-top:-30px;
+            page-break-after: always;
         }
         .header {
             font-size: 13px;
@@ -50,6 +51,7 @@
             border: 1px solid black;
             padding: 3px;
             text-align: left;
+
         }
         .table2 td,th{
            vertical-align: top;
@@ -57,13 +59,15 @@
         .table2 td{
             max-width: 150px;
             word-wrap: break-word;
+
          }
         .footer {
             position: absolute;
             bottom: 0;
             width: 100%;
             text-align: center;
-             font-size: 14px;
+            font-size: 14px;
+
         }
           .bar {
             width: 100%;
@@ -75,6 +79,18 @@
 
         .argent {
             background-color: #c8b570;
+        }
+        @media print {
+            body {
+                margin: 0; /* Réinitialiser les marges pour une impression propre */
+            }
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -102,7 +118,7 @@
     </div>
 
 <h4 style="color:black;">
-    FACTURE PROFORMA du 
+    FACTURE PROFORMA du
     {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}
 </h4>
 
@@ -129,7 +145,7 @@
         </p>
     </div>
 
-    <table class="table2">
+    <table class="table2" style=" margin: 20px 0;">
         <thead>
             <tr>
                 <th>Ordre</th>
@@ -165,6 +181,10 @@
                 </tr>
         </tbody>
     </table>
+    @if($proforma_invoice->proformaInvoiceList->count() >= 13 && $proforma_invoice->proformaInvoiceList->count() <= 15)
+            <div style="page-break-before: always;"></div>
+    @endif
+
     <div>
       <p>
           <strong>Mention obligatoire</strong><br>

@@ -168,6 +168,10 @@
             </tr>
         </tfoot>
     </table>
+    @if($invoice->count() >= 13 && $invoice->count() <= 15)
+         <div style="page-break-before: always;"></div>
+    @endif
+
        <div>
       <p>
           <strong>Mention obligatoire</strong><br>
