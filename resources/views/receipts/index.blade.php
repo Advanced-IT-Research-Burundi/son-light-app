@@ -9,6 +9,8 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>ID</th>
+                <th>Num Caisse</th>
                 <th>Montant</th>
                 <th>Type</th>
                 <th>Justification</th>
@@ -21,9 +23,11 @@
         <tbody>
             @foreach ($receipts as $receipt)
             <tr>
+                <td>{{ $receipt->id }}</td>
+                <td>{{ $receipt->cash_register_id }}</td>
                 <td>{{ number_format($receipt->amount, 2) }}</td>
-                <td>{{ $receipt->type }}</td>
-                <td>{{ $receipt->justification }}</td>
+                <td>{{ $receipt->type === 'Exit' ? 'Sortie' : 'Entrée' }}</td>
+                <td>{{ $receipt->justification === 'With_proof' ? 'Avec justification' : 'Sans justification' }}</td>
                 <td>{{ $receipt->requester->name }}</td>
                 <td>{{ \Carbon\Carbon::parse($receipt->receipt_date)->format('d-m-Y H:i') }}</td>
                 <td>

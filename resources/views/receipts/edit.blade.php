@@ -68,6 +68,7 @@
             <label for="motif">Motif (optionnel)</label>
             <textarea class="form-control" id="motif" name="motif" rows="3">{{ $receipt->motif }}</textarea>
         </div>
+        <p></p>
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
         <a href="{{ route('receipts.index') }}" class="btn btn-secondary">Annuler</a>
     </form>

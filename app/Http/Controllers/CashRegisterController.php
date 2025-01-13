@@ -10,7 +10,7 @@ class CashRegisterController extends Controller
 {
     public function index()
     {
-        $cashRegisters = CashRegister::all();
+        $cashRegisters = CashRegister::latest()->get();
         return view('cash_registers.index', compact('cashRegisters'));
     }
 

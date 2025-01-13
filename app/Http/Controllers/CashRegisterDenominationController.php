@@ -10,7 +10,7 @@ class CashRegisterDenominationController extends Controller
 {
     public function index()
     {
-        $denominations = CashRegisterDenomination::all();
+        $denominations = CashRegisterDenomination::latest()->get();
         return view('denominations.index', compact('denominations'));
     }
 

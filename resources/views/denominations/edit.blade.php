@@ -11,6 +11,7 @@
        <p>
         <br>
         <button type="submit" class="btn btn-primary">Mettre à Jour Dénomination</button>
+        <a href="{{ route('denominations.index') }}" class="btn btn-secondary">Annuler</a>
        </p>
     </form>
 </div>

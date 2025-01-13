@@ -41,8 +41,8 @@
         </div>
         <div class="card-body">
             <p><strong>Montant :</strong> {{ number_format($receipt->amount, 2) }} BIF</p>
-            <p><strong>Type :</strong> {{ ucfirst($receipt->type) }}</p>
-            <p><strong>Justification :</strong> {{ ucfirst($receipt->justification) }}</p>
+            <p><strong>Type :</strong> {{ $receipt->type === 'Exit' ? 'Sortie' : 'Entrée' }}</p>
+            <p><strong>Justification :</strong>{{ $receipt->justification === 'With_proof' ? 'Avec justification' : 'Sans justification' }}</p>
             <p><strong>Motif :</strong> {{ $receipt->motif ?? 'Non précisé' }}</p>
             <p><strong>Date de réception :</strong> {{ \Carbon\Carbon::parse($receipt->receipt_date)->format('d-m-Y H:i') }}</p>
             <p><strong>Approuvé :</strong> {{ $receipt->is_approved ? 'Oui' : 'Non' }}</p>

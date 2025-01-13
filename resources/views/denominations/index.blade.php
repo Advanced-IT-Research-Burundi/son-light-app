@@ -14,6 +14,8 @@
         <thead>
             <tr>
                 <th>N°</th>
+                <th>ID</th>
+                <th>Num Caisse</th>
                 <th>Dénomination</th>
                 <th>Quantité</th>
                 <th>Total par Catégorie</th>
@@ -35,6 +37,8 @@
                 @endphp
                 <tr>
                     <td>{{ $i++ }}</td>
+                    <td>{{ $denomination->id }}</td>
+                    <td>{{ $denomination->cash_register_id }}</td>
                     <td>{{ $denomination->denomination }}</td>
                     <td>{{ $denomination->quantity }}</td>
                     <td >{{ number_format($totalParCategorie, 0, ',', ' ') }} BIF</td>

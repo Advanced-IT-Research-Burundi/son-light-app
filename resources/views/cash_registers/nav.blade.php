@@ -23,11 +23,6 @@
                         <i class="bi bi-stack me-2"></i> Billettage
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::routeIs('reports.*') ? 'active' : '' }}" href="{{ route('reports.index') }}">
-                        <i class="bi bi-stack me-2"></i> Rapport de Stock
-                    </a>
-                </li>
             </ul>
         </div>
     </div>

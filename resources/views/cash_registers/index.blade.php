@@ -30,13 +30,19 @@
                     <td>{{ $cashRegister->created_at->format('d/m/Y H:i:s') }}</td>
                     <td>{{ optional($cashRegister->creator)->name ?? 'Inconnu' }}</td>
                     <td>
+
                         <a href="{{ route('cash_registers.show', $cashRegister) }}" class="btn btn-info btn-sm" title="Afficher">
                             <i class="bi bi-eye"></i>
                         </a>
+                        <a href="{{ route('cash_registers.details', $cashRegister) }}" class="btn btn-info btn-sm" title="Afficher">
+                            <i class="bi bi-receipt"></i>
+                        </a>
+                        {{--cash_registers.details
                         @if (auth()->user()->isAdmin())
                         <a href="{{ route('cash_registers.edit', $cashRegister) }}" class="btn btn-warning btn-sm" title="Modifier">
                             <i class="bi bi-pencil"></i>
                         </a>
+
                         <form action="{{ route('cash_registers.destroy', $cashRegister) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
@@ -45,6 +51,7 @@
                             </button>
                         </form>
                         @endif
+                        --}}
                     </td>
                 </tr>
             @endforeach

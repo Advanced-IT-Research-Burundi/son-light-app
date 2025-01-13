@@ -72,6 +72,7 @@
             <label for="receipt_date">Date de réception</label>
             <input type="datetime-local" class="form-control" id="receipt_date" name="receipt_date" required>
         </div>
+        <p></p>
 
         <button type="submit" class="btn btn-primary">Créer</button>
         <a href="{{ route('receipts.index') }}" class="btn btn-secondary">Annuler</a>
