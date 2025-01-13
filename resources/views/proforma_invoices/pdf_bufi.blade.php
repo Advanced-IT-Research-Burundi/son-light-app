@@ -24,7 +24,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .header_left{
+        .header_left {
             font-weight: 300;
             font-size: large;
             float: left;
@@ -63,6 +63,7 @@
             float: right;
             margin-right: 40px;
         }
+
         .header_right ul {
             list-style: none;
             padding: 0;
@@ -98,12 +99,12 @@
             padding: 3px;
             text-align: left;
             vertical-align: top;
-
         }
-        td{
+
+        td {
             max-width: 150px;
             word-wrap: break-word;
-         }
+        }
 
         @media print {
             body {
@@ -139,6 +140,7 @@
                 font-size: 0.9em;
             }
         }
+
         .footer {
             position: absolute;
             bottom: 0;
@@ -159,7 +161,6 @@
             </div>
             <div class="header_right">
                 <ul>
-
                     <li>Services Informatiques</li>
                     <li>Imprimerie - Sérigraphie</li>
                     <li>Location des matériels pour les Evénements</li>
@@ -168,10 +169,9 @@
         </div>
     </header>
 
-
-        <h5 class="border_header">FACTURE PROFORMA du {{ $proforma_invoice->proforma_invoice_date->format('d/m/Y') }}</h5>
+    <h5 class="border_header">FACTURE PROFORMA du {{ $proforma_invoice->proforma_invoice_date->format('d/m/Y') }}</h5>
     <div class="border-text">
-        <h5 "><span style="text-decoration: underline;">CLIENT :</span> {{ $proforma_invoice->client?->name }}</h5>
+        <h5><span style="text-decoration: underline;">CLIENT :</span> {{ $proforma_invoice->client?->name }}</h5>
         <table>
             <tr>
                 <th>ORDRE</th>
@@ -185,32 +185,32 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                <td>{{$detail->unit}}</td>
+                <td>{{ $detail->unit }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
+                <td>{{ number_format($detail->unit_price, 2, ',', '.') }}</td>
+                <td>{{ number_format($detail->total_price, 2, ',', '.') }}</td>
             </tr>
-             @endforeach
-                <tr>
-                    <td colspan="5" style="text-align: left;"><strong>PRIX TOTAL en FBU</strong></td>
-                    <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 0) }}</strong></td>
-                </tr>
-                <tr>
-                    <td colspan="5" style="text-align: left;"><strong>TVA (18%)</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</strong></td>
-                </tr>
-                <tr>
-                    <td colspan="5" style="text-align: left;"><strong>PT TVAC en FBU</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 0):'' }}</strong></td>
-                </tr>
+            @endforeach
+            <tr>
+                <td colspan="5" style="text-align: left;"><strong>PRIX TOTAL en FBU</strong></td>
+                <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2, ',', '.') }}</strong></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align: left;"><strong>TVA (18%)</strong></td>
+                <td><strong>{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2, ',', '.') : '' }}</strong></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align: left;"><strong>PT TVAC en FBU</strong></td>
+                <td><strong>{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2, ',', '.') : '' }}</strong></td>
+            </tr>
         </table>
-       <div>
-      <p>
-          <strong>Mention obligatoire</strong><br>
-          <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
-         <strong>Nous disons {{$proforma_invoice->price_letter}} </strong>
-         </p>
-    </div>
+        <div>
+            <p>
+                <strong>Mention obligatoire</strong><br>
+                <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span><br><br>
+                <strong>Nous disons {{$proforma_invoice->price_letter}} </strong>
+            </p>
+        </div>
     </div>
 
     <div class="footer">
