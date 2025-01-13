@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nova</title>
+    <title>Nova Tech Business</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-
             margin-top: 0;
         }
         .title {
@@ -42,23 +41,20 @@
             border: 1px solid #000;
             padding: 4px;
             text-align: center;
-             vertical-align: top;
-
+            vertical-align: top;
         }
-        td{
+        td {
             max-width: 150px;
             word-wrap: break-word;
-         }
-
+        }
         .date {
             text-align: left;
-           float: right;
+            float: right;
             font-size: 16px;
             padding: 0;
             margin: 0;
         }
-
-        .fact{
+        .fact {
             padding: 0;
             margin: 0;
             float: left;
@@ -74,20 +70,16 @@
             width: 100%;
             height: 4px;
         }
-
         .yellow {
             background-color: yellow;
         }
-
         .blue {
             background-color: blue;
         }
-        .header_left ,.
         @media (max-width: 400px) {
             header {
                 flex-direction: column;
             }
-
         }
     </style>
 </head>
@@ -108,28 +100,25 @@
                     <li style="margin: 0; padding: 0">Commerce Divers</li>
                 </ul>
             </div>
-
             <p style="margin: 0; padding: 0">Forme Juridique: SURL</p>
         </div>
-
     </div>
-    <br><br><br><br><br><br> <br>
-    <div class="boder">
-           <div class="colored-bars">
-               <div class="bar blue"></div>
-               <div class="bar yellow"></div>
-           </div>
+    <br><br><br><br><br><br><br>
+    <div class="border">
+        <div class="colored-bars">
+            <div class="bar blue"></div>
+            <div class="bar yellow"></div>
+        </div>
         <div class="border_header">
             <br>
-            <h4 class="fact">FACTURE PROFORMA </h4>
+            <h4 class="fact">FACTURE PROFORMA</h4>
             <h4 class="date">
-            Date: Le  {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}
+                Date: Le {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}
             </h4>
-
         </div>
 
         <div class="border-text">
-            <h5 style="padding-top: 15px">CLIENT :  {{ $proforma_invoice->client?->name }}</h5>
+            <h5 style="padding-top: 15px">CLIENT : {{ $proforma_invoice->client?->name }}</h5>
             <table>
                 <tr>
                     <th>N<sup>o</sup></th>
@@ -140,47 +129,46 @@
                     <th>P.T en FBU</th>
                 </tr>
                 @foreach($proforma_invoice->proformaInvoiceList as $detail)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $detail->product_name }}</td>
-                <td>{{$detail->unit}}</td>
-                <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
-            </tr>
-             @endforeach
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $detail->product_name }}</td>
+                    <td>{{ $detail->unit }}</td>
+                    <td>{{ $detail->quantity }}</td>
+                    <td>{{ number_format($detail->unit_price, 2, ',', '.') }}</td>
+                    <td>{{ number_format($detail->total_price, 2, ',', '.') }}</td>
+                </tr>
+                @endforeach
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>PRIX TOTAL en FBU</strong></td>
-                    <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 0) }}</strong></td>
+                    <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 0, ',', '.') }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>TVA(18%)</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</strong></td>
+                    <td><strong>{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2, ',', '.') : '' }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>PT TVAC en Fbu</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 0):'' }}</strong></td>
+                    <td><strong>{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 0, ',', '.') : '' }}</strong></td>
                 </tr>
             </table>
-             <div>
+            <div>
                 <p>
                     <strong>Mention obligatoire</strong><br>
-                    <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
+                    <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span><br><br>
                     <strong>Nous disons {{$proforma_invoice->price_letter}} </strong>
                 </p>
-    </div>
+            </div>
         </div>
     </div>
 
     <div class="footer">
-       <div class="colored-bars">
+        <div class="colored-bars">
             <div class="bar yellow"></div>
             <div class="bar blue"></div>
-              <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com
-             <span style="color:blue;"> Compte BCB N<sup>o</sup>  21633140002 <span>
+            <p>Adresse: Centre Ville, Mukaza, Rohero I Tél: (+257) 68 020 191 Email: novatechbusiness23@gmail.com
+                <span style="color:blue;"> Compte BCB N<sup>o</sup>  21633140002 <span>
             </p>
         </div>
-
     </div>
 </body>
 </html>
