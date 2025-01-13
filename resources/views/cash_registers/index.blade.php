@@ -10,7 +10,8 @@
     <a href="{{ route('cash_registers.create') }}" class="btn btn-primary mb-3">
         <i class="bi bi-plus"></i> Créer une Caisse
     </a>
-    <table class="table table-striped">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="proforma_invoicesTable" width="100%" cellspacing="0">
         <thead>
             <tr>
                 <th>ID</th>
@@ -57,5 +58,6 @@
             @endforeach
         </tbody>
     </table>
+    </div>
 </div>
 @endsection

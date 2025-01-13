@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->nullable();
-            $table->string('number');
+            $table->string('number')->nullable();
             $table->date('date')->nullable();
             $table->date('due_date')->nullable();
             $table->string('status')->default('unpaid')->nullable();

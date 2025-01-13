@@ -18,15 +18,17 @@ class InvoiceController extends Controller
     }
 
     public function create(Order $order) {
-        $lastInvoiceId = Invoice::latest('id')->first()->id;
+        // Récupérer le dernier identifiant de la facture ou utiliser 0 si aucune n'existe
+        $lastInvoice = Invoice::latest('id')->first();
+        $lastInvoiceId = $lastInvoice ? $lastInvoice->id : 0; // Vérifiez si $lastInvoice est nul
 
-        $number = 'INV-'.str_pad($lastInvoiceId + 1, 4, '0', STR_PAD_LEFT);
+        $number = 'INV-' . str_pad($lastInvoiceId + 1, 4, '0', STR_PAD_LEFT);
         return view('invoices.create', compact('order', 'number'));
     }
 
     public function store(Request $request)
     {
-        try{
+        try {
             $order = Order::find($request->order_id);
             $validatedData = $request->validate([
                 'number' => 'required|unique:invoices',
@@ -44,18 +46,17 @@ class InvoiceController extends Controller
 
             return redirect()->route('invoices.show', $invoice)->with('success', 'Facture créée avec succès.');
 
-        }catch (Exception $e){
-            dd($e);
-            // return back()->with('error', 'Une erreur s\'est produite lors de la création de la facture : '.$e->getMessage());
+        } catch (Exception $e) {
+            // Gestion d'erreur d'application
+            return back()->with('error', 'Une erreur s\'est produite lors de la création de la facture : ' . $e->getMessage());
         }
-
-
     }
+
     public function destroy(Invoice $invoice)
     {
         $invoice->delete();
         return redirect()->route('invoices.index')
-            ->with('success', 'la facture a ete supprimée avec succès.');
+            ->with('success', 'La facture a été supprimée avec succès.');
     }
 
     public function show(Invoice $invoice)
@@ -63,10 +64,12 @@ class InvoiceController extends Controller
         $invoice->load('order.detailOrders', 'order.client', 'order.entreprise');
         return view('invoices.show', compact('invoice'));
     }
+
     public function edit(Invoice $invoice)
     {
         return view('invoices.edit', compact('invoice'));
     }
+
     public function update(Request $request, Invoice $invoice)
     {
         $request->validate([
@@ -77,8 +80,9 @@ class InvoiceController extends Controller
         $invoice->update($request->all());
 
         return redirect()->route('invoices.show', $invoice->id)
-            ->with('success', 'La facture a ete mise à jour avec succès.');
+            ->with('success', 'La facture a été mise à jour avec succès.');
     }
+
     public function generatePDF(Invoice $invoice)
     {
         $invoice->load('order.detailOrders', 'order.client', 'order.entreprise');
@@ -91,7 +95,7 @@ class InvoiceController extends Controller
             ['name' => 'SOCIETE ANONYME'],
         ];
 
-        // CREATION DES PROFORMA A PARTIR DES COMPANY_KEY EN UTILISANT SWICH EN GENERA PDF POUR CHAQUE COMPANY
+        // Création des proformas à partir des keys entreprises en utilisant switch pour générer le PDF pour chaque entreprise
         switch ($invoice->order->entreprise->id) {
             case 1:
                 $pdf = PDF::loadView('invoices.pdf', compact('invoice'));
@@ -112,10 +116,7 @@ class InvoiceController extends Controller
                 $pdf = PDF::loadView('invoices.pdf', compact('invoice'));
         }
 
-
-
-        // $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
-
+        // Téléchargement du PDF
         return $pdf->download('facture_Commande_' . $invoice->number . '.pdf');
     }
 }

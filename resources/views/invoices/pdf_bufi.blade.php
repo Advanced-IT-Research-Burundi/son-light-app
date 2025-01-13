@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUFI</title>
-       <style>
+    <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -24,7 +24,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .header_left{
+        .header_left {
             font-weight: 300;
             font-size: large;
             float: left;
@@ -63,6 +63,7 @@
             float: right;
             margin-right: 40px;
         }
+
         .header_right ul {
             list-style: none;
             padding: 0;
@@ -132,6 +133,7 @@
                 font-size: 0.9em;
             }
         }
+
         .footer {
             position: absolute;
             bottom: 0;
@@ -152,7 +154,6 @@
             </div>
             <div class="header_right">
                 <ul>
-
                     <li>Services Informatiques</li>
                     <li>Imprimerie - Sérigraphie</li>
                     <li>Location des matériels pour les Evénements</li>
@@ -160,18 +161,19 @@
             </div>
         </div>
     </header>
-      <div style=" padding:0; margin:0; font-size: 12px;" >
-            <p></p>
-            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->number }} du {{ $invoice->date ? \Carbon\Carbon::parse($invoice->date)->format('d/m/Y') : '____/____/202__' }}<br>
-            <strong style="font-size: 14px;">A. Identification du vendeur</strong></h2>
-            <p  style="padding:0; margin:0;">
+    <div style=" padding:0; margin:0; font-size: 12px;" >
+        <p></p>
+        <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->number }} du {{ $invoice->date ? \Carbon\Carbon::parse($invoice->date)->format('d/m/Y') : '____/____/202__' }}<br>
+            <strong style="font-size: 14px;">A. Identification du vendeur</strong>
+        </h2>
+        <p style="padding:0; margin:0;">
             <strong>Raison sociale : </strong> BUFI TECHNOLOGIES<br>
             <strong>NIF :</strong>  4001934464 <br>
             <strong>RC :</strong> 35991/22 <br>
             <strong>Commune :</strong> Mukaza, quartier Rohero 1 Centre-ville <br>
             <strong>Assujetti à la TVA :</strong>[  ]Oui  [ X ]Non
-            </p>
-        <h3  style=" padding:0; margin:0;">B. Le Client</h3>
+        </p>
+        <h3 style=" padding:0; margin:0;">B. Le Client</h3>
         <p style=" padding:0; margin:0;">
             <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client?->name }}<br>
             <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
@@ -181,12 +183,12 @@
         </p>
     </div>
     <div class="border-text">
-        <table  style=" padding:0; margin:0;">
+        <table style=" padding:0; margin:0;">
             <tr>
                 <th>ORDRE</th>
                 <th>Nature de l'article ou service</th>
-                  <th>Unité</th>
-                     <th>Qté</th>
+                <th>Unité</th>
+                <th>Qté</th>
                 <th>P.U en FBU</th>
                 <th>PVHTVA en FBU</th>
             </tr>
@@ -196,30 +198,30 @@
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->unit }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
+                <td>{{ number_format($detail->unit_price, 2, ',', '.') }}</td> <!-- Montant formaté -->
+                <td>{{ number_format($detail->total_price, 2, ',', '.') }}</td> <!-- Montant formaté -->
             </tr>
-             @endforeach
-                <tr>
-                    <td colspan="5" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
-                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</strong></td>
-                </tr>
-                <tr>
-                    <td colspan="5" style="text-align: left;"><strong>TVA</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2):'' }}</strong></td>
-                </tr>
-                <tr>
-                    <td colspan="5" style="text-align: left;"><strong>PT TVAC</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }}</strong></td>
-                </tr>
+            @endforeach
+            <tr>
+                <td colspan="5" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
+                <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2, ',', '.') }}</strong></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align: left;"><strong>TVA</strong></td>
+                <td><strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2, ',', '.') : '' }}</strong></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align: left;"><strong>PT TVAC</strong></td>
+                <td><strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 2, ',', '.') : '' }}</strong></td>
+            </tr>
         </table>
         <div>
-      <p>
-          <strong>Mention obligatoire</strong><br>
-        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
-         <strong>Nous disons {{ $invoice->order->price_letter}} </strong>
-         </p>
-    </div>
+            <p>
+                <strong>Mention obligatoire</strong><br>
+                <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
+                <strong>Nous disons {{ $invoice->order->price_letter }} </strong>
+            </p>
+        </div>
     </div>
 
     <div class="footer">

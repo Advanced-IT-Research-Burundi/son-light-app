@@ -6,7 +6,8 @@
     <h3 class="mt-4">Liste des reçus</h3>
     <a href="{{ route('receipts.create') }}" class="btn btn-primary mb-3">Créer un nouveau reçu</a>
 
-    <table class="table table-striped">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="proforma_invoicesTable" width="100%" cellspacing="0">
         <thead>
             <tr>
                 <th>ID</th>
@@ -56,5 +57,6 @@
             @endforeach
         </tbody>
     </table>
+</div>
 </div>
 @endsection

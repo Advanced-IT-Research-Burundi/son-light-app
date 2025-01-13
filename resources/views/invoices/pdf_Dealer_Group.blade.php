@@ -20,7 +20,7 @@
             margin-bottom: 0;
             padding: 10px 0;
         }
-          li{
+        li {
             list-style: none;
         }
         .dealer {
@@ -133,16 +133,18 @@
                 font-size: 0.9em;
             }
         }
-          .vertical-barr{
+
+        .vertical-barr {
             height: 90px;
             width: 3px;
             transform: rotate(15deg);
             border: 2px solid black;
             float: left;
             margin-right: 0px;
-            margin-top:50px;
+            margin-top: 50px;
         }
-        .liste{
+
+        .liste {
             float: right;
             margin-left: 0px;
         }
@@ -158,15 +160,14 @@
             </strong></p>
         </div>
         <div class="header_right">
-       <div class="vertical-barr"></div>
+            <div class="vertical-barr"></div>
             <div class="liste">
                 <p><br></p>
                 <p style="padding:0;margin:0;"> &nbsp;&nbsp;&nbsp;&nbsp; <strong><span style="color: blue;">=></span>Services TICs</strong></p>
                 <p style="padding:0;margin:0;"> &nbsp;&nbsp;&nbsp;<strong><span style="color: blue;">=></span>Agro Business</strong></p>
-                <p  style="padding:0;margin:0;"> &nbsp;&nbsp;<strong><span style="color: blue;">=></span>Location Véhicule</strong></p>
-                <p  style="padding:0;margin:0;"><strong><span style="color: blue;">=></span> Commerce Général</strong></p>
-
-         </div>
+                <p style="padding:0;margin:0;"> &nbsp;&nbsp;<strong><span style="color: blue;">=></span>Location Véhicule</strong></p>
+                <p style="padding:0;margin:0;"><strong><span style="color: blue;">=></span> Commerce Général</strong></p>
+            </div>
         </div>
     </div>
 
@@ -176,81 +177,90 @@
         <div class="bar red"></div>
     </div>
 
-      <div style=" padding:0; margin:0; font-size: 12px;" >
-            <p></p>
-            <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->number }} du {{ $invoice->date ? \Carbon\Carbon::parse($invoice->date)->format('d/m/Y') : '____/____/202__' }}<br>
-            <strong style="font-size: 14px;">A. Identification du vendeur</strong></h2>
-            <p  style="padding:0; margin:0;">
+    <div style=" padding:0; margin:0; font-size: 12px;">
+        <p></p>
+        <h2 style=" padding:0; margin:0;">Facture N<sup>o</sup> {{ $invoice->number }} du {{ $invoice->date ? \Carbon\Carbon::parse($invoice->date)->format('d/m/Y') : '____/____/202__' }}<br>
+        <strong style="font-size: 14px;">A. Identification du vendeur</strong></h2>
+        <p style="padding:0; margin:0;">
             <strong>Raison sociale : </strong> DEALER GROUP<br>
             <strong>NIF :</strong>  4001564154 <br>
             <strong>RC :</strong> 27895/20 <br>
             <strong> Tél:</strong>  +257 69 723 126<br>
             <strong>Commune :</strong> Mukaza, quartier Rohero 2 <br>
-             <strong>Avenue :</strong> Avenue de la mission N<sup>o</sup> 1 <br>
+            <strong>Avenue :</strong> Avenue de la mission N<sup>o</sup> 1 <br>
             <strong>Assujetti à la TVA :</strong>[  ]Oui  [ X ]Non
-            </p>
-        <h3  style=" padding:0; margin:0;">B. Le Client</h3>
+        </p>
+        <h3 style=" padding:0; margin:0;">B. Le Client</h3>
         <p style=" padding:0; margin:0;">
             <strong>Nom et prénom ou raison sociale :</strong> {{ $invoice->order->client?->name }}<br>
             <strong>NIF :</strong> {{ $invoice->order->client->nif ?? '_________' }}<br>
             <strong>Résidence à :</strong> {{ $invoice->order->client->address ?? 'BUJA' }}<br>
-            <strong>Assujetti à la TVA :</strong> [ {{ $invoice->order->client->assujeti?'X':' ' }}]Oui   [{{ $invoice->order->client->assujeti?' ':'X' }}]Non <br>
+            <strong>Assujetti à la TVA :</strong> [ {{ $invoice->order->client->assujeti ? 'X' : ' ' }}]Oui   [{{ $invoice->order->client->assujeti ? ' ' : 'X' }}]Non <br>
             <strong>Doit ce qui suit: </strong>
         </p>
     </div>
+
     <div class="border-text">
-          <table class="table2"  style=" padding:0; margin:0;">
-        <thead>
-            <tr>
-                <th>Ordre</th>
-                <th>Nature de l'article ou service</th>
-                <th>Unité</th>
-                <th>Qté</th>
-                <th>PU en FBU</th>
-                <th>PVHTVA en FBU</th>
-                <th>TVA*</th>
-                <th>TV-TVAC*</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($invoice->order->detailOrders as $detail)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $detail->product_name }}</td>
-                <td>{{ $detail->unit }}</td>
-                <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
-                <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price * $invoice->order->tva / 100, 2):'' }}</td>
-                <td>{{ $invoice->order->entreprise->assujeti?number_format($detail->total_price + ($detail->total_price * $invoice->order->tva / 100), 2):'' }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" style="text-align: left;"><strong>Total</strong></td>
-                <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</strong></td>
-                <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2):'' }}</strong></td>
-                <td><strong>{{ $invoice->order->entreprise->assujeti?number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0):'' }}</strong></td>
-            </tr>
-        </tfoot>
-    </table>
-         <div>
-      <p>
-          <strong>Mention obligatoire</strong><br>
-        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières colonnes.</span> <br> <br>
-         <strong>Nous disons {{ $invoice->order->price_letter}} </strong>
-         </p>
-    </div>
+        <table class="table2" style=" padding:0; margin:0;">
+            <thead>
+                <tr>
+                    <th>Ordre</th>
+                    <th>Nature de l'article ou service</th>
+                    <th>Unité</th>
+                    <th>Qté</th>
+                    <th>PU en FBU</th>
+                    <th>PVHTVA en FBU</th>
+                    <th>TVA*</th>
+                    <th>TV-TVAC*</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($invoice->order->detailOrders as $detail)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $detail->product_name }}</td>
+                    <td>{{ $detail->unit }}</td>
+                    <td>{{ $detail->quantity }}</td>
+                    <td>{{ number_format($detail->unit_price, 2, ',', '.') }}</td> <!-- Montant formaté -->
+                    <td>{{ number_format($detail->total_price, 2, ',', '.') }}</td> <!-- Montant formaté -->
+                    <td>
+                        {{ $invoice->order->entreprise->assujeti ? number_format($detail->total_price * $invoice->order->tva / 100, 2, ',', '.') : '' }}
+                    </td>
+                    <td>
+                        {{ $invoice->order->entreprise->assujeti ? number_format($detail->total_price + ($detail->total_price * $invoice->order->tva / 100), 2, ',', '.') : '' }}
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: left;"><strong>Total</strong></td>
+                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2, ',', '.') }}</strong></td>
+                    <td>
+                        <strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2, ',', '.') : '' }}</strong>
+                    </td>
+                    <td>
+                        <strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 2, ',', '.') : '' }}</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div>
+            <p>
+                <strong>Mention obligatoire</strong><br>
+                <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières colonnes.</span> <br> <br>
+                <strong>Nous disons {{ $invoice->order->price_letter }} </strong>
+            </p>
+        </div>
     </div>
 
     <div class="footer">
-
-    <div class="colored-bars">
-        <div class="bar blue"></div>
-        <p>Rohero 2, Av de la Mission N<sup>o</sup> 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>
-          <span style="color:red;"> Compte BCB N<sup>o</sup> 21633100009 <span> </p>
-    </div>
+        <div class="colored-bars">
+            <div class="bar blue"></div>
+            <p>Rohero 2, Av de la Mission N<sup>o</sup> 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>
+              <span style="color:red;"> Compte BCB N<sup>o</sup> 21633100009 <span>
+            </p>
+        </div>
     </div>
 </body>
 </html>

@@ -157,7 +157,7 @@
                 @endforeach
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
-                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0, ',', '.') }}</strong></td> <!-- Prix total formaté -->
+                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2, ',', '.') }}</strong></td> <!-- Prix total formaté -->
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>TVA</strong></td>
@@ -165,7 +165,7 @@
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>PT TVAC</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 0, ',', '.') : '' }}</strong></td> <!-- PT TVAC formaté -->
+                    <td><strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 2, ',', '.') : '' }}</strong></td> <!-- PT TVAC formaté -->
                 </tr>
             </table>
             <div>
