@@ -50,23 +50,19 @@
             width: 100%;
             height: 4px;
         }
-
         .yellow {
             background-color: green;
         }
-
         .blue {
             background-color: red;
             margin-top: 2px;
         }
-
         .header_left,
         @media (max-width: 400px) {
             header {
                 flex-direction: column;
             }
         }
-
         .vertical-barr {
             height: 110px;
             transform: rotate(15deg);
@@ -76,12 +72,10 @@
             margin-top: -5px;
             margin-right: 70px;
         }
-
         .liste {
             float: right;
             padding-left: 40px;
         }
-
         th {
             background-color: #2E7D32 !important;
             color: white;
@@ -157,21 +151,21 @@
                     <td>{{ $detail->product_name }}</td>
                     <td>{{ $detail->unit }}</td>
                     <td>{{ $detail->quantity }}</td>
-                    <td>{{ number_format($detail->unit_price, 2) }}</td>
-                    <td>{{ number_format($detail->total_price, 2) }}</td>
+                    <td>{{ number_format($detail->unit_price, 2, ',', '.') }}</td> <!-- Montant avec la virgule -->
+                    <td>{{ number_format($detail->total_price, 2, ',', '.') }}</td> <!-- Montant avec la virgule -->
                 </tr>
                 @endforeach
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>PRIX TOTAL</strong></td>
-                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</strong></td>
+                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0, ',', '.') }}</strong></td> <!-- Prix total formaté -->
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>TVA</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->detailOrders->sum('total_price') * $invoice->tva / 100, 2) : '' }}</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * $invoice->tva / 100, 2, ',', '.') : '' }}</strong></td> <!-- TVA formatée -->
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>PT TVAC</strong></td>
-                    <td><strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 0) : '' }}</strong></td>
+                    <td><strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->tva / 100), 0, ',', '.') : '' }}</strong></td> <!-- PT TVAC formaté -->
                 </tr>
             </table>
             <div>
@@ -189,7 +183,7 @@
             <div class="bar yellow"></div>
             <div class="bar blue"></div>
             <p>Adresse: Bujumbura-Burundi, Rohero 1, Avenue de Luxembourg, Tél: +257 79 881 769 (WhatsApp) | +257 69 723 126 | +257 79 732 102
-             <span style="color:blue;"> Compte BCB N<sup>o</sup>  21729480005 <span>
+             <span style="color:blue;"> Compte BCB N<sup>o</sup>  21729480005 </span>
             </p>
         </div>
     </div>
