@@ -8,17 +8,17 @@
         <i class="bi bi-cart3"></i> Gestion des factures proforma
     </h3>
      <div class="row">
-     <div class="mb-4 col-3">
-        <a href="{{ route('proforma_invoices.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Nouvelle facture proforma
-        </a>
-    </div>
-       <div class="mb-4 col-4">
-                  <a href="{{ route('order_alllist')}}" class="btn btn-primary">
-                   <i class="bi bi-arrow-right"></i> Aller à la liste des commandes</a>
+        <div class="mb-4 col-3">
+            <a href="{{ route('proforma_invoices.create') }}" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Nouvelle facture proforma
+            </a>
         </div>
-     </div>
-
+        <div class="mb-4 col-4">
+            <a href="{{ route('order_alllist')}}" class="btn btn-primary">
+                <i class="bi bi-arrow-right"></i> Aller à la liste des commandes
+            </a>
+        </div>
+    </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -29,8 +29,8 @@
                 <table class="table table-bordered" id="proforma_invoicesTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                        <th>Ordre</th>
-                           {{-- <th>Num. Fac.</th> --}}
+                            <th>Ordre</th>
+                            {{-- <th>Num. Fac.</th> --}}
                             <th>Client</th>
                             <th>SOCIETE</th>
                             <th>Désigation</th>
@@ -46,38 +46,34 @@
                     <tbody>
                         @foreach($proforma_invoices as $proforma_invoice)
                         <tr>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
-                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->invoice_number }}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice?->client?->name?? '' }}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->name ?? ''}}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->designation?? ''}}</td>
-                            <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->amount ?? ''}}</th>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->quantity ?? ''}}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($proforma_invoice->amount * $proforma_invoice->quantity, 0, ',', ' ')??'' }} </td>
-                            {{-- <td>{{ number_format($proforma_invoice->amount, 2, ',', ' ') }} FBu</td> --}}
-                            {{-- <td>
-                            </td> --}}
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
+                            <td style="max-width: 150px;word-wrap: break-word; vertical-align: top;">{{ $count }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word; vertical-align: top;">{{ $proforma_invoice->invoice_number }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word; vertical-align: top;">{{ $proforma_invoice?->client?->name ?? '' }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word; vertical-align: top;">{{ $proforma_invoice->entreprise->name ?? '' }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word; vertical-align: top;">
+                                {{ $proforma_invoice->amount !== null ? str_replace('.', ',', number_format($proforma_invoice->amount, 2, '.', ' ')) : '' }} FBu
+                            </td>
+                            <td style="max-width: 150px;word-wrap: break-word; vertical-align: top;">{{ $proforma_invoice->quantity ?? '' }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word; vertical-align: top;">
+                                {{ $proforma_invoice->amount !== null && $proforma_invoice->quantity !== null ? str_replace('.', ',', number_format($proforma_invoice->amount * $proforma_invoice->quantity, 2, '.', ' ')) : '' }} FBu
+                            </td>
+                            <td style="max-width: 150px;word-wrap: break-word; vertical-align: top;">
                                 <a href="{{ route('proforma_invoices.show', $proforma_invoice->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i>
                                 </a>
                                 <a href="{{ route('proforma_invoices.edit', $proforma_invoice->id) }}" class="btn btn-sm btn-primary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-
-                                {{-- @dump($proforma_invoice->id) --}}
                                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $proforma_invoice->id }}">
                                     <i class="bi bi-trash"></i>
-                                  </button>
-                                      <!-- Composant modal -->
-                                    @include('components.delete-confirmation-modal', [
-                                        'id'=>  $proforma_invoice->id,
-                                        'route'=> 'proforma_invoices.destroy',
-                                        'title' => 'Confirmation de suppression',
-                                        'message' => 'Êtes-vous sûr de vouloir supprimer cet element de facture proforma ?',
-                                        'confirmText' => 'Supprimer'
-                                    ])
-
+                                </button>
+                                @include('components.delete-confirmation-modal', [
+                                    'id'=>  $proforma_invoice->id,
+                                    'route'=> 'proforma_invoices.destroy',
+                                    'title' => 'Confirmation de suppression',
+                                    'message' => 'Êtes-vous sûr de vouloir supprimer cet élément de facture proforma ?',
+                                    'confirmText' => 'Supprimer'
+                                ])
                             </td>
                         </tr>
                         @php
