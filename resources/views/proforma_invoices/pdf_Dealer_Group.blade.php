@@ -20,81 +20,67 @@
             margin-bottom: 0;
             padding: 10px 0;
         }
-          li{
+        li {
             list-style: none;
         }
         .dealer {
             color: blue;
             font-weight: 300;
         }
-
         .group {
             color: red;
             font-weight: 300;
         }
-
         .header_left {
             float: left;
             padding-left: 8%;
         }
-
         .header_right {
             float: right;
             text-align: left;
             padding-right: 35%;
         }
-
         .colored-bars {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: 10px;
         }
-
         .bar {
             width: 100%;
             height: 4px;
         }
-
         .yellow {
             background-color: yellow;
         }
-
         .blue {
             background-color: blue;
         }
-
         .red {
             background-color: red;
         }
-
         .bordertitre {
             margin-top: 5px;
             display: flex;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
-
         th, td {
             border: 1px solid black;
             padding: 4px;
             text-align: left;
-             vertical-align: top;
-
+            vertical-align: top;
         }
-        td{
+        td {
             max-width: 150px;
             word-wrap: break-word;
-         }
-
+        }
         th {
             font-weight: bold;
         }
-
         .footer {
             position: absolute;
             bottom: 0;
@@ -103,7 +89,6 @@
             width: 100%;
             text-align: center;
         }
-
         .border_header {
             text-align: center;
             font-size: 1.5em;
@@ -116,43 +101,37 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             float: left;
         }
-
         .date {
             float: right;
         }
-
         .border-text {
             text-align: left;
             margin-top: 5px;
         }
-
         .client-title {
             text-align: left;
         }
-
         @media (max-width: 600px) {
             .header_right {
                 padding-left: 10px;
             }
-
             table {
                 font-size: 0.9em;
             }
         }
-          .vertical-barr{
+        .vertical-barr {
             height: 90px;
             width: 3px;
             transform: rotate(15deg);
             border: 2px solid black;
             float: left;
             margin-right: 0px;
-            margin-top:50px;
+            margin-top: 50px;
         }
-        .liste{
+        .liste {
             float: right;
             margin-left: 0px;
         }
-
     </style>
 </head>
 <body>
@@ -164,15 +143,14 @@
             </strong></p>
         </div>
         <div class="header_right">
-       <div class="vertical-barr"></div>
+            <div class="vertical-barr"></div>
             <div class="liste">
                 <p><br></p>
-                <p style="padding:0;margin:0;"> &nbsp;&nbsp;&nbsp;&nbsp; <strong><span style="color: blue;">=></span>Services TICs</strong></p>
-                <p style="padding:0;margin:0;"> &nbsp;&nbsp;&nbsp;<strong><span style="color: blue;">=></span>Agro Business</strong></p>
-                <p  style="padding:0;margin:0;"> &nbsp;&nbsp;<strong><span style="color: blue;">=></span>Location Véhicule</strong></p>
-                <p  style="padding:0;margin:0;"><strong><span style="color: blue;">=></span> Commerce Général</strong></p>
-
-         </div>
+                <p style="padding:0;margin:0;"> &nbsp;&nbsp;&nbsp;&nbsp; <strong><span style="color: blue;">=></span> Services TICs</strong></p>
+                <p style="padding:0;margin:0;"> &nbsp;&nbsp;&nbsp;<strong><span style="color: blue;">=></span> Agro Business</strong></p>
+                <p style="padding:0;margin:0;"> &nbsp;&nbsp;<strong><span style="color: blue;">=></span> Location Véhicule</strong></p>
+                <p style="padding:0;margin:0;"><strong><span style="color: blue;">=></span> Commerce Général</strong></p>
+            </div>
         </div>
     </div>
 
@@ -184,16 +162,16 @@
 
     <div class="bordertitre">
         <h4 class="border_header">FACTURE PROFORMA</h4>
-        <h4 class="date">Date: Le  {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}</h4>
+        <h4 class="date">Date: Le {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}</h4>
     </div>
-    <p><br></p><br>  <p></p>
-    <h4 class="client-title" style="padding:0;margin:0;"> <span style=" text-decoration: underline;">CLIENT </span>:{{ $proforma_invoice->client?->name }}</h4>
+    <p><br></p><br>
+    <h4 class="client-title" style="padding:0;margin:0;"> <span style="text-decoration: underline;">CLIENT </span>: {{ $proforma_invoice->client?->name }}</h4>
     <div class="border-text">
         <table>
             <tr>
                 <th>Ordre</th>
                 <th>Nature de l'article ou du service</th>
-                 <th>Unité</th>
+                <th>Unité</th>
                 <th>Quantité</th>
                 <th>P.U en FBU</th>
                 <th>PVHTVA en FBU</th>
@@ -203,44 +181,43 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $detail->product_name }}</td>
-                 <td>{{$detail->unit}}</td>
+                <td>{{ $detail->unit }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2) }}</td>
-                <td>{{ number_format($detail->total_price, 2) }}</td>
+                <td>{{ number_format($detail->unit_price, 2, ',', '.') }}</td>
+                <td>{{ number_format($detail->total_price, 2, ',', '.') }}</td>
             </tr>
             @endforeach
-               <tr>
-                    <td colspan="5" style="text-align: left;"><strong>TOTAL HTVA en FBU</strong></td>
-                    <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 0) }}</strong></td>
-                </tr>
-                <tr>
-                    <td colspan="5" style="text-align: left;"><strong>TVA (18%)</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2):'' }}</strong></td>
-                </tr>
-                <tr>
-                    <td colspan="5" style="text-align: left;"><strong>TV-TVAC en FBU</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti?number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 0):'' }}</strong></td>
-                </tr>
-        </tbody>
+            <tr>
+                <td colspan="5" style="text-align: left;"><strong>TOTAL HTVA en FBU</strong></td>
+                <td><strong>{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2, ',', '.') }}</strong></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align: left;"><strong>TVA (18%)</strong></td>
+                <td><strong>{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2, ',', '.') : '' }}</strong></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align: left;"><strong>TV-TVAC en FBU</strong></td>
+                <td><strong>{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2, ',', '.') : '' }}</strong></td>
+            </tr>
+            </tbody>
         </table>
-    <div>
-      <p>
-          <strong>Mention obligatoire</strong><br>
-        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
-         <strong>Nous disons {{$proforma_invoice->price_letter}} </strong>
-         </p>
-    </div>
+        <div>
+            <p>
+                <strong>Mention obligatoire</strong><br>
+                <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span><br><br>
+                <strong>Nous disons {{$proforma_invoice->price_letter}} </strong>
+            </p>
+        </div>
     </div>
 
     <div class="footer">
-
-    <div class="colored-bars">
-        <div class="bar blue"></div>
-        <p>
-          Rohero 2, Av de la Mission n0 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>
-          <span style="color:red;"> Compte BCB N<sup>o</sup> 21633100009 <span>
-        </p>
-    </div>
+        <div class="colored-bars">
+            <div class="bar blue"></div>
+            <p>
+                Rohero 2, Av de la Mission n0 1, Tél: +257 79 881 769 (Whatsapp) +257 69 723 126, 79 147 290 <br>
+                <span style="color:red;"> Compte BCB N<sup>o</sup> 21633100009 <span>
+            </p>
+        </div>
     </div>
 </body>
 </html>
