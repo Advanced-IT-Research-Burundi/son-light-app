@@ -7,9 +7,9 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Dénomination: {{ number_format($denomination->denomination, 2, '.', ',') }} €</h5>
+            <h5 class="card-title">Dénomination: {{ number_format($denomination->denomination, 2, '.', ',') }} BIF</h5>
             <p class="card-text">Quantité: {{ $denomination->quantity }}</p>
-            <p class="card-text">Total: {{ number_format($denomination->total(), 2, '.', ',') }} €</p>
+            <p class="card-text">Total: {{ number_format($denomination->total(), 2, '.', ',') }} BIF</p>
         </div>
     </div>
 
