@@ -169,7 +169,7 @@
         </div>
     </header>
 
-    <h5 class="border_header">FACTURE PROFORMA du {{ $proforma_invoice->proforma_invoice_date->format('d/m/Y') }}</h5>
+    <h5 class="border_header">FACTURE PROFORMA du  {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}</h5>
     <div class="border-text">
         <h5><span style="text-decoration: underline;">CLIENT :</span> {{ $proforma_invoice->client?->name }}</h5>
         <table>
