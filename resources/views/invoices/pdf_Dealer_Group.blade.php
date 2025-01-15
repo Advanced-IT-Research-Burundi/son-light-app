@@ -222,12 +222,12 @@
                     <td>{{ $detail->unit }}</td>
                     <td>{{ $detail->quantity }}</td>
                     <td>{{ number_format($detail->unit_price, 2, ',', '.') }}</td> <!-- Montant formaté -->
-                    <td>{{ number_format($detail->total_price, 2, ',', '.') }}</td> <!-- Montant formaté -->
+                    <td>{{ number_format($detail->total_price, 0, ',', '.') }}</td> <!-- Montant formaté -->
                     <td>
                         {{ $invoice->order->entreprise->assujeti ? number_format($detail->total_price * $invoice->order->tva / 100, 2, ',', '.') : '' }}
                     </td>
                     <td>
-                        {{ $invoice->order->entreprise->assujeti ? number_format($detail->total_price + ($detail->total_price * $invoice->order->tva / 100), 2, ',', '.') : '' }}
+                        {{ $invoice->order->entreprise->assujeti ? number_format($detail->total_price + ($detail->total_price * $invoice->order->tva / 100), 0, ',', '.') : '' }}
                     </td>
                 </tr>
                 @endforeach
