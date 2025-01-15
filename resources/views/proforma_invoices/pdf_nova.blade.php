@@ -134,8 +134,8 @@
                     <td>{{ $detail->product_name }}</td>
                     <td>{{ $detail->unit }}</td>
                     <td>{{ $detail->quantity }}</td>
-                    <td>{{ number_format($detail->unit_price, 2, ',', '.') }}</td>
-                    <td>{{ number_format($detail->total_price, 0, ',', '.') }}</td>
+                    <td>{{number_format($detail->unit_price, 0, ',', '.') }}</td>
+                    <td>{{number_format($detail->total_price, 0, ',', '.') }}</td>
                 </tr>
                 @endforeach
                 <tr>
@@ -148,7 +148,7 @@
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>PT TVAC en Fbu</strong></td>
-                    <td><strong>{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 0, ',', '.') : '' }}</strong></td>
+                    <td><strong>{{$proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 0, ',', '.') : '' }}</strong></td>
                 </tr>
             </table>
             <div>

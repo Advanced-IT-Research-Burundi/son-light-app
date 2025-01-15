@@ -198,7 +198,7 @@
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->unit }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 2, ',', '.') }}</td> <!-- Montant formaté -->
+                <td>{{ number_format($detail->unit_price, 0, ',', '.') }}</td> <!-- Montant formaté -->
                 <td>{{ number_format($detail->total_price, 0, ',', '.') }}</td> <!-- Montant formaté -->
             </tr>
             @endforeach

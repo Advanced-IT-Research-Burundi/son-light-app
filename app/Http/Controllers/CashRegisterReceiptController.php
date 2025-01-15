@@ -12,9 +12,7 @@ class CashRegisterReceiptController extends Controller
 {
     public function index()
     {
-           $receipts = CashRegisterReceipt::with(['cashRegister', 'creator', 'approver'])
-            ->latest()
-            ->get();
+           $receipts = CashRegisterReceipt::with(['cashRegister', 'creator', 'approver'])->latest()->get();
 
         return view('receipts.index', compact('receipts'));
     }

@@ -65,38 +65,43 @@
             <h5 class="mb-0">Reçus</h5>
         </div>
         <div class="card-body">
-            <table class="table table-bordered table-striped">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Type</th>
-                        <th>Montant</th>
-                        <th>Date & Heure</th>
-                        <th>Demandeur</th>
-                        <th>Créé par</th>
-                        <th>Approuvé par</th>
-                        <th>Justification</th>
-                        <th>Motif</th>
-                        <th>Validation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($cashRegister->receipts as $receipt)
+            @if($cashRegister->receipts->isEmpty())
+                <p>Aucun reçu enregistré.</p>
+            @else
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-light">
                         <tr>
-                            <td>{{ $receipt->type === 'Exit' ? 'Sortie' : 'Entrée' }}</td>
-                            <td>{{ number_format($receipt->amount, 2, ',', '.') }} BIF</td>
-                            <td>{{ \Carbon\Carbon::parse($receipt->receipt_date)->format('d/m/Y H:i') }}</td>
-                            <td>{{ $receipt->requester->name }}</td>
-                            <td>{{ $receipt->creator->name }}</td>
-                            <td>{{ optional($receipt->approver)->name }}</td>
-                            <td>{{ $receipt->justification === 'With_proof' ? 'Avec justification' : 'Sans justification' }}</td>
-                            <td>{{ $receipt->motif }}</td>
-                            <td>{{ $receipt->is_approved ? 'Oui' : 'Non' }}</td>
+                            <th>Type</th>
+                            <th>Montant</th>
+                            <th>Date & Heure</th>
+                            <th>Demandeur</th>
+                            <th>Créé par</th>
+                            <th>Approuvé par</th>
+                            <th>Justification</th>
+                            <th>Motif</th>
+                            <th>Validation</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($cashRegister->receipts as $receipt)
+                            <tr>
+                                <td>{{ $receipt->type === 'Exit' ? 'Sortie' : 'Entrée' }}</td>
+                                <td>{{ number_format($receipt->amount, 2, ',', '.') }} BIF</td>
+                                <td>{{ \Carbon\Carbon::parse($receipt->receipt_date)->format('d/m/Y H:i') ?? 'Pas d\'information' }}</td>
+                                <td>{{ $receipt->requester->name ?? 'Pas d\'information' }}</td>
+                                <td>{{ $receipt->creator->name ?? 'Pas d\'information' }}</td>
+                                <td>{{ optional($receipt->approver)->name ?? 'Pas d\'information' }}</td>
+                                <td>{{ $receipt->justification === 'With_proof' ? 'Avec justification' : 'Sans justification' }}</td>
+                                <td>{{ $receipt->motif ?? 'Pas d\'information' }}</td>
+                                <td>{{ $receipt->is_approved ? 'Oui' : 'Non' }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
         </div>
     </div>
+
     <div class="card mt-4">
         <div class="card-body text-center">
             <a href="{{ route('cash_registers.index') }}" class="btn btn-primary mt-3">Retour à la Liste</a>
