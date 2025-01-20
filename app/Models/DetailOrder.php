@@ -16,6 +16,9 @@ class DetailOrder extends Model
         'unit_price',
         'unit',
         'total_price',
+        'pf',
+        'tc',
+        'atax'
     ];
 
     public function order()

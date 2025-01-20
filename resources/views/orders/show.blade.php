@@ -173,9 +173,29 @@
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * $order->tva / 100, 2):'' }}</th>
                 <th></th>
             </tr>
+            <tr>
+                <th colspan="5">TC</th>
+                <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('tc'), 2):'' }}</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th colspan="5">A.TAX</th>
+                <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('atax'), 2):'' }}</th>
+                <th></th>
+            </tr>
                <tr>
                 <th colspan="5">Prix total TVAC</th>
                 <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * (1 + $order->tva / 100), 2):'' }}</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th colspan="5">PF</th>
+                <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('pf'), 2):'' }}</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th colspan="5">PVT</th>
+                <th>{{ $order->entreprise->assujeti ? number_format($order->detailOrders->sum('total_price') * (1 + $order->tva / 100) + $order->detailOrders->sum('tc') + $order->detailOrders->sum('atax') + $order->detailOrders->sum('pf'), 2) : '' }}</th>
                 <th></th>
             </tr>
         </tfoot>

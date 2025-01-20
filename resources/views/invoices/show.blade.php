@@ -16,9 +16,9 @@
         <thead>
             <tr>
                 <th>Article ou service</th>
-                <th>Quantité</th>
-                <th>Prix unitaire en Fbu</th>
-                <th>Prix total HT en Fbu</th>
+                <th>Qté</th>
+                <th>PU Fbu</th>
+                <th>PT HT en Fbu</th>
             </tr>
         </thead>
         <tbody>

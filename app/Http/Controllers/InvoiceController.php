@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use PDF;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
@@ -18,10 +19,8 @@ class InvoiceController extends Controller
     }
 
     public function create(Order $order) {
-        // Récupérer le dernier identifiant de la facture ou utiliser 0 si aucune n'existe
         $lastInvoice = Invoice::latest('id')->first();
-        $lastInvoiceId = $lastInvoice ? $lastInvoice->id : 0; // Vérifiez si $lastInvoice est nul
-
+        $lastInvoiceId = $lastInvoice ? $lastInvoice->id : 0;
         $number = 'INV-' . str_pad($lastInvoiceId + 1, 4, '0', STR_PAD_LEFT);
         return view('invoices.create', compact('order', 'number'));
     }
@@ -31,23 +30,26 @@ class InvoiceController extends Controller
         try {
             $order = Order::find($request->order_id);
             $validatedData = $request->validate([
-                'number' => 'required|unique:invoices',
+                'number' => ['nullable', 'string'],
                 'date' => 'nullable|date',
                 'due_date' => 'nullable|date|after:date',
+                'id_true_invoice'=> ['nullable', 'string'],
+                'updated_by'=>['nullable'],
+                'user_id'=>['nullable'],
             ]);
 
             $invoice = new Invoice($validatedData);
             $invoice->order_id = $order->id;
+            $invoice->updated_by=Auth::user()->id;
+            $invoice->user_id= Auth::user()->id;
             $invoice->status = 'unpaid';
             $invoice->save();
-
-            $order->status = 'invoiced';
+            //$order->status = 'invoiced';
             $order->save();
 
             return redirect()->route('invoices.show', $invoice)->with('success', 'Facture créée avec succès.');
 
         } catch (Exception $e) {
-            // Gestion d'erreur d'application
             return back()->with('error', 'Une erreur s\'est produite lors de la création de la facture : ' . $e->getMessage());
         }
     }
@@ -73,9 +75,10 @@ class InvoiceController extends Controller
     public function update(Request $request, Invoice $invoice)
     {
         $request->validate([
-            'number' => 'required',
+            'number' =>['nullable', 'string'],
             'date' => 'nullable|date',
             'due_date' => 'nullable|date|after:date',
+            'id_true_invoice'=> ['nullable', 'string'],
         ]);
         $invoice->update($request->all());
 

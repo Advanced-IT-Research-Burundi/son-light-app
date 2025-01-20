@@ -31,3 +31,26 @@
     @enderror
 </div>
 </div>
+<div class="row">
+    <div class="mb-3 col-4">
+      <label for="tc" class="form-label">TC</label>
+      <input type="number" class="form-control @error('tc') is-invalid @enderror" id="tc" name="tc" value="{{ old('tc', $detailOrder->tc ?? '') }}">
+      @error('tc')
+          <div class="invalid-feedback">{{ $message }}</div>
+      @enderror
+  </div>
+  <div class="mb-3 col-4">
+      <label for="atax" class="form-label">A.TAX</label>
+      <input type="number" class="form-control @error('atax') is-invalid @enderror" id="atax" name="atax" value="{{ old('atax', $detailOrder->atax ?? '') }}">
+      @error('atax')
+          <div class="invalid-feedback">{{ $message }}</div>
+      @enderror
+  </div>
+  <div class="mb-3 col-4">
+    <label for="pf" class="form-label">PF</label>
+    <input type="number" class="form-control @error('pf') is-invalid @enderror" id="pf" name="pf" value="{{ old('pf', $detailOrder->pf ?? '') }}">
+    @error('pf')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+  </div>

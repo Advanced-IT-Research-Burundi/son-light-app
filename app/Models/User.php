@@ -46,17 +46,10 @@ class User extends Authenticatable
         return $this->belongsTo(Company::class);
     }
 
-    /**
-     * Vérifie si l'utilisateur a un rôle d'administrateur.
-     */
     public function isAdmin()
     {
         return $this->role()->where('name', 'Administrateur')->exists();
     }
-
-    /**
-     * Vérifie si l'utilisateur a un rôle d'employé.
-     */
     public function isEmployee()
     {
         return $this->role()->where('name', 'Employé')->exists();
@@ -66,34 +59,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class);
     }
-
-    /**
-     * Récupère les reçus créés par l'utilisateur.
-     */
     public function createdReceipts()
     {
         return $this->hasMany(CashRegisterReceipt::class, 'user_id');
     }
-
-    /**
-     * Récupère les reçus approuvés par l'utilisateur.
-     */
     public function approvedReceipts()
     {
         return $this->hasMany(CashRegisterReceipt::class, 'approbation_id');
     }
-
-    /**
-     * Récupère les reçus demandés par l'utilisateur.
-     */
     public function requestedReceipts()
     {
         return $this->hasMany(CashRegisterReceipt::class, 'requerant_id');
     }
-
-    /**
-     * Récupère les caisses créées par cet utilisateur.
-     */
     public function createdCashRegisters()
     {
         return $this->hasMany(CashRegister::class, 'created_by');

@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable();
             $table->foreignId('user_id')->nullable();
             $table->string('number')->nullable();
             $table->date('date')->nullable();
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('status')->default('unpaid')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->string('id_true_invoice')->nullable();
         });
     }
 

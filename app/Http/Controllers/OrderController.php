@@ -45,6 +45,9 @@ class OrderController extends Controller
             'product_name' => $request->designation,
             'quantity' => $request->quantity,
             'unit' => $request->unit,
+            'pf'=> $request->pf,
+            'tc'=> $request->tc,
+            'atax'=> $request->atax,
             'price_letter'=>$request->price_letter,
             'unit_price' => $request->amount,
             'total_price' => ($request->amount * $request->quantity),
@@ -77,6 +80,9 @@ class OrderController extends Controller
             'designation' => ['required', 'string'],
             'status' => ['required', 'string'],
             'description' => ['nullable', 'string'],
+            'pf'=>['nullable'],
+            'tc'=>['nullable'],
+            'atax'=>['nullable'],
             'company_id' => 'required|exists:companies,id',
         ]);
         $order->update($request->all());

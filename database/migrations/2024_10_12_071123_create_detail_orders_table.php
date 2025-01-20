@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    
+
     public function up()
     {
         Schema::create('detail_orders', function (Blueprint $table) {
@@ -19,15 +19,18 @@ return new class extends Migration
             $table->string('unit')->nullable();
             $table->string('price_letter')->nullable();
             $table->integer('quantity');
+            $table->decimal('tc', 10, 2)->default(0);
+            $table->decimal('atax', 10, 2)->default(0);
+            $table->decimal('pf', 10, 2)->default(0);
             $table->decimal('unit_price', 10, 2);
             $table->decimal('total_price', 10, 2);
             $table->timestamps();
         });
-        
+
     }
 
     public function down()
     {
         Schema::dropIfExists('detail_orders');
-    }  
+    }
 };

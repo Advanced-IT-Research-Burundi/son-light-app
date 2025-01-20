@@ -22,6 +22,9 @@ class DetailOrderController extends Controller
             'quantity' => 'required|integer|min:1',
             'unit' => 'nullable|string',
             'unit_price' => 'required|numeric|min:0',
+            'pf'=>['nullable'],
+            'tc'=>['nullable'],
+            'atax'=>['nullable']
         ]);
 
         $totalPrice = $validatedData['quantity'] * $validatedData['unit_price'];
@@ -31,6 +34,9 @@ class DetailOrderController extends Controller
             'quantity' => $validatedData['quantity'],
             'unit' => $validatedData['unit'],
             'unit_price' => $validatedData['unit_price'],
+            'pf'=> $validatedData['pf'],
+            'tc'=> $validatedData['tc'],
+            'atax'=> $validatedData['atax'],
             'total_price' => $totalPrice,
         ]);
 
@@ -51,6 +57,9 @@ class DetailOrderController extends Controller
             'quantity' => 'required|integer|min:1',
             'unit_price' => 'required|numeric|min:0',
             'unit' => 'nullable|string',
+            'pf'=>['nullable'],
+            'tc'=>['nullable'],
+            'atax'=>['nullable'],
         ]);
 
         $oldTotalPrice = $detailOrder->total_price;
@@ -59,6 +68,9 @@ class DetailOrderController extends Controller
         $detailOrder->update([
             'product_name' => $validatedData['product_name'],
             'quantity' => $validatedData['quantity'],
+            'pf'=> $validatedData['pf'],
+            'tc'=> $validatedData['tc'],
+            'atax'=> $validatedData['atax'],
             'unit_price' => $validatedData['unit_price'],
             'unit'=>$validatedData['unit'],
             'total_price' => $newTotalPrice,
@@ -91,11 +103,11 @@ class DetailOrderController extends Controller
                 'unit'=>$detailOrder->unit,
                 'total_price'=>$detailOrder->total_price,
             ]);
-            
+
         }
 
      return redirect()->route('orders.show', $request->order_id)->with('success', 'Produit supprimé de la commande avec succès.');
-   
-       
+
+
     }
 }

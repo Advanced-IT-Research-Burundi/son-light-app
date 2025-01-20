@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProformaInvoice extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -35,6 +35,9 @@ class ProformaInvoice extends Model
         'quantity'=>'integer',
         'proforma_invoice_date'=>'date',
         'validity_period'=>'integer',
+        'pf'=>['nullable'],
+        'tc'=>['nullable'],
+        'atax'=>['nullable'],
     ];
   /*
   protected $fillable = [

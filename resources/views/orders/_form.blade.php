@@ -2,7 +2,7 @@
 <input type="hidden" name="proforma_invoice_id" value="{{ $proforma_invoice->id }}">
 <input type="hidden" name="client_id" value="{{ $proforma_invoice->client->id }}">
 <input type="hidden" name="company_id" value="{{ $proforma_invoice->entreprise->id }}">
-<input type="hidden" name="designation" value="{{ $proforma_invoice->designation }}">
+
 
 <div class="form-group mb-3">
     <div class="row">
@@ -17,8 +17,8 @@
     </div>
     <div class="row">
         <div class="mb-3 col-6">
-            <label for="designation_display"><i class="bi bi-calendar"></i> Désignation</label>
-            <input type="text" class="form-control" id="designation_display" name="" value="{{ $proforma_invoice->designation }}" readonly>
+            <label for="designation"><i class="bi bi-calendar"></i> Désignation</label>
+            <input type="text" class="form-control" id="designation" name="designation" value="{{ $proforma_invoice->designation }}">
         </div>
         <div class="mb-3 col-6">
             <label for="unit" class="form-label">Unité</label>
@@ -77,9 +77,32 @@
             @enderror
         </div>
     </div>
+    <div class="row">
+        <div class="form-group mb-3 col-4">
+            <label for="tc" class="form-label"><i class="bi bi-cash-coin"></i> TC  || Uniquement pour SLPS</label>
+            <input type="number" class="form-control @error('tc') is-invalid @enderror" id="tc" name="tc" value="{{ old('tc', $order?->tc ?? '') }}">
+            @error('tc')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-group mb-3 col-4">
+            <label for="atax" class="form-label"><i class="bi bi-cash-coin"></i> A.TAX  || Uniquement pour SLPS</label>
+            <input type="number" class="form-control @error('atax') is-invalid @enderror" id="atax" name="atax" value="{{ old('atax', $order?->atax ?? '') }}">
+            @error('atax')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-group mb-3 col-4">
+            <label for="pf" class="form-label">PF  || Uniquement pour SLPS</label>
+            <input type="number" class="form-control @error('pf') is-invalid @enderror" id="pf" name="pf" value="{{ old('pf', $order?->pf ?? '') }}">
+            @error('pf')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 
     <div class="row mt-3">
-        <div class="form-group mb-3 col-6">
+        <div class="form-group mb-3 col-4">
             <label for="status_livraison" class="form-label"><i class="bi bi-check2-circle"></i> Statut de la livraison</label>
             <select class="form-select @error('status_livraison') is-invalid @enderror" id="status_livraison" name="status_livraison" required>
                 <option value="">Sélectionnez un statut</option>
@@ -91,7 +114,7 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        <div class="form-group mb-3 col-6">
+        <div class="form-group mb-3 col-4">
             <label for="status" class="form-label"><i class="bi bi-check2-circle"></i> Statut de la commande</label>
             <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
                 <option value="">Sélectionnez un statut</option>
@@ -104,17 +127,15 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-    </div>
-    <div class="row">
-     <div class="form-group mb-3  col-12">
-     <label for="delivery_date" class="form-label">
-        <i class="bi bi-calendar"></i> Date de la commande
-    </label>
-    <input type="date" class="form-control @error('order_date') is-invalid @enderror" id="order_date" name="order_date" value="{{ old('order_date', $order->order_date ?? '') }}" required>
-    @error('order_date')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
+        <div class="form-group mb-3  col-4">
+            <label for="delivery_date" class="form-label">
+               <i class="bi bi-calendar"></i> Date de la commande
+           </label>
+           <input type="date" class="form-control @error('order_date') is-invalid @enderror" id="order_date" name="order_date" value="{{ old('order_date', $order->order_date ?? '') }}" required>
+           @error('order_date')
+               <div class="invalid-feedback">{{ $message }}</div>
+           @enderror
+       </div>
     </div>
 
     <div class="form-group mb-3">

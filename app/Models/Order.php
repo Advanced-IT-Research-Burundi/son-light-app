@@ -35,6 +35,9 @@ class Order extends Model
         'unit'=>'string',
         'price_letter'=>'string',
         'status_livraison'=>'integer',
+        'pf',
+        'tc',
+        'atax'
     ];
 
     protected $with = ['proformaInvoice'];
@@ -69,6 +72,5 @@ class Order extends Model
         return $this->belongsTo(ProformaInvoice::class);
     }
 
-    
+
 }
-   

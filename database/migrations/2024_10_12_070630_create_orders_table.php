@@ -33,6 +33,9 @@ return new class extends Migration
             $table->string('price_letter')->default('null'); //new
             $table->string('unit')->nullable();
             $table->string('status');
+            $table->decimal('tc', 10, 2)->default(0);
+            $table->decimal('atax', 10, 2)->default(0);
+            $table->decimal('pf', 10, 2)->default(0);
             $table->integer('status_livraison');
             $table->text('description')->nullable();
             $table->timestamps();
