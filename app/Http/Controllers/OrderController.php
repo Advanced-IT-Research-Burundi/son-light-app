@@ -6,28 +6,30 @@ use App\Http\Requests\OrderStoreRequest;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\Order;
-use App\Models\OtherOrder;
-use PDF;
 use App\Models\ProformaInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Expr\Cast;
 
 class OrderController extends Controller
 {
     public function index(Request $request)
     {
         $proforma_invoice_id = $request->proforma_invoice_id;
-        $orders = Order::with('proforma_invoice')->where('proforma_invoice_id',$proforma_invoice_id)->latest()->get();
-        return view('orders.index', compact(['orders','proforma_invoice_id']));
+        $orders = Order::with('proforma_invoice')
+            ->where('proforma_invoice_id', $proforma_invoice_id)
+            ->latest()
+            ->get();
+
+        return view('orders.index', compact('orders', 'proforma_invoice_id'));
     }
 
     public function create(ProformaInvoice $proforma_invoice)
     {
-        $clients = Client::all();
+        // Récupérer les clients triés par ordre alphabétique
+        $clients = Client::orderBy('name')->get(); // Assurez-vous que "name" est le bon champ
         $companies = Company::all();
-        $order=null;
-        return view('orders.create', compact('clients', 'companies','proforma_invoice','order'));
+
+        return view('orders.create', compact('clients', 'companies', 'proforma_invoice'));
     }
 
     public function show(Order $order)
@@ -37,55 +39,69 @@ class OrderController extends Controller
 
     public function store(OrderStoreRequest $request)
     {
-        $validatedData = $request->all();
-        $validatedData['user_id'] = Auth::user()->id;
+        $validatedData = $request->validated();
+        $validatedData['user_id'] = Auth::id();
+        $validatedData['tc'] = $request->input('tc', 0);
+        $validatedData['atax'] = $request->input('atax', 0);
+        $validatedData['pf'] = $request->input('pf', 0);
+        $validatedData['status_livraison'] = $request->input('status_livraison', false); // Valeur par défaut
+
         $order = Order::create($validatedData);
 
-        $detailOrder = $order->detailOrders()->create([
+        $order->detailOrders()->create([
             'product_name' => $request->designation,
             'quantity' => $request->quantity,
             'unit' => $request->unit,
-            'pf'=> $request->pf,
-            'tc'=> $request->tc,
-            'atax'=> $request->atax,
-            'price_letter'=>$request->price_letter,
+            'price_letter' => $request->price_letter,
             'unit_price' => $request->amount,
-            'total_price' => ($request->amount * $request->quantity),
+            'total_price' => $request->amount * $request->quantity,
+            'tc' => $validatedData['tc'],
+            'atax' => $validatedData['atax'],
+            'pf' => $validatedData['pf'],
         ]);
 
-        return redirect()->route('orders.show',$order)
+        return redirect()->route('orders.show', $order)
             ->with('success', 'Commande créée avec succès.');
     }
 
     public function edit(Order $order)
     {
-        $clients = Client::all();
-        $proforma_invoice = ProformaInvoice::find($order->proforma_invoice_id);
+        // Récupérer les clients triés par ordre alphabétique
+        $clients = Client::orderBy('name')->get(); // Assurez-vous que "name" est le bon champ
         $companies = Company::all();
-        return view('orders.edit', compact('order', 'clients','companies','proforma_invoice'));
+        $proforma_invoice = ProformaInvoice::find($order->proforma_invoice_id);
+
+        return view('orders.edit', compact('order', 'clients', 'companies', 'proforma_invoice'));
     }
 
     public function update(Request $request, Order $order)
     {
-        $request->validate([
-            'client_id' => ['required', 'integer', 'exists:clients,id'],
-            'proforma_invoice_id' => ['required'],
-            'amount' => ['required','numeric'],
-            'quantity' => ['required','numeric'],
-            'unit' => ['nullable','string'],
-            'price_letter' => ['nullable','string'],
-            'status_livraison'=>['required','integer'],
-            'order_date' => ['required', 'date'],
-            'delivery_date' => ['required', 'date'],
-            'designation' => ['required', 'string'],
-            'status' => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'pf'=>['nullable'],
-            'tc'=>['nullable'],
-            'atax'=>['nullable'],
+        $validatedData = $request->validate([
+            'client_id' => 'required|integer|exists:clients,id',
+            'proforma_invoice_id' => 'required',
+            'amount' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'unit' => 'nullable|string',
+            'price_letter' => 'nullable|string',
+            'status_livraison' => 'required|boolean', // Validation pour le statut de livraison
+            'order_date' => 'required|date',
+            'delivery_date' => 'required|date',
+            'designation' => 'required|string',
+            'status' => 'required|string',
+            'description' => 'nullable|string',
             'company_id' => 'required|exists:companies,id',
+            'tc' => 'nullable|numeric',
+            'atax' => 'nullable|numeric',
+            'pf' => 'nullable|numeric',
         ]);
-        $order->update($request->all());
+
+        // Assigner les valeurs par défaut si non spécifiées
+        $order->update(array_merge($validatedData, [
+            'tc' => $request->input('tc', 0),
+            'atax' => $request->input('atax', 0),
+            'pf' => $request->input('pf', 0),
+            'status_livraison' => $request->input('status_livraison', false), // Mettre à jour le statut de livraison
+        ]));
 
         return redirect()->route('orders.show', $order->id)
             ->with('success', 'Commande mise à jour avec succès.');
@@ -93,35 +109,35 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
-        // $proforma_invoice = $order->proformaInvoice;
         $order->delete();
-
-        return redirect()->route('order_alllist');
-        // return redirect()->route('proforma_invoices.orders.index', $proforma_invoice->id)
-        //     ->with('success', 'Commande supprimée avec succès.');
+        return redirect()->route('order_alllist')
+            ->with('success', 'Commande supprimée avec succès.');
     }
-    public function order_alllist(){
+
+    public function order_alllist()
+    {
         $orders = Order::with('client')->latest()->get();
         return view('orders.index', compact('orders'));
     }
+
     public function create1()
     {
-        $clients = Client::all();
+        $clients = Client::orderBy('name')->get(); // Assurez-vous que "name" est le bon champ
         $companies = Company::all();
-        $order=null;
-        $proforma_invoices=ProformaInvoice::all();
-        return view('orders.create1', compact('clients', 'companies','proforma_invoices','order'));
+        $proforma_invoices = ProformaInvoice::all();
+
+        return view('orders.create1', compact('clients', 'companies', 'proforma_invoices'));
     }
+
     public function addPriceLetterOrder(Request $request, Order $order)
     {
         $request->validate([
-            'price_letter' => ['nullable', 'string'],
+            'price_letter' => 'nullable|string',
         ]);
 
-        $order->price_letter = $request->input('price_letter');
-        $order->save();
+        $order->update(['price_letter' => $request->input('price_letter')]);
 
         return redirect()->route('orders.show', $order->id)
-                         ->with('success', 'Le prix en lettre a été ajouté avec succès.');
+            ->with('success', 'Le prix en lettres a été ajouté avec succès.');
     }
 }

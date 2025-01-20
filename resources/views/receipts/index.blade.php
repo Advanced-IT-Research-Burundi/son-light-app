@@ -11,7 +11,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Num Caisse</th>
+                <th>Numéro de Caisse</th>
                 <th>Montant</th>
                 <th>Type</th>
                 <th>Justification</th>
@@ -26,9 +26,9 @@
             <tr>
                 <td>{{ $receipt->id }}</td>
                 <td>{{ $receipt->cash_register_id }}</td>
-                <td>{{ number_format($receipt->amount, 2) }}</td>
-                <td>{{ $receipt->type === 'Exit' ? 'Sortie' : 'Entrée' }}</td>
-                <td>{{ $receipt->justification === 'With_proof' ? 'Avec justification' : 'Sans justification' }}</td>
+                <td>{{ number_format($receipt->amount, 0, ',', '.') }} BIF</td>
+                <td>{{ $receipt->type === 'exit' ? 'Sortie' : 'Entrée' }}</td>
+                <td>{{ $receipt->justification === 'with_proof' ? 'Avec justification' : 'Sans justification' }}</td>
                 <td>{{ $receipt->requester->name }}</td>
                 <td>{{ \Carbon\Carbon::parse($receipt->receipt_date)->format('d-m-Y H:i') }}</td>
                 <td>

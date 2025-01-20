@@ -10,7 +10,7 @@
             <h5 class="mb-0">Solde de Clôture</h5>
         </div>
         <div class="card-body">
-            <h5>Solde Ouverture : <span class="text-success">{{ number_format($cashRegister->opening_balance, 2, ',', '.') }} BIF</span></h5>
+            <h5>Solde d'Ouverture : <span class="text-success">{{ number_format($cashRegister->opening_balance, 2, ',', '.') }} BIF</span></h5>
             <h5>Solde Actuel : <span class="text-success">{{ number_format($cashRegister->current_balance, 2, ',', '.') }} BIF</span></h5>
             <h5>Dénominations Totales : <span class="text-success">{{ number_format($totalDenominations, 2, ',', '.') }} BIF</span></h5>
         </div>
@@ -23,13 +23,23 @@
         <div class="card-body">
             <h5>Total des Entrées : <span class="text-success">{{ number_format($totalEntries, 2, ',', '.') }} BIF</span></h5>
             <h5>Total des Sorties : <span class="text-danger">{{ number_format($totalExits, 2, ',', '.') }} BIF</span></h5>
-            <h5>Solde Net : <span class="text-success">{{ number_format($cashRegister->current_balance, 2, ',', '.') }} BIF</span></h5>
+            <h5>Solde Net (Entrées - Sorties) :
+                <span class="{{ ($totalEntries - $totalExits >= 0) ? 'text-success' : 'text-danger' }}">
+                    {{ number_format($totalEntries - $totalExits, 2, ',', '.') }} BIF
+                </span>
+            </h5>
+            <h5>Solde Calculé : <span class="text-success">{{ number_format($cashRegister->opening_balance + $totalEntries - $totalExits, 2, ',', '.') }} BIF</span></h5>
+            <h5>Différence avec Solde Actuel :
+                <span class="{{ ($cashRegister->current_balance == $cashRegister->opening_balance + $totalEntries - $totalExits) ? 'text-success' : 'text-danger' }}">
+                    {{ number_format($cashRegister->current_balance - ($cashRegister->opening_balance + $totalEntries - $totalExits), 2, ',', '.') }} BIF
+                </span>
+            </h5>
         </div>
     </div>
 
     <div class="card mb-4">
         <div class="card-header bg-secondary text-white">
-            <h5 class="mb-0">Dénominations de la Solde de Clôture</h5>
+            <h5 class="mb-0">Dénominations du Solde de Clôture</h5>
         </div>
         <div class="card-body">
             <table class="table table-bordered table-striped">
@@ -85,13 +95,13 @@
                     <tbody>
                         @foreach ($cashRegister->receipts as $receipt)
                             <tr>
-                                <td>{{ $receipt->type === 'Exit' ? 'Sortie' : 'Entrée' }}</td>
-                                <td>{{ number_format($receipt->amount, 2, ',', '.') }} BIF</td>
+                                <td>{{ $receipt->type === 'exit' ? 'Sortie' : 'Entrée' }}</td>
+                                <td>{{ number_format($receipt->amount, 0, ',', '.') }} BIF</td>
                                 <td>{{ \Carbon\Carbon::parse($receipt->receipt_date)->format('d/m/Y H:i') ?? 'Pas d\'information' }}</td>
                                 <td>{{ $receipt->requester->name ?? 'Pas d\'information' }}</td>
                                 <td>{{ $receipt->creator->name ?? 'Pas d\'information' }}</td>
                                 <td>{{ optional($receipt->approver)->name ?? 'Pas d\'information' }}</td>
-                                <td>{{ $receipt->justification === 'With_proof' ? 'Avec justification' : 'Sans justification' }}</td>
+                                <td>{{ $receipt->justification === 'with_proof' ? 'Avec justification' : 'Sans justification' }}</td>
                                 <td>{{ $receipt->motif ?? 'Pas d\'information' }}</td>
                                 <td>{{ $receipt->is_approved ? 'Oui' : 'Non' }}</td>
                             </tr>

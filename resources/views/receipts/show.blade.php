@@ -8,6 +8,7 @@
     @elseif(session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
+
     @if (auth()->user()->isAdmin() && !$receipt->is_approved)
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
@@ -33,16 +34,17 @@
             </form>
         </div>
     </div>
-@endif
-<h3 class="my-4">Détails du reçu</h3>
+    @endif
+
+    <h3 class="my-4">Détails du reçu</h3>
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">Informations sur le reçu</h5>
         </div>
         <div class="card-body">
-            <p><strong>Montant :</strong> {{ number_format($receipt->amount, 2) }} BIF</p>
-            <p><strong>Type :</strong> {{ $receipt->type === 'Exit' ? 'Sortie' : 'Entrée' }}</p>
-            <p><strong>Justification :</strong>{{ $receipt->justification === 'With_proof' ? 'Avec justification' : 'Sans justification' }}</p>
+            <p><strong>Montant :</strong> {{ number_format($receipt->amount, 0, ',', '.') }} BIF</p>
+            <p><strong>Type :</strong> {{ $receipt->type === 'exit' ? 'Sortie' : 'Entrée' }}</p>
+            <p><strong>Justification :</strong> {{ $receipt->justification === 'with_proof' ? 'Avec justification' : 'Sans justification' }}</p>
             <p><strong>Motif :</strong> {{ $receipt->motif ?? 'Non précisé' }}</p>
             <p><strong>Date de réception :</strong> {{ \Carbon\Carbon::parse($receipt->receipt_date)->format('d-m-Y H:i') }}</p>
             <p><strong>Approuvé :</strong> {{ $receipt->is_approved ? 'Oui' : 'Non' }}</p>
@@ -68,7 +70,7 @@
         <div class="card-body">
             <p><strong>Date de création :</strong> {{ $receipt->created_at->format('d-m-Y H:i') }}</p>
             <p><strong>Date de mise à jour :</strong> {{ $receipt->updated_at->format('d-m-Y H:i') }}</p>
-            <p><strong>Date d'approbation :</strong> {{$receipt->approval_date ? \Carbon\Carbon::parse($receipt->approval_date)->format('d-m-Y H:i') : 'Non approuvé' }}</p>
+            <p><strong>Date d'approbation :</strong> {{ $receipt->approval_date ? \Carbon\Carbon::parse($receipt->approval_date)->format('d-m-Y H:i') : 'Non approuvé' }}</p>
         </div>
     </div>
 

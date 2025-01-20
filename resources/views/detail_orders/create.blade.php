@@ -6,7 +6,7 @@
 <div class="container">
     <h3>Ajouter un article ou un service à la commande #{{ $order->id }}</h3>
 
-    <form action="{{ route('orders.detail-orders.store', $order) }}" method="POST">
+    <form action="{{ route('orders.detail-orders.store', $order) }}" method="POST" id="orderForm">
         @csrf
         @include('detail_orders._form')
 
@@ -135,6 +135,20 @@
         </tfoot> --}}
     </table>
     </form>
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            // Définir un tableau des ids des champs à vérifier
+            const fields = ['tc', 'atax', 'pf'];
+
+            // Parcourir chaque champ pour vérifier s'il est vide
+            fields.forEach(function(fieldId) {
+                const fieldInput = document.getElementById(fieldId);
+                if (fieldInput.value.trim() === '') {
+                    fieldInput.value = '0'; // Assigner la valeur par défaut de 0
+                }
+            });
+        });
+    </script>
 
 </div>
 @endsection

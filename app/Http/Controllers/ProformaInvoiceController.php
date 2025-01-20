@@ -22,7 +22,7 @@ class ProformaInvoiceController extends Controller
 
     public function create()
     {
-        $clients = Client::all();
+        $clients = Client::orderBy('name')->get();
         $companies = Company::all();
         //$lastInvoiceId = ProformaInvoice::latest('id')->first()->id;
 
@@ -62,7 +62,7 @@ class ProformaInvoiceController extends Controller
 
     public function edit(ProformaInvoice $proforma_invoice)
     {
-        $clients = Client::all();
+        $clients = Client::orderBy('name')->get();
         $companies = Company::all();
         return view('proforma_invoices.edit', compact('proforma_invoice', 'clients','companies'));
     }

@@ -18,7 +18,7 @@
                 <th>Article ou service</th>
                 <th>Qté</th>
                 <th>PU Fbu</th>
-                <th>PT HT en Fbu</th>
+                <th>PT HT Fbu</th>
             </tr>
         </thead>
         <tbody>

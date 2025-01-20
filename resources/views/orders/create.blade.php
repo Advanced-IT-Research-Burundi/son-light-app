@@ -12,8 +12,8 @@
 
     <div class="card shadow">
         <div class="card-body">
-            <form action="{{ route('orders.store') }}" method="POST">
-                
+            <form action="{{ route('orders.store') }}" method="POST" id="orderForm">
+
                 @csrf
 
                 @include('orders._form')
@@ -30,4 +30,20 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+<script>
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+        // Définir les champs à vérifier
+        const tc = document.getElementById('tc');
+        const atax = document.getElementById('atax');
+        const pf = document.getElementById('pf');
+
+        // Vérifier si les champs sont vides et assigner 0 si c'est le cas
+        if (!tc.value.trim()) tc.value = '0';
+        if (!atax.value.trim()) atax.value = '0';
+        if (!pf.value.trim()) pf.value = '0';
+    });
+</script>
+@stop
 @endsection

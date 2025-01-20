@@ -36,7 +36,8 @@ return new class extends Migration
             $table->decimal('tc', 10, 2)->default(0);
             $table->decimal('atax', 10, 2)->default(0);
             $table->decimal('pf', 10, 2)->default(0);
-            $table->integer('status_livraison');
+            //$table->integer('status_livraison');
+            $table->boolean('status_livraison')->default(false);
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -52,5 +53,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('orders');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('status_livraison');
+        });
 }
 };
