@@ -26,8 +26,8 @@
             @foreach ($cashRegisters as $cashRegister)
                 <tr>
                     <td>{{ $cashRegister->id }}</td>
-                    <td>{{ number_format($cashRegister->opening_balance, 2) }} BIF</td>
-                    <td>{{ number_format($cashRegister->current_balance, 2) }} BIF</td>
+                    <td>{{ number_format($cashRegister->opening_balance, 0, ',', '.') }} BIF</td>
+                    <td>{{ number_format($cashRegister->current_balance, 0, ',', '.')}} BIF</td>
                     <td>{{ $cashRegister->created_at->format('d/m/Y H:i:s') }}</td>
                     <td>{{ optional($cashRegister->creator)->name ?? 'Inconnu' }}</td>
                     <td>

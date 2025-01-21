@@ -11,11 +11,11 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <strong>Solde d'Ouverture:</strong>
-                    <span class="float-end">{{ number_format($cashRegister->opening_balance, 2) }} BIF</span>
+                    <span class="float-end">{{ number_format($cashRegister->opening_balance, 0, ',', '.') }} BIF</span>
                 </li>
                 <li class="list-group-item">
                     <strong>Solde Actuel:</strong>
-                    <span class="float-end">{{ number_format($cashRegister->current_balance, 2) }} BIF</span>
+                    <span class="float-end">{{ number_format($cashRegister->current_balance, 0, ',', '.') }} BIF</span>
                 </li>
                 <li class="list-group-item">
                     <strong>Date de Création:</strong>

@@ -10,9 +10,9 @@
             <h5 class="mb-0">Solde de Clôture</h5>
         </div>
         <div class="card-body">
-            <h5>Solde d'Ouverture : <span class="text-success">{{ number_format($cashRegister->opening_balance, 2, ',', '.') }} BIF</span></h5>
-            <h5>Solde Actuel : <span class="text-success">{{ number_format($cashRegister->current_balance, 2, ',', '.') }} BIF</span></h5>
-            <h5>Dénominations Totales : <span class="text-success">{{ number_format($totalDenominations, 2, ',', '.') }} BIF</span></h5>
+            <h5>Solde d'Ouverture : <span class="text-success">{{ number_format($cashRegister->opening_balance, 0, ',', '.') }} BIF</span></h5>
+            <h5>Solde Actuel : <span class="text-success">{{ number_format($cashRegister->current_balance, 0, ',', '.') }} BIF</span></h5>
+            <h5>Dénominations Totales : <span class="text-success">{{ number_format($totalDenominations, 0, ',', '.') }} BIF</span></h5>
         </div>
     </div>
 
@@ -21,17 +21,17 @@
             <h5 class="mb-0">Résumé Financier</h5>
         </div>
         <div class="card-body">
-            <h5>Total des Entrées : <span class="text-success">{{ number_format($totalEntries, 2, ',', '.') }} BIF</span></h5>
-            <h5>Total des Sorties : <span class="text-danger">{{ number_format($totalExits, 2, ',', '.') }} BIF</span></h5>
+            <h5>Total des Entrées : <span class="text-success">{{ number_format($totalEntries, 0, ',', '.') }} BIF</span></h5>
+            <h5>Total des Sorties : <span class="text-danger">{{ number_format($totalExits, 0, ',', '.') }} BIF</span></h5>
             <h5>Solde Net (Entrées - Sorties) :
                 <span class="{{ ($totalEntries - $totalExits >= 0) ? 'text-success' : 'text-danger' }}">
                     {{ number_format($totalEntries - $totalExits, 2, ',', '.') }} BIF
                 </span>
             </h5>
-            <h5>Solde Calculé : <span class="text-success">{{ number_format($cashRegister->opening_balance + $totalEntries - $totalExits, 2, ',', '.') }} BIF</span></h5>
+            <h5>Solde Calculé : <span class="text-success">{{ number_format($cashRegister->opening_balance + $totalEntries - $totalExits, 0, ',', '.') }} BIF</span></h5>
             <h5>Différence avec Solde Actuel :
                 <span class="{{ ($cashRegister->current_balance == $cashRegister->opening_balance + $totalEntries - $totalExits) ? 'text-success' : 'text-danger' }}">
-                    {{ number_format($cashRegister->current_balance - ($cashRegister->opening_balance + $totalEntries - $totalExits), 2, ',', '.') }} BIF
+                    {{ number_format($cashRegister->current_balance - ($cashRegister->opening_balance + $totalEntries - $totalExits), 0, ',', '.') }} BIF
                 </span>
             </h5>
         </div>
@@ -57,13 +57,13 @@
                         <tr>
                             <td>{{ number_format($denomination->denomination, 0, ',', '.') }}</td>
                             <td>{{ $denomination->quantity }}</td>
-                            <td>{{ number_format($total, 2, ',', '.') }} BIF</td>
+                            <td>{{ number_format($total, 0, ',', '.') }} BIF</td>
                         </tr>
                         @php $totalDenominationAmount += $total; @endphp
                     @endforeach
                     <tr>
                         <td colspan="2" class="text-right font-weight-bold">Total Dénominations :</td>
-                        <td class="font-weight-bold">{{ number_format($totalDenominationAmount, 2, ',', '.') }} BIF</td>
+                        <td class="font-weight-bold">{{ number_format($totalDenominationAmount, 0, ',', '.') }} BIF</td>
                     </tr>
                 </tbody>
             </table>
