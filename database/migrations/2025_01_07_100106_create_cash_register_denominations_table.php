@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('cash_register_denominations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
-            $table->foreignId('updated_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->unsignedBigInteger('cash_register_id');
             $table->enum('denomination', ['10000', '5000', '2000', '1000', '500', '100', '50']);
             $table->integer('quantity')->default(0);

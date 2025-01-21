@@ -221,8 +221,8 @@
                     <td>{{ $detail->product_name }}</td>
                     <td>{{ $detail->unit }}</td>
                     <td>{{ $detail->quantity }}</td>
-                    <td>{{ number_format($detail->unit_price, 2, ',', '.') }}</td> <!-- Montant formaté -->
-                    <td>{{ number_format($detail->total_price, 0, ',', '.') }}</td> <!-- Montant formaté -->
+                    <td>{{ number_format($detail->unit_price, 0, ',', '.') }}</td>
+                    <td>{{ number_format($detail->total_price, 0, ',', '.') }}</td>
                     <td>
                         {{ $invoice->order->entreprise->assujeti ? number_format($detail->total_price * $invoice->order->tva / 100, 0, ',', '.') : '' }}
                     </td>
@@ -235,12 +235,12 @@
             <tfoot>
                 <tr>
                     <td colspan="5" style="text-align: left;"><strong>Total</strong></td>
-                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 2, ',', '.') }}</strong></td>
+                    <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0, ',', '.') }}</strong></td>
                     <td>
-                        <strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 2, ',', '.') : '' }}</strong>
+                        <strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * $invoice->order->tva / 100, 0, ',', '.') : '' }}</strong>
                     </td>
                     <td>
-                        <strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 2, ',', '.') : '' }}</strong>
+                        <strong>{{ $invoice->order->entreprise->assujeti ? number_format($invoice->order->detailOrders->sum('total_price') * (1 + $invoice->order->tva / 100), 0, ',', '.') : '' }}</strong>
                     </td>
                 </tr>
             </tfoot>

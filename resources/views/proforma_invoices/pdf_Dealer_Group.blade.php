@@ -193,7 +193,7 @@
             </tr>
             <tr>
                 <td colspan="5" style="text-align: left;"><strong>TVA (18%)</strong></td>
-                <td><strong>{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2, ',', '.') : '' }}</strong></td>
+                <td><strong>{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 0, ',', '.') : '' }}</strong></td>
             </tr>
             <tr>
                 <td colspan="5" style="text-align: left;"><strong>TV-TVAC en FBU</strong></td>
