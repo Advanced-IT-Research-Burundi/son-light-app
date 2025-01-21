@@ -8,7 +8,7 @@
 
     <form action="{{ route('orders.detail-orders.store', $order) }}" method="POST" id="orderForm">
         @csrf
-        @include('detail_orders._form')
+       @include('detail_orders._form')
 
         <button type="submit" class="btn btn-primary">Ajouter l'article ou le service</button>
         <a href="{{ route('orders.show', $order) }}" class="btn btn-secondary">Annuler</a>

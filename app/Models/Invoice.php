@@ -29,7 +29,11 @@ class Invoice extends Model
     }
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
+     public function updatedBy()
+      {
+         return $this->belongsTo(User::class, 'updated_by');
+       }
 }
 

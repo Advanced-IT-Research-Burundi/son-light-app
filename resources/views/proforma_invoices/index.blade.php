@@ -51,7 +51,7 @@
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice?->client?->name?? '' }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->name ?? ''}}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->designation?? ''}}</td>
-                            <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{number_format($proforma_invoice->amount0, ',', '.') ?? ''}}</th>
+                            <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{number_format($proforma_invoice->amount,0, ',', '.') ?? ''}}</th>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->quantity ?? ''}}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($proforma_invoice->amount * $proforma_invoice->quantity,0, ',', '.')??'' }} </td>
                             {{-- <td>{{ number_format($proforma_invoice->amount, 2, ',', ' ') }} FBu</td> --}}
