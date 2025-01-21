@@ -26,8 +26,8 @@
             <tr>
                 <td>{{ $detail->product_name }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ number_format($detail->unit_price, 0) }} </td>
-                <td>{{ number_format($detail->total_price, 0) }} </td>
+                <td>{{ number_format($detail->unit_price,0, ',', '.') }} </td>
+                <td>{{ number_format($detail->total_price,0, ',', '.')}} </td>
             </tr>
             @empty
             <tr>
@@ -39,7 +39,7 @@
             @if($invoice->order->detailOrders->isNotEmpty())
             <tr>
                 <td colspan="3" style="text-align: left;"><strong>Total</strong></td>
-                <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0) }}</strong></td>
+                <td><strong>{{ number_format($invoice->order->detailOrders->sum('total_price'), 0, ',', '.') }}</strong></td>
             </tr>
             @else
             <tr>

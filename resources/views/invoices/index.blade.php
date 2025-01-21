@@ -20,7 +20,8 @@
                             <th>Num facture</th>
                             <th>Num commande</th>
                              <th>Client</th>
-                            <th>Societe facturation</th>
+                            <th>Societe fact</th>
+                            
                             <th>Date creation</th>
                             <th>Date d'echeance</th>
                             <th>Actions</th>
