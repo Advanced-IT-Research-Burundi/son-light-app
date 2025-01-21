@@ -42,7 +42,7 @@
                     <p><strong>Quantité :</strong> {{ $payment->invoice->quantity }}</p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Montant de la commande :</strong> {{ $payment->invoice->amount }}</p>
+                    <p><strong>Montant de la commande :</strong> {{  number_format($payment->invoice->amount,0, ',', '.')}}</p>
                     <p><strong>Date de commande :</strong> {{ \Carbon\Carbon::parse($payment->invoice->order_date)->format('d/m/Y') }}</p>
                     <p><strong>Date de livraison :</strong> {{ \Carbon\Carbon::parse($payment->invoice->delivery_date)->format('d/m/Y') }}</p>
                     <p><strong>Statut :</strong> {{ $payment->invoice->status }}</p>

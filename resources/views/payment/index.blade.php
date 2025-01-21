@@ -49,7 +49,7 @@ payment.index template
                             <td>{{ $count }}</td>
                             <td>{{ $payment->invoice->order->designation ?? ''}}</td>
                             <td>{{ $payment->invoice->order->client?->name?? ''}}</td>
-                            <th>{{ $payment->amount ?? ''}}</th>
+                            <th>{{  number_format($payment->amount,0, ',', '.') ?? ''}}</th>
                             <td>{{ $payment->payment_method ?? ''}}</td>
                             <td>{{ $payment->payment_date }}</td>
                             <td> {{ $payment->description }}</td>
