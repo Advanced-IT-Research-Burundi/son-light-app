@@ -33,26 +33,23 @@
                            {{-- <th>Num. Fac.</th> --}}
                             <th>Client</th>
                             <th>SOCIETE</th>
-                            <th>Désigation</th>
-                            <th>P.U</th>
-                            <th>Qté</th>
+                            <th>Créé par</th>
+                            <th>Date de création</th>
+                            <th>Date de facturation</th>
                             <th>PVHTVA</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    @php
-                        $count = 1;
-                    @endphp
                     <tbody>
                         @foreach($proforma_invoices as $proforma_invoice)
                         <tr>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
-                             {{--<td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->invoice_number }}</td>--}}
+                           {{-- <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>--}}
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->id }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice?->client?->name?? '' }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->name ?? ''}}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->designation?? ''}}</td>
-                            <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{number_format($proforma_invoice->amount,0, ',', '.') ?? ''}}</th>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->quantity ?? ''}}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->user->name?? ''}}</td>
+                           <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->created_at ? $proforma_invoice->created_at->format('d/m/Y') : '____/____/202__' }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($proforma_invoice->amount * $proforma_invoice->quantity,0, ',', '.')??'' }} </td>
                             {{-- <td>{{ number_format($proforma_invoice->amount, 2, ',', ' ') }} FBu</td> --}}
                             {{-- <td>

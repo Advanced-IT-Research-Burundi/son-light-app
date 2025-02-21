@@ -26,9 +26,8 @@
                             <th>ID</th>
                             <th>Client</th>
                             <th>SOCIETE</th>
-                            <th>Désigation</th>
-                            <th>P.U</th>
-                            <th>Qte</th>
+                            <th>Créé par</th>
+                            <th>Date de création</th>
                             <th>PTHVA</th>
 
                             {{--
@@ -47,9 +46,10 @@
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->client->name ?? '' }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->name ?? ''}}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->designation?? ''}}</td>
-                            <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($order->amount,0, ',', '.') ?? ''}}</th>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->quantity ?? ''}}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->user->name?? ''}}</td>
+                            <td>{{ $order->created_at ? \Carbon\Carbon::parse($order->created_at)->format('d/m/Y') : '____/____/202__' }}</td>
+                           {{-- <th style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($order->amount,0, ',', '.') ?? ''}}</th>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->quantity ?? ''}}</td>--}}
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($order->amount * $order->quantity, 0, ',', '.')??'' }}</td>
 
                             {{-- <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->order_date->format('d/m/Y')?? '' }}</td>

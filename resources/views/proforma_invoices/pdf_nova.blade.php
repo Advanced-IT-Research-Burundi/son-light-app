@@ -155,7 +155,7 @@
                 <p>
                     <strong>Mention obligatoire</strong><br>
                     <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span><br><br>
-                    <strong>Nous disons {{$proforma_invoice->price_letter}} </strong>
+                    <strong>{{$proforma_invoice->price_letter}} </strong>
                 </p>
             </div>
         </div>

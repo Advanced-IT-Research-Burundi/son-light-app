@@ -44,7 +44,7 @@
                              <dt class="col-sm-3">Prix total TVAC </dt>
                              <dd class="col-sm-9">{{ $order->entreprise->assujeti?number_format($order->detailOrders->sum('total_price') * (1 + $order->tva / 100), 0, ',', '.'):'0' }} FBU</dd>
                              <dt class="col-sm-3">Prix en Lettre</dt>
-                             <dd class="col-sm-9">Nous disons {{ $order->price_letter}}</dd>
+                             <dd class="col-sm-9"> {{ $order->price_letter}}</dd>
 
                 <dt class="col-sm-3">Date de commande</dt>
                 <dd class="col-sm-9">{{ $order->order_date->format('d/m/Y') }}</dd>
