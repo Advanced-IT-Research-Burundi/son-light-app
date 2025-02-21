@@ -149,7 +149,7 @@
                 <p>
                     <strong>Mention obligatoire</strong><br>
                     <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span> <br> <br>
-                    <strong>Nous disons {{ $invoice->order->price_letter }} </strong>
+                    <strong>{{ $invoice->order->price_letter }} </strong>
                 </p>
             </div>
         </div>
