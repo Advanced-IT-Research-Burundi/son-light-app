@@ -9,9 +9,6 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-
-
-
     public function up(): void
     {
         Schema::disableForeignKeyConstraints();
@@ -24,20 +21,13 @@ return new class extends Migration
             $table->foreignId('client_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->integer('quantity')->nullable();
-            $table->double('amount');
-            $table->double(column: 'tva')->default(0);
-            $table->double(column: 'amount_ht')->default(0);
-            $table->double(column: 'amount_tvac')->default(0);
-            $table->date('order_date');
-            $table->date('delivery_date');
-            $table->string('price_letter')->default('null'); //new
-            $table->string('unit')->nullable();
-            $table->string('status');
-            $table->decimal('tc', 10, 2)->default(0);
-            $table->decimal('atax', 10, 2)->default(0);
-            $table->decimal('pf', 10, 2)->default(0);
-            //$table->integer('status_livraison');
-            $table->boolean('status_livraison')->default(false);
+            $table->double('amount')->nullable();
+            $table->double('tva')->default(0)->nullable();
+            $table->double('amount_ht')->default(0)->nullable();
+            $table->double('amount_tvac')->default(0)->nullable();
+            $table->date('order_date')->nullable();
+            $table->date('status')->nullable(); // Statut de la commande
+            $table->string('type_commande')->default('direct')->nullable(); // Type de commande
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -49,12 +39,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-
     public function down(): void
     {
         Schema::dropIfExists('orders');
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('status_livraison');
-        });
-}
+    }
 };
