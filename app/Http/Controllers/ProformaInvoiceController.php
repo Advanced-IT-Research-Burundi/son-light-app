@@ -8,141 +8,137 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\Order;
-use PDF;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class ProformaInvoiceController extends Controller
 {
     public function index()
     {
-        $proforma_invoices = ProformaInvoice::with('client')->latest()->get();
+        $proforma_invoices = ProformaInvoice::with('client', 'entreprise', 'user')->get();
         return view('proforma_invoices.index', compact('proforma_invoices'));
     }
-
 
     public function create()
     {
         $clients = Client::orderBy('name')->get();
         $companies = Company::all();
-        //$lastInvoiceId = ProformaInvoice::latest('id')->first()->id;
-
-        //$number = str_pad($lastInvoiceId+1, 4, '0', STR_PAD_LEFT);
         return view('proforma_invoices.create', compact('clients', 'companies'));
     }
 
     public function show(ProformaInvoice $proforma_invoice)
     {
-        $order=Order::all();
-        return view('proforma_invoices.show', compact('proforma_invoice','order'));
+        $order = Order::all();
+        return view('proforma_invoices.show', compact('proforma_invoice', 'order'));
     }
 
     public function store(StoreProformaInvoiceRequest $request)
     {
-        $validatedData = $request->all();
+        $validatedData = $request->validated();
+        $validatedData['user_id'] = Auth::id();
 
-        //dd($validatedData);
-        $validatedData['user_id'] = Auth::user()->id;
+        // Enregistrer la facture pro forma
         $proforma_invoice = ProformaInvoice::create($validatedData);
 
+        // Enregistrer l'élément de la facture pro forma
+        $this->createProformaInvoiceList($request, $proforma_invoice);
 
-        $proformaInvoiceList = $proforma_invoice->proformaInvoiceList()->create([
+        return redirect()->route('proforma_invoices.index')
+            ->with('success', 'La facture pro forma a été créée avec succès.');
+    }
+
+    private function createProformaInvoiceList(Request $request, ProformaInvoice $proforma_invoice)
+    {
+        $proforma_invoice->proformaInvoiceList()->create([
             'product_name' => $request->designation,
             'quantity' => $request->quantity,
             'unit_price' => $request->amount,
-            'proforma_invoice_date'=>$request->proforma_invoice_date,
-            'invoice_number'=>$request->invoice_number,
-            'price_letter'=>$request->price_letter,
-            'unit'=>$request->unit,
-            'total_price' => ($request->amount * $request->quantity),
+            'total_price' => $request->amount * $request->quantity,
+            'price_letter' => $request->price_letter,
+            'unit' => $request->unit,
         ]);
-
-        return redirect()->route('proforma_invoices.index')
-            ->with('success', 'la facture proforma a été créée avec succès.');
     }
 
     public function edit(ProformaInvoice $proforma_invoice)
     {
         $clients = Client::orderBy('name')->get();
         $companies = Company::all();
-        return view('proforma_invoices.edit', compact('proforma_invoice', 'clients','companies'));
+        return view('proforma_invoices.edit', compact('proforma_invoice', 'clients', 'companies'));
     }
 
     public function update(Request $request, ProformaInvoice $proforma_invoice)
     {
-        $request->validate([
-            'client_id' => ['required', 'integer', 'exists:clients,id'],
-            'amount' => ['required', 'numeric'],
-            'unit'=>['nullable','string'],
-            'proforma_invoice_date'=>['nullable','date'],
-            'invoice_number'=>['nullable','string','unique:proforma_invoices,invoice_number,'.$proforma_invoice->id],
-            'price_letter'=>['nullable','string'],
-            'company_id' => 'required|exists:companies,id',
-        ]);
+        $validatedData = $request->validate($this->updateValidationRules($proforma_invoice));
 
-        $proforma_invoice->update(attributes: $request->all());
+        $proforma_invoice->update($validatedData);
 
         return redirect()->route('proforma_invoices.index')
-            ->with('success', 'l\'article ou le service a été mise à jour avec succès.');
+            ->with('success', 'La facture pro forma a été mise à jour avec succès.');
     }
+
+    private function updateValidationRules(ProformaInvoice $proforma_invoice)
+    {
+        return [
+            'client_id' => 'required|integer|exists:clients,id',
+            'amount' => 'required|numeric',
+            'unit' => 'nullable|string',
+            'proforma_invoice_date' => 'nullable|date',
+            'invoice_number' => 'nullable|string|unique:proforma_invoices,invoice_number,' . $proforma_invoice->id,
+            'price_letter' => 'nullable|string',
+            'company_id' => 'required|exists:companies,id',
+        ];
+    }
+
     public function addPriceLetter(Request $request, ProformaInvoice $proforma_invoice)
     {
         $request->validate([
-            'price_letter' => ['nullable', 'string'],
+            'price_letter' => 'nullable|string',
         ]);
+
         $proforma_invoice->price_letter = $request->input('price_letter');
         $proforma_invoice->save();
-        return redirect()->route('proforma_invoices.show', $proforma_invoice->id)
-                         ->with('success', 'Le prix en lettre a été ajouté avec succès.');
+
+        return redirect()->route('proforma_invoices.show', $proforma_invoice)
+            ->with('success', 'Le prix en lettres a été ajouté avec succès.');
     }
 
     public function destroy(ProformaInvoice $proforma_invoice)
     {
+        // Optionnel, vérifiez si des éléments sont associés avant de supprimer
+        if ($proforma_invoice->proformaInvoiceList()->count() > 0) {
+            return redirect()->route('proforma_invoices.index')
+                ->with('error', 'Vous ne pouvez pas supprimer cette facture car elle contient des éléments.');
+        }
+
         $proforma_invoice->delete();
 
         return redirect()->route('proforma_invoices.index')
-            ->with('success', 'l\'article ou le service a été supprimée avec succès.');
+            ->with('success', 'La facture pro forma a été supprimée avec succès.');
     }
+
     public function generatePDF(ProformaInvoice $proforma_invoice)
     {
-        // $proforma_invoice->load('proforma_invoice.proformaInvoiceList', ' proforma_invoice.client', ' proforma_invoice.entreprise');
         $proforma_invoice->load('proformaInvoiceList', 'client', 'entreprise');
-        $companies = [
-            ['name' => 'Son light IMPRIMERIE'],
-            ['name' => 'DEALER GROUP'],
-            ['name' => 'BUFI TECHNOLOGIE'],
-            ['name' => 'NOVA TECH'],
-            ['name' => 'AFRO BUSINESS GROUP'],
-            ['name' => 'SOCIETE ANONYME'],
-        ];
 
-        // CREATION DES PROFORMA A PARTIR DES COMPANY_KEY EN UTILISANT SWICH EN GENERA PDF POUR CHAQUE COMPANY
-        switch ($proforma_invoice->entreprise->id) {
-            case 1:
-                // return view('proforma_invoices.pdf', compact('proforma_invoice'));
+        $pdfView = $this->getPDFView($proforma_invoice->entreprise->id);
 
-                $pdf = PDF::loadView('proforma_invoices.pdf', compact('proforma_invoice'));
+        $pdf = PDF::loadView($pdfView, compact('proforma_invoice'));
+        return $pdf->download('facture_proforma_' . $proforma_invoice->invoice_number . '.pdf');
+    }
 
-                break;
+    private function getPDFView($entrepriseId)
+    {
+        switch ($entrepriseId) {
             case 2:
-                $pdf = PDF::loadView('proforma_invoices.pdf_Dealer_Group', compact('proforma_invoice'));
-                break;
+                return 'proforma_invoices.pdf_Dealer_Group';
             case 3:
-                $pdf = PDF::loadView('proforma_invoices.pdf_bufi', compact('proforma_invoice'));
-                break;
+                return 'proforma_invoices.pdf_bufi';
             case 4:
-                $pdf = PDF::loadView('proforma_invoices.pdf_nova', compact('proforma_invoice'));
-                break;
+                return 'proforma_invoices.pdf_nova';
             case 5:
-                $pdf = PDF::loadView('proforma_invoices.pdf_afroOrgin', compact('proforma_invoice'));
-                break;
+                return 'proforma_invoices.pdf_afroOrgin';
             default:
-                $pdf = PDF::loadView('proforma_invoices.pdf', compact('proforma_invoice'));
+                return 'proforma_invoices.pdf';
         }
-
-
-
-        // $pdf = PDF::loadView('proformas.pdf', compact('proforma'));
-
-        return $pdf->download('facture_proforma_' . '.pdf');
     }
 }

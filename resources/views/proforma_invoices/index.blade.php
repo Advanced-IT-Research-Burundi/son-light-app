@@ -1,80 +1,99 @@
-<!-- resources/views/orders/index.blade.php -->
-
 @extends('layouts.app')
-@section('title', 'Gestion des factures proforma')
+
+@section('title', 'Gestion des factures pro forma')
+
 @section('content')
 <div class="container-fluid">
     <h3 class="my-4">
-        <i class="bi bi-cart3"></i> Gestion des factures proforma
+        <i class="bi bi-cart3"></i> Gestion des factures pro forma
     </h3>
-     <div class="row">
-     <div class="mb-4 col-3">
-        <a href="{{ route('proforma_invoices.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Nouvelle facture proforma
-        </a>
-    </div>
-       <div class="mb-4 col-4">
-                  <a href="{{ route('order_alllist')}}" class="btn btn-primary">
-                   <i class="bi bi-arrow-right"></i> Aller à la liste des commandes</a>
-        </div>
-     </div>
 
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <a href="{{ route('proforma_invoices.create') }}" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Nouvelle facture pro forma
+            </a>
+        </div>
+        <div class="col-md-6 text-end">
+            <a href="{{ route('order_alllist') }}" class="btn btn-secondary">
+                <i class="bi bi-arrow-right"></i> Aller à la liste des commandes
+            </a>
+        </div>
+    </div>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Liste des factures proforma</h6>
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des factures pro forma</h6>
+            <div>
+                <i class="bi bi-filter me-2"></i>
+                <input type="text" id="search" class="form-control form-control-sm d-inline" placeholder="Recherche..." style="width: 200px;">
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="proforma_invoicesTable" width="100%" cellspacing="0">
+                <table class="table table-striped table-bordered" id="proforma_invoicesTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr>
-                        <th>Ordre</th>
-                           {{-- <th>Num. Fac.</th> --}}
+                        <tr class="table-primary">
+                            <th>Ordre</th>
                             <th>Client</th>
-                            <th>SOCIETE</th>
+                            <th>Société</th>
                             <th>Créé par</th>
                             <th>Date de création</th>
                             <th>Date de facturation</th>
-                            <th>PVHTVA</th>
+                            <th>Total (PTVA)</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($proforma_invoices as $proforma_invoice)
                         <tr>
-                           {{-- <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>--}}
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->id }}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice?->client?->name?? '' }}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->entreprise->name ?? ''}}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->user->name?? ''}}</td>
-                           <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->created_at ? $proforma_invoice->created_at->format('d/m/Y') : '____/____/202__' }}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}</td>
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ number_format($proforma_invoice->amount * $proforma_invoice->quantity,0, ',', '.')??'' }} </td>
-                            {{-- <td>{{ number_format($proforma_invoice->amount, 2, ',', ' ') }} FBu</td> --}}
-                            {{-- <td>
-                            </td> --}}
-                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">
-                                <a href="{{ route('proforma_invoices.show', $proforma_invoice->id) }}" class="btn btn-sm btn-info">
+                            <td>{{ $proforma_invoice->id }}</td>
+                            <td>{{ $proforma_invoice->client->name ?? '' }}</td>
+                            <td>{{ $proforma_invoice->entreprise->name ?? '' }}</td>
+                            <td>{{ $proforma_invoice->user->name ?? '' }}</td>
+                            <td>{{ $proforma_invoice->created_at ? $proforma_invoice->created_at->format('d/m/Y') : '____/____/202__' }}</td>
+                            <td>{{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}</td>
+                            <td>
+                                @php
+                                    $totalHTVA = $proforma_invoice->proformaInvoiceList->sum('total_price');
+                                    $tva = $proforma_invoice->entreprise->assujeti ? ($totalHTVA * $proforma_invoice->tva / 100) : 0;
+                                    $totalTVAC = $totalHTVA + $tva;
+                                @endphp
+                                {{ number_format($totalTVAC, 0, ',', '.') }} FBu
+                            </td>
+                            <td>
+                                <a href="{{ route('proforma_invoices.show', $proforma_invoice->id) }}" class="btn btn-sm btn-info" title="Voir détails">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <a href="{{ route('proforma_invoices.edit', $proforma_invoice->id) }}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('proforma_invoices.edit', $proforma_invoice->id) }}" class="btn btn-sm btn-primary" title="Modifier">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-
-                                {{-- @dump($proforma_invoice->id) --}}
-                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $proforma_invoice->id }}">
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $proforma_invoice->id }}" title="Supprimer">
                                     <i class="bi bi-trash"></i>
-                                  </button>
-                                      <!-- Composant modal -->
-                                    @include('components.delete-confirmation-modal', [
-                                        'id'=>  $proforma_invoice->id,
-                                        'route'=> 'proforma_invoices.destroy',
-                                        'title' => 'Confirmation de suppression',
-                                        'message' => 'Êtes-vous sûr de vouloir supprimer cet element de facture proforma ?',
-                                        'confirmText' => 'Supprimer'
-                                    ])
+                                </button>
 
+                                <!-- Modal de confirmation de suppression -->
+                                <div class="modal fade" id="deleteConfirmationModal{{ $proforma_invoice->id }}" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel{{ $proforma_invoice->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteConfirmationModalLabel{{ $proforma_invoice->id }}">Confirmation de suppression</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Êtes-vous sûr de vouloir supprimer cet élément de facture pro forma ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                <form action="{{ route('proforma_invoices.destroy', $proforma_invoice->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
@@ -83,18 +102,26 @@
             </div>
         </div>
     </div>
-
+    <p>
+        <br><br><br>
+    </p>
 </div>
-@endsection
 
 @section('scripts')
 <script>
 $(document).ready(function() {
-    $('#proforma_invoicesTable').DataTable({
+    // Initialise le tableau DataTables avec la recherche
+    var table = $('#proforma_invoicesTable').DataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/French.json"
         }
     });
+
+    // Filtrage de la recherche
+    $('#search').on('keyup', function() {
+        table.search(this.value).draw();
+    });
 });
 </script>
+@endsection
 @endsection

@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class ProformaInvoiceListController extends Controller
 {
-    
     public function create(ProformaInvoice $proforma_invoice)
     {
         return view('proforma_invoice_lists.create', compact('proforma_invoice'));
@@ -16,26 +15,20 @@ class ProformaInvoiceListController extends Controller
 
     public function store(Request $request, ProformaInvoice $proforma_invoice)
     {
-        $validatedData = $request->validate([
-            'product_name' => 'required|string',
-            'quantity' => 'required|integer|min:1',
-            'unit_price' => 'required|numeric|min:0',
-            'unit'=>'nullable|string',
-        ]);
+        // Validation des données
+        $validatedData = $this->validateRequest($request);
 
+        // Calcul du prix total
         $totalPrice = $validatedData['quantity'] * $validatedData['unit_price'];
 
-        $proformaInvoiceList = $proforma_invoice->proformaInvoiceList()->create([
-            'product_name' => $validatedData['product_name'],
-            'quantity' => $validatedData['quantity'],
-            'unit_price' => $validatedData['unit_price'],
-            'unit'=>$validatedData['unit'],
-            'total_price' => $totalPrice,
-        ]);
+        // Création de l'élément de la facture pro forma
+        $proformaInvoiceList = $proforma_invoice->proformaInvoiceList()->create(array_merge($validatedData, ['total_price' => $totalPrice]));
 
-        //$proforma_invoice->update(['amount' => $proforma_invoice->amount + $totalPrice]);
+        // Optionnel : Mettez à jour le montant total de la facture
+        //$this->updateProformaInvoiceAmount($proforma_invoice, $totalPrice);
 
-        return redirect()->route('proforma_invoices.show', $proforma_invoice)->with('success', 'article ou service a été ajouté à la facture proforma avec succès.');
+        return redirect()->route('proforma_invoices.show', $proforma_invoice)
+                         ->with('success', 'L\'article ou service a été ajouté à la facture pro forma avec succès.');
     }
 
     public function edit(ProformaInvoice $proforma_invoice, ProformaInvoiceList $proformaInvoiceList)
@@ -43,37 +36,49 @@ class ProformaInvoiceListController extends Controller
         return view('proforma_invoice_lists.edit', compact('proforma_invoice', 'proformaInvoiceList'));
     }
 
-    public function update(Request $request, ProformaInvoice $proforma_invoice, ProformaInvoiceList $ProformaInvoiceList)
+    public function update(Request $request, ProformaInvoice $proforma_invoice, ProformaInvoiceList $proformaInvoiceList)
     {
-        $validatedData = $request->validate([
-            'product_name' => 'required|string',
-            'quantity' => 'required|integer|min:1',
-            'unit'=>'nullable|string',
-            'unit_price' => 'required|numeric|min:0',
-        ]);
+        // Validation des données
+        $validatedData = $this->validateRequest($request);
 
-        $oldTotalPrice = $ProformaInvoiceList->total_price;
+        // Calcul des prix
+        $oldTotalPrice = $proformaInvoiceList->total_price;
         $newTotalPrice = $validatedData['quantity'] * $validatedData['unit_price'];
 
-        $ProformaInvoiceList->update([
-            'product_name' => $validatedData['product_name'],
-            'quantity' => $validatedData['quantity'],
-            'unit_price' => $validatedData['unit_price'],
-            'unit'=>$validatedData['unit'],
-            'total_price' => $newTotalPrice,
-        ]);
+        // Mise à jour de l'élément de la facture pro forma
+        $proformaInvoiceList->update(array_merge($validatedData, ['total_price' => $newTotalPrice]));
 
-       // $proforma_invoice->update(['amount' => $proforma_invoice->amount - $oldTotalPrice + $newTotalPrice]);
+        // Optionnel : Mettez à jour le montant total de la facture
+        //$this->updateProformaInvoiceAmount($proforma_invoice, $newTotalPrice - $oldTotalPrice);
 
-        return redirect()->route('proforma_invoices.show', $proforma_invoice)->with('success', 'Détail de la facture proforma a été  mis à jour avec succès.');
+        return redirect()->route('proforma_invoices.show', $proforma_invoice)
+                         ->with('success', 'Le détail de la facture pro forma a été mis à jour avec succès.');
     }
 
     public function destroy(ProformaInvoice $proforma_invoice, ProformaInvoiceList $proformaInvoiceList)
     {
-        //$proforma_invoice->update(['amount' => $proforma_invoice->amount - $proformaInvoiceList->total_price]);
+        // Optionnel : Mettez à jour le montant total de la facture
+        //$this->updateProformaInvoiceAmount($proforma_invoice, -$proformaInvoiceList->total_price);
+
         $proformaInvoiceList->delete();
 
-        return redirect()->route('proforma_invoices.show', $proforma_invoice)->with('success', 'L\'article ou service a été supprimé de la facture proforma avec succès.');
+        return redirect()->route('proforma_invoices.show', $proforma_invoice)
+                         ->with('success', 'L\'article ou service a été supprimé de la facture pro forma avec succès.');
     }
 
+    private function validateRequest(Request $request)
+    {
+        return $request->validate([
+            'product_name' => 'required|string',
+            'quantity' => 'required|integer|min:1',
+            'unit_price' => 'required|numeric|min:0',
+            'unit' => 'nullable|string',
+        ]);
+    }
+
+    // Optionnel : Méthode pour mettre à jour le montant total de la pro forma
+    private function updateProformaInvoiceAmount(ProformaInvoice $proforma_invoice, float $amountChange)
+    {
+        $proforma_invoice->update(['amount' => $proforma_invoice->amount + $amountChange]);
+    }
 }
