@@ -21,13 +21,19 @@ return new class extends Migration
             $table->foreignId('client_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->integer('quantity')->nullable();
-            $table->double('amount')->nullable();
-            $table->double('tva')->default(0)->nullable();
-            $table->double('amount_ht')->default(0)->nullable();
-            $table->double('amount_tvac')->default(0)->nullable();
-            $table->date('order_date')->nullable();
-            $table->date('status')->nullable(); // Statut de la commande
-            $table->string('type_commande')->default('direct')->nullable(); // Type de commande
+            $table->decimal('amount', 10, 2); // Modifié pour avoir la même précision que les autres montants
+            $table->decimal('tva', 10, 2)->default(0); // Modifié pour avoir la même précision que les autres montants
+            $table->decimal('amount_ht', 10, 2)->default(0); // Modifié pour avoir la même précision que les autres montants
+            $table->decimal('amount_tvac', 10, 2)->default(0); // Modifié pour avoir la même précision que les autres montants
+            $table->date('order_date');
+            $table->date('delivery_date');
+            $table->string('price_letter')->nullable();
+            $table->string('unit')->nullable();
+            $table->string('status');
+            $table->decimal('tc', 10, 2)->default(0);
+            $table->decimal('atax', 10, 2)->default(0);
+            $table->decimal('pf', 10, 2)->default(0);
+            $table->boolean('status_livraison')->default(false);
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\ProformaInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -25,8 +26,7 @@ class OrderController extends Controller
 
     public function create(ProformaInvoice $proforma_invoice)
     {
-        // Récupérer les clients triés par ordre alphabétique
-        $clients = Client::orderBy('name')->get(); // Assurez-vous que "name" est le bon champ
+        $clients = Client::orderBy('name')->get();
         $companies = Company::all();
 
         return view('orders.create', compact('clients', 'companies', 'proforma_invoice'));
@@ -39,35 +39,43 @@ class OrderController extends Controller
 
     public function store(OrderStoreRequest $request)
     {
-        $validatedData = $request->validated();
-        $validatedData['user_id'] = Auth::id();
-        $validatedData['tc'] = $request->input('tc', 0);
-        $validatedData['atax'] = $request->input('atax', 0);
-        $validatedData['pf'] = $request->input('pf', 0);
-        $validatedData['status_livraison'] = $request->input('status_livraison', false); // Valeur par défaut
+        try {
+            $validatedData = $request->validated();
+            $validatedData['user_id'] = Auth::id();
+            $validatedData['status_livraison'] = $request->input('status_livraison', false);
 
-        $order = Order::create($validatedData);
+            // Utilisation des colonnes de la migration
+            $validatedData['tva'] = $request->input('tva', 0);
+            $validatedData['amount_ht'] = $request->input('amount_ht', 0);
+            $validatedData['amount_tvac'] = $request->input('amount_tvac', 0); // Assurez-vous que ce nom est correct
 
-        $order->detailOrders()->create([
-            'product_name' => $request->designation,
-            'quantity' => $request->quantity,
-            'unit' => $request->unit,
-            'price_letter' => $request->price_letter,
-            'unit_price' => $request->amount,
-            'total_price' => $request->amount * $request->quantity,
-            'tc' => $validatedData['tc'],
-            'atax' => $validatedData['atax'],
-            'pf' => $validatedData['pf'],
-        ]);
+            $order = Order::create($validatedData);
 
-        return redirect()->route('orders.show', $order)
-            ->with('success', 'Commande créée avec succès.');
+            $order->detailOrders()->create([
+                'product_name' => $request->designation,
+                'quantity' => $request->quantity,
+                'unit' => $request->unit,
+                'unit_price' => $request->amount,
+                'total_price' => $request->amount * $request->quantity,
+                'tc' => $request->input('tc', 0),
+                'atax' => $request->input('atax', 0),
+                'pf' => $request->input('pf', 0),
+                'tva' => $validatedData['tva'],
+            ]);
+
+            return redirect()->route('orders.show', $order)
+                ->with('success', 'Commande créée avec succès.');
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la création de la commande : ' . $e->getMessage());
+            return redirect()->back()
+                ->withErrors(['error' => 'Une erreur est survenue lors de la création de la commande.'])
+                ->withInput();
+        }
     }
 
     public function edit(Order $order)
     {
-        // Récupérer les clients triés par ordre alphabétique
-        $clients = Client::orderBy('name')->get(); // Assurez-vous que "name" est le bon champ
+        $clients = Client::orderBy('name')->get();
         $companies = Company::all();
         $proforma_invoice = ProformaInvoice::find($order->proforma_invoice_id);
 
@@ -83,7 +91,7 @@ class OrderController extends Controller
             'quantity' => 'required|numeric',
             'unit' => 'nullable|string',
             'price_letter' => 'nullable|string',
-            'status_livraison' => 'required|boolean', // Validation pour le statut de livraison
+            'status_livraison' => 'required|boolean',
             'order_date' => 'required|date',
             'delivery_date' => 'required|date',
             'designation' => 'required|string',
@@ -93,15 +101,10 @@ class OrderController extends Controller
             'tc' => 'nullable|numeric',
             'atax' => 'nullable|numeric',
             'pf' => 'nullable|numeric',
+            'tva' => 'nullable|numeric',
         ]);
 
-        // Assigner les valeurs par défaut si non spécifiées
-        $order->update(array_merge($validatedData, [
-            'tc' => $request->input('tc', 0),
-            'atax' => $request->input('atax', 0),
-            'pf' => $request->input('pf', 0),
-            'status_livraison' => $request->input('status_livraison', false), // Mettre à jour le statut de livraison
-        ]));
+        $order->update($validatedData);
 
         return redirect()->route('orders.show', $order->id)
             ->with('success', 'Commande mise à jour avec succès.');
@@ -122,7 +125,7 @@ class OrderController extends Controller
 
     public function create1()
     {
-        $clients = Client::orderBy('name')->get(); // Assurez-vous que "name" est le bon champ
+        $clients = Client::orderBy('name')->get();
         $companies = Company::all();
         $proforma_invoices = ProformaInvoice::all();
 
