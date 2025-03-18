@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Créer la facture pro forma')
+@section('title', 'Créer la facture proforma')
 
 @section('content')
 <div class="container">
     <h3 class="my-4">
-        <i class="bi bi-plus-circle"></i> Créer la nouvelle facture pro forma
+        <i class="bi bi-plus-circle"></i> Créer la nouvelle facture proforma
     </h3>
 
     <div class="alert alert-info" role="alert">

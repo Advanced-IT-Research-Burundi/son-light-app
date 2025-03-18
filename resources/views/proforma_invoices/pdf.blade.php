@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facture Proforma </title>
+    <title>Facture Proforma</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             font-size: 16px;
             line-height: 1.1;
-            margin: 10px;
+            margin: 0;
             color: #333;
-            margin-top:-30px;
-            page-break-after: always;
+            padding-bottom: 100px;
         }
         .header {
             font-size: 13px;
-            color:white;
+            color: white;
             margin-right: 30px;
             margin-left: 30px;
             text-align: center;
@@ -59,11 +58,15 @@
             word-wrap: break-word;
         }
         .footer {
-            position: absolute;
+            position: fixed;
             bottom: 0;
-            width: 100%;
+            left: 0;
+            right: 0;
             text-align: center;
             font-size: 14px;
+            background-color: white;
+            padding: 10px 0;
+            border-top: 1px solid #ddd;
         }
         .bar {
             width: 100%;
@@ -91,33 +94,32 @@
 </head>
 <body>
     <div class="header">
-        <img src="images/logo.png" alt="Son Light Logo" style="border-radius: 10%; height:100px;">
+        <img src="images/logo.png" alt="Son Light Logo" style="border-radius: 10%; height: 100px;">
     </div>
 
     <div class="info-box">
-        <table style="border: none; color:white;padding-left: 40px;">
+        <table style="border: none; color: white; padding-left: 40px;">
             <tr style="text-align: center"></tr>
             <tr>
-                <td style="border: none; width: 30%;font-size: 16px;">
+                <td style="border: none; width: 30%; font-size: 16px;">
                     <p><strong>NIF : 4000652612</strong></p>
                     <p><strong>RC : 06190</strong></p>
                 </td>
-                <td style="border: none;padding-left: 120px;">
+                <td style="border: none; padding-left: 120px;">
                     <p>Travaux d'imprimerie, Fourniture du matériel <br> Bureautique et Informatique, Logistique <br> Locations diverses et commerce général</p>
                 </td>
             </tr>
         </table>
     </div>
 
-    <h4 style="color:black;">
-        FACTURE PROFORMA du
-        {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}
+    <h4 style="color: black;">
+        FACTURE PROFORMA du {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}
     </h4>
 
     <div style="font-size: 14px;">
-        <h3 style="padding:0; margin:0;">A. Identification du vendeur</h3>
-        <p style="padding:0; margin:0;">
-            <strong>Raison sociale : </strong> SON LIGHT PAPER SERVICES<br>
+        <h3 style="padding: 0; margin: 0;">A. Identification du vendeur</h3>
+        <p style="padding: 0; margin: 0;">
+            <strong>Raison sociale :</strong> SON LIGHT PAPER SERVICES<br>
             <strong>NIF :</strong> 4000652612 <br>
             <strong>RC :</strong> 06190 <br>
             <strong>Tél :</strong> +257 79 881 769 / 69 723 126 <br>
@@ -127,12 +129,12 @@
             <br><br>
         </p>
 
-        <h3 style="padding:0; margin:0;">B. Le Client</h3>
-        <p style="padding:0; margin:0;">
+        <h3 style="padding: 0; margin: 0;">B. Le Client</h3>
+        <p style="padding: 0; margin: 0;">
             <strong>Nom et prénom ou raison sociale :</strong> {{ $proforma_invoice->client?->name }}<br>
             <strong>NIF :</strong> {{ $proforma_invoice->client->nif ?? '_________' }}<br>
             <strong>Résidence à :</strong> {{ $proforma_invoice->client->address ?? 'BUJA' }}<br>
-            <strong>Assujetti à la TVA :</strong> Oui [  ] Non [  ]
+            <strong>Assujetti à la TVA :</strong> Oui [ ] Non [ ]
         </p>
     </div>
 
@@ -172,9 +174,6 @@
             </tr>
         </tbody>
     </table>
-    @if($proforma_invoice->proformaInvoiceList->count() >= 13 && $proforma_invoice->proformaInvoiceList->count() <= 15)
-        <div style="page-break-before: always;"></div>
-    @endif
 
     <div>
         <p>
@@ -188,9 +187,12 @@
         <div class="colored-bars">
             <div class="bar red"></div>
             <div class="bar argent"></div>
-            <p>Rohero 2, Av de France N<sup>o</sup> 12, Galerie Kusta Place n<sup>o</sup> E,D,M <br> Tél: +257 79 881 769 (Whatsapp) +257 69 723 126 / 79 732 102, <br>
-            E-mail: sonlightimprimerie@gmail.com <br>
-            <span style="color:red;">Compte BCB N<sup>o</sup> 21604510007</span></p>
+            <p>
+                Rohero 2, Av de France N<sup>o</sup> 12, Galerie Kusta Place n<sup>o</sup> E,D,M <br>
+                Tél: +257 79 881 769 (Whatsapp) +257 69 723 126 / 79 732 102, <br>
+                E-mail: sonlightimprimerie@gmail.com <br>
+                <span style="color:red;">Compte BCB N<sup>o</sup> 21604510007</span>
+            </p>
         </div>
     </div>
 </body>

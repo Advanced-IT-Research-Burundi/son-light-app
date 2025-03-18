@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <h3 class="my-4">
-        <i class="bi bi-pencil"></i> Modifier la facture pro forma #{{ $proforma_invoice->id }}
+        <i class="bi bi-pencil"></i> Modifier la facture proforma #{{ $proforma_invoice->id }}
     </h3>
 
     <div class="alert alert-info" role="alert">
