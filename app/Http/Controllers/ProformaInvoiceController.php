@@ -15,7 +15,11 @@ class ProformaInvoiceController extends Controller
 {
     public function index()
     {
-        $proforma_invoices = ProformaInvoice::with('client', 'entreprise', 'user')->get();
+
+        $proforma_invoices = ProformaInvoice::with('client', 'entreprise', 'user')
+                            ->orderBy('id', 'desc')
+                            ->get();
+
         return view('proforma_invoices.index', compact('proforma_invoices'));
     }
 
@@ -37,10 +41,10 @@ class ProformaInvoiceController extends Controller
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
 
-        // Enregistrer la facture pro forma
+
         $proforma_invoice = ProformaInvoice::create($validatedData);
 
-        // Enregistrer l'élément de la facture pro forma
+
         $this->createProformaInvoiceList($request, $proforma_invoice);
 
         return redirect()->route('proforma_invoices.index')
@@ -104,7 +108,7 @@ class ProformaInvoiceController extends Controller
 
     public function destroy(ProformaInvoice $proforma_invoice)
     {
-        // Optionnel, vérifiez si des éléments sont associés avant de supprimer
+
         if ($proforma_invoice->proformaInvoiceList()->count() > 0) {
             return redirect()->route('proforma_invoices.index')
                 ->with('error', 'Vous ne pouvez pas supprimer cette facture car elle contient des éléments.');

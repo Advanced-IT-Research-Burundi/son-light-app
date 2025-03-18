@@ -35,6 +35,7 @@
                     <thead>
                         <tr class="table-primary">
                             <th>Ordre</th>
+                            <th>ID</th>
                             <th>Client</th>
                             <th>Société</th>
                             <th>Créé par</th>
@@ -44,9 +45,13 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
+                    @php
+                    $count = 1;
+                @endphp
                     <tbody>
                         @foreach($proforma_invoices as $proforma_invoice)
                         <tr>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
                             <td>{{ $proforma_invoice->id }}</td>
                             <td>{{ $proforma_invoice->client->name ?? '' }}</td>
                             <td>{{ $proforma_invoice->entreprise->name ?? '' }}</td>
@@ -96,6 +101,9 @@
                                 </div>
                             </td>
                         </tr>
+                        @php
+                        $count++;
+                    @endphp
                         @endforeach
                     </tbody>
                 </table>
