@@ -3,7 +3,7 @@
 
 <div class="form-group mb-3 col-4">
     <label for="name" class="form-label">
-        <i class="bi bi-person"></i> Nom & Prénom
+        <i class="bi bi-person"></i> Nom ou Identifiant client
     </label>
     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $client?->name ?? '') }}" required>
     @error('name')
@@ -32,16 +32,8 @@
 </div>
 </div>
 <div class="row">
-<div class="form-group mb-3 col-3">
-    <label for="company" class="form-label">
-        <i class="bi bi-building"></i> Entreprise
-    </label>
-    <input type="text" class="form-control @error('company') is-invalid @enderror" id="company" name="company" value="{{ old('company', $client->company ?? '') }}">
-    @error('company')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-<div class="form-group mb-3 col-3">
+
+<div class="form-group mb-3 col-6">
     <label for="company" class="form-label">
         <i class="bi bi-building"></i> NIF
     </label>
@@ -50,28 +42,14 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="mb-3 col-3">
+<div class="mb-3 col-6">
     <label for="rc" class="form-label">RC</label>
     <input type="text" class="form-control @error('rc') is-invalid @enderror" id="rc" name="rc" value="{{ old('rc', $client->rc ?? '') }}">
     @error('rc')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
-<div class="mb-3 col-3">
-    <br><br>
-    <label for="assujeti" class="form-label">Assujeti TVA  :  </label>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="assujeti" id="inlineRadio1"  value="1">
-        <label class="form-check-label" for="inlineRadio1">OUI</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="assujeti" id="inlineRadio2" value="0">
-        <label class="form-check-label" for="inlineRadio2">NON</label>
-    </div>
-    @error('assujeti')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
+
 </div>
 <div class="row">
 <div class="form-group mb-3 col-6">
@@ -90,6 +68,19 @@
     <input type="text" class="form-control @error('persone_reference2') is-invalid @enderror" id="persone_reference2" name="persone_reference2" value="{{ old('persone_reference2', $client->persone_reference2 ?? '') }}" >
     @error('persone_reference2')
         <div class="invalid-feedback">{{ $persone_reference2 }}</div>
+    @enderror
+</div>
+<div class="mb-3 col-3">
+    <label for="assujeti" class="form-label">Assujeti TVA  :  </label>
+
+        <input class="form-check-input" type="radio" name="assujeti" id="inlineRadio1"  value="1">
+        <label class="form-check-label" for="inlineRadio1">OUI</label>
+
+        <input class="form-check-input" type="radio" name="assujeti" id="inlineRadio2" value="0">
+        <label class="form-check-label" for="inlineRadio2">NON</label>
+
+    @error('assujeti')
+        <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
 </div>

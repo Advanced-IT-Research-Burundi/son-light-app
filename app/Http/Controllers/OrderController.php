@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
+
     public function index(Request $request)
     {
         $proforma_invoice_id = $request->proforma_invoice_id;

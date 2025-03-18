@@ -26,8 +26,7 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nom</th>
-                            <th>Entreprise</th>
+                            <th>Nom ou Identifiant du client</th>
                             <th>NIF</th>
                             <th>Email</th>
                             <th>Téléphone</th>
@@ -41,7 +40,6 @@
                         <tr>
                             <td>{{ $client->id }}</td>
                             <td>{{ $client?->name }}</td>
-                            <td>{{ $client->company ?? 'N/A' }}</td>
                             <td>{{ $client->nif }}</td>
                             <td>{{ $client->email }}</td>
                             <td>{{ $client->phone ?? 'N/A' }}</td>
