@@ -169,7 +169,7 @@
                                     </button>
                                     <!-- Modal de confirmation de suppression -->
                                     <div class="modal fade" id="deleteConfirmationModal{{ $detail->id }}" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel{{ $detail->id }}" aria-hidden="true">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header bg-danger text-white">
                                                     <h5 class="modal-title" id="deleteConfirmationModalLabel{{ $detail->id }}">
