@@ -6,17 +6,14 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProformaInvoiceRequest extends FormRequest
 {
-    /**
-     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
-     */
+
+
     public function authorize(): bool
     {
-        return true; // Mettez à jour cette logique pour vérifier les autorisations de l'utilisateur si nécessaire.
+        return true;
     }
 
-    /**
-     * Obtenir les règles de validation qui s'appliquent à la requête.
-     */
+
     public function rules(): array
     {
         return [
@@ -28,6 +25,7 @@ class StoreProformaInvoiceRequest extends FormRequest
             'price_letter' => $this->priceLetterRules(),
             'validity_period' => $this->validityPeriodRules(),
             'company_id' => $this->companyIdRules(),
+            'tva' => $this->tvaRules(),
         ];
     }
 
@@ -38,32 +36,32 @@ class StoreProformaInvoiceRequest extends FormRequest
 
     private function amountRules(): array
     {
-        return ['required', 'numeric', 'min:0']; // Assurer que le montant est positif
+        return ['required', 'numeric', 'min:0'];
     }
 
     private function invoiceNumberRules(): array
     {
-        return ['nullable', 'string', 'unique:proforma_invoices,invoice_number', 'max:255']; // Limiter la longueur et s'assurer que chaque numéro de facture pro forma est unique
+        return ['nullable', 'string', 'unique:proforma_invoices,invoice_number', 'max:255'];
     }
 
     private function dateRules(string $attribute): array
     {
-        return ['nullable', 'date', 'date_format:Y-m-d']; // Assurer le format de la date
+        return ['nullable', 'date', 'date_format:Y-m-d'];
     }
 
     private function unitRules(): array
     {
-        return ['nullable', 'string', 'max:50']; // Limiter la longueur de l'unité
+        return ['nullable', 'string', 'max:50'];
     }
 
     private function priceLetterRules(): array
     {
-        return ['nullable', 'string', 'max:255']; // Limiter la longueur
+        return ['nullable', 'string', 'max:255'];
     }
 
     private function validityPeriodRules(): array
     {
-        return ['required', 'integer', 'min:1']; // Assurer que le période de validité est positive
+        return ['required', 'integer', 'min:1'];
     }
 
     private function companyIdRules(): array
@@ -71,9 +69,12 @@ class StoreProformaInvoiceRequest extends FormRequest
         return ['required', 'integer', 'exists:companies,id'];
     }
 
-    /**
-     * Configure les messages d'erreur personnalisés pour les règles de validation.
-     */
+    private function tvaRules(): array
+    {
+        return ['nullable', 'numeric', 'between:0,100'];
+    }
+
+
     public function messages(): array
     {
         return [
@@ -83,6 +84,7 @@ class StoreProformaInvoiceRequest extends FormRequest
             'proforma_invoice_date.date' => 'La date de la facture pro forma doit être une date valide.',
             'validity_period.required' => 'La période de validité est requise.',
             'company_id.required' => 'L\'ID de l\'entreprise est requis.',
+            'tva.between' => 'La TVA doit être un nombre entre 0 et 100.',
         ];
     }
 }

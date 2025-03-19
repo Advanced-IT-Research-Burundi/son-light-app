@@ -23,6 +23,7 @@
                 <table class="table table-bordered" id="ordersTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>ORDRE</th>
                             <th>ID</th>
                             <th>Client</th>
                             <th>SOCIETE</th>
@@ -44,6 +45,7 @@
                         @foreach($orders as $order)
                         <tr>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->id ?? ''}}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->client->name ?? '' }}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->entreprise->name ?? ''}}</td>
                             <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $order->user->name?? ''}}</td>

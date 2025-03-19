@@ -48,7 +48,7 @@
         <div class="card shadow mb-4 fadeIn">
             <div class="card-header bg-primary text-white" id="headingOrderInfo">
                 <h6 class="m-0 font-weight-bold">
-                    <button class="btn btn-link text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOrderInfo" aria-expanded="false" aria-controls="collapseOrderInfo">
+                    <button class="btn btn text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOrderInfo" aria-expanded="false" aria-controls="collapseOrderInfo">
                         <i class="bi bi-plus-circle"></i> Informations de la commande
                     </button>
                 </h6>
@@ -234,7 +234,7 @@
                     </table>
                 </div>
                 <div class="mt-4 text-end">
-                    <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-custom">
+                    <a href="{{ route('orders.detail-orders.create', $order) }}" class="btn btn-primary">
                         <i class="bi bi-plus-circle"></i> Ajouter un article
                     </a>
                 </div>
@@ -253,7 +253,7 @@
                         @error('price_letter')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        <button type="submit" class="btn btn-custom">
+                        <button type="submit" class="btn btn-primary">
                             <i class="bi bi-check-lg"></i> Valider
                         </button>
                         <a href="{{ route('order_alllist') }}" class="btn btn-secondary">
@@ -269,7 +269,7 @@
             <div class="card-body">
                 <h6 class="m-0 font-weight-bold text-primary">Ajout de Facture</h6>
                 <p>Vous souhaitez ajouter une facture à cette commande ?</p>
-                <a href="{{ route('invoices.create', $order) }}" class="btn btn-custom">
+                <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
                     <i class="bi bi-plus-circle"></i> Créer une facture
                 </a>
                 <a href="{{ route('invoices.index', $order) }}" class="btn btn-secondary">

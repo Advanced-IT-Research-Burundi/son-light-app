@@ -15,7 +15,6 @@ class ProformaInvoiceController extends Controller
 {
     public function index()
     {
-
         $proforma_invoices = ProformaInvoice::with('client', 'entreprise', 'user')
                             ->orderBy('id', 'desc')
                             ->get();
@@ -41,9 +40,7 @@ class ProformaInvoiceController extends Controller
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
 
-
         $proforma_invoice = ProformaInvoice::create($validatedData);
-
 
         $this->createProformaInvoiceList($request, $proforma_invoice);
 
@@ -60,6 +57,7 @@ class ProformaInvoiceController extends Controller
             'total_price' => $request->amount * $request->quantity,
             'price_letter' => $request->price_letter,
             'unit' => $request->unit,
+            'tva' => $request->tva,
         ]);
     }
 
@@ -72,6 +70,7 @@ class ProformaInvoiceController extends Controller
 
     public function update(Request $request, ProformaInvoice $proforma_invoice)
     {
+
         $validatedData = $request->validate($this->updateValidationRules($proforma_invoice));
 
         $proforma_invoice->update($validatedData);
@@ -90,6 +89,7 @@ class ProformaInvoiceController extends Controller
             'invoice_number' => 'nullable|string|unique:proforma_invoices,invoice_number,' . $proforma_invoice->id,
             'price_letter' => 'nullable|string',
             'company_id' => 'required|exists:companies,id',
+            'tva' => 'nullable|numeric|between:0,100',
         ];
     }
 
