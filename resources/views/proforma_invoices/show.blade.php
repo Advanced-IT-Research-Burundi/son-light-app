@@ -5,41 +5,41 @@
 @section('content')
 <style>
     .card {
-        border: 1px solid #d1d1d1; /* Ajout d'une bordure */
+        border: 1px solid #d1d1d1;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card:hover {
-        transform: translateY(-5px); /* Fait légèrement remonter la carte */
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée */
+        transform: translateY(-5px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
     .card-header {
-        background-color: #0043A4; /* Couleur bleue unie */
-        color: white; /* Texte en blanc */
-        font-weight: bold; /* Met le texte en gras */
-        font-size: 1.2rem; /* Augmente la taille de la police */
+        background-color: #0043A4;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
     }
 
     .table th {
-        background-color: #f8f9fa; /* Couleur de fond claire pour les en-têtes de tableau */
-        color: #333; /* Couleur de texte sombre pour le contraste */
+        background-color: #f8f9fa;
+        color: #333;
     }
 
     .table td {
-        vertical-align: middle; /* Aligne verticalement le texte */
+        vertical-align: middle;
     }
 
     .btn {
-        min-width: 150px; /* Largeur minimum pour les boutons */
+        min-width: 150px;
     }
 
     .highlight {
-        background-color: #e7f3fe; /* Couleur d'arrière-plan pour les sections importantes */
+        background-color: #e7f3fe;
     }
 
     .invalid-feedback {
-        display: block; /* Assurer que le message d'erreur est toujours visible */
+        display: block;
     }
 </style>
 
@@ -54,40 +54,40 @@
         </div>
         <div class="card-body">
             <dl class="row">
-                <dt class="col-sm-3">Date de création </dt>
+                <dt class="col-sm-3">Date de création</dt>
                 <dd class="col-sm-9 highlight">{{ \Carbon\Carbon::parse($proforma_invoice->created_at)->format('d/m/Y H:i') }}</dd>
 
-                <dt class="col-sm-3">Date de facturation </dt>
+                <dt class="col-sm-3">Date de facturation</dt>
                 <dd class="col-sm-9 highlight">{{ \Carbon\Carbon::parse($proforma_invoice->proforma_invoice_date)->format('d/m/Y') }}</dd>
 
-                <dt class="col-sm-3">Numéro de la facture </dt>
+                <dt class="col-sm-3">Numéro de la facture</dt>
                 <dd class="col-sm-9 highlight">{{ $proforma_invoice->invoice_number }}</dd>
 
-                <dt class="col-sm-3">Client </dt>
+                <dt class="col-sm-3">Client</dt>
                 <dd class="col-sm-9 highlight">{{ $proforma_invoice->client?->name ?? 'Non spécifié' }}</dd>
 
-                <dt class="col-sm-3">Entreprise </dt>
+                <dt class="col-sm-3">Entreprise</dt>
                 <dd class="col-sm-9 highlight">{{ $proforma_invoice->entreprise->name ?? 'Non spécifié' }}</dd>
 
-                <dt class="col-sm-3">Désignation </dt>
+                <dt class="col-sm-3">Désignation</dt>
                 <dd class="col-sm-9 highlight">{{ $proforma_invoice->designation ?? 'Non spécifié' }}</dd>
 
-                <dt class="col-sm-3">Unité de mesure </dt>
+                <dt class="col-sm-3">Unité de mesure</dt>
                 <dd class="col-sm-9 highlight">{{ $proforma_invoice->unit }}</dd>
 
-                <dt class="col-sm-3">Prix total HTVA </dt>
+                <dt class="col-sm-3">Prix total HTVA</dt>
                 <dd class="col-sm-9 highlight">{{ number_format($proforma_invoice->proformaInvoiceList->sum('total_price'), 2, ',', ' ') }} Fbu</dd>
 
                 <dt class="col-sm-3">TVA :</dt>
                 <dd class="col-sm-9 highlight">{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * $proforma_invoice->tva / 100, 2, ',', ' ') : '0' }} Fbu</dd>
 
-                <dt class="col-sm-3">Prix total TVAC </dt>
+                <dt class="col-sm-3">Prix total TVAC</dt>
                 <dd class="col-sm-9 highlight">{{ $proforma_invoice->entreprise->assujeti ? number_format($proforma_invoice->proformaInvoiceList->sum('total_price') * (1 + $proforma_invoice->tva / 100), 2, ',', ' ') : '0' }} Fbu</dd>
 
-                <dt class="col-sm-3">Prix en lettres </dt>
+                <dt class="col-sm-3">Prix en lettres</dt>
                 <dd class="col-sm-9 highlight">{{ $proforma_invoice->price_letter ?? 'Non spécifié' }}</dd>
 
-                <dt class="col-sm-3">Créé par </dt>
+                <dt class="col-sm-3">Créé par</dt>
                 <dd class="col-sm-9 highlight">{{ $proforma_invoice->user->name }}</dd>
             </dl>
 
@@ -134,7 +134,7 @@
                                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Êtes-vous sûr de vouloir supprimer cet article ou service ?</p>
+                                            <p>Êtes-vous sûr de vouloir supprimer cet article ou service ? Cette action est irréversible.</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
