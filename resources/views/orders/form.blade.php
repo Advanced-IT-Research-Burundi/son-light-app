@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const amountInput = document.getElementById('amount');
     const unitInput = document.getElementById('unit');
     const quantityInput = document.getElementById('quantity');
-    const tvaSelect = document.getElementById('tva'); // Assurez-vous que cet élément existe dans votre HTML
+    const tvaSelect = document.getElementById('tva');
 
     proformaInvoiceSelect.addEventListener('change', function() {
         const selectedOption = this.options[this.selectedIndex];
@@ -227,12 +227,12 @@ document.addEventListener('DOMContentLoaded', function() {
         amountInput.value = amount;
         designationInput.value = designation;
         quantityInput.value = quantity;
-        // Assurez-vous que le taux de TVA est appliqué correctement
+
         if (tva) {
-            tvaSelect.value = tva; // Assurez-vous que cet élément existe
+            tvaSelect.value = tva;
         }
 
-        calculateAmounts(); // Recalculer immédiatement
+        calculateAmounts();
     });
 
     function calculateAmounts() {
@@ -240,18 +240,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const quantity = parseInt(document.getElementById('quantity').value) || 0;
         const tvaRate = parseFloat(tvaSelect.value) || 0;
 
-        const totalHt = price * quantity; // Montant HT
-        const totalTvac = totalHt * (1 + tvaRate / 100); // Montant TTC
+        const totalHt = price * quantity;
+        const totalTvac = totalHt * (1 + tvaRate / 100);
 
-        document.getElementById('amount_ht').value = totalHt.toFixed(2); // Montant HT
-        document.getElementById('amount_tvac').value = totalTvac.toFixed(2); // Montant TTC
+        document.getElementById('amount_ht').value = totalHt.toFixed(2);
+        document.getElementById('amount_tvac').value = totalTvac.toFixed(2);
     }
 
     [amountInput, document.getElementById('quantity'), tvaSelect].forEach(element => {
         element.addEventListener('input', calculateAmounts);
     });
 
-    // Calcul initial
+
     calculateAmounts();
 });
 </script>

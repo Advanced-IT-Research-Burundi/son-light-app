@@ -128,10 +128,12 @@ class OrderController extends Controller
     {
         $clients = Client::orderBy('name')->get();
         $companies = Company::all();
-        $proforma_invoices = ProformaInvoice::all();
+
+        $proforma_invoices = ProformaInvoice::orderBy('created_at', 'desc')->get();
 
         return view('orders.create1', compact('clients', 'companies', 'proforma_invoices'));
     }
+
 
     public function addPriceLetterOrder(Request $request, Order $order)
     {
