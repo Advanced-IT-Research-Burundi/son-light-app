@@ -21,7 +21,7 @@
                             <th>Num commande</th>
                              <th>Client</th>
                             <th>Societe fact</th>
-                            
+
                             <th>Date creation</th>
                             <th>Date d'echeance</th>
                             <th>Actions</th>
@@ -36,8 +36,8 @@
                             <td>{{ $count }}</td>
                             <td>{{ $invoice->number ?? ''}}</td>
                             <td>{{ $invoice->order_id}}</td>
-                            <td>{{ $invoice->order->client?->name}}</td>
-                            <td>{{ $invoice->order->entreprise->name}}</td>
+                            <td>{{ $invoice->order->client->name ?? '' }}</td>
+                            <td>{{ $invoice->order->entreprise->name ?? ''}}</td>
                             <td>{{ $invoice->created_at}}</td>
                             <td>{{ $invoice->due_date}}</td>
                             {{-- <td>{{ $invoice->date->format('d/m/Y') }}</td>

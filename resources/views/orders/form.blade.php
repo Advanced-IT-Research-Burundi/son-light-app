@@ -154,6 +154,13 @@
     </div>
 
     <div class="row mt-3">
+        <div class="mb-3 col-6">
+            <label for="delivery_date" class="form-label"><i class="bi bi-calendar"></i> Date de livraison</label>
+            <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" name="delivery_date" value="{{ old('delivery_date', now()->format('Y-m-d')) }}" required>
+            @error('delivery_date')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="mb-3 col-6">
             <label for="order_date" class="form-label"><i class="bi bi-calendar"></i> Date de la commande</label>
