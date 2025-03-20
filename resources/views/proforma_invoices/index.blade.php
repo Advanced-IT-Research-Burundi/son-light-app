@@ -14,11 +14,13 @@
                 <i class="bi bi-plus-circle"></i> Nouvelle facture pro forma
             </a>
         </div>
+        <!--
         <div class="col-md-6 text-end">
             <a href="{{ route('order_alllist') }}" class="btn btn-secondary">
                 <i class="bi bi-arrow-right"></i> Aller à la liste des commandes
             </a>
         </div>
+    -->
     </div>
 
     <div class="card shadow mb-4">
