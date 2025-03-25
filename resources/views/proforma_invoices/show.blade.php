@@ -52,13 +52,13 @@
                 <tbody>
                     @foreach($proforma_invoice->proformaInvoiceList as $index => $detail)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $detail->product_name }}</td>
-                        <td>{{ $detail->unit }}</td>
-                        <td>{{ $detail->quantity }}</td>
-                        <td>{{ number_format($detail->unit_price, 0, ',', '.') }} Fbu</td>
-                        <td>{{ number_format($detail->total_price, 0, ',', '.') }} Fbu</td>
-                        <td>
+                        <td style=" max-width: 150px; word-wrap: break-word;">{{ $index + 1 }}</td>
+                        <td style=" max-width: 150px; word-wrap: break-word;">{{ $detail->product_name }}</td>
+                        <td style=" max-width: 150px; word-wrap: break-word;">{{ $detail->unit }}</td>
+                        <td style=" max-width: 150px; word-wrap: break-word;">{{ $detail->quantity }}</td>
+                        <td style=" max-width: 150px; word-wrap: break-word;">{{ number_format($detail->unit_price, 0, ',', '.') }} Fbu</td>
+                        <td style=" max-width: 150px; word-wrap: break-word;">{{ number_format($detail->total_price, 0, ',', '.') }} Fbu</td>
+                        <td style=" max-width: 150px; word-wrap: break-word;">
                             <a href="{{ route('proforma_invoices.proforma_invoice_lists.edit', [$proforma_invoice, $detail]) }}" class="btn btn-sm btn-info" title="Modifier">
                                 <i class="bi bi-pencil"></i>
                             </a>

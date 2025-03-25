@@ -10,9 +10,8 @@
             font-size: 12px;
             line-height: 1.1;
             margin: 0;
+            padding: 15px;
             color: #333;
-            padding-bottom: 10px;
-            padding-top: 10px;
         }
 
         .header {
@@ -20,17 +19,15 @@
             top: 0;
             left: 0;
             right: 0;
-            margin-bottom: 10rem;
             text-align: center;
-            padding: 5px 0;
             z-index: 1000;
+            background-color: white;
         }
 
         .image {
             font-size: 13px;
             color: white;
-            margin-right: 30px;
-            margin-left: 30px;
+            margin: 0 30px;
             text-align: center;
             background-color: #ffffff;
             display: flex;
@@ -38,25 +35,23 @@
             align-items: center;
         }
 
-        .logo {
-            width: 100px;
-            height: auto;
-        }
-
         .info-box {
             background-color: #6aa8fd;
             font-size: 13px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: left;
+            margin-bottom: 1rem;
+            color: white;
+        }
 
+        h4 {
+            margin: 80px 0 20px 0;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            page-break-inside: auto;
         }
 
         .table2 th,
@@ -65,16 +60,12 @@
             border: 1px solid black;
             padding: 3px;
             text-align: left;
-        }
-
-        .table2 td,
-        th {
-            vertical-align: top;
-        }
-
-        .table2 td {
             max-width: 150px;
             word-wrap: break-word;
+        }
+
+        .table2 tr {
+            page-break-inside: avoid;
         }
 
         .footer {
@@ -86,7 +77,7 @@
             font-size: 12px;
             background-color: white;
             padding: 5px 0;
-            border-top: 1px solid #ddd;
+            z-index: 1000;
         }
 
         .bar {
@@ -94,35 +85,41 @@
             height: 4px;
         }
 
-        .red {
-            background-color: #c1107a;
-        }
-
-        .argent {
-            background-color: #c8b570;
+        @page {
+            margin: 10px 5px;
+            size: auto;
         }
 
         @media print {
             body {
-                margin: 0;
-                padding-top: 120px;
+                margin-top: 120px;
+                margin-bottom: 60px;
             }
-
+            h4 {
+                margin: 80px 0 20px 0;
+            }
             .header {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                text-align: center;
+                display: block; /* Afficher l'en-tête uniquement sur la première page */
             }
+            body:after {
+                content: '';
+                display: block;
+                page-break-before: always; /* Commencer la nouvelle page après l'en-tête */
+            }
+            .header ~ * {
+                page-break-before: always; /* Appliquer une rupture de page avant tous les autres contenus */
+            }
+            /* Masquer la deuxième page et suivantes pour l'entête */
+            .header {
+                display: none;
+            }
+        }
 
-            .footer {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                text-align: center;
-            }
+        .red {
+            background-color: #c1107a;
+        }
+        .argent {
+            background-color: #c8b570;
         }
     </style>
 </head>
@@ -132,28 +129,23 @@
     <div class="image">
         <img src="images/logo.png" alt="Son Light Logo" style="border-radius: 10%; height: 70px;">
     </div>
-
     <div class="info-box">
         <table style="border: none; color: white; padding-left: 40px;">
-            <tr style="text-align: center"></tr>
             <tr>
                 <td style="border: none; width: 30%; font-size: 13px;">
                     <p><strong>NIF : 4000652612</strong></p>
                     <p><strong>RC : 06190</strong></p>
                 </td>
-                <td style="border: none; padding-left: 120px;">
-                    <p>Travaux d'imprimerie, Fourniture du matériel <br> Bureautique et Informatique, Logistique <br> Locations diverses et commerce général</p>
+                <td style="border: none; padding-left: 180px;">
+                    <p>Travaux d'imprimerie, Fourniture du matériel <br>Bureautique et Informatique, Logistique <br>Locations diverses et commerce général</p>
                 </td>
             </tr>
         </table>
-
     </div>
 </div>
-<p>
-    <br>
-</p>
 
-<h4 style="color: black; margin-top: 130px;">
+<!-- Contenu de la facture -->
+<h4 style="color: black; margin-top: 150px;">
     FACTURE PROFORMA du {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}
 </h4>
 
@@ -179,7 +171,7 @@
     </p>
 </div>
 
-<table class="table2" style="margin-top: 20px;">
+<table class="table2" style="margin-top: 10px;">
     <thead>
         <tr>
             <th>Ordre</th>
@@ -219,7 +211,7 @@
 <div>
     <p>
         <strong>Mention obligatoire</strong><br>
-        <span>NB : Les non assujettis à la TVA ne remplissent les deux dernières lignes.</span><br><br>
+        <span>NB : Les non assujettis à la TVA ne remplissent pas les deux dernières lignes.</span><br><br>
         <strong>{{$proforma_invoice->price_letter}}</strong>
     </p>
 </div>
