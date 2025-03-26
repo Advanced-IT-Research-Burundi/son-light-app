@@ -10,12 +10,11 @@
             font-size: 12px;
             line-height: 1.1;
             margin: 0;
-            padding: 15px;
+            padding: 10px;
             color: #333;
         }
 
         .header {
-            position: fixed;
             top: 0;
             left: 0;
             right: 0;
@@ -85,10 +84,7 @@
             height: 4px;
         }
 
-        @page {
-            margin: 10px 5px;
-            size: auto;
-        }
+
 
         @media print {
             body {
@@ -99,17 +95,17 @@
                 margin: 80px 0 20px 0;
             }
             .header {
-                display: block; /* Afficher l'en-tête uniquement sur la première page */
+                display: block;
             }
             body:after {
                 content: '';
                 display: block;
-                page-break-before: always; /* Commencer la nouvelle page après l'en-tête */
+
             }
             .header ~ * {
-                page-break-before: always; /* Appliquer une rupture de page avant tous les autres contenus */
+
             }
-            /* Masquer la deuxième page et suivantes pour l'entête */
+
             .header {
                 display: none;
             }
@@ -144,8 +140,8 @@
     </div>
 </div>
 
-<!-- Contenu de la facture -->
-<h4 style="color: black; margin-top: 150px;">
+
+<h4 style="color: black; margin-top: 20px;">
     FACTURE PROFORMA du {{ $proforma_invoice->proforma_invoice_date ? $proforma_invoice->proforma_invoice_date->format('d/m/Y') : '____/____/202__' }}
 </h4>
 
