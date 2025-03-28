@@ -19,11 +19,6 @@ class DetailOrderController extends Controller
     {
         $validatedData = $this->validateDetailOrder($request);
 
-        // Assignation de valeurs par défaut
-        $validatedData['pf'] = $validatedData['pf'] ?? 0;
-        $validatedData['tc'] = $validatedData['tc'] ?? 0;
-        $validatedData['atax'] = $validatedData['atax'] ?? 0;
-
         // Calculer le prix total
         $totalPrice = $validatedData['quantity'] * $validatedData['unit_price'];
 
@@ -42,11 +37,6 @@ class DetailOrderController extends Controller
     {
         $validatedData = $this->validateDetailOrder($request);
 
-        // Assignation de valeurs par défaut
-        $validatedData['pf'] = $validatedData['pf'] ?? 0;
-        $validatedData['tc'] = $validatedData['tc'] ?? 0;
-        $validatedData['atax'] = $validatedData['atax'] ?? 0;
-
         // Calculer le nouveau prix total
         $newTotalPrice = $validatedData['quantity'] * $validatedData['unit_price'];
 
@@ -59,40 +49,42 @@ class DetailOrderController extends Controller
     public function destroy(Order $order, DetailOrder $detailOrder)
     {
         $detailOrder->delete();
-        return redirect()->route('orders.show', $detailOrder->order_id)->with('success', 'Produit supprimé de la commande avec succès.');
+        return redirect()->route('orders.show', $order->id)->with('success', 'Produit supprimé de la commande avec succès.');
     }
-
     public function addselect(Request $request, Order $order)
     {
+        // Validation de la requête
         $request->validate([
             'select' => 'required|array',
             'order_id' => 'required|exists:orders,id',
         ]);
 
+        // Traitement pour chaque sélection
         foreach ($request->select as $value) {
+            // Conversion JSON en objet
             $detailOrder = json_decode($value);
 
-            // Assignation de valeurs par défaut
-            $detailOrder->pf = $detailOrder->pf ?? 0;
-            $detailOrder->tc = $detailOrder->tc ?? 0;
-            $detailOrder->atax = $detailOrder->atax ?? 0;
+            // Vérification que les propriétés attendues sont présentes
+            if (!isset($detailOrder->product_name)) {
+                return redirect()->back()->withErrors(['error' => 'Produit incorrect.'])->withInput();
+            }
 
+            // Création de l'enregistrement dans la table DetailOrder
             DetailOrder::create([
                 'order_id' => $request->order_id,
                 'product_name' => $detailOrder->product_name,
                 'quantity' => $detailOrder->quantity,
                 'unit_price' => $detailOrder->unit_price,
                 'unit' => $detailOrder->unit,
-                'pf' => $detailOrder->pf,
-                'tc' => $detailOrder->tc,
-                'atax' => $detailOrder->atax,
-                'total_price' => $detailOrder->total_price,
+                'pf' => $detailOrder->pf ?? 0,
+                'tc' => $detailOrder->tc ?? 0,
+                'atax' => $detailOrder->atax ?? 0,
+                'total_price' => $detailOrder->quantity * $detailOrder->unit_price, // Calculer le total
             ]);
         }
 
         return redirect()->route('orders.show', $request->order_id)->with('success', 'Produits ajoutés à la commande avec succès.');
     }
-
     private function validateDetailOrder(Request $request)
     {
         return $request->validate([

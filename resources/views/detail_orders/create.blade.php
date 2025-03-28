@@ -74,7 +74,6 @@
         </table>
     </div>
 
-    <!-- Liste des articles ou services de la facture proforma -->
     <h3 class="my-4">Liste des articles ou services de la facture proforma</h3>
     <form action="{{ route('addselect') }}" method="post">
         @csrf
@@ -110,7 +109,7 @@
                         <td>{{ number_format($detail->total_price * $order->tva / 100, 2, ',', ' ') }}</td>
                         <td>{{ number_format(($detail->total_price + ($detail->total_price * $order->tva / 100)), 2, ',', ' ') }}</td>
                         <td class="text-center">
-                            <input type="checkbox" name="select[]" value="{{ $detail->id }}"> <!-- Changement ici : on utilise l'ID -->
+                            <input type="checkbox" name="select[]" value="{{ json_encode($detail) }}"> <!-- envoyer l'objet en JSON -->
                         </td>
                     </tr>
                     @php
