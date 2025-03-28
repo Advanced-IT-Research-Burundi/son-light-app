@@ -53,23 +53,19 @@ class DetailOrderController extends Controller
     }
     public function addselect(Request $request, Order $order)
     {
-        // Validation de la requête
         $request->validate([
             'select' => 'required|array',
             'order_id' => 'required|exists:orders,id',
         ]);
-
-        // Traitement pour chaque sélection
         foreach ($request->select as $value) {
-            // Conversion JSON en objet
+
             $detailOrder = json_decode($value);
 
-            // Vérification que les propriétés attendues sont présentes
+
             if (!isset($detailOrder->product_name)) {
                 return redirect()->back()->withErrors(['error' => 'Produit incorrect.'])->withInput();
             }
 
-            // Création de l'enregistrement dans la table DetailOrder
             DetailOrder::create([
                 'order_id' => $request->order_id,
                 'product_name' => $detailOrder->product_name,
