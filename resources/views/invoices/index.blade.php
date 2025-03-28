@@ -7,6 +7,13 @@
     <h3 class="my-4">
         <i class="bi bi-cart3"></i> Gestion des factures clients
     </h3>
+    <div class="row">
+        <div class="mb-4 col-3">
+           <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
+               <i class="bi bi-plus-circle"></i> Nouvelle facture
+           </a>
+       </div>
+        </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Liste des factures client</h6>

@@ -13,10 +13,21 @@ use Illuminate\Support\Facades\Auth;
 class InvoiceController extends Controller
 {
     public function index()
-    {
-        $invoices = Invoice::with('order')->latest()->get();
-        return view('invoices.index', compact('invoices'));
+{
+    $order = Order::latest()->first();
+
+    if ($order) {
+
+        $invoices = Invoice::with('order')
+            ->where('order_id', $order->id)
+            ->latest()
+            ->get();
+    } else {
+        $invoices = collect();
     }
+
+    return view('invoices.index', compact('invoices', 'order'));
+}
 
     public function create(Order $order) {
         $lastInvoice = Invoice::latest('id')->first();
