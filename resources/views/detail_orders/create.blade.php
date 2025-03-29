@@ -71,7 +71,7 @@
         </div>
     </form>
 
-    <!-- Liste des articles ou services de la commande -->
+
     <h5 class="my-4">Liste des Articles ou Services de la Commande</h5>
 
     <div class="table-responsive mb-4">
