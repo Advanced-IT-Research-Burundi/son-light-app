@@ -13,28 +13,29 @@ use Illuminate\Support\Facades\Auth;
 class InvoiceController extends Controller
 {
     public function index()
-{
-    $order = Order::latest()->first();
-
-    if ($order) {
-
+    {
+        // Récupérer toutes les factures, triées par date de création, les plus récentes d'abord
         $invoices = Invoice::with('order')
-            ->where('order_id', $order->id)
-            ->latest()
+            ->latest()  // Trie par date de création (plus récent en premier)
             ->get();
-    } else {
-        $invoices = collect();
+
+        return view('invoices.index', compact('invoices'));
     }
 
-    return view('invoices.index', compact('invoices', 'order'));
+public function create() {
+    // Récupérer toutes les commandes en commençant par la plus récente
+    $orders = Order::with('detailOrders')->latest()->get();  // Utilisation de latest() pour trier par date décroissante
+
+    // Récupérer la dernière facture pour générer un numéro de facture unique
+    $lastInvoice = Invoice::latest('id')->first();
+    $lastInvoiceId = $lastInvoice ? $lastInvoice->id : 0;
+
+    // Générer le numéro de la facture
+    $number = 'INV-' . str_pad($lastInvoiceId + 1, 4, '0', STR_PAD_LEFT);
+
+    // Passer les commandes et le numéro de facture à la vue
+    return view('invoices.create', compact('orders', 'number'));
 }
-
-    public function create(Order $order) {
-        $lastInvoice = Invoice::latest('id')->first();
-        $lastInvoiceId = $lastInvoice ? $lastInvoice->id : 0;
-        $number = 'INV-' . str_pad($lastInvoiceId + 1, 4, '0', STR_PAD_LEFT);
-        return view('invoices.create', compact('order', 'number'));
-    }
 
     public function store(Request $request)
     {

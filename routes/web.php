@@ -52,7 +52,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('proforma_invoices/{proforma_invoice}/orders/index', [OrderController::class, 'index'])->name('orders.index');
     Route::get('proforma_invoices/{proforma_invoice}/generate-pdf', [ProformaInvoiceController::class, 'generatePDF'])->name('proforma_invoices.generatePDF');
     Route::resource('invoices', InvoiceController::class);
-    Route::get('orders/{order}/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
     Route::get('invoices/{invoice}/generate-pdf', [InvoiceController::class, 'generatePDF'])->name('invoices.generatePDF');
     Route::get('orders/{order}/generate-pdf', [OrderController::class, 'generatePDF'])->name('orders.generatePDF');
     Route::post('addselect',[DetailOrderController::class,'addselect'])->name('addselect');

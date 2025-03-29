@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
     <div class="row mb-4">
-        <div class="col-md-12 text-center">
+        <div class="col-md-12 ">
             <h3 class="text-primary">
                 <i class="bi bi-eye"></i> Facture #{{ $invoice->number }}
                 <span class="text-muted">du

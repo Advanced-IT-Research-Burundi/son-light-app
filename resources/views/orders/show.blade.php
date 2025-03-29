@@ -282,6 +282,7 @@
                     </a>
                 </div>
             </form>
+                <!--
             <h6 class="m-0 font-weight-bold text-primary">Ajout de Facture</h6>
             <p>Vous souhaitez ajouter une facture à cette commande ?</p>
             <div class="footer-buttons">
@@ -292,6 +293,7 @@
                     <i class="bi bi-eye"></i> Consulter la liste des factures
                 </a>
             </div>
+             -->
         </div>
     </div>
 </div>

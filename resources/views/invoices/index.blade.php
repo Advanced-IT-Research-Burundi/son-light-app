@@ -9,7 +9,7 @@
     </h3>
     <div class="row">
         <div class="mb-4 col-3">
-           <a href="{{ route('invoices.create', $order) }}" class="btn btn-primary">
+           <a href="{{ route('invoices.create') }}" class="btn btn-primary">
                <i class="bi bi-plus-circle"></i> Nouvelle facture
            </a>
        </div>
