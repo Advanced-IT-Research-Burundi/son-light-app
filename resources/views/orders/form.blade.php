@@ -15,6 +15,7 @@
                             data-company-id="{{ $proforma_invoice->company_id }}"
                             data-amount="{{ $proforma_invoice->amount }}"
                             data-designation="{{ $proforma_invoice->designation }}"
+                            data-unit="{{ $proforma_invoice->unit }}"
                             data-tva="{{ $proforma_invoice->tva }}"
                             data-quantity="{{ $proforma_invoice->quantity }}">
                        Facture Numéro {{ $proforma_invoice->id }} du  {{ $proforma_invoice->client->name }} créée le {{ $proforma_invoice->created_at }}  pour {{ $proforma_invoice->designation }}
@@ -61,6 +62,16 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+        <div class="mb-3 col-6">
+            <label for="unit" class="form-label"><i class="bi bi-box"></i> Unité</label>
+            <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit', $order?->unit ?? $proforma_invoice->unit ?? '') }}">
+            @error('unit')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="row">
         <div class="form-group mb-3 col-6">
             <label for="amount" class="form-label"><i class="bi bi-cash-coin"></i> P.U</label>
             <input type="number" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $order->amount ?? '0') }}" required>
@@ -68,9 +79,6 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-    </div>
-
-    <div class="row">
         <div class="mb-3 col-6">
             <label for="quantity" class="form-label"><i class="bi bi-list-nested"></i> Quantité</label>
             <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity', $order->quantity ?? '') }}" required data-calc="quantity">
@@ -78,6 +86,9 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+    </div>
+
+    <div class="row">
         <div class="mb-3 col-6">
             <label for="tva" class="form-label"><i class="bi bi-percent"></i> TVA</label>
             <select class="form-select @error('tva') is-invalid @enderror" id="tva" name="tva" required data-calc="tva">
@@ -90,20 +101,18 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-    </div>
-
-    <div class="row">
         <div class="form-group mb-3 col-6">
             <label for="amount_ht" class="form-label">Montant HT</label>
             <input type="text" class="form-control" id="amount_ht" name="amount_ht" readonly>
         </div>
+
+    </div>
+
+    <div class="row">
         <div class="form-group mb-3 col-6">
             <label for="amount_tvac" class="form-label">Montant TTC</label>
             <input type="text" class="form-control" id="amount_tvac" name="amount_tvac" readonly>
         </div>
-    </div>
-
-    <div class="row">
         <div class="mb-3 col-6">
             <label for="tc" class="form-label"><i class="bi bi-cash-coin"></i> TC || Uniquement pour SLPS</label>
             <input type="number" class="form-control @error('tc') is-invalid @enderror" id="tc" name="tc" value="{{ old('tc', $order->tc ?? '') }}" required placeholder="0">
@@ -111,6 +120,9 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+    </div>
+
+    <div class="row">
         <div class="mb-3 col-6">
             <label for="atax" class="form-label"><i class="bi bi-cash-coin"></i> A.TAX || Uniquement pour SLPS</label>
             <input type="number" class="form-control @error('atax') is-invalid @enderror" id="atax" name="atax" value="{{ old('atax', $order->atax ?? '') }}" required placeholder="0">
@@ -118,9 +130,6 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-    </div>
-
-    <div class="row">
         <div class="mb-3 col-6">
             <label for="pf" class="form-label">PF || Uniquement pour SLPS</label>
             <input type="number" class="form-control @error('pf') is-invalid @enderror" id="pf" name="pf" value="{{ old('pf', $order->pf ?? '') }}" required placeholder="0">
@@ -128,20 +137,60 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        <div class="mb-3 col-6">
-            <label for="status" class="form-label"><i class="bi bi-check2-circle"></i> Statut de la commande</label>
-            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
-                <option value="">Sélectionnez un statut</option>
-                <option value="En attente" {{ old('status', $order->status ?? '') == 'En attente' ? 'selected' : '' }}>En attente</option>
-                <option value="En cours" {{ old('status', $order->status ?? '') == 'En cours' ? 'selected' : '' }}>En cours</option>
-                <option value="Terminée" {{ old('status', $order->status ?? '') == 'Terminée' ? 'selected' : '' }}>Terminée</option>
-                <option value="Annulée" {{ old('status', $order->status ?? '') == 'Annulée' ? 'selected' : '' }}>Annulée</option>
-            </select>
-            @error('status')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
+
     </div>
+</div>
+<div class="row mt-3">
+    <div class="mb-3 col-6">
+        <label for="status" class="form-label"><i class="bi bi-check2-circle"></i> Statut de la commande</label>
+        <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
+            <option value="">Sélectionnez un statut</option>
+            <option value="En attente" {{ old('status', $order->status ?? '') == 'En attente' ? 'selected' : '' }}>En attente</option>
+            <option value="En cours" {{ old('status', $order->status ?? '') == 'En cours' ? 'selected' : '' }}>En cours</option>
+            <option value="Terminée" {{ old('status', $order->status ?? '') == 'Terminée' ? 'selected' : '' }}>Terminée</option>
+            <option value="Annulée" {{ old('status', $order->status ?? '') == 'Annulée' ? 'selected' : '' }}>Annulée</option>
+        </select>
+        @error('status')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="mb-3 col-6">
+        <label class="form-label"><i class="bi bi-check2-circle"></i> Statut de la livraison</label>
+        <div class="form-check">
+            <input class="form-check-input @error('status_livraison') is-invalid @enderror" type="radio" id="status_livraison_yes" name="status_livraison" value="1" {{ old('status_livraison', $order->status_livraison ?? false) ? 'checked' : '' }} required>
+            <label class="form-check-label" for="status_livraison_yes">Oui</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input @error('status_livraison') is-invalid @enderror" type="radio" id="status_livraison_no" name="status_livraison" value="0" {{ old('status_livraison', $order->status_livraison ?? false) ? '' : 'checked' }}>
+            <label class="form-check-label" for="status_livraison_no">Non</label>
+        </div>
+        @error('status_livraison')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="mb-3 col-6">
+        <label for="delivery_date" class="form-label"><i class="bi bi-calendar"></i> Date de livraison</label>
+        <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" name="delivery_date" value="{{ old('delivery_date', now()->format('Y-m-d')) }}" required>
+        @error('delivery_date')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="mb-3 col-6">
+        <label for="order_date" class="form-label"><i class="bi bi-calendar"></i> Date de la commande</label>
+        <input type="date" class="form-control @error('order_date') is-invalid @enderror" id="order_date" name="order_date" value="{{ old('order_date', now()->format('Y-m-d')) }}" required>
+        @error('order_date')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+
+<div class="mb-3">
+    <label for="description" class="form-label"><i class="bi bi-text-paragraph"></i> Description</label>
+    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description', $order->description ?? '') }}</textarea>
+    @error('description')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
 </div>
 
 @section('scripts')
@@ -174,6 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('company_id').value = selectedOption.getAttribute('data-company-id');
         document.getElementById('amount').value = selectedOption.getAttribute('data-amount');
         document.getElementById('designation').value = selectedOption.getAttribute('data-designation');
+        document.getElementById('unit').value = selectedOption.getAttribute('data-unit');
         document.getElementById('quantity').value = selectedOption.getAttribute('data-quantity');
         document.getElementById('tva').value = selectedOption.getAttribute('data-tva');
 
