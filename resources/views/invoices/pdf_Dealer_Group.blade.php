@@ -218,7 +218,7 @@
                 @foreach($invoice->order->detailOrders as $detail)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $detail->product_name }}</td>
+                    <td>{{ $detail->designation }}</td>
                     <td>{{ $detail->unit }}</td>
                     <td>{{ $detail->quantity }}</td>
                     <td>{{ number_format($detail->unit_price, 0, ',', '.') }}</td>

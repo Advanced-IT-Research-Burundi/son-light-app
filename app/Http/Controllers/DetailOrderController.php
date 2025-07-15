@@ -79,7 +79,7 @@ class DetailOrderController extends Controller
 
             DetailOrder::create([
                 'order_id' => $request->order_id,
-                'product_name' => $detailOrder->product_name,
+                'designation' => $detailOrder->designation,
                 'quantity' => $detailOrder->quantity,
                 'unit_price' => $detailOrder->unit_price,
                 'unit' => $detailOrder->unit,
@@ -96,7 +96,7 @@ class DetailOrderController extends Controller
     private function validateDetailOrder(Request $request)
     {
         return $request->validate([
-            'product_name' => 'required|string',
+            'designation' => 'required|string',
             'quantity' => 'required|integer|min:1',
             'unit' => 'nullable|string',
             'unit_price' => 'required|numeric|min:0',

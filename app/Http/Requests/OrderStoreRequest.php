@@ -23,6 +23,7 @@ class OrderStoreRequest extends FormRequest
             'client_id' => ['required', 'integer', 'exists:clients,id'],
             'proforma_invoice_id' => ['required'],
             'amount' => ['required','numeric'],
+             'tva' => ['required','numeric'],
             'quantity' => ['required','numeric'],
             'status_livraison'=>['required','integer'],
             'order_date' => ['required', 'date'],

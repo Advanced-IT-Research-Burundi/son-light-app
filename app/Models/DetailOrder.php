@@ -11,7 +11,7 @@ class DetailOrder extends Model
 
     protected $fillable = [
         'order_id',
-        'product_name',
+        'designation',
         'quantity',
         'unit_price',
         'unit',

@@ -2,7 +2,7 @@
 <div class="row">
     <div class="form-group mb-3 col-6">
         <label for="client_id" class="form-label">
-            <i class="bi bi-person"></i> Client
+            <i class="bi bi-person"></i> Client <span class="text-danger">*</span>
         </label>
         <select class="form-select @error('client_id') is-invalid @enderror" id="client_id" name="client_id" required aria-required="true">
             <option value="" disabled selected>Sélectionnez un client</option>
@@ -19,7 +19,7 @@
 
     <div class="form-group mb-3 col-6">
         <label for="company_id" class="form-label">
-            <i class="bi bi-people-fill"></i> Entreprise
+            <i class="bi bi-people-fill"></i> Entreprise <span class="text-danger">*</span>
         </label>
         <select class="form-select @error('company_id') is-invalid @enderror" id="company_id" name="company_id" required aria-required="true">
             <option value="" disabled selected>Sélectionnez une entreprise</option>
@@ -38,17 +38,24 @@
 <div class="row">
     <div class="form-group mb-3 col-6">
         <label for="designation" class="form-label">
-            <i class="bi bi-calendar"></i> Désignation
+            <i class="bi bi-card-text"></i> Désignation <span class="text-danger">*</span>
         </label>
-        <input type="text" class="form-control @error('designation') is-invalid @enderror" id="designation" name="designation" value="{{ old('designation', $proforma_invoice->designation ?? '') }}" required aria-required="true" placeholder="Désignation" />
+        <input type="text" class="form-control @error('designation') is-invalid @enderror" 
+               id="designation" name="designation" 
+               value="{{ old('designation', $proforma_invoice->designation ?? '') }}" 
+               placeholder="Description détaillée du produit/service" 
+               required aria-required="true"
+               maxlength="255"
+               autocomplete="off" />
         @error('designation')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
+        
     </div>
 
-    <div class="form-group mb-3 col-6">
+     <div class="form-group mb-3 col-6">
         <label for="unit" class="form-label">
-            <i class="bi bi-unit"></i> Unité de Mesure
+            <i class="bi bi-unit"></i> Unité de Mesure <span class="text-danger">*</span>
         </label>
         <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit', $proforma_invoice->unit ?? '') }}" placeholder="Unité" />
         @error('unit')
@@ -59,8 +66,13 @@
 
 <div class="row">
     <div class="mb-3 col-6">
-        <label for="validity_period" class="form-label">Période de validité (en jours)</label>
-        <input type="number" class="form-control @error('validity_period') is-invalid @enderror" id="validity_period" name="validity_period" value="{{ old('validity_period', $proforma_invoice->validity_period ?? 30) }}" required aria-required="true" min="1" placeholder="Nombre de jours" />
+        <label for="validity_period" class="form-label">Période de validité (en jours) <span class="text-danger">*</span></label>
+        <input type="number" class="form-control @error('validity_period') is-invalid @enderror" 
+               id="validity_period" name="validity_period" 
+               value="{{ old('validity_period', $proforma_invoice->validity_period ?? 30) }}" 
+               required aria-required="true" 
+               min="1" max="365" 
+               placeholder="30" />
         @error('validity_period')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -68,9 +80,18 @@
 
     <div class="form-group mb-3 col-6">
         <label for="amount" class="form-label">
-            <i class="bi bi-cash-coin"></i> Prix Unitaire
+            <i class="bi bi-cash-coin"></i> Prix Unitaire <span class="text-danger">*</span>
         </label>
-        <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $proforma_invoice->amount ?? '') }}" required aria-required="true" data-calc="price" placeholder="Prix unitaire" />
+        <div class="input-group">
+            <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" 
+                   id="amount" name="amount" 
+                   value="{{ old('amount', $proforma_invoice->amount ?? '') }}" 
+                   required aria-required="true" 
+                   data-calc="price" 
+                   placeholder="0.00"
+                   min="0" />
+            <span class="input-group-text">BIF</span>
+        </div>
         @error('amount')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -79,15 +100,23 @@
 
 <div class="row">
     <div class="form-group mb-3 col-6">
-        <label for="quantity" class="form-label">Quantité</label>
-        <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity', $proforma_invoice->quantity ?? '') }}" required aria-required="true" data-calc="quantity" placeholder="Quantité" />
+        <label for="quantity" class="form-label">
+            <i class="bi bi-123"></i> Quantité <span class="text-danger">*</span>
+        </label>
+        <input type="number" class="form-control @error('quantity') is-invalid @enderror" 
+               id="quantity" name="quantity" 
+               value="{{ old('quantity', $proforma_invoice->quantity ?? 1) }}" 
+               required aria-required="true" 
+               data-calc="quantity" 
+               placeholder="1"
+               min="1" 
+               max="10000" />
         @error('quantity')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-
-    <div class="form-group mb-3 col-6">
-        <label for="tva" class="form-label">TVA</label>
+      <div class="form-group mb-3 col-6">
+        <label for="tva" class="form-label">TVA  <span class="text-danger">*</span></label>
         <select class="form-select @error('tva') is-invalid @enderror" id="tva" name="tva" required aria-required="true" data-calc="tva">
             <option value="" disabled selected>Sélectionnez un taux</option>
             @foreach(TVA_RANGE as $rate)
@@ -105,25 +134,35 @@
 <div class="row">
     <div class="form-group mb-3 col-6">
         <label for="amount_ht" class="form-label">Montant HT</label>
-        <input type="text" class="form-control" id="amount_ht" name="amount_ht" readonly placeholder="Montant HT" />
+        <div class="input-group">
+            <input type="text" class="form-control" id="amount_ht" name="amount_ht" readonly placeholder="0.00" />
+            <span class="input-group-text">BIF</span>
+        </div>
     </div>
     <div class="form-group mb-3 col-6">
         <label for="amount_tvac" class="form-label">Montant TTC</label>
-        <input type="text" class="form-control" id="amount_tvac" name="amount_tvac" readonly placeholder="Montant TTC" />
+        <div class="input-group">
+            <input type="text" class="form-control" id="amount_tvac" name="amount_tvac" readonly placeholder="0.00" />
+            <span class="input-group-text">BIF</span>
+        </div>
     </div>
 </div>
 
 <div class="row">
     <div class="form-group mb-3 col-12">
         <label for="proforma_invoice_date" class="form-label">
-            <i class="bi bi-calendar"></i> Date de facturation
+            <i class="bi bi-calendar-date"></i> Date de facturation 
         </label>
-        <input type="date" class="form-control @error('proforma_invoice_date') is-invalid @enderror" id="proforma_invoice_date" name="proforma_invoice_date" value="{{ old('proforma_invoice_date', $proforma_invoice->proforma_invoice_date ?? '') }}" placeholder="Date de facturation" />
+        <input type="date" class="form-control @error('proforma_invoice_date') is-invalid @enderror" 
+               id="proforma_invoice_date" name="proforma_invoice_date" 
+               value="{{ old('proforma_invoice_date', $proforma_invoice->proforma_invoice_date ?? date('Y-m-d')) }}" 
+                />
         @error('proforma_invoice_date')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
 </div>
+
 
 @section('scripts')
 <script>

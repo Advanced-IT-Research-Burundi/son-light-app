@@ -8,11 +8,6 @@
         <i class="bi bi-cart3"></i> Gestion des commandes
     </h3>
         <div class="row">
-     <div class="mb-4 col-3">
-        <a href="{{ route('orders.create1') }}" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Nouvelle commande
-        </a>
-    </div>
      </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">

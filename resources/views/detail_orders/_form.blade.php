@@ -1,9 +1,9 @@
 <!-- resources/views/detail_orders/_form.blade.php -->
 <div class="row">
 <div class="mb-3 col-6">
-    <label for="product_name" class="form-label">Nom de l'article ou du service</label>
-    <input type="text" class="form-control @error('product_name') is-invalid @enderror" id="product_name" name="product_name" value="{{ old('product_name', $detailOrder->product_name ?? '') }}" required>
-    @error('product_name')
+    <label for="designation" class="form-label">Nom de l'article ou du service</label>
+    <input type="text" class="form-control @error('designation') is-invalid @enderror" id="designation" name="designation" value="{{ old('designation', $detailOrder->designation ?? '') }}" required>
+    @error('designation')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>

@@ -6,17 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProformaInvoiceRequest extends FormRequest
 {
-    /**
-     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
-     */
     public function authorize(): bool
     {
-        return true; // Mettez à jour cette logique pour vérifier les autorisations de l'utilisateur si nécessaire.
+        return true; 
     }
-
-    /**
-     * Obtenir les règles de validation qui s'appliquent à la requête.
-     */
     public function rules(): array
     {
         return [
@@ -25,7 +18,12 @@ class StoreProformaInvoiceRequest extends FormRequest
             'invoice_number' => $this->invoiceNumberRules(),
             'proforma_invoice_date' => $this->dateRules('proforma_invoice_date'),
             'unit' => $this->unitRules(),
+            'amount_ht' => 'min:0',
+            'amount_tvac' => 'min:0',
+            'tva' => 'numeric|min:0',
             'price_letter' => $this->priceLetterRules(),
+            'designation' => $this->designationRules(),
+            'quantity' => $this->quantityRules(),
             'validity_period' => $this->validityPeriodRules(),
             'company_id' => $this->companyIdRules(),
         ];
@@ -38,49 +36,55 @@ class StoreProformaInvoiceRequest extends FormRequest
 
     private function amountRules(): array
     {
-        return ['required', 'numeric', 'min:0']; // Assurer que le montant est positif
+        return ['required', 'numeric', 'min:0']; 
+    }
+     private function quantityRules(): array
+    {
+        return ['required', 'numeric', 'min:0']; 
     }
 
     private function invoiceNumberRules(): array
     {
-        return ['nullable', 'string', 'unique:proforma_invoices,invoice_number', 'max:255']; // Limiter la longueur et s'assurer que chaque numéro de facture pro forma est unique
+        return ['nullable', 'string', 'unique:proforma_invoices,invoice_number', 'max:255']; 
     }
 
     private function dateRules(string $attribute): array
     {
-        return ['nullable', 'date', 'date_format:Y-m-d']; // Assurer le format de la date
+        return ['nullable', 'date', 'date_format:Y-m-d']; 
     }
 
     private function unitRules(): array
     {
-        return ['nullable', 'string', 'max:50']; // Limiter la longueur de l'unité
+        return ['nullable', 'string', 'max:50']; 
     }
 
     private function priceLetterRules(): array
     {
-        return ['nullable', 'string', 'max:255']; // Limiter la longueur
+        return ['nullable', 'string', 'max:255']; 
     }
 
     private function validityPeriodRules(): array
     {
-        return ['required', 'integer', 'min:1']; // Assurer que le période de validité est positive
+        return ['required', 'integer', 'min:1']; 
+    }
+      private function designationRules(): array
+    {
+        return ['required', 'string', 'max:255']; 
     }
 
     private function companyIdRules(): array
     {
         return ['required', 'integer', 'exists:companies,id'];
     }
-
-    /**
-     * Configure les messages d'erreur personnalisés pour les règles de validation.
-     */
     public function messages(): array
     {
         return [
             'client_id.required' => 'Le champ client est obligatoire.',
-            'amount.required' => 'Le montant est requis.',
-            'invoice_number.unique' => 'Ce numéro de facture pro forma existe déjà.',
-            'proforma_invoice_date.date' => 'La date de la facture pro forma doit être une date valide.',
+            'designation.required' => 'Le champ designation est obligatoire.',
+            'quantity.required' => 'La quantité est requise.',
+             'amount.required' => 'Le montant est requis.',
+            'invoice_number.unique' => 'Ce numéro de facture proforma existe déjà.',
+            'proforma_invoice_date.date' => 'La date de la facture proforma doit être une date valide.',
             'validity_period.required' => 'La période de validité est requise.',
             'company_id.required' => 'L\'ID de l\'entreprise est requis.',
         ];

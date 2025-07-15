@@ -1,10 +1,10 @@
 <!-- resources/views/detail_orders/_form.blade.php -->
 
 <div class="mb-3">
-    <label for="product_name" class="form-label">Nom de l'article ou service</label>
-    <input type="text" class="form-control @error('product_name') is-invalid @enderror" id="product_name" name="product_name"
-           value="{{ old('product_name', $proformaInvoiceList->product_name ?? '') }}" required autofocus>
-    @error('product_name')
+    <label for="designation" class="form-label">Nom de l'article ou service</label>
+    <input type="text" class="form-control @error('designation') is-invalid @enderror" id="designation" name="designation"
+           value="{{ old('designation', $proformaInvoiceList->designation ?? '') }}" required autofocus>
+    @error('designation')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>

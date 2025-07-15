@@ -49,8 +49,9 @@ class OrderController extends Controller
         $order = Order::create($validatedData);
 
         $order->detailOrders()->create([
-            'product_name' => $request->designation,
+            'designation' => $request->designation,
             'quantity' => $request->quantity,
+            'tva' => $request->tva,
             'unit' => $request->unit,
             'price_letter' => $request->price_letter,
             'unit_price' => $request->amount,
@@ -80,6 +81,7 @@ class OrderController extends Controller
             'client_id' => 'required|integer|exists:clients,id',
             'proforma_invoice_id' => 'required',
             'amount' => 'required|numeric',
+            'tva' => 'required|numeric',
             'quantity' => 'required|numeric',
             'unit' => 'nullable|string',
             'price_letter' => 'nullable|string',

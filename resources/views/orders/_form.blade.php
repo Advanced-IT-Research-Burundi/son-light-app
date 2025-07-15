@@ -16,8 +16,11 @@
     </div>
     <div class="row">
         <div class="mb-3 col-6">
-            <label for="designation" class="form-label"><i class="bi bi-tag"></i> Désignation</label>
-            <input type="text" class="form-control" id="designation" name="designation" value="{{ $proforma_invoice->designation }}">
+             <label for="designation" class="form-label"><i class="bi bi-tag"></i> Désignation</label>
+            <input type="text" class="form-control @error('designation') is-invalid @enderror" id="designation" name="designation" value="{{ old('designation', $order?->designation ?? $proforma_invoice->designation ?? '') }}">
+            @error('designation')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mb-3 col-6">
             <label for="unit" class="form-label"><i class="bi bi-box"></i> Unité</label>

@@ -36,13 +36,8 @@ class ProformaInvoiceController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
-
-        // Enregistrer la facture pro forma
         $proforma_invoice = ProformaInvoice::create($validatedData);
-
-        // Enregistrer l'élément de la facture pro forma
         $this->createProformaInvoiceList($request, $proforma_invoice);
-
         return redirect()->route('proforma_invoices.index')
             ->with('success', 'La facture pro forma a été créée avec succès.');
     }
@@ -50,7 +45,7 @@ class ProformaInvoiceController extends Controller
     private function createProformaInvoiceList(Request $request, ProformaInvoice $proforma_invoice)
     {
         $proforma_invoice->proformaInvoiceList()->create([
-            'product_name' => $request->designation,
+            'designation' => $request->designation,
             'quantity' => $request->quantity,
             'unit_price' => $request->amount,
             'total_price' => $request->amount * $request->quantity,
@@ -81,6 +76,8 @@ class ProformaInvoiceController extends Controller
         return [
             'client_id' => 'required|integer|exists:clients,id',
             'amount' => 'required|numeric',
+            'designation' => 'required|string',
+            'quantity' => 'required|string',
             'unit' => 'nullable|string',
             'proforma_invoice_date' => 'nullable|date',
             'invoice_number' => 'nullable|string|unique:proforma_invoices,invoice_number,' . $proforma_invoice->id,
@@ -104,7 +101,6 @@ class ProformaInvoiceController extends Controller
 
     public function destroy(ProformaInvoice $proforma_invoice)
     {
-        // Optionnel, vérifiez si des éléments sont associés avant de supprimer
         if ($proforma_invoice->proformaInvoiceList()->count() > 0) {
             return redirect()->route('proforma_invoices.index')
                 ->with('error', 'Vous ne pouvez pas supprimer cette facture car elle contient des éléments.');

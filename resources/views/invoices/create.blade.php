@@ -75,7 +75,7 @@
                         @foreach($order->detailOrders as $detail)
                         <tr>
                             <td>{{ $count }}</td>
-                            <td>{{ $detail->product_name }}</td>
+                            <td>{{ $detail->designation }}</td>
                             <td>{{ $detail->quantity }}</td>
                             <td>{{ number_format($detail->unit_price, 0, ',', '.') }} </td>
                             <td>{{ number_format($detail->total_price, 0, ',', '.') }} </td>

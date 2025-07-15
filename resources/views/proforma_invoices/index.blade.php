@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Gestion des factures pro forma')
+@section('title', 'Gestion des factures proforma')
 
 @section('content')
 <div class="container-fluid">
     <h3 class="my-4">
-        <i class="bi bi-cart3"></i> Gestion des factures pro forma
+        <i class="bi bi-cart3"></i> Gestion des factures proforma
     </h3>
 
     <div class="row mb-4">
         <div class="col-md-6">
             <a href="{{ route('proforma_invoices.create') }}" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> Nouvelle facture pro forma
+                <i class="bi bi-plus-circle"></i> Nouvelle facture proforma
             </a>
         </div>
         <div class="col-md-6 text-end">
@@ -19,11 +19,12 @@
                 <i class="bi bi-arrow-right"></i> Aller à la liste des commandes
             </a>
         </div>
+    
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">Liste des factures pro forma</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Liste des factures proforma</h6>
             <div>
                 <i class="bi bi-filter me-2"></i>
                 <input type="text" id="search" class="form-control form-control-sm d-inline" placeholder="Recherche..." style="width: 200px;">
@@ -35,6 +36,7 @@
                     <thead>
                         <tr class="table-primary">
                             <th>Ordre</th>
+                            <th>ID</th>
                             <th>Client</th>
                             <th>Société</th>
                             <th>Créé par</th>
@@ -44,9 +46,13 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
+                    @php
+                    $count = 1;
+                @endphp
                     <tbody>
                         @foreach($proforma_invoices as $proforma_invoice)
                         <tr>
+                            <td style="max-width: 150px;word-wrap: break-word;  vertical-align: top; ">{{ $count }}</td>
                             <td>{{ $proforma_invoice->id }}</td>
                             <td>{{ $proforma_invoice->client->name ?? '' }}</td>
                             <td>{{ $proforma_invoice->entreprise->name ?? '' }}</td>
@@ -71,8 +77,6 @@
                                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{ $proforma_invoice->id }}" title="Supprimer">
                                     <i class="bi bi-trash"></i>
                                 </button>
-
-                                <!-- Modal de confirmation de suppression -->
                                 <div class="modal fade" id="deleteConfirmationModal{{ $proforma_invoice->id }}" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel{{ $proforma_invoice->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -81,7 +85,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Êtes-vous sûr de vouloir supprimer cet élément de facture pro forma ?
+                                                Êtes-vous sûr de vouloir supprimer cet élément de facture proforma ?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -96,6 +100,9 @@
                                 </div>
                             </td>
                         </tr>
+                        @php
+                        $count++;
+                    @endphp
                         @endforeach
                     </tbody>
                 </table>
@@ -110,14 +117,11 @@
 @section('scripts')
 <script>
 $(document).ready(function() {
-    // Initialise le tableau DataTables avec la recherche
     var table = $('#proforma_invoicesTable').DataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/French.json"
         }
     });
-
-    // Filtrage de la recherche
     $('#search').on('keyup', function() {
         table.search(this.value).draw();
     });
