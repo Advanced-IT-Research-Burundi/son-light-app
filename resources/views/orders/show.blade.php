@@ -204,7 +204,7 @@
                         @foreach($order->detailOrders as $index => $detail)
                         <tr class="fadeIn">
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $detail->product_name ?? 'Non spécifié' }}</td>
+                            <td>{{ $detail->designation ?? 'Non spécifié' }}</td>
                             <td>{{ $detail->unit ?? 'N/A' }}</td>
                             <td>{{ $detail->quantity ?? 0 }}</td>
                             <td>{{ number_format($detail->unit_price, 0, ',', '.') }} FBU</td>
@@ -282,7 +282,7 @@
                     </a>
                 </div>
             </form>
-                
+
             <h6 class="m-0 font-weight-bold text-primary">Ajout de Facture</h6>
             <p>Vous souhaitez ajouter une facture à cette commande ?</p>
             <div class="footer-buttons">
@@ -293,7 +293,7 @@
                     <i class="bi bi-eye"></i> Consulter la liste des factures
                 </a>
             </div>
-            
+
         </div>
     </div>
 </div>
