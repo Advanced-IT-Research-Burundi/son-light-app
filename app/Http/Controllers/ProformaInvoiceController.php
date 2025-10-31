@@ -13,11 +13,14 @@ use PDF;
 
 class ProformaInvoiceController extends Controller
 {
-    public function index()
-    {
-        $proforma_invoices = ProformaInvoice::with('client', 'entreprise', 'user')->get();
-        return view('proforma_invoices.index', compact('proforma_invoices'));
-    }
+  public function index()
+{
+    $proforma_invoices = ProformaInvoice::with('client', 'entreprise', 'user')
+        ->orderBy('created_at', 'desc') 
+        ->get();
+
+    return view('proforma_invoices.index', compact('proforma_invoices'));
+}
 
     public function create()
     {

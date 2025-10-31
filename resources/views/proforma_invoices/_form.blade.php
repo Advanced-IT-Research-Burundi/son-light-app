@@ -110,7 +110,7 @@
                data-calc="quantity" 
                placeholder="1"
                min="1" 
-               max="10000" />
+               />
         @error('quantity')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror

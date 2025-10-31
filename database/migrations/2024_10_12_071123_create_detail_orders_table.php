@@ -19,12 +19,12 @@ return new class extends Migration
             $table->string('unit')->nullable();
             $table->string('price_letter')->nullable();
             $table->integer('quantity');
-            $table->decimal('tc', 10, 2)->default(0);
-            $table->decimal('atax', 10, 2)->default(0);
+            $table->double('tc')->default(0);
+            $table->double('atax')->default(0);
             $table->double('tva')->default(0);
-            $table->decimal('pf', 10, 2)->default(0);
-            $table->decimal('unit_price', 10, 2);
-            $table->decimal('total_price', 10, 2);
+            $table->double('pf')->default(0);
+            $table->double('unit_price');
+            $table->double('total_price');
             $table->timestamps();
         });
 

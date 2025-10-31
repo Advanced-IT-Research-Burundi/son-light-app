@@ -18,8 +18,8 @@ return new class extends Migration
                   ->onDelete('cascade');  
             $table->string('designation');
             $table->integer('quantity')->default(1);  
-            $table->decimal('unit_price', 10, 2);
-            $table->decimal('total_price', 10, 2);
+            $table->decimal('unit_price');
+            $table->decimal('total_price');
             $table->string('unit')->nullable();
             $table->string('price_letter')->nullable();  
             $table->timestamps();
